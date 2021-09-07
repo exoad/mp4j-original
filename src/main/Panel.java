@@ -17,7 +17,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Test implements Runnable, ActionListener {
+public class Panel implements Runnable, ActionListener {
   protected JPanel mp;
   protected JFrame frame;
   protected JButton button;
