@@ -22,13 +22,13 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Test implements Runnable, ActionListener {
+public class Panel implements Runnable, ActionListener {
   protected JPanel bp, mainPanel;
   private static JFrame frame;
   protected JButton play_btn, pause_btn;
   protected JLabel main, header_notice;
 
-  Test() {
+  Panel() {
     URL frame_icon = getClass().getResource("assets/frame-icon.png/");
     URL play_icon = getClass().getResource("assets/play_button.png");
     URL pause_icon = getClass().getResource("assets/pause_button.png");
@@ -73,17 +73,19 @@ public class Test implements Runnable, ActionListener {
     File f = new File("musicML");
     if (!f.exists())
       f.mkdir();
-    new Test().run();
+    new Panel().run();
   }
 
-  @Override
-  public void run() {
-    frame.pack();
-    frame.setVisible(true);
-  }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
 
-  }
+@Override
+public void actionPerformed(ActionEvent e) {
+  // TODO Auto-generated method stub
+  
 }
+
+@Override
+public void run() {
+  // TODO Auto-generated method stub
+  
+}}
