@@ -1,30 +1,14 @@
 package main;
 
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.JFrame;
-
-import java.io.File;
-
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import java.net.URL;
-import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Dimension;
-import java.awt.Container;
-
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URL;
 
 public class Panel implements Runnable, ActionListener {
   protected JPanel bp, mainPanel;
-  private static JFrame frame;
   protected JButton play_btn, pause_btn;
   protected JLabel main, header_notice;
 
@@ -33,11 +17,14 @@ public class Panel implements Runnable, ActionListener {
     URL play_icon = getClass().getResource("assets/play_button.png");
     URL pause_icon = getClass().getResource("assets/pause_button.png");
 
+    assert pause_icon != null;
     Icon pause_button_ico = new ImageIcon(pause_icon);
+    assert play_icon != null;
     Icon play_button_ico = new ImageIcon(play_icon);
+    assert frame_icon != null;
     ImageIcon frame_ico = new ImageIcon(frame_icon);
 
-    frame = new JFrame("Music Player Java - v1.0");
+    JFrame frame = new JFrame("Music Player Java - v1.0");
     frame.setIconImage(frame_ico.getImage());
     frame.setResizable(false);
 
