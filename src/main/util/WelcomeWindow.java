@@ -49,7 +49,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
     title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     description = new JLabel(
-        "<html><div style='text-align: center;'><p>This is a very simple Music Player for you. You can check out the GitHub page and look at ongoing updates, and report bugs and issues. If you wanna play something go click on that button called \"Select File\"</p></div></html>");
+        "<html><div style='text-align: center;'><p>This is a very simple Music Player for you. You can check out the GitHub page and look at ongoing updates, and report bugs and issues. If you wanna play something go click on that button called \"Select File\". Currently only wav files are supported!</p></div></html>");
     description.setFont(description.getFont().deriveFont(description.getFont().getSize() * 1.1f));
     description.setAlignmentX(Component.CENTER_ALIGNMENT);
 
