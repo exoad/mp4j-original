@@ -8,7 +8,7 @@ import javax.swing.SwingConstants;
 
 public class Splash {
   public void run() {
-    URL splash_screen = Splash.class.getResource("../assets/splash_screen.png");
+    URL splash_screen = ClassLoader.getSystemResource("resource/splash_screen.png");
     JWindow window = new JWindow();
     window.getContentPane().add(
         new JLabel("", new ImageIcon(splash_screen),

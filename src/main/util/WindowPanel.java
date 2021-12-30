@@ -42,21 +42,19 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected boolean loop = false;
   protected static boolean alreadyPlaying = false, toPause = false;
   protected static String music_path;
-  protected URL pause_icon = getClass().getResource("../assets/pause_button.png");
+  protected URL pause_icon = ClassLoader.getSystemResource("resource/pause_button.png");
   protected Icon pause_button_ico = new ImageIcon(pause_icon);
-  protected URL play_icon = getClass().getResource("../assets/play_button.png");
+  protected URL play_icon = ClassLoader.getSystemResource("resource/play_button.png");
   protected Icon play_button_ico = new ImageIcon(play_icon);
 
   public WindowPanel(String resource) {
     music_path = resource;
     FlatDarkLaf.setup();
-    URL musicFile1 = getClass().getResource("../assets/Elite.wav");
-    assert musicFile1 != null;
     musicFile = SelectFileWindow.getFile();
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
-    URL frame_icon = getClass().getResource("../assets/frame-icon.png/");
+    URL frame_icon = ClassLoader.getSystemResource("/frame-icon.png/");
     
 
     assert pause_icon != null;
@@ -75,7 +73,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_btn.setToolTipText("Play the current media");
     play_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL new_file_icon = getClass().getResource("../assets/file_select_folder_icon.png");
+    URL new_file_icon = ClassLoader.getSystemResource("resource/file_select_folder_icon.png");
     Icon new_file_ico = new ImageIcon(new_file_icon);
 
     new_file = new JButton(new_file_ico);

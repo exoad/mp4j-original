@@ -8,11 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import java.awt.Component;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,7 +34,7 @@ public class ErrorMessage implements ActionListener {
 
     panel.add(label);
     panel.add(okButton);
-    URL url = getClass().getResource("../assets/error_frame_icon.png");
+    URL url = ClassLoader.getSystemResource("resource/error_frame_icon.png");
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Error: " + message);
     frame.setIconImage(icon.getImage());

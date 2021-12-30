@@ -7,12 +7,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 import javax.swing.text.SimpleAttributeSet;
@@ -30,7 +28,7 @@ public class LicenseWindow implements Runnable {
 
   public LicenseWindow() {
     FlatDarkLaf.setup();
-    URL url = getClass().getResource("../assets/license_icon.png");
+    URL url = ClassLoader.getSystemResource("resource/license_icon.png");
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Music Player | License");
     frame.setIconImage(icon.getImage());
@@ -48,7 +46,7 @@ public class LicenseWindow implements Runnable {
     textArea.setEditable(false);
 
     BufferedReader br = new BufferedReader(
-        new InputStreamReader(getClass().getResourceAsStream("../assets/license.txt")));
+        new InputStreamReader(ClassLoader.getSystemResourceAsStream("/license.txt")));
     String license = "";
     try {
       String line = br.readLine();

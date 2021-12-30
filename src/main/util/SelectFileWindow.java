@@ -1,7 +1,6 @@
 package main.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 import javax.swing.JPanel;
@@ -10,7 +9,6 @@ import javax.swing.WindowConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
@@ -28,7 +26,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
   public SelectFileWindow() {
     FlatDarkLaf.setup();
-    URL frameIcon = getClass().getResource("../assets/file_select_folder_icon.png");
+    URL frameIcon = ClassLoader.getSystemResource("resource/file_select_folder_icon.png");
     ImageIcon frameImageIcon = new ImageIcon(frameIcon);
     button = new JButton("Select File");
     button.addActionListener(this);

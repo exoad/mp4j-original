@@ -34,7 +34,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
 
   public WelcomeWindow() {
     FlatDarkLaf.setup();
-    URL frame_icon = getClass().getResource("../assets/welcome_icon.png");
+    URL frame_icon = ClassLoader.getSystemResource("resource/welcome_icon.png");
     ImageIcon frame_ico = new ImageIcon(frame_icon);
     Icon icon = frame_ico;
     panel = new JPanel();
@@ -57,21 +57,21 @@ public class WelcomeWindow implements Runnable, ActionListener {
     version.setFont(version.getFont().deriveFont(version.getFont().getStyle() | Font.ITALIC));
     version.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL file_icon = getClass().getResource("../assets/file_select_folder_icon.png");
+    URL file_icon = ClassLoader.getSystemResource("resource/file_select_folder_icon.png");
     Icon ico = new ImageIcon(file_icon);
     openSelectFile = new JButton("Select File");
     openSelectFile.setIcon(ico);
     openSelectFile.addActionListener(this);
     openSelectFile.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL github_icon = getClass().getResource("../assets/github.png");
+    URL github_icon = ClassLoader.getSystemResource("resource/github.png");
     Icon git_ico = new ImageIcon(github_icon);
     github = new JButton("GitHub Repository");
     github.setIcon(git_ico);
     github.addActionListener(this);
     github.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL license_icon = getClass().getResource("../assets/license_icon.png");
+    URL license_icon = ClassLoader.getSystemResource("resource/license_icon.png");
     Icon lic_ico = new ImageIcon(license_icon);
     license = new JButton("Read License");
     license.setIcon(lic_ico);
