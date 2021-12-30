@@ -21,6 +21,7 @@ public class Splash {
       Thread.sleep(3000);
     } catch (InterruptedException e) {
       e.printStackTrace();
+      new ErrorMessage(e.getMessage());
     }
     window.setVisible(false);
     window.dispose();

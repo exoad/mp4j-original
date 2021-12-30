@@ -130,6 +130,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
       }
     } catch (LineUnavailableException | UnsupportedAudioFileException e) {
       e.printStackTrace();
+      new ErrorMessage(e.getMessage());
     }
   }
 
@@ -141,6 +142,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
       clip.open(audioInputStream);
     } catch (LineUnavailableException | UnsupportedAudioFileException e) {
       e.printStackTrace();
+      new ErrorMessage(e.getMessage());
     }
   }
 
