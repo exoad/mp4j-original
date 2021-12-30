@@ -1,4 +1,4 @@
-package main;
+package main.util;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -40,18 +40,20 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected static File musicFile;
   protected static Clip clip;
   protected boolean loop = false;
+  protected static String music_path;
 
-  public WindowPanel() {
+  public WindowPanel(String resource) {
+    music_path = resource;
     FlatDarkLaf.setup();
-    URL musicFile1 = getClass().getResource("assets/Elite.wav");
+    URL musicFile1 = getClass().getResource("../assets/Elite.wav");
     assert musicFile1 != null;
-    musicFile = new File(musicFile1.getFile());
+    musicFile = SelectFileWindow.getFile();
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
-    URL frame_icon = getClass().getResource("assets/frame-icon.png/");
-    URL play_icon = getClass().getResource("assets/play_button.png");
-    URL pause_icon = getClass().getResource("assets/pause_button.png");
+    URL frame_icon = getClass().getResource("../assets/frame-icon.png/");
+    URL play_icon = getClass().getResource("../assets/play_button.png");
+    URL pause_icon = getClass().getResource("../assets/pause_button.png");
 
     assert pause_icon != null;
     Icon pause_button_ico = new ImageIcon(pause_icon);
@@ -80,7 +82,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
     header_notice.setFont(new Font("Courier", Font.PLAIN, 13));
     header_notice.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    // initialize volume slider and add it to bp panel
     volume_slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
     volume_slider.setMajorTickSpacing(10);
     volume_slider.setMinorTickSpacing(1);
@@ -106,7 +107,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
   }
 
-  // method that uses the volume slider to control the volume of clip
   public void volumeControl() {
     int volume = volume_slider.getValue();
     volume_keeper = (float) (Math.log(volume / 100.0) / Math.log(12.0) * 30.0);
@@ -152,7 +152,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
     WindowPanel.run();
   }
 
-  // check if the current clip is playing if it is stop it else we play it
   public static void playOrStop() throws IOException {
     readMusic();
     if (clip.isRunning() && clip.isActive()) {
@@ -166,7 +165,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == play_btn) {
-      // dont play music if music is already playing
+
       try {
         playOrStop();
       } catch (IOException e1) {
@@ -183,7 +182,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
   }
 
   public static void run() {
-    new WindowPanel();
+    new WindowPanel(music_path);
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     frame.pack();
     frame.setVisible(true);
