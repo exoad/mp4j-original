@@ -1,13 +1,7 @@
 package main.advisors;
 
 import java.io.File;
-import java.io.IOException;
-
-import java.net.URL;
-
 import java.awt.Dimension;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import com.formdev.flatlaf.*;
 

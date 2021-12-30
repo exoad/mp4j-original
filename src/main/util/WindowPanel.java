@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
@@ -42,9 +43,9 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected boolean loop = false;
   protected static boolean alreadyPlaying = false, toPause = false;
   protected static String music_path;
-  protected URL pause_icon = ClassLoader.getSystemResource("resource/pause_button.png");
+  protected URL pause_icon = getClass().getResource("/pause_button.png");
   protected Icon pause_button_ico = new ImageIcon(pause_icon);
-  protected URL play_icon = ClassLoader.getSystemResource("resource/play_button.png");
+  protected URL play_icon = getClass().getResource("/play_button.png");
   protected Icon play_button_ico = new ImageIcon(play_icon);
 
   public WindowPanel(String resource) {
@@ -54,7 +55,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
-    URL frame_icon = ClassLoader.getSystemResource("/frame-icon.png/");
+    URL frame_icon = getClass().getResource("/frame-icon.png");
     
 
     assert pause_icon != null;
@@ -66,6 +67,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
     frame = new JFrame("Music Player - Jack Meng");
     frame.setIconImage(frame_ico.getImage());
+    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     frame.setResizable(false);
 
     play_btn = new JButton(play_button_ico);
@@ -73,7 +75,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_btn.setToolTipText("Play the current media");
     play_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL new_file_icon = ClassLoader.getSystemResource("resource/file_select_folder_icon.png");
+    URL new_file_icon = getClass().getResource("/file_select_folder_icon.png");
     Icon new_file_ico = new ImageIcon(new_file_icon);
 
     new_file = new JButton(new_file_ico);
@@ -87,7 +89,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     header_notice.setFont(new Font("Courier", Font.PLAIN, 13));
     header_notice.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    volume_slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+    volume_slider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 50);
     volume_slider.setMajorTickSpacing(10);
     volume_slider.setMinorTickSpacing(1);
     volume_slider.setMinimum(0);

@@ -3,6 +3,7 @@ package main.util;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -26,9 +27,9 @@ public class LicenseWindow implements Runnable {
   private JTextPane textArea;
   private JScrollPane scrollPane;
 
-  public LicenseWindow() {
+  public LicenseWindow() throws IOException {
     FlatDarkLaf.setup();
-    URL url = ClassLoader.getSystemResource("resource/license_icon.png");
+    URL url = getClass().getResource("/license_icon.png");
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Music Player | License");
     frame.setIconImage(icon.getImage());
@@ -46,7 +47,7 @@ public class LicenseWindow implements Runnable {
     textArea.setEditable(false);
 
     BufferedReader br = new BufferedReader(
-        new InputStreamReader(ClassLoader.getSystemResourceAsStream("/license.txt")));
+        new InputStreamReader(getClass().getResource("/license.txt").openStream()));
     String license = "";
     try {
       String line = br.readLine();
@@ -87,7 +88,7 @@ public class LicenseWindow implements Runnable {
     frame.setVisible(true);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     new LicenseWindow().run();
   }
 }

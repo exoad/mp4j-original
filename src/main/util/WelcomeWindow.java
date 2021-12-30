@@ -34,7 +34,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
 
   public WelcomeWindow() {
     FlatDarkLaf.setup();
-    URL frame_icon = ClassLoader.getSystemResource("resource/welcome_icon.png");
+    URL frame_icon = getClass().getResource("/welcome_icon.png");
     ImageIcon frame_ico = new ImageIcon(frame_icon);
     Icon icon = frame_ico;
     panel = new JPanel();
@@ -57,21 +57,21 @@ public class WelcomeWindow implements Runnable, ActionListener {
     version.setFont(version.getFont().deriveFont(version.getFont().getStyle() | Font.ITALIC));
     version.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL file_icon = ClassLoader.getSystemResource("resource/file_select_folder_icon.png");
+    URL file_icon = getClass().getResource("/file_select_folder_icon.png");
     Icon ico = new ImageIcon(file_icon);
     openSelectFile = new JButton("Select File");
     openSelectFile.setIcon(ico);
     openSelectFile.addActionListener(this);
     openSelectFile.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL github_icon = ClassLoader.getSystemResource("resource/github.png");
+    URL github_icon = getClass().getResource("/github.png");
     Icon git_ico = new ImageIcon(github_icon);
     github = new JButton("GitHub Repository");
     github.setIcon(git_ico);
     github.addActionListener(this);
     github.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL license_icon = ClassLoader.getSystemResource("resource/license_icon.png");
+    URL license_icon = getClass().getResource("/license_icon.png");
     Icon lic_ico = new ImageIcon(license_icon);
     license = new JButton("Read License");
     license.setIcon(lic_ico);
@@ -92,6 +92,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
 
     frame = new JFrame("Music-Player v1.0 | Jack Meng | Welcome!");
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
     frame.setIconImage(frame_ico.getImage());
     frame.setResizable(false);
@@ -100,9 +101,8 @@ public class WelcomeWindow implements Runnable, ActionListener {
 
   @Override
   public void run() {
-
-    frame.pack();
     frame.setVisible(true);
+    frame.pack();
   }
 
   public static void main(String[] args) {
@@ -125,7 +125,11 @@ public class WelcomeWindow implements Runnable, ActionListener {
         new ErrorMessage(e1.getMessage());
       }
     } else if (e.getSource() == license) {
-      new main.util.LicenseWindow().run();
+      try {
+        new main.util.LicenseWindow().run();
+      } catch (IOException e1) {
+        e1.printStackTrace();
+      }
     }
 
   }

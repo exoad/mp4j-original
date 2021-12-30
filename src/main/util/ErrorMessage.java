@@ -34,7 +34,7 @@ public class ErrorMessage implements ActionListener {
 
     panel.add(label);
     panel.add(okButton);
-    URL url = ClassLoader.getSystemResource("resource/error_frame_icon.png");
+    URL url = getClass().getResource("resource/error_frame_icon.png");
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Error: " + message);
     frame.setIconImage(icon.getImage());

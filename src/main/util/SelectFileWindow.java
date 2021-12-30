@@ -26,7 +26,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
   public SelectFileWindow() {
     FlatDarkLaf.setup();
-    URL frameIcon = ClassLoader.getSystemResource("resource/file_select_folder_icon.png");
+    URL frameIcon = getClass().getResource("/file_select_folder_icon.png");
     ImageIcon frameImageIcon = new ImageIcon(frameIcon);
     button = new JButton("Select File");
     button.addActionListener(this);

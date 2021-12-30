@@ -8,8 +8,9 @@ import javax.swing.SwingConstants;
 
 public class Splash {
   public void run() {
-    URL splash_screen = ClassLoader.getSystemResource("resource/splash_screen.png");
+    URL splash_screen = getClass().getResource("/splash_screen.png");
     JWindow window = new JWindow();
+    assert splash_screen != null;
     window.getContentPane().add(
         new JLabel("", new ImageIcon(splash_screen),
             SwingConstants.CENTER));
@@ -18,7 +19,7 @@ public class Splash {
     window.setLocationRelativeTo(null);
     window.setVisible(true);
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1500);
     } catch (InterruptedException e) {
       e.printStackTrace();
       new ErrorMessage(e.getMessage());
