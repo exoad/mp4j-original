@@ -32,7 +32,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 
 public class WindowPanel implements ActionListener, ChangeListener {
   protected JPanel bp, mainPanel;
-  protected JButton play_btn, pause_btn;
+  protected JButton play_btn, new_file;
   protected JLabel header_notice, status;
   protected JSlider volume_slider;
   protected static JFrame frame;
@@ -40,7 +40,12 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected static File musicFile;
   protected static Clip clip;
   protected boolean loop = false;
+  protected static boolean alreadyPlaying = false, toPause = false;
   protected static String music_path;
+  protected URL pause_icon = getClass().getResource("../assets/pause_button.png");
+  protected Icon pause_button_ico = new ImageIcon(pause_icon);
+  protected URL play_icon = getClass().getResource("../assets/play_button.png");
+  protected Icon play_button_ico = new ImageIcon(play_icon);
 
   public WindowPanel(String resource) {
     music_path = resource;
@@ -52,13 +57,12 @@ public class WindowPanel implements ActionListener, ChangeListener {
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
     URL frame_icon = getClass().getResource("../assets/frame-icon.png/");
-    URL play_icon = getClass().getResource("../assets/play_button.png");
-    URL pause_icon = getClass().getResource("../assets/pause_button.png");
+    
 
     assert pause_icon != null;
-    Icon pause_button_ico = new ImageIcon(pause_icon);
+
     assert play_icon != null;
-    Icon play_button_ico = new ImageIcon(play_icon);
+    
     assert frame_icon != null;
     ImageIcon frame_ico = new ImageIcon(frame_icon);
 
@@ -71,10 +75,13 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_btn.setToolTipText("Play the current media");
     play_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    pause_btn = new JButton(pause_button_ico);
-    pause_btn.addActionListener(this);
-    pause_btn.setToolTipText("Pause the current media");
-    pause_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+    URL new_file_icon = getClass().getResource("../assets/file_select_folder_icon.png");
+    Icon new_file_ico = new ImageIcon(new_file_icon);
+
+    new_file = new JButton(new_file_ico);
+    new_file.addActionListener(this);
+    new_file.setToolTipText("Select a new media file");
+    new_file.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     header_notice = new JLabel(
         "<html><body><strong><u>Supported File Types : .mp3 & .wav</u></strong><br><center>Place files in folder: <code>/musicML/</code></center></body></html><br>");
@@ -85,6 +92,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
     volume_slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
     volume_slider.setMajorTickSpacing(10);
     volume_slider.setMinorTickSpacing(1);
+    volume_slider.setMinimum(0);
+    volume_slider.setMaximum(100);
     volume_slider.setPaintTicks(true);
     volume_slider.setPaintLabels(true);
     volume_slider.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -95,7 +104,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
     bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
     bp.add(status);
     bp.add(play_btn);
-    bp.add(pause_btn);
     bp.add(volume_slider);
 
     bp.setPreferredSize(new Dimension(450, 200));
@@ -104,16 +112,15 @@ public class WindowPanel implements ActionListener, ChangeListener {
     mainPanel.add(bp);
 
     frame.add(mainPanel);
-
   }
 
   public void volumeControl() {
-    int volume = volume_slider.getValue();
-    volume_keeper = (float) (Math.log(volume / 100.0) / Math.log(12.0) * 30.0);
-    FloatControl gc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-    gc.setValue(volume_keeper);
-    volume_slider.setToolTipText("Change the volume. Current: " + volume_slider.getValue() + "%");
-    clip.start();
+    if (clip != null) {
+      FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+      float range = gainControl.getMaximum() - gainControl.getMinimum();
+      float gain = (volume_slider.getValue() / 100.0f) * range + gainControl.getMinimum();
+      gainControl.setValue(gain);
+    }
   }
 
   public void readAndPlayMusic() throws IOException {
@@ -121,12 +128,14 @@ public class WindowPanel implements ActionListener, ChangeListener {
       System.out.println("Loaded: " + musicFile.getName());
       AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicFile);
       clip = AudioSystem.getClip();
-      if (clip.isRunning() || clip.isOpen() || clip.isActive()) {
+      if (clip.isRunning() || clip.isOpen() || clip.isActive() || alreadyPlaying) {
         clip.stop();
         clip.close();
+        alreadyPlaying = false;
       } else {
         clip.open(audioInputStream);
         clip.start();
+        alreadyPlaying = true;
       }
     } catch (LineUnavailableException | UnsupportedAudioFileException e) {
       e.printStackTrace();
@@ -156,27 +165,25 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
   public static void playOrStop() throws IOException {
     readMusic();
-    if (clip.isRunning() && clip.isActive()) {
-      clip.stop();
-      clip.close();
-    } else {
-      clip.start();
-    }
+    clip.start();
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == play_btn) {
-
+      if(!toPause) {
+        play_btn.setIcon(pause_button_ico);
+        toPause = true;
+      } else {
+        play_btn.setIcon(play_button_ico);
+        toPause = false;
+      }
       try {
-        playOrStop();
+        if (!alreadyPlaying)
+          playOrStop();
       } catch (IOException e1) {
         e1.printStackTrace();
       }
-      status.setText("<html><b>Currently Playing: </b></html>" + musicFile.getName());
-    } else if (e.getSource() == pause_btn) {
-      System.out.println("Pause button clicked");
-      clip.stop();
       status.setText("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     } else if (e.getSource() == volume_slider) {
       volumeControl();
