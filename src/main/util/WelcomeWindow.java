@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.Desktop;
+import java.awt.Toolkit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ import com.formdev.flatlaf.*;
 public class WelcomeWindow implements Runnable, ActionListener {
   private JFrame frame;
   private JPanel panel;
-  private JButton openSelectFile, github;
+  private JButton openSelectFile, github, license;
   private JLabel title, description, version;
 
   public WelcomeWindow() {
@@ -70,6 +71,13 @@ public class WelcomeWindow implements Runnable, ActionListener {
     github.addActionListener(this);
     github.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+    URL license_icon = getClass().getResource("../assets/license_icon.png");
+    Icon lic_ico = new ImageIcon(license_icon);
+    license = new JButton("Read License");
+    license.setIcon(lic_ico);
+    license.addActionListener(this);
+    license.setAlignmentX(Component.CENTER_ALIGNMENT);
+
     panel.add(title);
     panel.add(version);
     panel.add(Box.createVerticalStrut(20));
@@ -78,10 +86,13 @@ public class WelcomeWindow implements Runnable, ActionListener {
     panel.add(openSelectFile);
     panel.add(Box.createVerticalStrut(8));
     panel.add(github);
+    panel.add(Box.createVerticalStrut(8));
+    panel.add(license);
     panel.setPreferredSize(new Dimension(500, 300));
 
     frame = new JFrame("Music-Player v1.0 | Jack Meng | Welcome!");
-
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
     frame.setIconImage(frame_ico.getImage());
     frame.setResizable(false);
     frame.add(panel);
@@ -89,6 +100,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
 
   @Override
   public void run() {
+
     frame.pack();
     frame.setVisible(true);
   }
@@ -104,7 +116,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
       new SelectFileWindow().run();
     } else if (e.getSource() == github) {
       try {
-        Desktop.getDesktop().browse(new URI("http://www.example.com"));
+        Desktop.getDesktop().browse(new URI("https://github.com/exoad/MusicPlayer"));
       } catch (IOException e1) {
         e1.printStackTrace();
         new ErrorMessage(e1.getMessage());
@@ -112,6 +124,9 @@ public class WelcomeWindow implements Runnable, ActionListener {
         e1.printStackTrace();
         new ErrorMessage(e1.getMessage());
       }
+    } else if (e.getSource() == license) {
+      new main.util.LicenseWindow().run();
     }
+
   }
 }
