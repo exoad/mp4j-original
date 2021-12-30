@@ -24,13 +24,12 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
   private static File file;
   private JFrame frame;
   private JButton button, openExplorer;
-  private JLabel label;
   private JTextField textField;
 
   public SelectFileWindow() {
     FlatDarkLaf.setup();
-    URL frame_icon = getClass().getResource("../assets/file_select_folder_icon.png");
-    ImageIcon frame_ico = new ImageIcon(frame_icon);
+    URL frameIcon = getClass().getResource("../assets/file_select_folder_icon.png");
+    ImageIcon frameImageIcon = new ImageIcon(frameIcon);
     button = new JButton("Select File");
     button.addActionListener(this);
 
@@ -40,7 +39,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
     openExplorer = new JButton("Open Explorer");
     openExplorer.addActionListener(this);
-    openExplorer.setIcon(frame_ico);
+    openExplorer.setIcon(frameImageIcon);
 
     add(button);
     add(textField);
@@ -48,7 +47,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
 
     frame = new JFrame("Select File");
-    frame.setIconImage(frame_ico.getImage());
+    frame.setIconImage(frameImageIcon.getImage());
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     frame.setSize(400, 400);
     frame.setLocationRelativeTo(null);
