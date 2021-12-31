@@ -29,7 +29,7 @@ import com.formdev.flatlaf.*;
 public class WelcomeWindow implements Runnable, ActionListener {
   private JFrame frame;
   private JPanel panel;
-  private JButton openSelectFile, github, license;
+  private JButton openSelectFile, github, license, settings;
   private JLabel title, description, version;
 
   public WelcomeWindow() {
@@ -78,6 +78,13 @@ public class WelcomeWindow implements Runnable, ActionListener {
     license.addActionListener(this);
     license.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+    URL settings_icon = getClass().getResource("/information_icon.png");
+    Icon set_ico = new ImageIcon(settings_icon);
+    settings = new JButton("Settings");
+    settings.setIcon(set_ico);
+    settings.addActionListener(this);
+    settings.setAlignmentX(Component.CENTER_ALIGNMENT);
+
     panel.add(title);
     panel.add(version);
     panel.add(Box.createVerticalStrut(20));
@@ -88,6 +95,8 @@ public class WelcomeWindow implements Runnable, ActionListener {
     panel.add(github);
     panel.add(Box.createVerticalStrut(8));
     panel.add(license);
+    panel.add(Box.createVerticalStrut(8));
+    panel.add(settings);
     panel.setPreferredSize(new Dimension(500, 300));
 
     frame = new JFrame("Music-Player v1.0 | Jack Meng | Welcome!");
@@ -130,6 +139,15 @@ public class WelcomeWindow implements Runnable, ActionListener {
       } catch (IOException e1) {
         e1.printStackTrace();
       }
+    } else if (e.getSource() == settings) {
+      // only allow one instance of settings window else throw an errormessage
+      if (main.util.SettingsWindow.getInstance() == null) {
+        new main.util.SettingsWindow().run();
+      } else {
+        new ErrorMessage("Settings window is already open!");
+      }
+
+
     }
 
   }

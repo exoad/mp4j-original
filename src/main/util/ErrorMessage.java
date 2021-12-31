@@ -15,15 +15,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class ErrorMessage implements ActionListener {
   private JButton okButton;
   private JFrame frame;
+  private boolean lightMode = false;
 
   public ErrorMessage(String message) {
-    FlatDarkLaf.setup();
+    if (!lightMode)
+      FlatDarkLaf.setup();
+    else
+      FlatLightLaf.setup();
     JPanel panel = new JPanel();
-    JLabel label = new JLabel(message);
+    JLabel label = new JLabel("<html><p>" + message + "</p></html>");
     okButton = new JButton("OK");
     okButton.addActionListener(this);
     okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -34,7 +39,7 @@ public class ErrorMessage implements ActionListener {
 
     panel.add(label);
     panel.add(okButton);
-    URL url = getClass().getResource("resource/error_frame_icon.png");
+    URL url = getClass().getResource("/error_frame_icon.png");
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Error: " + message);
     frame.setIconImage(icon.getImage());
