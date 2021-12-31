@@ -1,24 +1,56 @@
+/**
+ * @brief API Wrapper and Caller
+ * @author Jack Meng
+ * @date 2021/12/31
+ *
+ * This program is pretty simple, just
+ * calls the API and writes it to a file
+ *
+ * Never shall this file be run by a standalone user
+ * and not without a separate program calling this
+ * file.
+ *
+ * Licensed under the EPL-2.0 License, see LICENSE
+ */
+
+#include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-int main(int argc, char** argv) {
+void maker_run(string cmd) {
+  // run cmd but ignore the output
+  system(cmd.c_str());
+  
+}
+
+int main(int argc, char **argv) {
   std::string url = "https://exoad.github.io/MusicPlayer/";
   struct stat st = {0};
-  if (stat("api_cache", &st) == -1) {
-    mkdir("api_cache", 0777);
+  if (stat("mp_cache", &st) == -1) {
+    mkdir("mp_cache", 0777);
   }
-  std::string file = "./api_cache/api_wrapper.json";
+  std::string file = "./mp_cache/api_wrapper.json";
   std::string cmd = "curl " + url + " > " + file;
 
   if (cmd.c_str() == NULL) {
     cout << 1;
   } else {
-    system(cmd.c_str());
+    // runt eh command silently
+    // if the user is on widnows
+    maker_run(cmd.c_str());
+    std::ifstream ifs(file);
+    std::string content((std::istreambuf_iterator<char>(ifs)),
+                        (std::istreambuf_iterator<char>()));
+    ifs.close();
+    cout << content;
   }
 }

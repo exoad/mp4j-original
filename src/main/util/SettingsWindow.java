@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,18 +21,20 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import main.advisors.CXX;
+import main.advisors.JSONParser;
 
 public class SettingsWindow implements Runnable, ActionListener {
   public static JFrame frame;
   private JPanel panel;
-  private JLabel title;
+  private JLabel title, information;
   private JButton changeMode;
-  private WelcomeWindow welcomeWindow;
+  private CXX run = new CXX();
 
-  public SettingsWindow(WelcomeWindow something) {
+  public SettingsWindow(WelcomeWindow something) throws IOException {
     FlatDarkLaf.setup();
-    welcomeWindow = something;
-
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 600));
@@ -45,10 +49,21 @@ public class SettingsWindow implements Runnable, ActionListener {
     Icon changeModeICO = new ImageIcon(changeModeICON);
     changeMode.setIcon(changeModeICO);
     changeMode.addActionListener(this);
+    run.callAPI();
+    String json = run.callAPI();
+    String versionInfo = ("<html><p>Latest Release: " + JSONParser.parseElement("latest_release", json) + "<br>"
+        + "Latest Patch: " + JSONParser.parseElement("latest_patch", json) + "<br>" + "Latest Beta: "
+        + JSONParser.parseElement("latest_beta", json) + "</p></html>");
+
+    information = new JLabel(versionInfo);
+    information.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+    information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
 
     panel.add(title);
     panel.add(changeMode);
     panel.add(Box.createHorizontalStrut(10));
+    panel.add(Box.createHorizontalStrut(10));
+    panel.add(information);
 
     URL icon = getClass().getResource("/information_icon.png");
     ImageIcon imageIcon = new ImageIcon(icon);
@@ -61,7 +76,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     frame.add(panel);
   }
 
-  public SettingsWindow() {
+  public SettingsWindow() throws IOException {
     FlatDarkLaf.setup();
 
     panel = new JPanel();
@@ -79,9 +94,21 @@ public class SettingsWindow implements Runnable, ActionListener {
     changeMode.setIcon(changeModeICO);
     changeMode.addActionListener(this);
 
+    run.callAPI();
+    String json = run.callAPI();
+    String versionInfo = ("<html><p>Latest Release: " + JSONParser.parseElement("latest_release", json) + "<br>"
+        + "Latest Patch: " + JSONParser.parseElement("latest_patch", json) + "<br>" + "Latest Beta: "
+        + JSONParser.parseElement("latest_beta", json) + "</p></html>");
+
+    information = new JLabel(versionInfo);
+    information.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+    information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
+
     panel.add(title);
     panel.add(changeMode);
     panel.add(Box.createHorizontalStrut(10));
+    panel.add(Box.createHorizontalStrut(30));
+    panel.add(information);
 
     URL icon = getClass().getResource("/information_icon.png");
     ImageIcon imageIcon = new ImageIcon(icon);
@@ -100,7 +127,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     frame.pack();
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     new SettingsWindow().run();
   }
 
@@ -122,8 +149,6 @@ public class SettingsWindow implements Runnable, ActionListener {
 
   public static Object getInstance() {
     return frame;
-
-    
   }
 
 }

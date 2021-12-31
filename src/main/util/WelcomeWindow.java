@@ -140,13 +140,16 @@ public class WelcomeWindow implements Runnable, ActionListener {
         e1.printStackTrace();
       }
     } else if (e.getSource() == settings) {
-      // only allow one instance of settings window else throw an errormessage
       if (main.util.SettingsWindow.getInstance() == null) {
-        new main.util.SettingsWindow().run();
+        try {
+          new main.util.SettingsWindow().run();
+        } catch (IOException ioe) {
+          new ErrorMessage(ioe.getMessage());
+          ioe.printStackTrace();
+        }
       } else {
         new ErrorMessage("Settings window is already open!");
       }
-
 
     }
 
