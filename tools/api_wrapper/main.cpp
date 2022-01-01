@@ -30,8 +30,6 @@ void maker_run(string cmd) {
   system(cmd.c_str());
   
 }
-
-
 int main(int argc, char **argv) {
   std::string url = "https://exoad.github.io/MusicPlayer/";
   struct stat st = {0};
@@ -45,6 +43,10 @@ int main(int argc, char **argv) {
     cout << 1;
   } else {
     maker_run(cmd.c_str());
+    /**
+     * @param  {file} undefined : 
+     * @return {std::ifstream}  : 
+     */
     std::ifstream ifs(file);
     std::string content((std::istreambuf_iterator<char>(ifs)),
                         (std::istreambuf_iterator<char>()));

@@ -28,6 +28,9 @@ int main() {
       continue;
     } else {
       cout << temp << endl;
+      /**
+       * @param  {} undefined : 
+       */
       cout << "1" << endl;
       return 1;
     }
