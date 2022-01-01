@@ -4,14 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.FileSystems;
 import java.awt.Dimension;
-
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 
@@ -20,7 +13,7 @@ public class Host {
   private static String lastDir = "";
 
   public Host(String lastDir) {
-    this.lastDir = lastDir;
+    Host.lastDir = lastDir;
   }
 
   public static void extendedFileSaver(File i) throws IOException {

@@ -34,7 +34,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
   public static String lastDir = "";
 
   public WelcomeWindow(String lastDir) {
-    this.lastDir = lastDir;
+    WelcomeWindow.lastDir = lastDir;
     FlatAtomOneDarkContrastIJTheme.setup();
     URL frame_icon = getClass().getResource("/welcome_icon.png");
     ImageIcon frame_ico = new ImageIcon(frame_icon);
