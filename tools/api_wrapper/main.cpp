@@ -27,7 +27,6 @@
 using namespace std;
 
 void maker_run(string cmd) {
-  // run cmd but ignore the output
   system(cmd.c_str());
   
 }
@@ -44,8 +43,6 @@ int main(int argc, char **argv) {
   if (cmd.c_str() == NULL) {
     cout << 1;
   } else {
-    // runt eh command silently
-    // if the user is on widnows
     maker_run(cmd.c_str());
     std::ifstream ifs(file);
     std::string content((std::istreambuf_iterator<char>(ifs)),
