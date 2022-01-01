@@ -31,6 +31,8 @@ void maker_run(string cmd) {
   
 }
 
+int x = 69;
+
 int main(int argc, char **argv) {
   std::string url = "https://exoad.github.io/MusicPlayer/";
   struct stat st = {0};

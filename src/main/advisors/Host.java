@@ -67,7 +67,7 @@ public class Host {
 
   public static void mp3toWav(File mp3Data) throws UnsupportedAudioFileException, IOException {
     String originalDir = mp3Data.getParent();
-    String originalFileName = mp3Data.getName();
+    String originalFileName = mp3Data.getName().replaceAll(".wav", "");
     AudioInputStream mp3Stream = AudioSystem.getAudioInputStream(mp3Data);
     AudioFormat sourceFormat = mp3Stream.getFormat();
 
