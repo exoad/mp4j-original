@@ -10,25 +10,27 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-
 import main.advisors.Host;
 import main.advisors.LifePreserver;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 
 public class SelectFileWindow extends JPanel implements Runnable, ActionListener {
   private String filePath;
   private static File file;
-  private JFrame frame;
-  private JButton button, openExplorer;
-  private JTextField textField;
+  private final JFrame frame;
+  private final JButton button;
+  private final JButton openExplorer;
+  private final JTextField textField;
   private String lastDir = "";
 
   public SelectFileWindow(String lastFilePath) {
     lastDir = lastFilePath;
-    com.formdev.flatlaf.FlatDarkLaf.setup();
+    FlatMaterialDarkerIJTheme.setup();
     URL frameIcon = getClass().getResource("/file_select_folder_icon.png");
+    assert frameIcon != null;
     ImageIcon frameImageIcon = new ImageIcon(frameIcon);
     button = new JButton("Select File");
     button.addActionListener(this);
@@ -47,7 +49,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
     frame = new JFrame("Select File");
     frame.setIconImage(frameImageIcon.getImage());
-    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setSize(400, 400);
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
@@ -104,7 +106,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
         } catch (Exception ioException) {
           ioException.printStackTrace();
-          new ErrorMessage(ioException.getStackTrace().toString());
+          new ErrorMessage(java.util.Arrays.toString(ioException.getStackTrace()));
         }
       }
     }

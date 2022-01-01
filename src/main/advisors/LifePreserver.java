@@ -8,7 +8,7 @@ import java.io.IOException;
 import main.Items;
 
 public class LifePreserver {
-  private String data;
+  private final String data;
 
   public LifePreserver(String data) {
     this.data = data;

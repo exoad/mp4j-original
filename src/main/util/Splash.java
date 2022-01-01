@@ -8,9 +8,11 @@ import javax.swing.SwingConstants;
 
 public class Splash {
   private float seconds = 3000f;
+
   public Splash(float seconds) {
     this.seconds = seconds;
   }
+
   public void run() {
     URL splash_screen = getClass().getResource("/splash_screen.png");
     JWindow window = new JWindow();
@@ -26,7 +28,7 @@ public class Splash {
       Thread.sleep((int) (Math.floor(seconds)));
     } catch (InterruptedException e) {
       e.printStackTrace();
-      new ErrorMessage(e.getStackTrace().toString());
+      new ErrorMessage(java.util.Arrays.toString(e.getStackTrace()));
     }
     window.setVisible(false);
     window.dispose();

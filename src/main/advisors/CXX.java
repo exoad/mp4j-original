@@ -10,6 +10,7 @@ public class CXX {
   public String callAPI() throws IOException {
     if(System.getProperty("os.name").contains("Windows")) {
       URL windowsAPI = getClass().getResource("/apiwrapper.exe");
+      assert windowsAPI != null;
       return Host.runProcess(Runtime.getRuntime(), windowsAPI.getPath());
     }
     return null;
@@ -18,6 +19,7 @@ public class CXX {
   public String veriyFile() throws IOException {
     if(System.getProperty("os.name").contains("Windows")) {
       URL windowsAPI = getClass().getResource("/fileint.exe");
+      assert windowsAPI != null;
       return Host.runProcess(Runtime.getRuntime(), windowsAPI.getPath());
     }
     return null;

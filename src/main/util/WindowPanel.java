@@ -6,11 +6,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
@@ -29,12 +27,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-
 public class WindowPanel implements ActionListener, ChangeListener {
   protected JPanel bp, mainPanel;
   protected JButton play_btn, new_file;
@@ -48,16 +43,26 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected static boolean alreadyPlaying = false, toPause = false, playAsMp3 = false;
   protected static String music_path;
   protected URL pause_icon = getClass().getResource("/pause_button.png");
-  protected Icon pause_button_ico = new ImageIcon(pause_icon);
+  protected Icon pause_button_ico;
+
+  {
+    assert pause_icon != null;
+    pause_button_ico = new javax.swing.ImageIcon(pause_icon);
+  }
+
   protected URL play_icon = getClass().getResource("/play_button.png");
-  protected Icon play_button_ico = new ImageIcon(play_icon);
-  private static AudioInputStream audioInputStream;
-  private static Player mp3Player;
+  protected Icon play_button_ico;
+
+  {
+    assert play_icon != null;
+    play_button_ico = new javax.swing.ImageIcon(play_icon);
+  }
+
   public long currentFrame = 0;
 
   public WindowPanel(String resource) {
     music_path = resource;
-    com.formdev.flatlaf.FlatDarkLaf.setup();
+    FlatMaterialDarkerIJTheme.setup();
     musicFile = SelectFileWindow.getFile();
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
@@ -82,6 +87,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     URL new_file_icon = getClass().getResource("/file_select_folder_icon.png");
+    assert new_file_icon != null;
     Icon new_file_ico = new ImageIcon(new_file_icon);
 
     new_file = new JButton(new_file_ico);
@@ -133,7 +139,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
   public void playMusic() throws JavaLayerException {
     try {
       if (!musicFile.getName().endsWith(".mp3")) {
-        audioInputStream = AudioSystem.getAudioInputStream(musicFile);
+        javax.sound.sampled.AudioInputStream audioInputStream = javax.sound.sampled.AudioSystem
+            .getAudioInputStream(musicFile);
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         clip.setMicrosecondPosition(currentFrame);
@@ -142,11 +149,10 @@ public class WindowPanel implements ActionListener, ChangeListener {
         volumeControl();
       } else {
         playAsMp3 = true;
-        mp3Player = new Player(new FileInputStream(musicFile));
+        javazoom.jl.player.Player mp3Player = new javazoom.jl.player.Player(new java.io.FileInputStream(musicFile));
         mp3Player.play();
       }
 
-      
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
       e.printStackTrace();
     }
@@ -194,7 +200,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
         setPauseState();
       }
     } else if (e.getSource() == volume_slider) {
-      if(playAsMp3 || musicFile.getName().endsWith(".mp3")) {
+      if (playAsMp3 || musicFile.getName().endsWith(".mp3")) {
         volume_slider.setEnabled(false);
         volume_slider.setToolTipText("MP3 is only semi supported for now");
       } else {

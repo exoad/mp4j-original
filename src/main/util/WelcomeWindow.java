@@ -1,13 +1,11 @@
 package main.util;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Component;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.swing.Box;
@@ -15,7 +13,6 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 import java.awt.Desktop;
 import java.awt.Toolkit;
@@ -23,26 +20,27 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
-
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 
 public class WelcomeWindow implements Runnable, ActionListener {
-  private JFrame frame;
-  private JPanel panel;
-  private JButton openSelectFile, github, license, settings, documentation;
-  private JLabel title, description, version;
+  private final JFrame frame;
+  private final JButton openSelectFile;
+  private final JButton github;
+  private final JButton license;
+  private final JButton settings;
+  private final JButton documentation;
   public static String lastDir = "";
 
   public WelcomeWindow(String lastDir) {
     WelcomeWindow.lastDir = lastDir;
-    com.formdev.flatlaf.FlatDarkLaf.setup();
+    FlatMaterialDarkerIJTheme.setup();
     URL frame_icon = getClass().getResource("/welcome_icon.png");
+    assert frame_icon != null;
     ImageIcon frame_ico = new ImageIcon(frame_icon);
-    Icon icon = frame_ico;
-    panel = new JPanel();
+    javax.swing.JPanel panel = new javax.swing.JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-    title = new JLabel("Music Player");
-    title.setIcon(icon);
+    javax.swing.JLabel title = new javax.swing.JLabel("Music Player");
+    title.setIcon(frame_ico);
 
     Font font = title.getFont();
     title.setFont(font.deriveFont(font.getStyle() | Font.BOLD));
@@ -50,16 +48,17 @@ public class WelcomeWindow implements Runnable, ActionListener {
     title.setFont(title.getFont().deriveFont(title.getFont().getSize() * 2.5f));
     title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    description = new JLabel(
+    javax.swing.JLabel description = new javax.swing.JLabel(
         "<html><div style='text-align: center;'><p>This is a very simple Music Player for you. You can check out the GitHub page and look at ongoing updates, and report bugs and issues. If you wanna play something go click on that button called \"Select File\". Currently only wav files are supported!</p></div></html>");
     description.setFont(description.getFont().deriveFont(description.getFont().getSize() * 1.1f));
     description.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    version = new JLabel("<html><u>Version 1.0 | Made by Jack Meng</u><br></html>");
+    javax.swing.JLabel version = new javax.swing.JLabel("<html><u>Version 1.0 | Made by Jack Meng</u><br></html>");
     version.setFont(version.getFont().deriveFont(version.getFont().getStyle() | Font.ITALIC));
     version.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     URL file_icon = getClass().getResource("/file_select_folder_icon.png");
+    assert file_icon != null;
     Icon ico = new ImageIcon(file_icon);
     openSelectFile = new JButton("Select File");
     openSelectFile.setIcon(ico);
@@ -67,6 +66,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
     openSelectFile.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     URL github_icon = getClass().getResource("/github.png");
+    assert github_icon != null;
     Icon git_ico = new ImageIcon(github_icon);
     github = new JButton("GitHub Repository");
     github.setIcon(git_ico);
@@ -74,6 +74,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
     github.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     URL license_icon = getClass().getResource("/license_icon.png");
+    assert license_icon != null;
     Icon lic_ico = new ImageIcon(license_icon);
     license = new JButton("Read License");
     license.setIcon(lic_ico);
@@ -81,6 +82,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
     license.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     URL settings_icon = getClass().getResource("/information_icon.png");
+    assert settings_icon != null;
     Icon set_ico = new ImageIcon(settings_icon);
     settings = new JButton("Settings");
     settings.setIcon(set_ico);
@@ -88,6 +90,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
     settings.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     URL docs_icon = getClass().getResource("/documentation_icon.png");
+    assert docs_icon != null;
     Icon doc_ico = new ImageIcon(docs_icon);
     documentation = new JButton("Documentation");
     documentation.setIcon(doc_ico);
@@ -132,17 +135,13 @@ public class WelcomeWindow implements Runnable, ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == openSelectFile) {
-      frame.dispose();
       new SelectFileWindow(lastDir).run();
     } else if (e.getSource() == github) {
       try {
         Desktop.getDesktop().browse(new URI("https://github.com/exoad/MusicPlayer"));
-      } catch (IOException e1) {
+      } catch (java.io.IOException | java.net.URISyntaxException e1) {
         e1.printStackTrace();
-        new ErrorMessage(e1.getStackTrace().toString());
-      } catch (URISyntaxException e1) {
-        e1.printStackTrace();
-        new ErrorMessage(e1.getStackTrace().toString());
+        new ErrorMessage(java.util.Arrays.toString(e1.getStackTrace()));
       }
     } else if (e.getSource() == license) {
       try {
@@ -155,7 +154,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
         try {
           new main.util.SettingsWindow().run();
         } catch (IOException ioe) {
-          new ErrorMessage(ioe.getStackTrace().toString());
+          new ErrorMessage(java.util.Arrays.toString(ioe.getStackTrace()));
           ioe.printStackTrace();
         }
       } else {
@@ -165,7 +164,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
       try {
         new main.util.DocumentationWindow().run();
       } catch (IOException ioe) {
-        new ErrorMessage(ioe.getStackTrace().toString());
+        new ErrorMessage(java.util.Arrays.toString(ioe.getStackTrace()));
         ioe.printStackTrace();
       }
     }

@@ -15,20 +15,16 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 
-import com.formdev.flatlaf.*;
 public class ErrorMessage implements ActionListener {
-  private JButton okButton;
-  private JFrame frame;
-  private boolean lightMode = false;
+  private final JButton okButton;
+  private final JFrame frame;
 
   public ErrorMessage(String message) {
-    if (!lightMode)
-      com.formdev.flatlaf.FlatDarkLaf.setup();
-    else
-      FlatLightLaf.setup();
+    FlatMaterialDarkerIJTheme.setup();
     JPanel panel = new JPanel();
-    
+
     JLabel label = new JLabel("<html><p>" + message + "</p></html>");
     okButton = new JButton("OK");
     okButton.addActionListener(this);
@@ -42,6 +38,7 @@ public class ErrorMessage implements ActionListener {
     panel.add(okButton);
     JScrollPane jsp = new JScrollPane(panel);
     URL url = getClass().getResource("/error_frame_icon.png");
+    assert url != null;
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Error: " + message);
     frame.setIconImage(icon.getImage());

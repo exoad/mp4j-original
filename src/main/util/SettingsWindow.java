@@ -2,7 +2,6 @@ package main.util;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 import java.net.URL;
 import java.awt.Font;
@@ -20,19 +19,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 import main.advisors.CXX;
 import main.advisors.JSONParser;
 import main.VersionInfo;
 
 public class SettingsWindow implements Runnable, ActionListener {
   public static JFrame frame;
-  private JPanel panel;
-  private JLabel title, information;
-  private JButton verifyFile;
-  private CXX run = new CXX();
+  private final JPanel panel;
+  private final JLabel title;
+  private final JLabel information;
+  private final JButton verifyFile;
+  private final CXX run = new CXX();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
-    com.formdev.flatlaf.FlatDarkLaf.setup();
+    FlatMaterialDarkerIJTheme.setup();
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 600));
@@ -44,6 +45,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     verifyFile = new JButton("Verify File Integrity");
     verifyFile.setAlignmentX(Component.CENTER_ALIGNMENT);
     URL URLFILEINT = getClass().getResource("/fileint_icon.png");
+    assert URLFILEINT != null;
     Icon fileINTCO = new ImageIcon(URLFILEINT);
     verifyFile.setIcon(fileINTCO);
     verifyFile.addActionListener(this);
@@ -51,17 +53,20 @@ public class SettingsWindow implements Runnable, ActionListener {
     String json = run.callAPI();
     String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
         + (JSONParser.parseElement("latest_release", json) == null
-            || JSONParser.parseElement("latest_release", json) == "" ? "Unavaliable"
+            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_release", json), "")
+                ? "Unavaliable"
                 : JSONParser.parseElement("latest_release", json))
         + "<br>"
         + "Latest Patch: "
-        + (JSONParser.parseElement("latest_patch", json) == null || JSONParser.parseElement("latest_patch", json) == ""
-            ? "Unavaliable"
-            : JSONParser.parseElement("latest_patch", json))
+        + (JSONParser.parseElement("latest_patch", json) == null
+            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_patch", json), "")
+                ? "Unavaliable"
+                : JSONParser.parseElement("latest_patch", json))
         + "<br>" + "Latest Beta: "
-        + (JSONParser.parseElement("latest_beta", json) == null || JSONParser.parseElement("latest_beta", json) == ""
-            ? "Unavaliable"
-            : JSONParser.parseElement("latest_beta", json))
+        + (JSONParser.parseElement("latest_beta", json) == null
+            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_beta", json), "")
+                ? "Unavaliable"
+                : JSONParser.parseElement("latest_beta", json))
         + "</p></html>");
 
     information = new JLabel(versionInfo);
@@ -76,6 +81,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     panel.add(information);
 
     URL icon = getClass().getResource("/information_icon.png");
+    assert icon != null;
     ImageIcon imageIcon = new ImageIcon(icon);
     frame = new JFrame("Music Player | Settings");
     frame.setSize(500, 600);
@@ -87,7 +93,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   }
 
   public SettingsWindow() throws IOException {
-    com.formdev.flatlaf.FlatDarkLaf.setup();
+    FlatMaterialDarkerIJTheme.setup();
 
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -100,6 +106,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     verifyFile = new JButton("Check File Integrity");
     verifyFile.setAlignmentX(Component.CENTER_ALIGNMENT);
     URL URLFILEINT = getClass().getResource("/fileint_icon.png");
+    assert URLFILEINT != null;
     Icon fileINTCO = new ImageIcon(URLFILEINT);
     verifyFile.setIcon(fileINTCO);
     verifyFile.addActionListener(this);
@@ -108,17 +115,20 @@ public class SettingsWindow implements Runnable, ActionListener {
     String json = run.callAPI();
     String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
         + (JSONParser.parseElement("latest_release", json) == null
-            || JSONParser.parseElement("latest_release", json) == "" ? "Unavaliable"
+            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_release", json), "")
+                ? "Unavaliable"
                 : JSONParser.parseElement("latest_release", json))
         + "<br>"
         + "Latest Patch: "
-        + (JSONParser.parseElement("latest_patch", json) == null || JSONParser.parseElement("latest_patch", json) == ""
-            ? "Unavaliable"
-            : JSONParser.parseElement("latest_patch", json))
+        + (JSONParser.parseElement("latest_patch", json) == null
+            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_patch", json), "")
+                ? "Unavaliable"
+                : JSONParser.parseElement("latest_patch", json))
         + "<br>" + "Latest Beta: "
-        + (JSONParser.parseElement("latest_beta", json) == null || JSONParser.parseElement("latest_beta", json) == ""
-            ? "Unavaliable"
-            : JSONParser.parseElement("latest_beta", json))
+        + (JSONParser.parseElement("latest_beta", json) == null
+            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_beta", json), "")
+                ? "Unavaliable"
+                : JSONParser.parseElement("latest_beta", json))
         + "</p></html>");
 
     information = new JLabel(versionInfo);
@@ -132,6 +142,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     panel.add(information);
 
     URL icon = getClass().getResource("/information_icon.png");
+    assert icon != null;
     ImageIcon imageIcon = new ImageIcon(icon);
     frame = new JFrame("Music Player | Settings");
     frame.setSize(500, 600);

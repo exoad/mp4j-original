@@ -27,6 +27,8 @@ public class Runner implements Runnable {
 
   @Override
   public void run() {
+    System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
+    System.setProperty("flatlaf.animation", "false");
     File apiCache = new File(Items.items[0]);
     if (!apiCache.isDirectory()) {
       apiCache.mkdir();
