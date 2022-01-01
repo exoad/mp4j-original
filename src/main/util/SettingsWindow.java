@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.Component;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   private CXX run = new CXX();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
-    FlatAtomOneDarkContrastIJTheme.setup();
+    com.formdev.flatlaf.FlatDarkLaf.setup();
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 600));
@@ -69,6 +69,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
 
     panel.add(title);
+    panel.add(Box.createHorizontalStrut(30));
     panel.add(verifyFile);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(10));
@@ -86,7 +87,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   }
 
   public SettingsWindow() throws IOException {
-    FlatAtomOneDarkContrastIJTheme.setup();
+    com.formdev.flatlaf.FlatDarkLaf.setup();
 
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

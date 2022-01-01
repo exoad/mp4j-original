@@ -19,7 +19,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.JScrollPane;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 public class LicenseWindow implements Runnable {
   private JFrame frame;
   private JLabel label;
@@ -27,7 +27,7 @@ public class LicenseWindow implements Runnable {
   private JScrollPane scrollPane;
 
   public LicenseWindow() throws IOException {
-    FlatAtomOneDarkContrastIJTheme.setup();
+    com.formdev.flatlaf.FlatDarkLaf.setup();
     URL url = getClass().getResource("/license_icon.png");
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Music Player | License");

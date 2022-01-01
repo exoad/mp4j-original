@@ -19,7 +19,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.JScrollPane;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 
 public class DocumentationWindow implements Runnable {
   private JFrame frame;
@@ -28,7 +28,7 @@ public class DocumentationWindow implements Runnable {
   private JScrollPane scrollPane;
 
   public DocumentationWindow() throws IOException {
-    FlatAtomOneDarkContrastIJTheme.setup();
+    com.formdev.flatlaf.FlatDarkLaf.setup();
     URL url = getClass().getResource("/documentation_icon.png");
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Music Player | Documentation");

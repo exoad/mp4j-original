@@ -15,7 +15,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 import com.formdev.flatlaf.*;
 public class ErrorMessage implements ActionListener {
   private JButton okButton;
@@ -24,7 +24,7 @@ public class ErrorMessage implements ActionListener {
 
   public ErrorMessage(String message) {
     if (!lightMode)
-      FlatAtomOneDarkContrastIJTheme.setup();
+      com.formdev.flatlaf.FlatDarkLaf.setup();
     else
       FlatLightLaf.setup();
     JPanel panel = new JPanel();

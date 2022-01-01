@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.awt.Dimension;
 import javax.swing.JFileChooser;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 
 
 public class Host {
@@ -24,7 +24,7 @@ public class Host {
   public static File openFileBrowser(java.awt.Component parent) {
     JFileChooser fileChooser = null;
     try {
-      FlatAtomOneDarkContrastIJTheme.setup();
+      com.formdev.flatlaf.FlatDarkLaf.setup();
       fileChooser = new JFileChooser();
       fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
       fileChooser.setDialogTitle("Select File using File Explorer");

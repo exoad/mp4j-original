@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 import main.advisors.Host;
 import main.advisors.LifePreserver;
 
@@ -27,7 +27,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
   public SelectFileWindow(String lastFilePath) {
     lastDir = lastFilePath;
-    FlatAtomOneDarkContrastIJTheme.setup();
+    com.formdev.flatlaf.FlatDarkLaf.setup();
     URL frameIcon = getClass().getResource("/file_select_folder_icon.png");
     ImageIcon frameImageIcon = new ImageIcon(frameIcon);
     button = new JButton("Select File");

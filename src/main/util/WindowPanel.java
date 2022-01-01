@@ -30,7 +30,7 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
@@ -57,7 +57,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
   public WindowPanel(String resource) {
     music_path = resource;
-    FlatAtomOneDarkContrastIJTheme.setup();
+    com.formdev.flatlaf.FlatDarkLaf.setup();
     musicFile = SelectFileWindow.getFile();
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);

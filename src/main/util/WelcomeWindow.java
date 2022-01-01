@@ -24,7 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 
 public class WelcomeWindow implements Runnable, ActionListener {
   private JFrame frame;
@@ -35,7 +35,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
 
   public WelcomeWindow(String lastDir) {
     WelcomeWindow.lastDir = lastDir;
-    FlatAtomOneDarkContrastIJTheme.setup();
+    com.formdev.flatlaf.FlatDarkLaf.setup();
     URL frame_icon = getClass().getResource("/welcome_icon.png");
     ImageIcon frame_ico = new ImageIcon(frame_icon);
     Icon icon = frame_ico;
