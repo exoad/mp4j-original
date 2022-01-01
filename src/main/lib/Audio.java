@@ -16,11 +16,20 @@ import javax.sound.sampled.Mixer.Info;
 
 public class Audio {
 
+  
+  /** 
+   * @param args
+   * @throws Exception
+   */
   public static void main(String[] args) throws Exception {
     System.out.println(getHierarchyInfo());
     System.out.println(getMasterOutputVolume());
   }
 
+  
+  /** 
+   * @param value
+   */
   public static void setMasterOutputVolume(float value) {
     if (value < 0 || value > 1)
       throw new IllegalArgumentException(
@@ -40,6 +49,10 @@ public class Audio {
     }
   }
 
+  
+  /** 
+   * @return Float
+   */
   public static Float getMasterOutputVolume() {
     Line line = getMasterOutputLine();
     if (line == null)
@@ -56,6 +69,10 @@ public class Audio {
     }
   }
 
+  
+  /** 
+   * @param value
+   */
   public static void setMasterOutputMute(boolean value) {
     Line line = getMasterOutputLine();
     if (line == null)
@@ -72,6 +89,10 @@ public class Audio {
     }
   }
 
+  
+  /** 
+   * @return Boolean
+   */
   public static Boolean getMasterOutputMute() {
     Line line = getMasterOutputLine();
     if (line == null)
@@ -88,6 +109,10 @@ public class Audio {
     }
   }
 
+  
+  /** 
+   * @return Line
+   */
   public static Line getMasterOutputLine() {
     for (Mixer mixer : getMixers()) {
       for (Line line : getAvailableOutputLines(mixer)) {
@@ -98,18 +123,34 @@ public class Audio {
     return null;
   }
 
+  
+  /** 
+   * @param line
+   * @return FloatControl
+   */
   public static FloatControl getVolumeControl(Line line) {
     if (!line.isOpen())
       throw new RuntimeException("Line is closed: " + toString(line));
     return (FloatControl) findControl(FloatControl.Type.VOLUME, line.getControls());
   }
 
+  
+  /** 
+   * @param line
+   * @return BooleanControl
+   */
   public static BooleanControl getMuteControl(Line line) {
     if (!line.isOpen())
       throw new RuntimeException("Line is closed: " + toString(line));
     return (BooleanControl) findControl(BooleanControl.Type.MUTE, line.getControls());
   }
 
+  
+  /** 
+   * @param type
+   * @param controls
+   * @return Control
+   */
   private static Control findControl(Type type, Control... controls) {
     if (controls == null || controls.length == 0)
       return null;
@@ -126,6 +167,10 @@ public class Audio {
     return null;
   }
 
+  
+  /** 
+   * @return List<Mixer>
+   */
   public static List<Mixer> getMixers() {
     Info[] infos = AudioSystem.getMixerInfo();
     List<Mixer> mixers = new ArrayList<Mixer>(infos.length);
@@ -136,14 +181,30 @@ public class Audio {
     return mixers;
   }
 
+  
+  /** 
+   * @param mixer
+   * @return List<Line>
+   */
   public static List<Line> getAvailableOutputLines(Mixer mixer) {
     return getAvailableLines(mixer, mixer.getTargetLineInfo());
   }
 
+  
+  /** 
+   * @param mixer
+   * @return List<Line>
+   */
   public static List<Line> getAvailableInputLines(Mixer mixer) {
     return getAvailableLines(mixer, mixer.getSourceLineInfo());
   }
 
+  
+  /** 
+   * @param mixer
+   * @param lineInfos
+   * @return List<Line>
+   */
   private static List<Line> getAvailableLines(Mixer mixer, Line.Info[] lineInfos) {
     List<Line> lines = new ArrayList<Line>(lineInfos.length);
     for (Line.Info lineInfo : lineInfos) {
@@ -155,6 +216,12 @@ public class Audio {
     return lines;
   }
 
+  
+  /** 
+   * @param mixer
+   * @param lineInfo
+   * @return Line
+   */
   public static Line getLineIfAvailable(Mixer mixer, Line.Info lineInfo) {
     try {
       return mixer.getLine(lineInfo);
@@ -163,6 +230,10 @@ public class Audio {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public static String getHierarchyInfo() {
     StringBuilder sb = new StringBuilder();
     for (Mixer mixer : getMixers()) {
@@ -205,6 +276,11 @@ public class Audio {
     return sb.toString();
   }
 
+  
+  /** 
+   * @param line
+   * @return boolean
+   */
   public static boolean open(Line line) {
     if (line.isOpen())
       return false;
@@ -216,12 +292,22 @@ public class Audio {
     return true;
   }
 
+  
+  /** 
+   * @param control
+   * @return String
+   */
   public static String toString(Control control) {
     if (control == null)
       return null;
-    return control.toString() + " (" + control.getType().toString() + ")";
+    return control + " (" + control.getType().toString() + ")";
   }
 
+  
+  /** 
+   * @param line
+   * @return String
+   */
   public static String toString(Line line) {
     if (line == null)
       return null;
@@ -229,6 +315,11 @@ public class Audio {
     return info.toString();// + " (" + line.getClass().getSimpleName() + ")";
   }
 
+  
+  /** 
+   * @param mixer
+   * @return String
+   */
   public static String toString(Mixer mixer) {
     if (mixer == null)
       return null;

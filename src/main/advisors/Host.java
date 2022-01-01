@@ -16,11 +16,21 @@ public class Host {
     Host.lastDir = lastDir;
   }
 
+  
+  /** 
+   * @param i
+   * @throws IOException
+   */
   public static void extendedFileSaver(File i) throws IOException {
     LifePreserver lp = new LifePreserver(i.getAbsolutePath());
     lp.saveToPrevDir();
   }
 
+  
+  /** 
+   * @param parent
+   * @return File
+   */
   public static File openFileBrowser(java.awt.Component parent) {
     JFileChooser fileChooser = null;
     try {
@@ -47,6 +57,13 @@ public class Host {
 
   }
 
+  
+  /** 
+   * @param runtime
+   * @param ch
+   * @return String
+   * @throws IOException
+   */
   public static String runProcess(Runtime runtime, CharSequence ch) throws IOException {
     Runtime rt = runtime;
     String[] commands = { ch.toString(), "-get t" };

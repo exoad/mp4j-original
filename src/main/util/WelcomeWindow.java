@@ -128,10 +128,18 @@ public class WelcomeWindow implements Runnable, ActionListener {
     frame.pack();
   }
 
+  
+  /** 
+   * @param args
+   */
   public static void main(String[] args) {
     new WelcomeWindow(lastDir).run();
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == openSelectFile) {

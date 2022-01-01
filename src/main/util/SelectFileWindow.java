@@ -58,10 +58,18 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     frame.add(this);
   }
 
+  
+  /** 
+   * @return String
+   */
   public String getFilePath() {
     return filePath;
   }
 
+  
+  /** 
+   * @return File
+   */
   public static File getFile() {
     return file;
   }
@@ -72,6 +80,10 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     frame.pack();
   }
 
+  
+  /** 
+   * @param field
+   */
   public void check(String field) {
     filePath = field;
     if (filePath == null || filePath.equals("") || !new File(filePath).exists()) {
@@ -87,6 +99,10 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     }
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == button) {

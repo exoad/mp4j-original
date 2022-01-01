@@ -50,6 +50,10 @@ public class ErrorMessage implements ActionListener {
     frame.setVisible(true);
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == okButton) {

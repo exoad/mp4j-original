@@ -14,6 +14,10 @@ public class LifePreserver {
     this.data = data;
   }
 
+  
+  /** 
+   * @throws IOException
+   */
   public void saveToPrevDir() throws IOException {
     BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Items.items[1] + "/" + main.Sources.LIFEPRESERVER_PREVDIR)));
     bw.write(data);

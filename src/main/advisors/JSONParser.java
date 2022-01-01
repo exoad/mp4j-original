@@ -5,6 +5,12 @@ public abstract class JSONParser {
 
   }
 
+  
+  /** 
+   * @param element
+   * @param JSON
+   * @return String
+   */
   public static String parseElement(String element, String JSON) {
 
     String[] elements = JSON.split(",");

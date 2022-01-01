@@ -12,5 +12,6 @@
     <orderEntry type="library" name="JLibXX_pretest" level="project" />
     <orderEntry type="library" name="jl1.0.1" level="project" />
     <orderEntry type="library" name="javafx-sdk-17.01" level="application" />
+    <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
   </component>
 </module>

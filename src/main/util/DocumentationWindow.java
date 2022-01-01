@@ -81,6 +81,11 @@ public class DocumentationWindow implements Runnable {
     frame.setVisible(true);
   }
 
+  
+  /** 
+   * @param args
+   * @throws IOException
+   */
   public static void main(String[] args) throws IOException {
     new LicenseWindow().run();
   }

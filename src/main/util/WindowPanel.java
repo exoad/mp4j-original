@@ -1,224 +1,243 @@
-package main.util
+package main.util;
 
-import java.awt.event.ActionListener
-import javax.swing.event.ChangeListener
-import javax.swing.JPanel
-import javax.swing.JButton
-import javax.swing.JLabel
-import javax.swing.JSlider
-import javax.swing.Icon
-import main.util.WindowPanel
-import javax.sound.sampled.FloatControl
-import kotlin.Throws
-import javazoom.jl.decoder.JavaLayerException
-import javax.sound.sampled.AudioInputStream
-import javax.sound.sampled.AudioSystem
-import javazoom.jl.player.Player
-import java.io.FileInputStream
-import javax.sound.sampled.UnsupportedAudioFileException
-import java.io.IOException
-import javax.sound.sampled.LineUnavailableException
-import java.awt.event.ActionEvent
-import javax.swing.event.ChangeEvent
-import javax.swing.JFrame
-import javax.sound.sampled.Clip
-import kotlin.jvm.JvmStatic
-import javax.swing.SwingUtilities
-import java.lang.Runnable
-import javax.swing.WindowConstants
-import javax.swing.ImageIcon
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme
-import main.util.SelectFileWindow
-import java.awt.Component
-import java.awt.Dimension
-import java.awt.Font
-import java.io.File
-import javax.swing.SwingConstants
-import javax.swing.BoxLayout
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
-class WindowPanel(resource: String) : ActionListener, ChangeListener {
-    protected var bp: JPanel
-    protected var mainPanel: JPanel
-    protected var play_btn: JButton
-    protected var new_file: JButton
-    protected var header_notice: JLabel
-    protected var status: JLabel
-    protected var volume_slider: JSlider
-    protected var volume_keeper = 0f
-    protected var loop = false
-    protected var pause_icon = javaClass.getResource("/pause_button.png")
-    protected var pause_button_ico: Icon? = null
-    protected var play_icon = javaClass.getResource("/play_button.png")
-    protected var play_button_ico: Icon? = null
-    var currentFrame: Long = 0
-    fun volumeControl() {
-        if (clip != null) {
-            val gainControl = clip!!.getControl(FloatControl.Type.MASTER_GAIN) as FloatControl
-            val range = gainControl.maximum - gainControl.minimum
-            val gain = volume_slider.value / 100.0f * range + gainControl.minimum
-            gainControl.value = gain
-            volume_slider.toolTipText = "Current Volume: " + volume_slider.value + "%"
-        }
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
+
+import javazoom.jl.decoder.JavaLayerException;
+public class WindowPanel implements ActionListener, ChangeListener {
+  protected JPanel bp, mainPanel;
+  protected JButton play_btn, new_file;
+  protected JLabel header_notice, status;
+  protected JSlider volume_slider;
+  protected static JFrame frame;
+  protected float volume_keeper;
+  protected static File musicFile;
+  protected static Clip clip;
+  protected boolean loop = false;
+  protected static boolean alreadyPlaying = false, toPause = false, playAsMp3 = false;
+  protected static String music_path;
+  protected URL pause_icon = getClass().getResource("/pause_button.png");
+  protected Icon pause_button_ico;
+
+  {
+    assert pause_icon != null;
+    pause_button_ico = new javax.swing.ImageIcon(pause_icon);
+  }
+
+  protected URL play_icon = getClass().getResource("/play_button.png");
+  protected Icon play_button_ico;
+
+  {
+    assert play_icon != null;
+    play_button_ico = new javax.swing.ImageIcon(play_icon);
+  }
+
+  public long currentFrame = 0;
+
+  public WindowPanel(String resource) {
+    music_path = resource;
+    FlatMaterialDarkerIJTheme.setup();
+    musicFile = SelectFileWindow.getFile();
+    status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
+    status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
+
+    URL frame_icon = getClass().getResource("/frame-icon.png");
+
+    assert pause_icon != null;
+
+    assert play_icon != null;
+
+    assert frame_icon != null;
+    ImageIcon frame_ico = new ImageIcon(frame_icon);
+
+    frame = new JFrame("Music Player - Jack Meng");
+    frame.setIconImage(frame_ico.getImage());
+    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    frame.setResizable(false);
+
+    play_btn = new JButton(play_button_ico);
+    play_btn.addActionListener(this);
+    play_btn.setToolTipText("Play the current media");
+    play_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    URL new_file_icon = getClass().getResource("/file_select_folder_icon.png");
+    assert new_file_icon != null;
+    Icon new_file_ico = new ImageIcon(new_file_icon);
+
+    new_file = new JButton(new_file_ico);
+    new_file.addActionListener(this);
+    new_file.setToolTipText("Select a new media file");
+    new_file.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    header_notice = new JLabel(
+        "<html><body><strong><u>Supported File Types : .mp3 & .wav</u></strong><br><center>Place files in folder: <code>/musicML/</code></center></body></html><br>");
+
+    header_notice.setFont(new Font("Courier", Font.PLAIN, 13));
+    header_notice.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    volume_slider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 50);
+    volume_slider.setMajorTickSpacing(10);
+    volume_slider.setMinorTickSpacing(1);
+    volume_slider.setMinimum(0);
+    volume_slider.setMaximum(100);
+    volume_slider.setPaintTicks(true);
+    volume_slider.setPaintLabels(true);
+    volume_slider.setAlignmentX(Component.CENTER_ALIGNMENT);
+    volume_slider.addChangeListener(this);
+    volume_slider.setToolTipText("Change the volume. Current: " + volume_slider.getValue() + "%");
+
+    bp = new JPanel();
+    bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
+    bp.add(status);
+    bp.add(play_btn);
+    bp.add(volume_slider);
+
+    bp.setPreferredSize(new Dimension(450, 200));
+
+    mainPanel = new JPanel();
+    mainPanel.add(bp);
+
+    frame.add(mainPanel);
+  }
+
+  public void volumeControl() {
+    if (clip != null) {
+      FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+      float range = gainControl.getMaximum() - gainControl.getMinimum();
+      float gain = (volume_slider.getValue() / 100.0f) * range + gainControl.getMinimum();
+      gainControl.setValue(gain);
+      volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
     }
+  }
 
-    @Throws(JavaLayerException::class)
-    fun playMusic() {
+  
+  /** 
+   * @throws JavaLayerException
+   */
+  public void playMusic() throws JavaLayerException {
+    try {
+      if (!musicFile.getName().endsWith(".mp3")) {
+        javax.sound.sampled.AudioInputStream audioInputStream = javax.sound.sampled.AudioSystem
+            .getAudioInputStream(musicFile);
+        clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.setMicrosecondPosition(currentFrame);
+        clip.start();
+        playAsMp3 = false;
+        volumeControl();
+      } else {
+        playAsMp3 = true;
+        javazoom.jl.player.Player mp3Player = new javazoom.jl.player.Player(new java.io.FileInputStream(musicFile));
+        mp3Player.play();
+      }
+
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void pauseMusic() {
+    if (clip != null) {
+      currentFrame = clip.getMicrosecondPosition();
+      clip.stop();
+    }
+  }
+
+  
+  /** 
+   * @param args
+   */
+  public static void main(String[] args) {
+    SwingUtilities.invokeLater(WindowPanel::run);
+    File f = new File("musicML");
+    if (!f.exists())
+      f.mkdir();
+    WindowPanel.run();
+  }
+
+  public void setPauseState() {
+    play_btn.setIcon(play_button_ico);
+    play_btn.setToolTipText("Play the current media");
+    status.setText("<html><b>Currently Playing Nothing</b></html>");
+  }
+
+  public void setPlayState() {
+    play_btn.setIcon(pause_button_ico);
+    play_btn.setToolTipText("Pause the current media");
+    status.setText("<html><b>Currently Playing: </b><br>" + musicFile.getName() + "</html>");
+  }
+
+  
+  /** 
+   * @param e
+   */
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == play_btn) {
+      if (play_btn.getIcon() == play_button_ico) {
         try {
-            if (!musicFile.name.endsWith(".mp3")) {
-                val audioInputStream = AudioSystem
-                        .getAudioInputStream(musicFile)
-                clip = AudioSystem.getClip()
-                clip.open(audioInputStream)
-                clip.setMicrosecondPosition(currentFrame)
-                clip.start()
-                playAsMp3 = false
-                volumeControl()
-            } else {
-                playAsMp3 = true
-                val mp3Player = Player(FileInputStream(musicFile))
-                mp3Player.play()
-            }
-        } catch (e: UnsupportedAudioFileException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: LineUnavailableException) {
-            e.printStackTrace()
+          playMusic();
+        } catch (JavaLayerException e1) {
+          e1.printStackTrace();
         }
+        setPlayState();
+      } else if (play_btn.getIcon() == pause_button_ico) {
+        pauseMusic();
+        setPauseState();
+      }
+    } else if (e.getSource() == volume_slider) {
+      if (playAsMp3 || musicFile.getName().endsWith(".mp3")) {
+        volume_slider.setEnabled(false);
+        volume_slider.setToolTipText("MP3 is only semi supported for now");
+      } else {
+        volume_slider.setEnabled(true);
+        volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
+      }
+      volumeControl();
     }
+  }
 
-    fun pauseMusic() {
-        if (clip != null) {
-            currentFrame = clip!!.microsecondPosition
-            clip!!.stop()
-        }
+  public static void run() {
+    new WindowPanel(music_path);
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setVisible(true);
+  }
+
+  
+  /** 
+   * @param e
+   */
+  @Override
+  public void stateChanged(ChangeEvent e) {
+    if (e.getSource() == volume_slider) {
+      volumeControl();
     }
-
-    fun setPauseState() {
-        play_btn.icon = play_button_ico
-        play_btn.toolTipText = "Play the current media"
-        status.text = "<html><b>Currently Playing Nothing</b></html>"
-    }
-
-    fun setPlayState() {
-        play_btn.icon = pause_button_ico
-        play_btn.toolTipText = "Pause the current media"
-        status.text = "<html><b>Currently Playing: </b><br>" + musicFile.name + "</html>"
-    }
-
-    override fun actionPerformed(e: ActionEvent) {
-        if (e.source === play_btn) {
-            if (play_btn.icon === play_button_ico) {
-                try {
-                    playMusic()
-                } catch (e1: JavaLayerException) {
-                    e1.printStackTrace()
-                }
-                setPlayState()
-            } else if (play_btn.icon === pause_button_ico) {
-                pauseMusic()
-                setPauseState()
-            }
-        } else if (e.source === volume_slider) {
-            if (playAsMp3 || musicFile.name.endsWith(".mp3")) {
-                volume_slider.isEnabled = false
-                volume_slider.toolTipText = "MP3 is only semi supported for now"
-            } else {
-                volume_slider.isEnabled = true
-                volume_slider.toolTipText = "Current Volume: " + volume_slider.value + "%"
-            }
-            volumeControl()
-        }
-    }
-
-    override fun stateChanged(e: ChangeEvent) {
-        if (e.source === volume_slider) {
-            volumeControl()
-        }
-    }
-
-    companion object {
-        protected var frame: JFrame
-        protected var musicFile: File
-        protected var clip: Clip? = null
-        protected var alreadyPlaying = false
-        protected var toPause = false
-        protected var playAsMp3 = false
-        protected var music_path: String
-        @JvmStatic
-        fun main(args: Array<String>) {
-            SwingUtilities.invokeLater { run() }
-            val f = File("musicML")
-            if (!f.exists()) f.mkdir()
-            run()
-        }
-
-        @JvmStatic
-        fun run() {
-            WindowPanel(music_path)
-            frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
-            frame.pack()
-            frame.isVisible = true
-        }
-    }
-
-    init {
-        assert(pause_icon != null)
-        pause_button_ico = ImageIcon(pause_icon)
-    }
-
-    init {
-        assert(play_icon != null)
-        play_button_ico = ImageIcon(play_icon)
-    }
-
-    init {
-        music_path = resource
-        FlatMaterialDarkerIJTheme.setup()
-        musicFile = SelectFileWindow.getFile()
-        status = JLabel("<html><b>Currently Playing: </b></html>" + musicFile.name)
-        status.horizontalAlignment = Component.CENTER_ALIGNMENT.toInt()
-        val frame_icon = javaClass.getResource("/frame-icon.png")
-        assert(pause_icon != null)
-        assert(play_icon != null)
-        assert(frame_icon != null)
-        val frame_ico = ImageIcon(frame_icon)
-        frame = JFrame("Music Player - Jack Meng")
-        frame.iconImage = frame_ico.image
-        frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
-        frame.isResizable = false
-        play_btn = JButton(play_button_ico)
-        play_btn.addActionListener(this)
-        play_btn.toolTipText = "Play the current media"
-        play_btn.alignmentX = Component.CENTER_ALIGNMENT
-        val new_file_icon = javaClass.getResource("/file_select_folder_icon.png")!!
-        val new_file_ico: Icon = ImageIcon(new_file_icon)
-        new_file = JButton(new_file_ico)
-        new_file.addActionListener(this)
-        new_file.toolTipText = "Select a new media file"
-        new_file.alignmentX = Component.CENTER_ALIGNMENT
-        header_notice = JLabel(
-                "<html><body><strong><u>Supported File Types : .mp3 & .wav</u></strong><br><center>Place files in folder: <code>/musicML/</code></center></body></html><br>")
-        header_notice.font = Font("Courier", Font.PLAIN, 13)
-        header_notice.alignmentX = Component.CENTER_ALIGNMENT
-        volume_slider = JSlider(SwingConstants.HORIZONTAL, 0, 100, 50)
-        volume_slider.majorTickSpacing = 10
-        volume_slider.minorTickSpacing = 1
-        volume_slider.minimum = 0
-        volume_slider.maximum = 100
-        volume_slider.paintTicks = true
-        volume_slider.paintLabels = true
-        volume_slider.alignmentX = Component.CENTER_ALIGNMENT
-        volume_slider.addChangeListener(this)
-        volume_slider.toolTipText = "Change the volume. Current: " + volume_slider.value + "%"
-        bp = JPanel()
-        bp.layout = BoxLayout(bp, BoxLayout.X_AXIS)
-        bp.add(status)
-        bp.add(play_btn)
-        bp.add(volume_slider)
-        bp.preferredSize = Dimension(450, 200)
-        mainPanel = JPanel()
-        mainPanel.add(bp)
-        frame.add(mainPanel)
-    }
+  }
 }

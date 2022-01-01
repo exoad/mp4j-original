@@ -159,10 +159,19 @@ public class SettingsWindow implements Runnable, ActionListener {
     frame.pack();
   }
 
+  
+  /** 
+   * @param args
+   * @throws IOException
+   */
   public static void main(String[] args) throws IOException {
     new SettingsWindow().run();
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == verifyFile) {
@@ -181,6 +190,10 @@ public class SettingsWindow implements Runnable, ActionListener {
 
   }
 
+  
+  /** 
+   * @return Object
+   */
   public static Object getInstance() {
     return frame;
   }

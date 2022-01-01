@@ -7,6 +7,11 @@ public class CXX {
   public CXX() {
 
   }
+  
+  /** 
+   * @return String
+   * @throws IOException
+   */
   public String callAPI() throws IOException {
     if(System.getProperty("os.name").contains("Windows")) {
       URL windowsAPI = getClass().getResource("/apiwrapper.exe");
@@ -16,6 +21,11 @@ public class CXX {
     return null;
   }
 
+  
+  /** 
+   * @return String
+   * @throws IOException
+   */
   public String veriyFile() throws IOException {
     if(System.getProperty("os.name").contains("Windows")) {
       URL windowsAPI = getClass().getResource("/fileint.exe");
@@ -25,6 +35,11 @@ public class CXX {
     return null;
   }
 
+  
+  /** 
+   * @param args
+   * @throws IOException
+   */
   public static void main(String[] args) throws IOException {
     new CXX().callAPI();
   }
