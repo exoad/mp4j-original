@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import java.awt.Component;
@@ -27,6 +28,7 @@ public class ErrorMessage implements ActionListener {
     else
       FlatLightLaf.setup();
     JPanel panel = new JPanel();
+    
     JLabel label = new JLabel("<html><p>" + message + "</p></html>");
     okButton = new JButton("OK");
     okButton.addActionListener(this);
@@ -38,11 +40,12 @@ public class ErrorMessage implements ActionListener {
 
     panel.add(label);
     panel.add(okButton);
+    JScrollPane jsp = new JScrollPane(panel);
     URL url = getClass().getResource("/error_frame_icon.png");
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Error: " + message);
     frame.setIconImage(icon.getImage());
-    frame.add(panel);
+    frame.add(jsp);
     frame.setSize(300, 100);
     frame.setResizable(false);
     frame.setLocationRelativeTo(null);

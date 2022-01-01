@@ -15,6 +15,14 @@ public class CXX {
     return null;
   }
 
+  public String veriyFile() throws IOException {
+    if(System.getProperty("os.name").contains("Windows")) {
+      URL windowsAPI = getClass().getResource("/fileint.exe");
+      return Host.runProcess(Runtime.getRuntime(), windowsAPI.getPath());
+    }
+    return null;
+  }
+
   public static void main(String[] args) throws IOException {
     new CXX().callAPI();
   }

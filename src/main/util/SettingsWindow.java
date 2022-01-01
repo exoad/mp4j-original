@@ -85,9 +85,9 @@ public class SettingsWindow implements Runnable, ActionListener {
     title.setAlignmentX(Component.CENTER_ALIGNMENT);
     title.setFont(title.getFont().deriveFont(title.getFont().getSize() * 1.5f));
 
-    verifyFile = new JButton("Change to Light Mode");
+    verifyFile = new JButton("Check File Integrity");
     verifyFile.setAlignmentX(Component.CENTER_ALIGNMENT);
-    URL URLFILEINT = getClass().getResource("/colormode_icon.png");
+    URL URLFILEINT = getClass().getResource("/fileint_icon.png");
     Icon fileINTCO = new ImageIcon(URLFILEINT);
     verifyFile.setIcon(fileINTCO);
     verifyFile.addActionListener(this);
@@ -133,8 +133,13 @@ public class SettingsWindow implements Runnable, ActionListener {
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == verifyFile) {
       try {
-
-        
+        String end = run.veriyFile();
+        Thread.sleep(600);
+        if (end.equals("1")) {
+          new ErrorMessage("File Integrity failed. Please consider redownloading");
+        } else {
+          new OKWindow("File Integrity Passed");
+        }
       } catch (Exception e1) {
         e1.printStackTrace();
       }
