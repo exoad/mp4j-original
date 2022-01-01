@@ -47,6 +47,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected Icon pause_button_ico = new ImageIcon(pause_icon);
   protected URL play_icon = getClass().getResource("/play_button.png");
   protected Icon play_button_ico = new ImageIcon(play_icon);
+  private static AudioInputStream audioInputStream;
+  public long currentFrame = 0;
 
   public WindowPanel(String resource) {
     music_path = resource;
@@ -56,12 +58,11 @@ public class WindowPanel implements ActionListener, ChangeListener {
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
     URL frame_icon = getClass().getResource("/frame-icon.png");
-    
 
     assert pause_icon != null;
 
     assert play_icon != null;
-    
+
     assert frame_icon != null;
     ImageIcon frame_ico = new ImageIcon(frame_icon);
 
@@ -123,35 +124,25 @@ public class WindowPanel implements ActionListener, ChangeListener {
     }
   }
 
-  public void readAndPlayMusic() throws IOException {
+  public void playMusic() {
     try {
-      System.out.println("Loaded: " + musicFile.getName());
-      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicFile);
+      audioInputStream = AudioSystem.getAudioInputStream(musicFile);
       clip = AudioSystem.getClip();
-      if (clip.isRunning() || clip.isOpen() || clip.isActive() || alreadyPlaying) {
-        clip.stop();
-        clip.close();
-        alreadyPlaying = false;
-      } else {
-        clip.open(audioInputStream);
-        clip.start();
-        alreadyPlaying = true;
-      }
-    } catch (LineUnavailableException | UnsupportedAudioFileException e) {
+      clip.open(audioInputStream);
+      // play clip at currentFrame
+      clip.setFramePosition((int) currentFrame);
+      clip.start();
+
+      volumeControl();
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
       e.printStackTrace();
-      new ErrorMessage(e.getMessage());
     }
   }
 
-  public static void readMusic() throws IOException {
-    try {
-      System.out.println("Loaded: " + musicFile.getName());
-      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicFile);
-      clip = AudioSystem.getClip();
-      clip.open(audioInputStream);
-    } catch (LineUnavailableException | UnsupportedAudioFileException e) {
-      e.printStackTrace();
-      new ErrorMessage(e.getMessage());
+  public void pauseMusic() {
+    if (clip != null) {
+      currentFrame = clip.getFramePosition();
+      clip.stop();
     }
   }
 
@@ -163,28 +154,28 @@ public class WindowPanel implements ActionListener, ChangeListener {
     WindowPanel.run();
   }
 
-  public static void playOrStop() throws IOException {
-    readMusic();
-    clip.start();
+  public void setPauseState() {
+    play_btn.setIcon(play_button_ico);
+    play_btn.setToolTipText("Play the current media");
+    status.setText("<html><b>Currently Playing Nothing</b></html>");
+  }
+
+  public void setPlayState() {
+    play_btn.setIcon(pause_button_ico);
+    play_btn.setToolTipText("Pause the current media");
+    status.setText("<html><b>Currently Playing: </b><br>" + musicFile.getName() + "</html>");
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == play_btn) {
-      if(!toPause) {
-        play_btn.setIcon(pause_button_ico);
-        toPause = true;
-      } else {
-        play_btn.setIcon(play_button_ico);
-        toPause = false;
+      if (play_btn.getIcon() == play_button_ico) {
+        playMusic();
+        setPlayState();
+      } else if (play_btn.getIcon() == pause_button_ico) {
+        pauseMusic();
+        setPauseState();
       }
-      try {
-        if (!alreadyPlaying)
-          playOrStop();
-      } catch (IOException e1) {
-        e1.printStackTrace();
-      }
-      status.setText("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     } else if (e.getSource() == volume_slider) {
       volumeControl();
     }

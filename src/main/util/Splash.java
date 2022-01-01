@@ -7,6 +7,10 @@ import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 
 public class Splash {
+  private float seconds = 3000f;
+  public Splash(float seconds) {
+    this.seconds = seconds;
+  }
   public void run() {
     URL splash_screen = getClass().getResource("/splash_screen.png");
     JWindow window = new JWindow();
@@ -19,7 +23,7 @@ public class Splash {
     window.setLocationRelativeTo(null);
     window.setVisible(true);
     try {
-      Thread.sleep(1500);
+      Thread.sleep((int) (Math.floor(seconds)));
     } catch (InterruptedException e) {
       e.printStackTrace();
       new ErrorMessage(e.getMessage());
