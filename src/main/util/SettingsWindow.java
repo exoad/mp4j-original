@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.awt.Font;
 
 import javax.swing.Box;
@@ -16,9 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.Component;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+import com.formdev.flatlaf.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -34,7 +32,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   private CXX run = new CXX();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
-    FlatDarkLaf.setup();
+    FlatAtomOneDarkContrastIJTheme.setup();
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 600));
@@ -77,7 +75,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   }
 
   public SettingsWindow() throws IOException {
-    FlatDarkLaf.setup();
+    FlatAtomOneDarkContrastIJTheme.setup();
 
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

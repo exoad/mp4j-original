@@ -6,26 +6,40 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.awt.Dimension;
 import javax.swing.JFileChooser;
-import com.formdev.flatlaf.*;
-
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 public class Host {
+  private static String lastDir = "";
+
+  public Host(String lastDir) {
+    this.lastDir = lastDir;
+  }
+
+  public static void extendedFileSaver(File i) throws IOException {
+    LifePreserver lp = new LifePreserver(i.getAbsolutePath());
+    lp.saveToPrevDir();
+  }
+
   public static File openFileBrowser(java.awt.Component parent) {
     JFileChooser fileChooser = null;
     try {
-      FlatDarkLaf.setup();
+      FlatAtomOneDarkContrastIJTheme.setup();
       fileChooser = new JFileChooser();
       fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
       fileChooser.setDialogTitle("Select File using File Explorer");
       fileChooser.setApproveButtonText("Select");
       fileChooser.setApproveButtonToolTipText("Select the file");
-      fileChooser.setCurrentDirectory(new File("C:\\"));
+      if (lastDir != null || lastDir.length() == 0) {
+        fileChooser.setCurrentDirectory(new File(lastDir));
+      } else {
+        fileChooser.setCurrentDirectory(new File("."));
+      }
       fileChooser.setPreferredSize(new Dimension(700, 700));
 
       fileChooser.showOpenDialog(parent);
       return fileChooser.getSelectedFile();
     } catch (Exception e) {
       e.printStackTrace();
-      new main.util.ErrorMessage(e.getMessage());
+      new main.util.ErrorMessage(e.getStackTrace().toString());
     }
     return null;
 

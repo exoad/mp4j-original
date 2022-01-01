@@ -24,16 +24,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;import com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme;
 
 public class WelcomeWindow implements Runnable, ActionListener {
   private JFrame frame;
   private JPanel panel;
   private JButton openSelectFile, github, license, settings;
   private JLabel title, description, version;
+  public static String lastDir = "";
 
-  public WelcomeWindow() {
-    FlatDarkLaf.setup();
+  public WelcomeWindow(String lastDir) {
+    this.lastDir = lastDir;
+    FlatAtomOneDarkContrastIJTheme.setup();
     URL frame_icon = getClass().getResource("/welcome_icon.png");
     ImageIcon frame_ico = new ImageIcon(frame_icon);
     Icon icon = frame_ico;
@@ -115,23 +117,23 @@ public class WelcomeWindow implements Runnable, ActionListener {
   }
 
   public static void main(String[] args) {
-    new WelcomeWindow().run();
+    new WelcomeWindow(lastDir).run();
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == openSelectFile) {
       frame.dispose();
-      new SelectFileWindow().run();
+      new SelectFileWindow(lastDir).run();
     } else if (e.getSource() == github) {
       try {
         Desktop.getDesktop().browse(new URI("https://github.com/exoad/MusicPlayer"));
       } catch (IOException e1) {
         e1.printStackTrace();
-        new ErrorMessage(e1.getMessage());
+        new ErrorMessage(e1.getStackTrace().toString());
       } catch (URISyntaxException e1) {
         e1.printStackTrace();
-        new ErrorMessage(e1.getMessage());
+        new ErrorMessage(e1.getStackTrace().toString());
       }
     } else if (e.getSource() == license) {
       try {
@@ -144,7 +146,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
         try {
           new main.util.SettingsWindow().run();
         } catch (IOException ioe) {
-          new ErrorMessage(ioe.getMessage());
+          new ErrorMessage(ioe.getStackTrace().toString());
           ioe.printStackTrace();
         }
       } else {

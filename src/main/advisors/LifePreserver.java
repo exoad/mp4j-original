@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import jlibxx.util.Encode;
-
 import main.Items;
 
 public class LifePreserver {
@@ -17,8 +15,8 @@ public class LifePreserver {
   }
 
   public void saveToPrevDir() throws IOException {
-    BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Items.items[1] + "/" + "LifePreserver.txt")));
-    bw.write(new Encode(data).toHex());
+    BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Items.items[1] + "/" + main.Sources.LIFEPRESERVER_PREVDIR)));
+    bw.write(data);
     bw.flush();
     bw.close();
   }

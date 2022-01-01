@@ -10,9 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 import main.advisors.Host;
+import main.advisors.LifePreserver;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,9 +23,11 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
   private JFrame frame;
   private JButton button, openExplorer;
   private JTextField textField;
+  private String lastDir = "";
 
-  public SelectFileWindow() {
-    FlatDarkLaf.setup();
+  public SelectFileWindow(String lastFilePath) {
+    lastDir = lastFilePath;
+    FlatAtomOneDarkContrastIJTheme.setup();
     URL frameIcon = getClass().getResource("/file_select_folder_icon.png");
     ImageIcon frameImageIcon = new ImageIcon(frameIcon);
     button = new JButton("Select File");
@@ -42,7 +44,6 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     add(button);
     add(textField);
     add(openExplorer);
-
 
     frame = new JFrame("Select File");
     frame.setIconImage(frameImageIcon.getImage());
@@ -91,11 +92,21 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
       check(textField.getText());
     } else if (e.getSource() == openExplorer) {
       File f = null;
-      new main.advisors.Host();
+      new main.advisors.Host(lastDir);
       f = Host.openFileBrowser(this);
+
       if (f != null) {
         textField.setText(f.getAbsolutePath());
         check(f.getAbsolutePath());
+        try {
+          // get f's directory path
+          String lst = f.getParent();
+          new LifePreserver(lst).saveToPrevDir();
+
+        } catch (Exception ioException) {
+          ioException.printStackTrace();
+          new ErrorMessage(ioException.getStackTrace().toString());
+        }
       }
     }
 

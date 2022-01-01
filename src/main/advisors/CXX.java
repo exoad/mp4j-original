@@ -10,7 +10,6 @@ public class CXX {
   public String callAPI() throws IOException {
     if(System.getProperty("os.name").contains("Windows")) {
       URL windowsAPI = getClass().getResource("/apiwrapper.exe");
-      new Host();
       return Host.runProcess(Runtime.getRuntime(), windowsAPI.getPath());
     }
     return null;
