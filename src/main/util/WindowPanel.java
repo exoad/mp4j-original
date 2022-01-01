@@ -126,6 +126,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
       float range = gainControl.getMaximum() - gainControl.getMinimum();
       float gain = (volume_slider.getValue() / 100.0f) * range + gainControl.getMinimum();
       gainControl.setValue(gain);
+      volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
     }
   }
 
@@ -193,6 +194,13 @@ public class WindowPanel implements ActionListener, ChangeListener {
         setPauseState();
       }
     } else if (e.getSource() == volume_slider) {
+      if(playAsMp3 || musicFile.getName().endsWith(".mp3")) {
+        volume_slider.setEnabled(false);
+        volume_slider.setToolTipText("MP3 is only semi supported for now");
+      } else {
+        volume_slider.setEnabled(true);
+        volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
+      }
       volumeControl();
     }
   }

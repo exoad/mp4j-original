@@ -16,13 +16,13 @@ import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.Component;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
-import com.formdev.flatlaf.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import main.advisors.CXX;
 import main.advisors.JSONParser;
+import main.VersionInfo;
 
 public class SettingsWindow implements Runnable, ActionListener {
   public static JFrame frame;
@@ -49,9 +49,20 @@ public class SettingsWindow implements Runnable, ActionListener {
     verifyFile.addActionListener(this);
     run.callAPI();
     String json = run.callAPI();
-    String versionInfo = ("<html><p>Latest Release: " + JSONParser.parseElement("latest_release", json) + "<br>"
-        + "Latest Patch: " + JSONParser.parseElement("latest_patch", json) + "<br>" + "Latest Beta: "
-        + JSONParser.parseElement("latest_beta", json) + "</p></html>");
+    String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
+        + (JSONParser.parseElement("latest_release", json) == null
+            || JSONParser.parseElement("latest_release", json) == "" ? "Unavaliable"
+                : JSONParser.parseElement("latest_release", json))
+        + "<br>"
+        + "Latest Patch: "
+        + (JSONParser.parseElement("latest_patch", json) == null || JSONParser.parseElement("latest_patch", json) == ""
+            ? "Unavaliable"
+            : JSONParser.parseElement("latest_patch", json))
+        + "<br>" + "Latest Beta: "
+        + (JSONParser.parseElement("latest_beta", json) == null || JSONParser.parseElement("latest_beta", json) == ""
+            ? "Unavaliable"
+            : JSONParser.parseElement("latest_beta", json))
+        + "</p></html>");
 
     information = new JLabel(versionInfo);
     information.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
@@ -94,9 +105,20 @@ public class SettingsWindow implements Runnable, ActionListener {
 
     run.callAPI();
     String json = run.callAPI();
-    String versionInfo = ("<html><p>Latest Release: " + JSONParser.parseElement("latest_release", json) + "<br>"
-        + "Latest Patch: " + JSONParser.parseElement("latest_patch", json) + "<br>" + "Latest Beta: "
-        + JSONParser.parseElement("latest_beta", json) + "</p></html>");
+    String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
+        + (JSONParser.parseElement("latest_release", json) == null
+            || JSONParser.parseElement("latest_release", json) == "" ? "Unavaliable"
+                : JSONParser.parseElement("latest_release", json))
+        + "<br>"
+        + "Latest Patch: "
+        + (JSONParser.parseElement("latest_patch", json) == null || JSONParser.parseElement("latest_patch", json) == ""
+            ? "Unavaliable"
+            : JSONParser.parseElement("latest_patch", json))
+        + "<br>" + "Latest Beta: "
+        + (JSONParser.parseElement("latest_beta", json) == null || JSONParser.parseElement("latest_beta", json) == ""
+            ? "Unavaliable"
+            : JSONParser.parseElement("latest_beta", json))
+        + "</p></html>");
 
     information = new JLabel(versionInfo);
     information.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
