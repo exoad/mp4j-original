@@ -28,7 +28,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   public static JFrame frame;
   private JPanel panel;
   private JLabel title, information;
-  private JButton changeMode;
+  private JButton verifyFile;
   private CXX run = new CXX();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
@@ -41,12 +41,12 @@ public class SettingsWindow implements Runnable, ActionListener {
     title.setAlignmentX(Component.CENTER_ALIGNMENT);
     title.setFont(title.getFont().deriveFont(title.getFont().getSize() * 1.5f));
 
-    changeMode = new JButton("Change to Light Mode");
-    changeMode.setAlignmentX(Component.CENTER_ALIGNMENT);
-    URL changeModeICON = getClass().getResource("/colormode_icon.png");
-    Icon changeModeICO = new ImageIcon(changeModeICON);
-    changeMode.setIcon(changeModeICO);
-    changeMode.addActionListener(this);
+    verifyFile = new JButton("Verify File Integrity");
+    verifyFile.setAlignmentX(Component.CENTER_ALIGNMENT);
+    URL URLFILEINT = getClass().getResource("/fileint_icon.png");
+    Icon fileINTCO = new ImageIcon(URLFILEINT);
+    verifyFile.setIcon(fileINTCO);
+    verifyFile.addActionListener(this);
     run.callAPI();
     String json = run.callAPI();
     String versionInfo = ("<html><p>Latest Release: " + JSONParser.parseElement("latest_release", json) + "<br>"
@@ -58,7 +58,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
 
     panel.add(title);
-    panel.add(changeMode);
+    panel.add(verifyFile);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(10));
     panel.add(information);
@@ -85,12 +85,12 @@ public class SettingsWindow implements Runnable, ActionListener {
     title.setAlignmentX(Component.CENTER_ALIGNMENT);
     title.setFont(title.getFont().deriveFont(title.getFont().getSize() * 1.5f));
 
-    changeMode = new JButton("Change to Light Mode");
-    changeMode.setAlignmentX(Component.CENTER_ALIGNMENT);
-    URL changeModeICON = getClass().getResource("/colormode_icon.png");
-    Icon changeModeICO = new ImageIcon(changeModeICON);
-    changeMode.setIcon(changeModeICO);
-    changeMode.addActionListener(this);
+    verifyFile = new JButton("Change to Light Mode");
+    verifyFile.setAlignmentX(Component.CENTER_ALIGNMENT);
+    URL URLFILEINT = getClass().getResource("/colormode_icon.png");
+    Icon fileINTCO = new ImageIcon(URLFILEINT);
+    verifyFile.setIcon(fileINTCO);
+    verifyFile.addActionListener(this);
 
     run.callAPI();
     String json = run.callAPI();
@@ -103,7 +103,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
 
     panel.add(title);
-    panel.add(changeMode);
+    panel.add(verifyFile);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(30));
     panel.add(information);
@@ -131,13 +131,10 @@ public class SettingsWindow implements Runnable, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == changeMode) {
-
+    if (e.getSource() == verifyFile) {
       try {
-        UIManager.setLookAndFeel(new FlatLightLaf());
-        frame.dispose();
-        new SettingsWindow().run();
 
+        
       } catch (Exception e1) {
         e1.printStackTrace();
       }
