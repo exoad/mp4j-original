@@ -192,7 +192,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_btn.setToolTipText("Pause the current media");
     status.setText("<html><b>Currently Playing: </b><br>" + musicFile.getName() + "</html>");
   }
-
   
   /** 
    * @param e
