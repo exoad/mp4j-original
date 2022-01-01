@@ -105,9 +105,9 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == button) {
+    if (e.getSource().equals(button)) {
       check(textField.getText());
-    } else if (e.getSource() == openExplorer) {
+    } else if (e.getSource().equals(openExplorer)) {
       File f = null;
       new main.advisors.Host(lastDir);
       f = Host.openFileBrowser(this);

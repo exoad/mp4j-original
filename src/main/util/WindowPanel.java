@@ -199,7 +199,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == play_btn) {
+    if (e.getSource().equals(play_btn)) {
       if (play_btn.getIcon() == play_button_ico) {
         try {
           playMusic();
@@ -211,7 +211,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
         pauseMusic();
         setPauseState();
       }
-    } else if (e.getSource() == volume_slider) {
+    } else if (e.getSource().equals(volume_slider)) {
       if (playAsMp3 || musicFile.getName().endsWith(".mp3")) {
         volume_slider.setEnabled(false);
         volume_slider.setToolTipText("MP3 is only semi supported for now");
@@ -236,7 +236,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
    */
   @Override
   public void stateChanged(ChangeEvent e) {
-    if (e.getSource() == volume_slider) {
+    if (e.getSource().equals(volume_slider)) {
       volumeControl();
     }
   }

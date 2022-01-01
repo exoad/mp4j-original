@@ -174,7 +174,7 @@ public class SettingsWindow implements Runnable, ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == verifyFile) {
+    if (e.getSource().equals(verifyFile)) {
       try {
         String end = run.veriyFile();
         Thread.sleep(600);

@@ -142,22 +142,22 @@ public class WelcomeWindow implements Runnable, ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == openSelectFile) {
+    if (e.getSource().equals(openSelectFile)) {
       new SelectFileWindow(lastDir).run();
-    } else if (e.getSource() == github) {
+    } else if (e.getSource().equals(github)) {
       try {
         Desktop.getDesktop().browse(new URI("https://github.com/exoad/MusicPlayer"));
       } catch (java.io.IOException | java.net.URISyntaxException e1) {
         e1.printStackTrace();
         new ErrorMessage(java.util.Arrays.toString(e1.getStackTrace()));
       }
-    } else if (e.getSource() == license) {
+    } else if (e.getSource().equals(license)) {
       try {
         new main.util.LicenseWindow().run();
       } catch (IOException e1) {
         e1.printStackTrace();
       }
-    } else if (e.getSource() == settings) {
+    } else if (e.getSource().equals(settings)) {
       if (main.util.SettingsWindow.getInstance() == null) {
         try {
           new main.util.SettingsWindow().run();
@@ -168,7 +168,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
       } else {
         new ErrorMessage("Settings window is already open!");
       }
-    } else if (e.getSource() == documentation) {
+    } else if (e.getSource().equals(documentation)) {
       try {
         new main.util.DocumentationWindow().run();
       } catch (IOException ioe) {

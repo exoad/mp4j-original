@@ -56,7 +56,7 @@ public class ErrorMessage implements ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == okButton) {
+    if (e.getSource().equals(okButton)) {
       frame.dispose();
     }
   }
