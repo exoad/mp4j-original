@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.FileSystems;
 import java.awt.Dimension;
 
 import javax.sound.sampled.AudioFileFormat;
@@ -13,6 +14,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
 
 public class Host {
   private static String lastDir = "";
@@ -65,22 +67,4 @@ public class Host {
     return null;
   }
 
-  public static void mp3toWav(File mp3Data) throws UnsupportedAudioFileException, IOException {
-    String originalDir = mp3Data.getParent();
-    String originalFileName = mp3Data.getName().replaceAll(".wav", "");
-    AudioInputStream mp3Stream = AudioSystem.getAudioInputStream(mp3Data);
-    AudioFormat sourceFormat = mp3Stream.getFormat();
-
-    AudioFormat convertFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
-        sourceFormat.getSampleRate(), 16,
-        sourceFormat.getChannels(),
-        sourceFormat.getChannels() * 2,
-        sourceFormat.getSampleRate(),
-        false);
-
-    AudioInputStream converted = AudioSystem.getAudioInputStream(convertFormat, mp3Stream);
-
-    AudioSystem.write(converted, AudioFileFormat.Type.WAVE, new File(originalDir + "/" + originalFileName + ".mp3"));
-
-  }
 }

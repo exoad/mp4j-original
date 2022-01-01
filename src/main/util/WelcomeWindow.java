@@ -24,12 +24,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;import com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 
 public class WelcomeWindow implements Runnable, ActionListener {
   private JFrame frame;
   private JPanel panel;
-  private JButton openSelectFile, github, license, settings;
+  private JButton openSelectFile, github, license, settings, documentation;
   private JLabel title, description, version;
   public static String lastDir = "";
 
@@ -87,6 +87,13 @@ public class WelcomeWindow implements Runnable, ActionListener {
     settings.addActionListener(this);
     settings.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+    URL docs_icon = getClass().getResource("/documentation_icon.png");
+    Icon doc_ico = new ImageIcon(docs_icon);
+    documentation = new JButton("Documentation");
+    documentation.setIcon(doc_ico);
+    documentation.addActionListener(this);
+    documentation.setAlignmentX(Component.CENTER_ALIGNMENT);
+
     panel.add(title);
     panel.add(version);
     panel.add(Box.createVerticalStrut(20));
@@ -98,8 +105,10 @@ public class WelcomeWindow implements Runnable, ActionListener {
     panel.add(Box.createVerticalStrut(8));
     panel.add(license);
     panel.add(Box.createVerticalStrut(8));
+    panel.add(documentation);
+    panel.add(Box.createVerticalStrut(8));
     panel.add(settings);
-    panel.setPreferredSize(new Dimension(500, 300));
+    panel.setPreferredSize(new Dimension(500, 340));
 
     frame = new JFrame("Music-Player v1.0 | Jack Meng | Welcome!");
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -152,7 +161,13 @@ public class WelcomeWindow implements Runnable, ActionListener {
       } else {
         new ErrorMessage("Settings window is already open!");
       }
-
+    } else if (e.getSource() == documentation) {
+      try {
+        new main.util.DocumentationWindow().run();
+      } catch (IOException ioe) {
+        new ErrorMessage(ioe.getStackTrace().toString());
+        ioe.printStackTrace();
+      }
     }
 
   }

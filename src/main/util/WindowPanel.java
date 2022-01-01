@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -30,6 +31,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+
 public class WindowPanel implements ActionListener, ChangeListener {
   protected JPanel bp, mainPanel;
   protected JButton play_btn, new_file;
@@ -40,13 +45,14 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected static File musicFile;
   protected static Clip clip;
   protected boolean loop = false;
-  protected static boolean alreadyPlaying = false, toPause = false;
+  protected static boolean alreadyPlaying = false, toPause = false, playAsMp3 = false;
   protected static String music_path;
   protected URL pause_icon = getClass().getResource("/pause_button.png");
   protected Icon pause_button_ico = new ImageIcon(pause_icon);
   protected URL play_icon = getClass().getResource("/play_button.png");
   protected Icon play_button_ico = new ImageIcon(play_icon);
   private static AudioInputStream audioInputStream;
+  private static Player mp3Player;
   public long currentFrame = 0;
 
   public WindowPanel(String resource) {
@@ -123,15 +129,23 @@ public class WindowPanel implements ActionListener, ChangeListener {
     }
   }
 
-  public void playMusic() {
+  public void playMusic() throws JavaLayerException {
     try {
-      audioInputStream = AudioSystem.getAudioInputStream(musicFile);
-      clip = AudioSystem.getClip();
-      clip.open(audioInputStream);
-      clip.setMicrosecondPosition(currentFrame);
-      clip.start();
+      if (!musicFile.getName().endsWith(".mp3")) {
+        audioInputStream = AudioSystem.getAudioInputStream(musicFile);
+        clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.setMicrosecondPosition(currentFrame);
+        clip.start();
+        playAsMp3 = false;
+        volumeControl();
+      } else {
+        playAsMp3 = true;
+        mp3Player = new Player(new FileInputStream(musicFile));
+        mp3Player.play();
+      }
 
-      volumeControl();
+      
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
       e.printStackTrace();
     }
@@ -168,7 +182,11 @@ public class WindowPanel implements ActionListener, ChangeListener {
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == play_btn) {
       if (play_btn.getIcon() == play_button_ico) {
-        playMusic();
+        try {
+          playMusic();
+        } catch (JavaLayerException e1) {
+          e1.printStackTrace();
+        }
         setPlayState();
       } else if (play_btn.getIcon() == pause_button_ico) {
         pauseMusic();

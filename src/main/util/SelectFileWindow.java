@@ -76,13 +76,12 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
       new ErrorMessage("Invalid file path");
     }
     file = new File(filePath);
-    if (file.getName().endsWith(".wav")) {
+    if (file.getName().endsWith(".wav") || file.getName().endsWith(".mp3")) {
       frame.setVisible(false);
       frame.dispose();
       WindowPanel.run();
     } else {
       new ErrorMessage("Invalid file type");
-
     }
   }
 
@@ -99,7 +98,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
         textField.setText(f.getAbsolutePath());
         check(f.getAbsolutePath());
         try {
-          // get f's directory path
+
           String lst = f.getParent();
           new LifePreserver(lst).saveToPrevDir();
 
