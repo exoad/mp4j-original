@@ -128,8 +128,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
       audioInputStream = AudioSystem.getAudioInputStream(musicFile);
       clip = AudioSystem.getClip();
       clip.open(audioInputStream);
-      // play clip at currentFrame
-      clip.setFramePosition((int) currentFrame);
+      clip.setMicrosecondPosition(currentFrame);
       clip.start();
 
       volumeControl();
@@ -140,7 +139,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
   public void pauseMusic() {
     if (clip != null) {
-      currentFrame = clip.getFramePosition();
+      currentFrame = clip.getMicrosecondPosition();
       clip.stop();
     }
   }
