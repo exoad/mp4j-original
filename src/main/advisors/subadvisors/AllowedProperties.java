@@ -35,4 +35,12 @@ public class AllowedProperties {
       return false;
     return ((allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s)) || new File(s).isFile() || allowedDefCache.contains(s) || allowedDefDirs.contains(s));
   }
+
+  public static boolean valInt(Object a) {
+    if(!(a instanceof Integer))
+      return false;
+
+    int b = Integer.parseInt(String.valueOf(a));
+    return (b >= 1 && b <= 64);
+  }
 }

@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import main.advisors.PropertiesReader;
 
 public class WelcomeWindow implements Runnable, ActionListener {
   private final JFrame frame;
@@ -31,9 +32,9 @@ public class WelcomeWindow implements Runnable, ActionListener {
   private final JButton documentation;
   public static String lastDir = "";
 
-  public WelcomeWindow(String lastDir) {
+  public WelcomeWindow(String lastDir) throws IOException {
     WelcomeWindow.lastDir = lastDir;
-    
+
     URL frame_icon = getClass().getResource("/welcome_icon.png");
     assert frame_icon != null;
     ImageIcon frame_ico = new ImageIcon(frame_icon);
@@ -97,19 +98,21 @@ public class WelcomeWindow implements Runnable, ActionListener {
     documentation.addActionListener(this);
     documentation.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+    PropertiesReader pr = new PropertiesReader();
+
     panel.add(title);
     panel.add(version);
     panel.add(Box.createVerticalStrut(20));
     panel.add(description);
     panel.add(Box.createVerticalStrut(20));
     panel.add(openSelectFile);
-    panel.add(Box.createVerticalStrut(8));
+    panel.add(Box.createVerticalStrut(Integer.parseInt(pr.getVal("gui.defaultBoxSize"))));
     panel.add(github);
-    panel.add(Box.createVerticalStrut(8));
+    panel.add(Box.createVerticalStrut(Integer.parseInt(pr.getVal("gui.defaultBoxSize"))));
     panel.add(license);
-    panel.add(Box.createVerticalStrut(8));
+    panel.add(Box.createVerticalStrut(Integer.parseInt(pr.getVal("gui.defaultBoxSize"))));
     panel.add(documentation);
-    panel.add(Box.createVerticalStrut(8));
+    panel.add(Box.createVerticalStrut(Integer.parseInt(pr.getVal("gui.defaultBoxSize"))));
     panel.add(settings);
     panel.setPreferredSize(new Dimension(500, 340));
 
@@ -130,8 +133,9 @@ public class WelcomeWindow implements Runnable, ActionListener {
 
   /**
    * @param args
+   * @throws IOException
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     new WelcomeWindow(lastDir).run();
   }
 

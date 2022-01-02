@@ -30,7 +30,7 @@ public class PropertiesReader {
         p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
         p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
         p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
-
+        p.setProperty("gui.defaultBoxSize", String.valueOf(DefProperties.DEFAULT_BOX_SIZE));
         p.store(os, Items.PROPERTIES_HEADER_COMMENT);
       }
     }
@@ -56,6 +56,9 @@ public class PropertiesReader {
 
       if (AllowedProperties.validate(p.getProperty("runner.disableCache")))
         properties.add(p.getProperty("runner.disableCache"));
+
+      if (AllowedProperties.validate(p.getProperty("gui.defaultBoxSize")))
+        properties.add(p.getProperty("gui.defaultBoxSize"));
     }
 
     return properties;
@@ -78,6 +81,9 @@ public class PropertiesReader {
 
       if (AllowedProperties.validate(p.getProperty("runner.disableCache")))
         properties.put("runner.disableCache", p.getProperty("runner.disableCache"));
+
+      if (AllowedProperties.validate(p.getProperty("gui.defaultBoxSize")))
+        properties.put("gui.defaultBoxSize", p.getProperty("gui.defaultBoxSize"));
     }
     return properties;
   }
@@ -86,6 +92,8 @@ public class PropertiesReader {
     p = new Properties();
     try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
       p.load(isr);
+      if (p.getProperty("gui.defaultBoxSize") == null || p.getProperty("gui.defaultBoxSize").isEmpty())
+        return false;
       if (!AllowedProperties.validate(p.getProperty("explorer.defaultDir"))
           || !AllowedProperties.validate(p.getProperty("runner.disableCache"))
           || !AllowedProperties.validate(p.getProperty("gui.defaultTheme")))
@@ -111,12 +119,17 @@ public class PropertiesReader {
       p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
       p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
       p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
+      p.setProperty("gui.defaultBoxSize", String.valueOf(DefProperties.DEFAULT_BOX_SIZE));
 
       p.store(os, Items.PROPERTIES_HEADER_COMMENT);
     } catch (IOException e) {
       return false;
     }
     return true;
+  }
+
+  public String getVal(String key) {
+    return p.getProperty(key);
   }
 
   public static void main(String[] args) {

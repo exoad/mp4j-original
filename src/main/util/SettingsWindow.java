@@ -22,6 +22,7 @@ import java.io.IOException;
 import main.advisors.CXX;
 import main.advisors.JSONParser;
 import main.advisors.PropertiesReader;
+import main.telemetry.Logger;
 import main.VersionInfo;
 import main.advisors.Cache;
 
@@ -30,7 +31,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   private final JPanel panel;
   private final JLabel title;
   private final JLabel information;
-  private final JButton verifyFile, clearCache, resetProperties;
+  private final JButton verifyFile, clearCache, resetProperties, clearLogs;
   private final CXX run = new CXX();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
@@ -82,6 +83,11 @@ public class SettingsWindow implements Runnable, ActionListener {
     clearCache.setIcon(trashcanCO);
     clearCache.addActionListener(this);
 
+    clearLogs = new JButton("Clear Logs");
+    clearLogs.setAlignmentX(Component.CENTER_ALIGNMENT);
+    clearLogs.setIcon(trashcanCO);
+    clearLogs.addActionListener(this);
+
     resetProperties = new JButton("Reset Properties");
     resetProperties.setAlignmentX(Component.CENTER_ALIGNMENT);
     URL URLRESETPROP = getClass().getResource("/reset_icon.png");
@@ -91,10 +97,11 @@ public class SettingsWindow implements Runnable, ActionListener {
     resetProperties.addActionListener(this);
 
     panel.add(title);
-    panel.add(Box.createHorizontalStrut(30));
+    panel.add(Box.createHorizontalStrut(15));
     panel.add(verifyFile);
     panel.add(clearCache);
     panel.add(resetProperties);
+    panel.add(clearLogs);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(10));
     panel.add(information);
@@ -162,6 +169,11 @@ public class SettingsWindow implements Runnable, ActionListener {
     clearCache.setIcon(trashcanCO);
     clearCache.addActionListener(this);
 
+    clearLogs = new JButton("Clear Logs");
+    clearLogs.setAlignmentX(Component.CENTER_ALIGNMENT);
+    clearLogs.setIcon(trashcanCO);
+    clearLogs.addActionListener(this);
+
     resetProperties = new JButton("Reset Properties");
     resetProperties.setAlignmentX(Component.CENTER_ALIGNMENT);
     URL URLRESETPROP = getClass().getResource("/reset_icon.png");
@@ -171,10 +183,11 @@ public class SettingsWindow implements Runnable, ActionListener {
     resetProperties.addActionListener(this);
 
     panel.add(title);
-    panel.add(Box.createHorizontalStrut(30));
+    panel.add(Box.createHorizontalStrut(15));
     panel.add(verifyFile);
     panel.add(clearCache);
     panel.add(resetProperties);
+    panel.add(clearLogs);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(30));
     panel.add(information);
@@ -237,6 +250,12 @@ public class SettingsWindow implements Runnable, ActionListener {
         new OKWindow("Properties Reset");
       } else {
         new ErrorMessage("Reset failed");
+      }
+    } else if (e.getSource().equals(clearLogs)) {
+      if(Logger.clear()) {
+        new OKWindow("Logs Cleared");
+      } else {
+        new ErrorMessage("Cannot Clear Logs at this moment");
       }
     }
 
