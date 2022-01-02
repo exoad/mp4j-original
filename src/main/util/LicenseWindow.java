@@ -3,7 +3,6 @@ package main.util;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -18,9 +17,6 @@ import javax.swing.WindowConstants;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-
-import main.Items;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

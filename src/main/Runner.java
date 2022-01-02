@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 
 import main.advisors.PropertiesReader;
 
@@ -41,8 +39,6 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarker
  */
 
 public class Runner {
-  private static HashSet<String> holder = new HashSet<>();
-  private static HashMap<String, String> keyedHolder = new HashMap<>();
   private static PropertiesReader properties;
 
   /**
@@ -95,8 +91,8 @@ public class Runner {
 
   private static void initLAF() throws IOException {
     try {
-      holder = PropertiesReader.generalProp();
-      keyedHolder = PropertiesReader.keyyedProp();
+      PropertiesReader.generalProp();
+      PropertiesReader.keyyedProp();
     } catch (IOException e) {
       e.printStackTrace();
     }

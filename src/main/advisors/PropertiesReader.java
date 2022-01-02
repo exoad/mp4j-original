@@ -18,12 +18,11 @@ import main.Items;
 
 public class PropertiesReader {
   private static Properties p;
-  private static AllowedProperties ap;
   private static HashMap<String, String> setProp = new HashMap<>();
 
   public PropertiesReader() throws IOException {
     p = new Properties();
-    ap = new AllowedProperties();
+    new AllowedProperties();
 
     if (!hasAllProperties()) {
       try (OutputStream os = new FileOutputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
