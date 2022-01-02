@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import main.advisors.PropertiesReader;
+
 /**
  * <h1>Runner</h1>
  * <p>
@@ -52,6 +54,12 @@ public class Runner implements Runnable {
   public void run() {
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
     System.setProperty("flatlaf.animation", "false");
+    try {
+      PropertiesReader pr = new PropertiesReader();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    
     File apiCache = new File(Items.items[0]);
     if (!apiCache.isDirectory()) {
       apiCache.mkdir();
