@@ -69,7 +69,7 @@ public class PropertiesReader {
         properties.put("gui.defaultTheme", p.getProperty("gui.defaultTheme"));
 
       if (AllowedProperties.validate(p.getProperty("runner.disableCache")))
-        properties.put("runner.disableCache", p.getProperty("runner.disableCache"));      
+        properties.put("runner.disableCache", p.getProperty("runner.disableCache"));
     }
     return properties;
   }
@@ -87,11 +87,25 @@ public class PropertiesReader {
   }
 
   public String toString() {
+    // use the iterator class to get the keys
     StringBuilder sb = new StringBuilder();
     for (String key : setProp.keySet()) {
-      sb.append(key + " | " + setProp.get(key) + "\n");
+      sb.append(key + "=" + setProp.get(key) + "\n");
     }
     return sb.toString();
+  }
+
+  public static boolean reset() {
+    try (OutputStream os = new FileOutputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
+      p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
+      p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
+      p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
+
+      p.store(os, Items.PROPERTIES_HEADER_COMMENT);
+    } catch (IOException e) {
+      return false;
+    }
+    return true;
   }
 
   public static void main(String[] args) {

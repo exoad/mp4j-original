@@ -127,15 +127,15 @@ public class WelcomeWindow implements Runnable, ActionListener {
     frame.setVisible(true);
     frame.pack();
   }
-  
-  /** 
+
+  /**
    * @param args
    */
   public static void main(String[] args) {
     new WelcomeWindow(lastDir).run();
   }
 
-  /** 
+  /**
    * @param e
    */
   @Override
@@ -156,15 +156,11 @@ public class WelcomeWindow implements Runnable, ActionListener {
         e1.printStackTrace();
       }
     } else if (e.getSource().equals(settings)) {
-      if (main.util.SettingsWindow.getInstance() == null) {
-        try {
-          new main.util.SettingsWindow().run();
-        } catch (IOException ioe) {
-          new ErrorMessage(java.util.Arrays.toString(ioe.getStackTrace()));
-          ioe.printStackTrace();
-        }
-      } else {
-        new ErrorMessage("Settings window is already open!");
+      try {
+        new main.util.SettingsWindow().run();
+      } catch (IOException ioe) {
+        new ErrorMessage(java.util.Arrays.toString(ioe.getStackTrace()));
+        ioe.printStackTrace();
       }
     } else if (e.getSource().equals(documentation)) {
       try {

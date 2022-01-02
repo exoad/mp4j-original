@@ -23,6 +23,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarker
 
 import main.advisors.CXX;
 import main.advisors.JSONParser;
+import main.advisors.PropertiesReader;
 import main.VersionInfo;
 import main.advisors.Cache;
 
@@ -31,7 +32,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   private final JPanel panel;
   private final JLabel title;
   private final JLabel information;
-  private final JButton verifyFile, clearCache;
+  private final JButton verifyFile, clearCache, resetProperties;
   private final CXX run = new CXX();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
@@ -83,10 +84,19 @@ public class SettingsWindow implements Runnable, ActionListener {
     clearCache.setIcon(trashcanCO);
     clearCache.addActionListener(this);
 
+    resetProperties = new JButton("Reset Properties");
+    resetProperties.setAlignmentX(Component.CENTER_ALIGNMENT);
+    URL URLRESETPROP = getClass().getResource("/reset_icon.png");
+    assert URLRESETPROP != null;
+    Icon resetPROPCO = new ImageIcon(URLRESETPROP);
+    resetProperties.setIcon(resetPROPCO);
+    resetProperties.addActionListener(this);
+
     panel.add(title);
     panel.add(Box.createHorizontalStrut(30));
     panel.add(verifyFile);
     panel.add(clearCache);
+    panel.add(resetProperties);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(10));
     panel.add(information);
@@ -112,7 +122,7 @@ public class SettingsWindow implements Runnable, ActionListener {
 
     title = new JLabel("Settings");
     title.setAlignmentX(Component.CENTER_ALIGNMENT);
-    title.setFont(title.getFont().deriveFont(title.getFont().getSize() * 1.5f));
+    title.setFont(title.getFont().deriveFont(title.getFont().getSize() * 2.0f));
 
     verifyFile = new JButton("Check File Integrity");
     verifyFile.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -154,10 +164,19 @@ public class SettingsWindow implements Runnable, ActionListener {
     clearCache.setIcon(trashcanCO);
     clearCache.addActionListener(this);
 
+    resetProperties = new JButton("Reset Properties");
+    resetProperties.setAlignmentX(Component.CENTER_ALIGNMENT);
+    URL URLRESETPROP = getClass().getResource("/reset_icon.png");
+    assert URLRESETPROP != null;
+    Icon resetPROPCO = new ImageIcon(URLRESETPROP);
+    resetProperties.setIcon(resetPROPCO);
+    resetProperties.addActionListener(this);
+
     panel.add(title);
     panel.add(Box.createHorizontalStrut(30));
     panel.add(verifyFile);
     panel.add(clearCache);
+    panel.add(resetProperties);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(30));
     panel.add(information);
@@ -214,6 +233,12 @@ public class SettingsWindow implements Runnable, ActionListener {
         }
       } catch (Exception e1) {
         e1.printStackTrace();
+      }
+    } else if (e.getSource().equals(resetProperties)) {
+      if (PropertiesReader.reset()) {
+        new OKWindow("Properties Reset");
+      } else {
+        new ErrorMessage("Reset failed");
       }
     }
 

@@ -7,6 +7,7 @@ public class AllowedProperties {
   public static final HashSet<String> allowedDarkLaf = new HashSet<>();
   public static final HashSet<String> allowedLiteLaf = new HashSet<>();
   public static final HashSet<String> allowedDefCache = new HashSet<>();
+  public static final HashSet<String> allowedDefDirs = new HashSet<>();
 
   public AllowedProperties() {
     allowedDarkLaf.add("regulardark");
@@ -24,11 +25,15 @@ public class AllowedProperties {
 
     allowedDefCache.add("false");
     allowedDefCache.add("true");
+
+    allowedDefDirs.add(".");
+    allowedDefDirs.add("~");
+    allowedDefDirs.add("/");
   }
 
   public static boolean validate(String s) {
     if(s == null || s.isEmpty() || s == " ")
       return false;
-    return ((allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s)) || new File(s).isFile() || allowedDefCache.contains(s));
+    return ((allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s)) || new File(s).isFile() || allowedDefCache.contains(s) || allowedDefDirs.contains(s));
   }
 }
