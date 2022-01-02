@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 
 import main.advisors.PropertiesReader;
 
@@ -28,6 +29,7 @@ import main.advisors.PropertiesReader;
  */
 
 public class Runner implements Runnable {
+  private static HashSet<String> holder = new HashSet<>();
   /** 
    * @return String
    * @throws IOException
@@ -55,11 +57,10 @@ public class Runner implements Runnable {
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
     System.setProperty("flatlaf.animation", "false");
     try {
-      PropertiesReader pr = new PropertiesReader();
+      holder = PropertiesReader.generalProp(Items.items[1] + "/" + Sources.PROPERTIES_FILE);
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
     File apiCache = new File(Items.items[0]);
     if (!apiCache.isDirectory()) {
       apiCache.mkdir();
@@ -70,7 +71,6 @@ public class Runner implements Runnable {
     }
   }
 
-  
   /** 
    * @param args
    * @throws InterruptedException
