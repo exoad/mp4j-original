@@ -127,7 +127,6 @@ public class WelcomeWindow implements Runnable, ActionListener {
     frame.setVisible(true);
     frame.pack();
   }
-
   
   /** 
    * @param args
@@ -136,7 +135,6 @@ public class WelcomeWindow implements Runnable, ActionListener {
     new WelcomeWindow(lastDir).run();
   }
 
-  
   /** 
    * @param e
    */

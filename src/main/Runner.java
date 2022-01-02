@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import main.advisors.PropertiesReader;
@@ -30,6 +31,7 @@ import main.advisors.PropertiesReader;
 
 public class Runner implements Runnable {
   private static HashSet<String> holder = new HashSet<>();
+  private static HashMap<String, String> keyedHolder = new HashMap<>();
   /** 
    * @return String
    * @throws IOException
@@ -58,6 +60,7 @@ public class Runner implements Runnable {
     System.setProperty("flatlaf.animation", "false");
     try {
       holder = PropertiesReader.generalProp();
+      keyedHolder = PropertiesReader.keyyedProp();
     } catch (IOException e) {
       e.printStackTrace();
     }

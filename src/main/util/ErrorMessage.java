@@ -43,7 +43,7 @@ public class ErrorMessage implements ActionListener {
     frame = new JFrame("Error: " + message);
     frame.setIconImage(icon.getImage());
     frame.add(jsp);
-    frame.setSize(300, 100);
+    frame.setSize(400, 120);
     frame.setResizable(false);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
+
 import main.advisors.CXX;
 import main.advisors.JSONParser;
 import main.VersionInfo;
@@ -37,7 +38,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     FlatMaterialDarkerIJTheme.setup();
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-    panel.setPreferredSize(new Dimension(500, 600));
+    panel.setPreferredSize(new Dimension(500, 400));
 
     title = new JLabel("Settings");
     title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -74,11 +75,18 @@ public class SettingsWindow implements Runnable, ActionListener {
     information.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
     information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
 
-    clearCache = new JButton();
+    clearCache = new JButton("Clear Cache");
+    clearCache.setAlignmentX(Component.CENTER_ALIGNMENT);
+    URL URLCLEARCACHE = getClass().getResource("/trashcan_icon.png");
+    assert URLCLEARCACHE != null;
+    Icon trashcanCO = new ImageIcon(URLCLEARCACHE);
+    clearCache.setIcon(trashcanCO);
+    clearCache.addActionListener(this);
 
     panel.add(title);
     panel.add(Box.createHorizontalStrut(30));
     panel.add(verifyFile);
+    panel.add(clearCache);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(10));
     panel.add(information);
@@ -138,10 +146,18 @@ public class SettingsWindow implements Runnable, ActionListener {
     information.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
     information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
 
-    clearCache = new JButton();
+    clearCache = new JButton("Clear Cache");
+    clearCache.setAlignmentX(Component.CENTER_ALIGNMENT);
+    URL URLCLEARCACHE = getClass().getResource("/trashcan_icon.png");
+    assert URLCLEARCACHE != null;
+    Icon trashcanCO = new ImageIcon(URLCLEARCACHE);
+    clearCache.setIcon(trashcanCO);
+    clearCache.addActionListener(this);
 
     panel.add(title);
+    panel.add(Box.createHorizontalStrut(30));
     panel.add(verifyFile);
+    panel.add(clearCache);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(30));
     panel.add(information);
@@ -150,7 +166,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     assert icon != null;
     ImageIcon imageIcon = new ImageIcon(icon);
     frame = new JFrame("Music Player | Settings");
-    frame.setSize(500, 600);
+    frame.setSize(500, 400);
     frame.setResizable(false);
     frame.setIconImage(imageIcon.getImage());
     frame.setLocationRelativeTo(null);
@@ -164,8 +180,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     frame.pack();
   }
 
-  
-  /** 
+  /**
    * @param args
    * @throws IOException
    */
@@ -173,8 +188,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     new SettingsWindow().run();
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override
@@ -191,12 +205,21 @@ public class SettingsWindow implements Runnable, ActionListener {
       } catch (Exception e1) {
         e1.printStackTrace();
       }
+    } else if (e.getSource().equals(clearCache)) {
+      try {
+        if (Cache.cleanCache()) {
+          new OKWindow("Cache Cleared");
+        } else {
+          new ErrorMessage("Cannot Clear Cache at this moment");
+        }
+      } catch (Exception e1) {
+        e1.printStackTrace();
+      }
     }
 
   }
 
-  
-  /** 
+  /**
    * @return Object
    */
   public static Object getInstance() {
