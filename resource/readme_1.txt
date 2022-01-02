@@ -19,6 +19,22 @@ to be used to simply play music for now.
 Although it is not a complete music player, it sure 
 will be improved upon in the near future!
 
+You might have noticed in the source code, there is a
+package of source code called "Telemetry."
+
+> Telemetry <
+========================
+The only part of the program that will use the internet
+is when you open the settings window. The latest
+release versions are fetched from the API to get the 
+latest information on the application. 
+
+The telemetry package in the source code is used to
+track and log certain actions within the program.
+Either for the program to self debug itself or to
+collect any stack dumps!
+
+========================
 > Usage <
 ========================
 This Documentation is made for the version of 
