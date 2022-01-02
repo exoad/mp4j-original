@@ -20,7 +20,7 @@ using namespace std;
 
 const string def_path = "./MusicPlayer/";
 const string doc_file = "../MusicPlayer/Properties_doc.txt";
-const string properties_doc = "> Properties Documentation <\n\nProperty Name | Description\ngui.defaultTheme | Changes the LAF of the MusicPlayer\nAvaliable Confs: regulardark, materia, onedark, arcdark, dracula, nord, gruvbox, vuesion, regularlight, solarized\n\nexplorer.defaultDir | Default Spawn Directory for the File Explorer:\n\".\", \"~\", \"/\"\n\nrunner.disableCache | Disable Caching\ntrue, false";
+const string properties_doc = "> Properties Documentation <\n\nProperty Name | Description\ngui.defaultTheme | Changes the LAF of the MusicPlayer\nAvaliable Confs: regulardark, materia, onedark, arcdark, dracula, nord, gruvbox, vuesion, regularlight, solarized\n\nexplorer.defaultDir | Default Spawn Directory for the File Explorer:\n\".\", \"~\", \"/\"\n\nrunner.disableCache | Disable Caching\ntrue, false\n\ngui.defaultBoxSize | Change Button Spacing\n1 to 64";
 
 int main(int argc, char **argv) {
   speed;
