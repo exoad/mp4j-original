@@ -42,6 +42,10 @@ public class PropertiesReader {
   public static HashSet<String> generalProp() throws IOException, InvalidPropertiesFormatException {
     HashSet<String> properties = new HashSet<>();
     p = new Properties();
+    if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
+      new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).createNewFile();
+      reset();
+    }
     try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
       p.load(isr);
       if (AllowedProperties.validate(p.getProperty("explorer.defaultDir")))
@@ -60,6 +64,10 @@ public class PropertiesReader {
   public static HashMap<String, String> keyyedProp() throws IOException, InvalidPropertiesFormatException {
     HashMap<String, String> properties = new HashMap<>();
     p = new Properties();
+    if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
+      new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).createNewFile();
+      reset();
+    }
     try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
       p.load(isr);
       if (AllowedProperties.validate(p.getProperty("explorer.defaultDir")))
@@ -87,7 +95,7 @@ public class PropertiesReader {
   }
 
   public String toString() {
-    // use the iterator class to get the keys
+
     StringBuilder sb = new StringBuilder();
     for (String key : setProp.keySet()) {
       sb.append(key + "=" + setProp.get(key) + "\n");
