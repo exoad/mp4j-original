@@ -3,25 +3,34 @@ package main.util;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.swing.Box;
-
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-public class LicenseWindow implements Runnable {
-  private final JFrame frame;
+import main.Items;
 
-  public LicenseWindow() throws IOException {
-    
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class LicenseWindow implements Runnable, ActionListener {
+  private final JFrame frame;
+  private final JButton agree, disagree;
+  public boolean proceed = false;
+
+  public LicenseWindow(int firstTime) throws IOException {
+
     URL url = getClass().getResource("/license_icon.png");
     assert url != null;
     ImageIcon icon = new ImageIcon(url);
@@ -69,8 +78,27 @@ public class LicenseWindow implements Runnable {
     scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
     scrollPane.setPreferredSize(new Dimension(450, 500));
 
-    frame.add(label);
-    frame.add(Box.createVerticalStrut(7));
+    agree = new JButton("Agree");
+    disagree = new JButton("Disagree");
+
+    if (firstTime != 0) {
+      JPanel panel = new JPanel();
+      panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+      
+      agree.addActionListener(this);
+      agree.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+      
+      disagree.addActionListener(this);
+      disagree.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+      panel.add(agree);
+      panel.add(disagree);
+
+      frame.add(label);
+      frame.add(Box.createHorizontalStrut(2));
+      frame.add(Box.createVerticalStrut(7));
+    }
     frame.add(scrollPane);
 
   }
@@ -81,12 +109,26 @@ public class LicenseWindow implements Runnable {
     frame.setVisible(true);
   }
 
-  
-  /** 
+  /**
    * @param args
    * @throws IOException
    */
   public static void main(String[] args) throws IOException {
-    new LicenseWindow().run();
+    new LicenseWindow(1).run();
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if(e.getSource() == agree) {
+      frame.dispose();
+      proceed = true;
+    } else if(e.getSource() == disagree) {
+      frame.dispose();
+      proceed = false;
+    }
+  }
+
+  public boolean isVisible() {
+    return frame.isVisible();
   }
 }

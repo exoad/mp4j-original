@@ -155,7 +155,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
       }
     } else if (e.getSource().equals(license)) {
       try {
-        new main.util.LicenseWindow().run();
+        new main.util.LicenseWindow(0).run();
       } catch (IOException e1) {
         e1.printStackTrace();
       }

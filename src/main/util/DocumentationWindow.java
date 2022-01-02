@@ -85,6 +85,6 @@ public class DocumentationWindow implements Runnable {
    * @throws IOException
    */
   public static void main(String[] args) throws IOException {
-    new LicenseWindow().run();
+    new DocumentationWindow().run();
   }
 }

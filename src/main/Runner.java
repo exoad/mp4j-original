@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import main.advisors.PropertiesReader;
+import main.util.ErrorMessage;
+import main.util.LicenseWindow;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -40,7 +42,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarker
  * @see main.util.WelcomeWindow
  */
 
-public class Runner implements Runnable {
+public class Runner {
   private static HashSet<String> holder = new HashSet<>();
   private static HashMap<String, String> keyedHolder = new HashMap<>();
   private static PropertiesReader properties;
@@ -67,8 +69,13 @@ public class Runner implements Runnable {
     return ".";
   }
 
-  @Override
-  public void run() {
+  public boolean run() throws IOException {
+    try {
+      initLAF();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
     System.setProperty("flatlaf.animation", "false");
 
@@ -85,6 +92,7 @@ public class Runner implements Runnable {
     if(!mpLogs.isDirectory()) {
       mpLogs.mkdir();
     }
+    return true;
   }
 
   private static void initLAF() throws IOException {
@@ -131,6 +139,7 @@ public class Runner implements Runnable {
         FlatDarkLaf.setup();
         break;
     }
+    
   }
 
   /**
@@ -140,7 +149,6 @@ public class Runner implements Runnable {
    */
   public static void main(String[] args) throws InterruptedException, IOException {
     new Runner().run();
-    initLAF();
     new main.util.Splash(Items.SPLASH_SECONDS).run();
     new main.util.WelcomeWindow(readInfo()).run();
   }
