@@ -56,11 +56,11 @@ int main(int argc, char **argv) {
 
     // make a copy of file but with the current unix time
     std::string new_file = "./MusicPlayer/cache/api_wrapper_" +
-                           std::to_string(time(NULL)) + ".json";
+                           std::to_string(time(NULL)) + ".cached";
     std::ofstream ofs(new_file);
     ofs << content;
     ofs.close();
-    
+
 
   }
 }
