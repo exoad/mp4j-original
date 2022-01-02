@@ -31,7 +31,7 @@ void maker_run(string cmd) {
   
 }
 int main(int argc, char **argv) {
-  std::string url = "https://exoad.github.io/MusicPlayer/";
+  std::string url = "https://exoad.github.io/MusicPlayer/api/version";
   struct stat st = {0};
   if (stat("mp_cache", &st) == -1) {
     mkdir("mp_cache", 0777);
