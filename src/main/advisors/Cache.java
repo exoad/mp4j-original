@@ -12,11 +12,10 @@ public abstract class Cache {
 
   public static boolean cleanCache() throws IOException {
     File cache = new File(Items.items[0]);
-    if (cache.exists()) {
+    if (cache.isDirectory()) {
       for (File f : cache.listFiles()) {
         f.delete();
       }
-      cache.delete();
       return true;
     }
     return false;

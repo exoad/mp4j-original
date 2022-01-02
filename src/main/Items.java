@@ -2,8 +2,9 @@ package main;
 
 public class Items {
   public static final String[] items = {
-      "mp_cache",
-      "MusicPlayer"
+      "MusicPlayer/cache",
+      "MusicPlayer",
+      "MusicPlayer/logs",
   };
   public static final float SPLASH_SECONDS = 1500f;
 

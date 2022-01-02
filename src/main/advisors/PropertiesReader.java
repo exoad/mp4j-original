@@ -94,6 +94,10 @@ public class PropertiesReader {
     return true;
   }
 
+  public String getProp(String key) {
+    return setProp.get(key);
+  }
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     for (String key : setProp.keySet()) {

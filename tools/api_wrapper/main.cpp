@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   if (stat("mp_cache", &st) == -1) {
     mkdir("mp_cache", 0777);
   }
-  std::string file = "./mp_cache/api_wrapper.json";
+  std::string file = "./MusicPlayer/cache/api_wrapper.json";
   std::string cmd = "curl " + url + " > " + file;
 
   if (cmd.c_str() == NULL) {
@@ -52,5 +52,15 @@ int main(int argc, char **argv) {
                         (std::istreambuf_iterator<char>()));
     ifs.close();
     cout << content;
+
+
+    // make a copy of file but with the current unix time
+    std::string new_file = "./MusicPlayer/cache/api_wrapper_" +
+                           std::to_string(time(NULL)) + ".json";
+    std::ofstream ofs(new_file);
+    ofs << content;
+    ofs.close();
+    
+
   }
 }
