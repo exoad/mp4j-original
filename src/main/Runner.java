@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import main.advisors.PropertiesReader;
-import main.util.ErrorMessage;
-import main.util.LicenseWindow;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;

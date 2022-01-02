@@ -28,11 +28,11 @@ using namespace std;
 
 void maker_run(string cmd) {
   system(cmd.c_str());
-  
+
 }
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   std::string url = "https://exoad.github.io/MusicPlayer/api/version";
-  struct stat st = {0};
+  struct stat st = { 0 };
   if (stat("mp_cache", &st) == -1) {
     mkdir("mp_cache", 0777);
   }
@@ -41,22 +41,25 @@ int main(int argc, char **argv) {
 
   if (cmd.c_str() == NULL) {
     cout << 1;
-  } else {
+  }
+  else {
     maker_run(cmd.c_str());
     /**
-     * @param  {file} undefined : 
-     * @return {std::ifstream}  : 
+     * @param  {file} undefined :
+     *
+     * @param  {} undefined :
+     * @return {std::ifstream}  :
      */
     std::ifstream ifs(file);
     std::string content((std::istreambuf_iterator<char>(ifs)),
-                        (std::istreambuf_iterator<char>()));
+      (std::istreambuf_iterator<char>()));
     ifs.close();
     cout << content;
 
 
     // make a copy of file but with the current unix time
     std::string new_file = "./MusicPlayer/cache/api_wrapper_" +
-                           std::to_string(time(NULL)) + ".cached";
+      std::to_string(time(NULL)) + ".cached";
     std::ofstream ofs(new_file);
     ofs << content;
     ofs.close();
