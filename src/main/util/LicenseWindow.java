@@ -62,7 +62,6 @@ public class LicenseWindow implements Runnable, ActionListener {
     SimpleAttributeSet center = new SimpleAttributeSet();
     StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
     doc.setParagraphAttributes(0, doc.getLength(), center, false);
-    // make the first line of the license bold
     SimpleAttributeSet bold = new SimpleAttributeSet();
     StyleConstants.setBold(bold, true);
     doc.setCharacterAttributes(0, doc.getLength(), bold, false);
@@ -77,6 +76,7 @@ public class LicenseWindow implements Runnable, ActionListener {
     agree = new JButton("Agree");
     disagree = new JButton("Disagree");
 
+    /// unused feature
     if (firstTime != 0) {
       JPanel panel = new JPanel();
       panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
