@@ -26,7 +26,6 @@ public class PropertiesReader {
     try (OutputStream os = new FileOutputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
       p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
       p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
-      p.setProperty("gui.defaultMode", DefProperties.DEFAULT_GUI_THEME);
       p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
 
       p.store(os, Items.PROPERTIES_HEADER_COMMENT);
@@ -43,11 +42,7 @@ public class PropertiesReader {
         properties.add(p.getProperty("explorer.defaultDir"));
 
       if (AllowedProperties.validate(p.getProperty("gui.defaultTheme")))
-        ;
-      properties.add(p.getProperty("gui.defaultTheme"));
-
-      if (AllowedProperties.validate(p.getProperty("gui.defaultMode")))
-        properties.add(p.getProperty("gui.defaultMode"));
+        properties.add(p.getProperty("gui.defaultTheme"));
 
       if (AllowedProperties.validate(p.getProperty("runner.disableCache")))
         properties.add(p.getProperty("runner.disableCache"));

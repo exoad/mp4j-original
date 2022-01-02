@@ -6,7 +6,6 @@ import java.util.HashSet;
 public class AllowedProperties {
   public static final HashSet<String> allowedDarkLaf = new HashSet<>();
   public static final HashSet<String> allowedLiteLaf = new HashSet<>();
-  public static final HashSet<String> allowedDefMode = new HashSet<>();
   public static final HashSet<String> allowedDefCache = new HashSet<>();
 
   public AllowedProperties() {
@@ -22,9 +21,6 @@ public class AllowedProperties {
     allowedLiteLaf.add("regularlight");
     allowedLiteLaf.add("solarized");
     allowedLiteLaf.add("onelight");
-
-    allowedDefMode.add("dark");
-    allowedDefMode.add("light");
 
     allowedDefCache.add("false");
     allowedDefCache.add("true");
