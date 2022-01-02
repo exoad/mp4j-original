@@ -27,6 +27,8 @@ public class AllowedProperties {
   }
 
   public static boolean validate(String s) {
+    if(s == null || s.isEmpty() || s == " ")
+      return false;
     return ((allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s)) || new File(s).isFile() || allowedDefCache.contains(s));
   }
 }

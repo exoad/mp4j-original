@@ -23,13 +23,14 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarker
 import main.advisors.CXX;
 import main.advisors.JSONParser;
 import main.VersionInfo;
+import main.advisors.Cache;
 
 public class SettingsWindow implements Runnable, ActionListener {
   public static JFrame frame;
   private final JPanel panel;
   private final JLabel title;
   private final JLabel information;
-  private final JButton verifyFile;
+  private final JButton verifyFile, clearCache;
   private final CXX run = new CXX();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
@@ -72,6 +73,8 @@ public class SettingsWindow implements Runnable, ActionListener {
     information = new JLabel(versionInfo);
     information.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
     information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
+
+    clearCache = new JButton();
 
     panel.add(title);
     panel.add(Box.createHorizontalStrut(30));
@@ -134,6 +137,8 @@ public class SettingsWindow implements Runnable, ActionListener {
     information = new JLabel(versionInfo);
     information.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
     information.setFont(information.getFont().deriveFont(information.getFont().getStyle() | Font.ITALIC));
+
+    clearCache = new JButton();
 
     panel.add(title);
     panel.add(verifyFile);

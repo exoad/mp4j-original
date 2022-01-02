@@ -23,20 +23,22 @@ public class PropertiesReader {
     p = new Properties();
     ap = new AllowedProperties();
 
-    try (OutputStream os = new FileOutputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
-      p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
-      p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
-      p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
+    if (!hasAllProperties()) {
+      try (OutputStream os = new FileOutputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
+        p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
+        p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
+        p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
 
-      p.store(os, Items.PROPERTIES_HEADER_COMMENT);
+        p.store(os, Items.PROPERTIES_HEADER_COMMENT);
+      }
     }
 
   }
 
-  public static HashSet<String> generalProp(String source) throws IOException, InvalidPropertiesFormatException {
+  public static HashSet<String> generalProp() throws IOException, InvalidPropertiesFormatException {
     HashSet<String> properties = new HashSet<>();
-
-    try (InputStream isr = new FileInputStream(new File(source))) {
+    p = new Properties();
+    try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
       p.load(isr);
       if (AllowedProperties.validate(p.getProperty("explorer.defaultDir")))
         properties.add(p.getProperty("explorer.defaultDir"));
@@ -50,5 +52,17 @@ public class PropertiesReader {
     }
 
     return properties;
+  }
+
+  public static boolean hasAllProperties() throws IOException {
+    p = new Properties();
+    try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
+      p.load(isr);
+      if (!AllowedProperties.validate(p.getProperty("explorer.defaultDir"))
+          || !AllowedProperties.validate(p.getProperty("runner.disableCache"))
+          || !AllowedProperties.validate(p.getProperty("gui.defaultTheme")))
+        return false;
+    }
+    return true;
   }
 }

@@ -57,7 +57,7 @@ public class Runner implements Runnable {
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
     System.setProperty("flatlaf.animation", "false");
     try {
-      holder = PropertiesReader.generalProp(Items.items[1] + "/" + Sources.PROPERTIES_FILE);
+      holder = PropertiesReader.generalProp();
     } catch (IOException e) {
       e.printStackTrace();
     }
