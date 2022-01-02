@@ -19,8 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
-
 import main.advisors.CXX;
 import main.advisors.JSONParser;
 import main.advisors.PropertiesReader;
@@ -36,7 +34,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   private final CXX run = new CXX();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
-    FlatMaterialDarkerIJTheme.setup();
+    
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 400));
@@ -114,7 +112,7 @@ public class SettingsWindow implements Runnable, ActionListener {
   }
 
   public SettingsWindow() throws IOException {
-    FlatMaterialDarkerIJTheme.setup();
+    
 
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

@@ -15,13 +15,11 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
-
 public class DocumentationWindow implements Runnable {
   private final JFrame frame;
 
   public DocumentationWindow() throws IOException {
-    FlatMaterialDarkerIJTheme.setup();
+    
     URL url = getClass().getResource("/documentation_icon.png");
     assert url != null;
     ImageIcon icon = new ImageIcon(url);

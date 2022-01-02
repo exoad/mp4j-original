@@ -95,7 +95,6 @@ public class PropertiesReader {
   }
 
   public String toString() {
-
     StringBuilder sb = new StringBuilder();
     for (String key : setProp.keySet()) {
       sb.append(key + "=" + setProp.get(key) + "\n");

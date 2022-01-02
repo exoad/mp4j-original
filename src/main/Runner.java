@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import main.advisors.PropertiesReader;
-
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 /**
  * <h1>Runner</h1>
  * <p>
@@ -81,6 +81,7 @@ public class Runner implements Runnable {
    */
   public static void main(String[] args) throws InterruptedException, IOException {
     new Runner().run();
+    FlatMaterialDarkerIJTheme.setup();
     new main.util.Splash(Items.SPLASH_SECONDS).run();
     new main.util.WelcomeWindow(readInfo()).run();
   }

@@ -15,7 +15,6 @@ import main.advisors.LifePreserver;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 
 public class SelectFileWindow extends JPanel implements Runnable, ActionListener {
   private String filePath;
@@ -28,7 +27,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
   public SelectFileWindow(String lastFilePath) {
     lastDir = lastFilePath;
-    FlatMaterialDarkerIJTheme.setup();
+    
     URL frameIcon = getClass().getResource("/file_select_folder_icon.png");
     assert frameIcon != null;
     ImageIcon frameImageIcon = new ImageIcon(frameIcon);

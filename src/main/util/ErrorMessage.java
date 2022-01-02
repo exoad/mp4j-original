@@ -15,14 +15,12 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
-
 public class ErrorMessage implements ActionListener {
   private final JButton okButton;
   private final JFrame frame;
 
   public ErrorMessage(String message) {
-    FlatMaterialDarkerIJTheme.setup();
+    
     JPanel panel = new JPanel();
 
     JLabel label = new JLabel("<html><p>" + message + "</p></html>");

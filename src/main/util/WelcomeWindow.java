@@ -20,7 +20,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
+
 
 public class WelcomeWindow implements Runnable, ActionListener {
   private final JFrame frame;
@@ -33,7 +33,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
 
   public WelcomeWindow(String lastDir) {
     WelcomeWindow.lastDir = lastDir;
-    FlatMaterialDarkerIJTheme.setup();
+    
     URL frame_icon = getClass().getResource("/welcome_icon.png");
     assert frame_icon != null;
     ImageIcon frame_ico = new ImageIcon(frame_icon);
