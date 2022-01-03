@@ -14,3 +14,4 @@ readme_1.txt
 splash_screen.png
 welcome_icon.png
 fileint.exe
+documentation_icon.png
