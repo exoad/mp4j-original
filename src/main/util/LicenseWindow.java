@@ -77,7 +77,7 @@ public class LicenseWindow implements Runnable, ActionListener {
     disagree = new JButton("Disagree");
 
     /// unused feature
-    if (firstTime != 0) {
+    if (firstTime == -1) {
       JPanel panel = new JPanel();
       panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
       
