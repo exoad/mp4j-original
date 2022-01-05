@@ -50,7 +50,7 @@ public class Host {
       return fileChooser.getSelectedFile();
     } catch (Exception e) {
       e.printStackTrace();
-      new main.util.ErrorMessage(e.getStackTrace().toString());
+      new main.gui.ErrorMessage(e.getStackTrace().toString());
     }
     return null;
 

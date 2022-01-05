@@ -34,8 +34,8 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarker
  * @see main.Sources
  * @see main.Runner
  * @see main.Items
- * @see main.util.Splash
- * @see main.util.WelcomeWindow
+ * @see main.gui.Splash
+ * @see main.gui.WelcomeWindow
  */
 
 public class Runner {
@@ -143,8 +143,8 @@ public class Runner {
    */
   public static void main(String[] args) throws InterruptedException, IOException {
     new Runner().run();
-    new main.util.Splash(Items.SPLASH_SECONDS).run();
-    new main.util.WelcomeWindow(readInfo()).run();
+    new main.gui.Splash(Items.SPLASH_SECONDS).run();
+    new main.gui.WelcomeWindow(readInfo()).run();
   }
 
 }

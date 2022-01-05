@@ -12,6 +12,7 @@ public class CXX {
    * @return String
    * @throws IOException
    */
+  @Deprecated
   public String callAPI() throws IOException {
     if(System.getProperty("os.name").contains("Windows")) {
       URL windowsAPI = getClass().getResource("/apiwrapper.exe");
@@ -26,6 +27,7 @@ public class CXX {
    * @return String
    * @throws IOException
    */
+  @Deprecated
   public String veriyFile() throws IOException {
     if(System.getProperty("os.name").contains("Windows")) {
       URL windowsAPI = getClass().getResource("/fileint.exe");

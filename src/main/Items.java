@@ -5,7 +5,8 @@ public class Items {
       "MusicPlayer/cache",
       "MusicPlayer",
       "MusicPlayer/logs",
-      "MusicPlayer/key/license_agree.lock"
+      "MusicPlayer/key/license_agree.lock",
+      "MusicPlayer/Properties_doc.txt",
   };
   public static final float SPLASH_SECONDS = 1500f;
 

@@ -1,4 +1,4 @@
-package main.util;
+package main.gui;
 
 import javax.swing.JFrame;
 
@@ -155,20 +155,20 @@ public class WelcomeWindow implements Runnable, ActionListener {
       }
     } else if (e.getSource().equals(license)) {
       try {
-        new main.util.LicenseWindow(0).run();
+        new main.gui.LicenseWindow(0).run();
       } catch (IOException e1) {
         e1.printStackTrace();
       }
     } else if (e.getSource().equals(settings)) {
       try {
-        new main.util.SettingsWindow().run();
+        new main.gui.SettingsWindow().run();
       } catch (IOException ioe) {
         new ErrorMessage(java.util.Arrays.toString(ioe.getStackTrace()));
         ioe.printStackTrace();
       }
     } else if (e.getSource().equals(documentation)) {
       try {
-        new main.util.DocumentationWindow().run();
+        new main.gui.DocumentationWindow().run();
       } catch (IOException ioe) {
         new ErrorMessage(java.util.Arrays.toString(ioe.getStackTrace()));
         ioe.printStackTrace();

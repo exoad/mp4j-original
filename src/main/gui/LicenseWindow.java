@@ -1,4 +1,4 @@
-package main.util;
+package main.gui;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -76,7 +76,6 @@ public class LicenseWindow implements Runnable, ActionListener {
     agree = new JButton("Agree");
     disagree = new JButton("Disagree");
 
-    /// unused feature
     if (firstTime != 0) {
       JPanel panel = new JPanel();
       panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

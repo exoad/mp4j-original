@@ -1,4 +1,4 @@
-package main.util;
+package main.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,7 +19,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import main.advisors.CXX;
+import main.telemetry.api.Wrapper;
+import main.telemetry.FileIntegrity;
 import main.advisors.JSONParser;
 import main.advisors.PropertiesReader;
 import main.telemetry.Logger;
@@ -32,10 +33,11 @@ public class SettingsWindow implements Runnable, ActionListener {
   private final JLabel title;
   private final JLabel information;
   private final JButton verifyFile, clearCache, resetProperties, clearLogs;
-  private final CXX run = new CXX();
+  private Wrapper wrapper = new Wrapper();
+  private FileIntegrity fileIntegrity = new FileIntegrity();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
-    
+
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 400));
@@ -51,8 +53,8 @@ public class SettingsWindow implements Runnable, ActionListener {
     Icon fileINTCO = new ImageIcon(URLFILEINT);
     verifyFile.setIcon(fileINTCO);
     verifyFile.addActionListener(this);
-    run.callAPI();
-    String json = run.callAPI();
+
+    String json = wrapper.run();
     String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
         + (JSONParser.parseElement("latest_release", json) == null
             || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_release", json), "")
@@ -119,7 +121,6 @@ public class SettingsWindow implements Runnable, ActionListener {
   }
 
   public SettingsWindow() throws IOException {
-    
 
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -137,8 +138,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     verifyFile.setIcon(fileINTCO);
     verifyFile.addActionListener(this);
 
-    run.callAPI();
-    String json = run.callAPI();
+    String json = wrapper.run();
     String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
         + (JSONParser.parseElement("latest_release", json) == null
             || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_release", json), "")
@@ -225,13 +225,13 @@ public class SettingsWindow implements Runnable, ActionListener {
   public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(verifyFile)) {
       try {
-        String end = run.veriyFile();
-        Thread.sleep(600);
-        if (end.equals("1")) {
-          new ErrorMessage("File Integrity failed. Please consider redownloading");
-        } else {
-          new OKWindow("File Integrity Passed");
-        }
+        boolean isNice = fileIntegrity.isGood();
+        Thread.sleep(800);
+        if (isNice)
+          new OKWindow("Files are all good!");
+        else
+          new ErrorMessage("Was unable to process the files");
+
       } catch (Exception e1) {
         e1.printStackTrace();
       }
@@ -252,7 +252,7 @@ public class SettingsWindow implements Runnable, ActionListener {
         new ErrorMessage("Reset failed");
       }
     } else if (e.getSource().equals(clearLogs)) {
-      if(Logger.clear()) {
+      if (Logger.clear()) {
         new OKWindow("Logs Cleared");
       } else {
         new ErrorMessage("Cannot Clear Logs at this moment");

@@ -1,4 +1,3 @@
-apiwrapper.exe
 colormode_icon.png
 documentation_icon.png
 error_frame_icon.png
@@ -13,4 +12,3 @@ play_button.png
 readme_1.txt
 splash_screen.png
 welcome_icon.png
-fileint.exe
