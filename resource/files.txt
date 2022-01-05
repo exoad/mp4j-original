@@ -11,4 +11,10 @@ pause_button.png
 play_button.png
 readme_1.txt
 splash_screen.png
+<<<<<<< HEAD
 welcome_icon.png
+=======
+welcome_icon.png
+fileint.exe
+documentation_icon.png
+>>>>>>> c1f2676e2bea1fe082e97f05c565ad670ae20288
