@@ -82,6 +82,11 @@ public class Runner {
       mpSaves.mkdir();
     }
 
+    File customs = new File(Items.items[5]);
+    if (!customs.isDirectory()) {
+      customs.mkdir();
+    }
+
     File mpLogs = new File(Items.items[2]);
     if(!mpLogs.isDirectory()) {
       mpLogs.mkdir();
