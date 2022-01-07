@@ -29,6 +29,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import javazoom.jl.decoder.JavaLayerException;
+
 public class WindowPanel implements ActionListener, ChangeListener {
   protected JPanel bp, mainPanel;
   protected JButton play_btn, new_file;
@@ -61,7 +62,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
   public WindowPanel(String resource) {
     music_path = resource;
-    
+
     musicFile = SelectFileWindow.getFile();
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
@@ -135,8 +136,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     }
   }
 
-  
-  /** 
+  /**
    * @throws JavaLayerException
    */
   public void playMusic() throws JavaLayerException {
@@ -168,8 +168,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     }
   }
 
-  
-  /** 
+  /**
    * @param args
    */
   public static void main(String[] args) {
@@ -191,8 +190,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_btn.setToolTipText("Pause the current media");
     status.setText("<html><b>Currently Playing: </b><br>" + musicFile.getName() + "</html>");
   }
-  
-  /** 
+
+  /**
    * @param e
    */
   @Override
@@ -228,8 +227,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     frame.setVisible(true);
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override

@@ -17,7 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Desktop;
-import java.awt.Toolkit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -12,6 +12,7 @@ public class Logger {
     File curr = new File(Items.items[2] + "/" + "Log_" + time + ".log");
 
     try(BufferedWriter bw = new BufferedWriter(new FileWriter(curr))) {
+      bw.write(time + " " + t.toString());
       bw.write("Stack Trace Dump\n");
       bw.write(t.toString());
       bw.flush();
