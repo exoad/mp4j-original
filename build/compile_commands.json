@@ -1,0 +1,7 @@
+[
+{
+  "directory": "D:/zip/projects/MusicPlayer/build",
+  "command": "C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe   -g -o CMakeFiles/MusicPlayerCXX.dir/main.cpp.obj -c D:/zip/projects/MusicPlayer/main.cpp",
+  "file": "D:/zip/projects/MusicPlayer/main.cpp"
+}
+]
