@@ -1,4 +1,4 @@
-package main.advisors;
+package main.core;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,7 +50,7 @@ public class Host {
       return fileChooser.getSelectedFile();
     } catch (Exception e) {
       e.printStackTrace();
-      new main.gui.ErrorMessage(e.getStackTrace().toString());
+      new main.interfaces.ErrorMessage(e.getStackTrace().toString());
     }
     return null;
 

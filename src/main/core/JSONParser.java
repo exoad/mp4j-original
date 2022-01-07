@@ -1,4 +1,4 @@
-package main.advisors;
+package main.core;
 
 public abstract class JSONParser {
   private JSONParser() {

@@ -1,4 +1,4 @@
-package main.advisors;
+package main.core;
 
 import java.util.Properties;
 import java.io.File;
@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
 
-import main.advisors.subadvisors.DefProperties;
-import main.advisors.subadvisors.AllowedProperties;
 import main.Sources;
+import main.core.rules.AllowedProperties;
+import main.core.rules.DefProperties;
 import main.Items;
 
 public class PropertiesReader {

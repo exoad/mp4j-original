@@ -1,4 +1,4 @@
-package main.gui;
+package main.interfaces;
 
 import java.net.URL;
 import javax.swing.ImageIcon;

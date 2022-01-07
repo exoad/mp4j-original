@@ -1,4 +1,4 @@
-package main.advisors.subadvisors;
+package main.core.rules;
 
 public abstract class DefProperties {
   private DefProperties() {}

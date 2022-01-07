@@ -1,4 +1,4 @@
-package main.gui;
+package main.interfaces;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,11 +21,11 @@ import java.io.IOException;
 
 import main.telemetry.api.Wrapper;
 import main.telemetry.FileIntegrity;
-import main.advisors.JSONParser;
-import main.advisors.PropertiesReader;
 import main.telemetry.Logger;
 import main.VersionInfo;
-import main.advisors.Cache;
+import main.core.Cache;
+import main.core.JSONParser;
+import main.core.PropertiesReader;
 
 public class SettingsWindow implements Runnable, ActionListener {
   public static JFrame frame;
@@ -57,18 +57,18 @@ public class SettingsWindow implements Runnable, ActionListener {
     String json = wrapper.run();
     String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
         + (JSONParser.parseElement("latest_release", json) == null
-            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_release", json), "")
+            || java.util.Objects.equals(main.core.JSONParser.parseElement("latest_release", json), "")
                 ? "Unavaliable"
                 : JSONParser.parseElement("latest_release", json))
         + "<br>"
         + "Latest Patch: "
         + (JSONParser.parseElement("latest_patch", json) == null
-            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_patch", json), "")
+            || java.util.Objects.equals(main.core.JSONParser.parseElement("latest_patch", json), "")
                 ? "Unavaliable"
                 : JSONParser.parseElement("latest_patch", json))
         + "<br>" + "Latest Beta: "
         + (JSONParser.parseElement("latest_beta", json) == null
-            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_beta", json), "")
+            || java.util.Objects.equals(main.core.JSONParser.parseElement("latest_beta", json), "")
                 ? "Unavaliable"
                 : JSONParser.parseElement("latest_beta", json))
         + "</p></html>");
@@ -138,21 +138,23 @@ public class SettingsWindow implements Runnable, ActionListener {
     verifyFile.setIcon(fileINTCO);
     verifyFile.addActionListener(this);
 
+    /// if there is internet connection from Items.items[6]
+
     String json = wrapper.run();
     String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
         + (JSONParser.parseElement("latest_release", json) == null
-            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_release", json), "")
+            || java.util.Objects.equals(main.core.JSONParser.parseElement("latest_release", json), "")
                 ? "Unavaliable"
                 : JSONParser.parseElement("latest_release", json))
         + "<br>"
         + "Latest Patch: "
         + (JSONParser.parseElement("latest_patch", json) == null
-            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_patch", json), "")
+            || java.util.Objects.equals(main.core.JSONParser.parseElement("latest_patch", json), "")
                 ? "Unavaliable"
                 : JSONParser.parseElement("latest_patch", json))
         + "<br>" + "Latest Beta: "
         + (JSONParser.parseElement("latest_beta", json) == null
-            || java.util.Objects.equals(main.advisors.JSONParser.parseElement("latest_beta", json), "")
+            || java.util.Objects.equals(main.core.JSONParser.parseElement("latest_beta", json), "")
                 ? "Unavaliable"
                 : JSONParser.parseElement("latest_beta", json))
         + "</p></html>");

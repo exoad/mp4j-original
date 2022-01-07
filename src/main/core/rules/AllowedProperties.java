@@ -1,4 +1,4 @@
-package main.advisors.subadvisors;
+package main.core.rules;
 
 import java.io.File;
 import java.util.HashSet;

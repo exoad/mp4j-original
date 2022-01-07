@@ -1,4 +1,4 @@
-package main.gui;
+package main.interfaces;
 
 import java.io.File;
 import java.net.URL;
@@ -6,12 +6,13 @@ import java.net.URL;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+
+import main.core.Host;
+import main.core.LifePreserver;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import main.advisors.Host;
-import main.advisors.LifePreserver;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -108,7 +109,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
       check(textField.getText());
     } else if (e.getSource().equals(openExplorer)) {
       File f = null;
-      new main.advisors.Host(lastDir);
+      new main.core.Host(lastDir);
       f = Host.openFileBrowser(this);
 
       if (f != null) {

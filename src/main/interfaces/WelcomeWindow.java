@@ -1,6 +1,8 @@
-package main.gui;
+package main.interfaces;
 
 import javax.swing.JFrame;
+
+import main.core.PropertiesReader;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,8 +22,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
-import main.advisors.PropertiesReader;
 
 public class WelcomeWindow implements Runnable, ActionListener {
   private final JFrame frame;
@@ -117,9 +117,8 @@ public class WelcomeWindow implements Runnable, ActionListener {
     panel.setPreferredSize(new Dimension(500, 340));
 
     frame = new JFrame("Music-Player v1.0 | Jack Meng | Welcome!");
-    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+    frame.setLocationRelativeTo(null);
     frame.setIconImage(frame_ico.getImage());
     frame.setResizable(false);
     frame.add(panel);
@@ -155,20 +154,20 @@ public class WelcomeWindow implements Runnable, ActionListener {
       }
     } else if (e.getSource().equals(license)) {
       try {
-        new main.gui.LicenseWindow(0).run();
+        new main.interfaces.LicenseWindow(0).run();
       } catch (IOException e1) {
         e1.printStackTrace();
       }
     } else if (e.getSource().equals(settings)) {
       try {
-        new main.gui.SettingsWindow().run();
+        new main.interfaces.SettingsWindow().run();
       } catch (IOException ioe) {
         new ErrorMessage(java.util.Arrays.toString(ioe.getStackTrace()));
         ioe.printStackTrace();
       }
     } else if (e.getSource().equals(documentation)) {
       try {
-        new main.gui.DocumentationWindow().run();
+        new main.interfaces.DocumentationWindow().run();
       } catch (IOException ioe) {
         new ErrorMessage(java.util.Arrays.toString(ioe.getStackTrace()));
         ioe.printStackTrace();

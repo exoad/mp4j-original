@@ -1,4 +1,4 @@
-package main.advisors;
+package main.core;
 
 import java.io.File;
 import java.io.BufferedWriter;

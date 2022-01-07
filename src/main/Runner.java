@@ -1,11 +1,13 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-
-import main.advisors.PropertiesReader;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -17,6 +19,8 @@ import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
+
+import main.core.PropertiesReader;
 
 /**
  * <h1>Runner</h1>
@@ -34,8 +38,8 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarker
  * @see main.Sources
  * @see main.Runner
  * @see main.Items
- * @see main.gui.Splash
- * @see main.gui.WelcomeWindow
+ * @see main.interfaces.Splash
+ * @see main.interfaces.WelcomeWindow
  */
 
 public class Runner {
@@ -91,6 +95,21 @@ public class Runner {
     if(!mpLogs.isDirectory()) {
       mpLogs.mkdir();
     }
+    
+    try {
+      Socket socket = new Socket();
+      socket.connect(new InetSocketAddress("google.com", 80), 3000);
+      socket.close();
+    } catch (IOException e) {
+      BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Items.items[6])));
+      bw.write("0");
+      bw.close();
+      return false;
+    }
+    BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Items.items[6])));
+    bw.write("1");
+    bw.close();
+    
     return true;
   }
 
@@ -148,8 +167,8 @@ public class Runner {
    */
   public static void main(String[] args) throws InterruptedException, IOException {
     new Runner().run();
-    new main.gui.Splash(Items.SPLASH_SECONDS).run();
-    new main.gui.WelcomeWindow(readInfo()).run();
+    new main.interfaces.Splash(Items.SPLASH_SECONDS).run();
+    new main.interfaces.WelcomeWindow(readInfo()).run();
   }
 
 }

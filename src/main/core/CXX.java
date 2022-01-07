@@ -1,4 +1,4 @@
-package main.advisors;
+package main.core;
 
 import java.io.IOException;
 import java.net.URL;
