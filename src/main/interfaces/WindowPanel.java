@@ -30,6 +30,8 @@ import javax.swing.event.ChangeListener;
 
 import javazoom.jl.decoder.JavaLayerException;
 
+import main.functions.Worker;
+
 public class WindowPanel implements ActionListener, ChangeListener {
   protected JPanel bp, mainPanel;
   protected JButton play_btn, new_file;
@@ -44,6 +46,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected static String music_path;
   protected URL pause_icon = getClass().getResource("/pause_button.png");
   protected Icon pause_button_ico;
+  protected Worker master = new Worker();
 
   {
     assert pause_icon != null;
@@ -136,6 +139,10 @@ public class WindowPanel implements ActionListener, ChangeListener {
     }
   }
 
+  private Thread worker;
+  private javazoom.jl.player.Player mp3Player;
+  private boolean running = false;
+
   /**
    * @throws JavaLayerException
    */
@@ -150,10 +157,33 @@ public class WindowPanel implements ActionListener, ChangeListener {
         clip.start();
         playAsMp3 = false;
         volumeControl();
+        new Thread(() -> {
+          // if the music is finished playing, update the button icon to be play
+          while (clip.isActive() && clip != null) {
+            try {
+              Thread.sleep(100);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
+          play_btn.setIcon(play_button_ico);
+        }).start();
       } else {
-        playAsMp3 = true;
-        javazoom.jl.player.Player mp3Player = new javazoom.jl.player.Player(new java.io.FileInputStream(musicFile));
-        mp3Player.play();
+        if(!running) {
+          volume_slider.setEnabled(false);
+          playAsMp3 = true;
+          mp3Player = new javazoom.jl.player.Player(new java.io.FileInputStream(musicFile));
+          worker = new Thread(() -> {
+            try {
+              mp3Player.play();
+            } catch (JavaLayerException e) {
+              e.getException();
+            }
+
+          });
+          worker.start();
+        }
+
       }
 
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -165,6 +195,11 @@ public class WindowPanel implements ActionListener, ChangeListener {
     if (clip != null) {
       currentFrame = clip.getMicrosecondPosition();
       clip.stop();
+    } if(!worker.isInterrupted() || mp3Player != null) {
+      worker.interrupt();
+      worker = new Thread();
+      mp3Player.close();
+      mp3Player = null;
     }
   }
 
@@ -197,7 +232,11 @@ public class WindowPanel implements ActionListener, ChangeListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(play_btn)) {
+      if(worker != null)
+        worker.interrupt();
       if (play_btn.getIcon() == play_button_ico) {
+        if(worker != null)
+          worker.interrupt();
         try {
           playMusic();
         } catch (JavaLayerException e1) {
@@ -205,6 +244,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
         }
         setPlayState();
       } else if (play_btn.getIcon() == pause_button_ico) {
+        if(worker != null)
+          worker.interrupt();
         pauseMusic();
         setPauseState();
       }
