@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class CXX {
+  @Deprecated
   public CXX() {
 
   }
@@ -42,6 +43,7 @@ public class CXX {
    * @param args
    * @throws IOException
    */
+  @Deprecated
   public static void main(String[] args) throws IOException {
     new CXX().callAPI();
   }
