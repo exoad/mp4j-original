@@ -7,7 +7,7 @@ import java.io.FileWriter;
 
 import java.net.URL;
 
-import main.Items;
+import main.global.Items;
 import main.telemetry.API;
 
 public class Docs implements API {

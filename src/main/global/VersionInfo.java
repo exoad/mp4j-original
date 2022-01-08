@@ -1,5 +1,5 @@
 
-package main;
+package main.global;
 
 /**
  * <h1>Version Info</h1>
@@ -12,9 +12,9 @@ package main;
  * @author Jack Meng
  * 
  * @since 1.1
- * @see main.Sources
+ * @see main.global.Sources
  * @see main.Runner
- * @see main.Items
+ * @see main.global.Items
  */
 
 public abstract class VersionInfo {

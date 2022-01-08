@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
 
-import main.Sources;
 import main.core.rules.AllowedProperties;
 import main.core.rules.DefProperties;
-import main.Items;
+import main.global.Items;
+import main.global.Sources;
 
 public class PropertiesReader {
   private static Properties p;
@@ -24,7 +24,7 @@ public class PropertiesReader {
     p = new Properties();
     new AllowedProperties();
 
-    if (!hasAllProperties() || !new File(Items.items[1] + "/" + main.Sources.PROPERTIES_FILE).exists()) {
+    if (!hasAllProperties() || !new File(Items.items[1] + "/" + main.global.Sources.PROPERTIES_FILE).exists()) {
       try (OutputStream os = new FileOutputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
         p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
         p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);

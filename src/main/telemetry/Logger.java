@@ -1,7 +1,9 @@
 package main.telemetry;
 
-import main.Items;
 import java.io.IOException;
+
+import main.global.Items;
+
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;

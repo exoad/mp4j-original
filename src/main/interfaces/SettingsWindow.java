@@ -22,10 +22,10 @@ import java.io.IOException;
 import main.telemetry.api.Wrapper;
 import main.telemetry.FileIntegrity;
 import main.telemetry.Logger;
-import main.VersionInfo;
 import main.core.Cache;
 import main.core.JSONParser;
 import main.core.PropertiesReader;
+import main.global.VersionInfo;
 
 public class SettingsWindow implements Runnable, ActionListener {
   public static JFrame frame;

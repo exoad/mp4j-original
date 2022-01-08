@@ -2,7 +2,7 @@ package main.core;
 
 import java.io.IOException;
 
-import main.Items;
+import main.global.Items;
 
 import java.io.File;
 

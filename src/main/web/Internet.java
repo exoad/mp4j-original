@@ -3,9 +3,10 @@ package main.web;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.File;
 
-import main.Items;
+import main.global.Items;
+
+import java.io.File;
 
 public abstract class Internet {
   private Internet() {

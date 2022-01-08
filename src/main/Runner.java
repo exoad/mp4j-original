@@ -21,6 +21,7 @@ import com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 
 import main.core.PropertiesReader;
+import main.global.Items;
 
 /**
  * <h1>Runner</h1>
@@ -35,9 +36,9 @@ import main.core.PropertiesReader;
  * @author Jack Meng
  *
  * @since 1.1
- * @see main.Sources
+ * @see main.global.Sources
  * @see main.Runner
- * @see main.Items
+ * @see main.global.Items
  * @see main.interfaces.Splash
  * @see main.interfaces.WelcomeWindow
  */
@@ -50,11 +51,11 @@ public class Runner {
    * @throws IOException
    */
   public static String readInfo() throws IOException {
-    if (new File(Items.items[1] + "/" + main.Sources.LIFEPRESERVER_PREVDIR).exists()
-        || new File(Items.items[1] + "/" + main.Sources.LIFEPRESERVER_PREVDIR).isDirectory()) {
+    if (new File(Items.items[1] + "/" + main.global.Sources.LIFEPRESERVER_PREVDIR).exists()
+        || new File(Items.items[1] + "/" + main.global.Sources.LIFEPRESERVER_PREVDIR).isDirectory()) {
 
       BufferedReader br = new BufferedReader(
-          new FileReader(new File(Items.items[1] + "/" + main.Sources.LIFEPRESERVER_PREVDIR)));
+          new FileReader(new File(Items.items[1] + "/" + main.global.Sources.LIFEPRESERVER_PREVDIR)));
       StringBuilder sb = new StringBuilder();
       String line = br.readLine();
       while (line != null) {

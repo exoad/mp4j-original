@@ -1,4 +1,4 @@
-package main;
+package main.global;
 
 public class Items {
   public static final String[] items = {
