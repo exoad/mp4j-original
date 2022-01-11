@@ -9,7 +9,7 @@ public class FileIntegrity {
   private static URL fileList;
 
   public FileIntegrity() {
-    this.fileList = getClass().getResource("/files.txt");
+    fileList = getClass().getResource("/files.txt");
   }
 
   public boolean isGood() throws IOException {
