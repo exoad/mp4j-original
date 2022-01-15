@@ -2,10 +2,13 @@ package app.interfaces;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+
+import app.functions.Parser;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -77,14 +80,15 @@ public class DocumentationWindow implements Runnable {
   public void run() {
     frame.pack();
     frame.setVisible(true);
+    Parser.foreach(Frame.getFrames(), frame -> System.out.println(frame.getTitle()));
   }
 
-  
-  /** 
+  /**
    * @param args
    * @throws IOException
    */
   public static void main(String[] args) throws IOException {
     new DocumentationWindow().run();
   }
+
 }
