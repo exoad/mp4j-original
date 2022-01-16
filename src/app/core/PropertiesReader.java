@@ -2,10 +2,10 @@ package app.core;
 
 import java.util.Properties;
 
-import app.core.rules.AllowedProperties;
-import app.core.rules.DefProperties;
 import app.global.Items;
 import app.global.Sources;
+import app.rules.AllowedProperties;
+import app.rules.DefProperties;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -102,8 +102,16 @@ public class PropertiesReader {
     return true;
   }
 
-  public String getProp(String key) {
+  public static String getProp(String key) {
     return setProp.get(key);
+  }
+
+  public static String setProperty(String key, String value) throws IOException {
+    p.setProperty(key, value);
+    try (OutputStream os = new FileOutputStream(new File(Items.items[1] + System.getProperty("file.separator") + Sources.PROPERTIES_FILE))) {
+      p.store(os, Items.PROPERTIES_HEADER_COMMENT);
+    }
+    return value;
   }
 
   public String toString() {

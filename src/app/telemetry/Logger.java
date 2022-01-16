@@ -28,6 +28,7 @@ public class Logger {
   public static boolean clear() {
     File curr = new File(Items.items[2]);
     File[] files = curr.listFiles();
+    assert files != null;
     for (File f : files) {
       if (f.getName().endsWith(".log")) {
         f.delete();

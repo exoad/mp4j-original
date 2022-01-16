@@ -37,7 +37,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected JLabel header_notice, status;
   protected JSlider volume_slider;
   protected static JFrame frame;
-  protected float volume_keeper;
   protected static File musicFile;
   protected static Clip clip;
   protected boolean loop = false;
@@ -194,7 +193,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
     if (clip != null) {
       currentFrame = clip.getMicrosecondPosition();
       clip.stop();
-    } if(!worker.isInterrupted() || mp3Player != null) {
+    } 
+    if(!worker.isInterrupted() || mp3Player != null) {
       worker.interrupt();
       worker = new Thread();
       mp3Player.close();

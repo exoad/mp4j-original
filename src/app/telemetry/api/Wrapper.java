@@ -13,7 +13,7 @@ public class Wrapper implements API {
   public String run() throws IOException {  
     Scanner sc = new Scanner(returnLink().openStream());
 
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     while (sc.hasNextLine()) {
       sb.append(sc.nextLine()).append("\n");
     }

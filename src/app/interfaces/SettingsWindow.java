@@ -2,14 +2,18 @@ package app.interfaces;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import app.core.Cache;
 import app.core.JSONParser;
 import app.core.PropertiesReader;
+import app.global.Items;
 import app.global.VersionInfo;
 import app.telemetry.FileIntegrity;
 import app.telemetry.Logger;
 import app.telemetry.api.Wrapper;
+import app.interfaces.theme.LAFCommitter;
+import app.interfaces.theme.Parser;
 
 import java.net.URL;
 import java.awt.Font;
@@ -19,25 +23,28 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.Component;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 
-public class SettingsWindow implements Runnable, ActionListener {
+public class SettingsWindow implements Runnable, ActionListener, ItemListener {
   public static JFrame frame;
   private final JPanel panel;
   private final JLabel title;
+  private final JComboBox<String> theme;
   private final JLabel information;
   private final JButton verifyFile, clearCache, resetProperties, clearLogs;
   private Wrapper wrapper = new Wrapper();
   private FileIntegrity fileIntegrity = new FileIntegrity();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
-
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 400));
@@ -53,6 +60,13 @@ public class SettingsWindow implements Runnable, ActionListener {
     Icon fileINTCO = new ImageIcon(URLFILEINT);
     verifyFile.setIcon(fileINTCO);
     verifyFile.addActionListener(this);
+
+    theme = new JComboBox<>(Items.themes);
+    theme.setAlignmentX(Component.CENTER_ALIGNMENT);
+    theme.setMaximumSize(new Dimension(theme.getPreferredSize().width, theme.getPreferredSize().height));
+    theme.setSelectedItem(PropertiesReader.getProp("gui.defaultTheme"));
+    theme.setToolTipText("Change the theme of the application");
+    theme.addItemListener(this);
 
     String json = wrapper.run();
     String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
@@ -99,11 +113,12 @@ public class SettingsWindow implements Runnable, ActionListener {
     resetProperties.addActionListener(this);
 
     panel.add(title);
-    panel.add(Box.createHorizontalStrut(15));
+    panel.add(Box.createHorizontalStrut(10));
     panel.add(verifyFile);
     panel.add(clearCache);
     panel.add(resetProperties);
     panel.add(clearLogs);
+    panel.add(theme);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(10));
     panel.add(information);
@@ -116,7 +131,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     frame.setResizable(false);
     frame.setIconImage(imageIcon.getImage());
     frame.setLocationRelativeTo(null);
-    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.add(panel);
   }
 
@@ -138,7 +153,12 @@ public class SettingsWindow implements Runnable, ActionListener {
     verifyFile.setIcon(fileINTCO);
     verifyFile.addActionListener(this);
 
-    /// if there is internet connection from Items.items[6]
+    theme = new JComboBox<>(Items.themes);
+    theme.setToolTipText("Change the theme of the application");
+    theme.setAlignmentX(Component.CENTER_ALIGNMENT);
+    theme.setMaximumSize(new Dimension(theme.getPreferredSize().width, theme.getPreferredSize().height));
+    theme.setSelectedItem(PropertiesReader.getProp("gui.defaultTheme"));
+    theme.addItemListener(this);
 
     String json = wrapper.run();
     String versionInfo = ("<html><p>Your Version: " + VersionInfo.VERSION + "<br>Latest Release: "
@@ -185,11 +205,12 @@ public class SettingsWindow implements Runnable, ActionListener {
     resetProperties.addActionListener(this);
 
     panel.add(title);
-    panel.add(Box.createHorizontalStrut(15));
+    panel.add(Box.createHorizontalStrut(10));
     panel.add(verifyFile);
     panel.add(clearCache);
     panel.add(resetProperties);
     panel.add(clearLogs);
+    panel.add(theme);
     panel.add(Box.createHorizontalStrut(10));
     panel.add(Box.createHorizontalStrut(30));
     panel.add(information);
@@ -202,7 +223,7 @@ public class SettingsWindow implements Runnable, ActionListener {
     frame.setResizable(false);
     frame.setIconImage(imageIcon.getImage());
     frame.setLocationRelativeTo(null);
-    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.add(panel);
   }
 
@@ -268,6 +289,18 @@ public class SettingsWindow implements Runnable, ActionListener {
    */
   public static Object getInstance() {
     return frame;
+  }
+
+  @Override
+  public void itemStateChanged(ItemEvent e) {
+    if(e.getSource().equals(theme)) {
+      new LAFCommitter(java.awt.Frame.getFrames()).setMultTheme(new Parser(java.util.Objects.requireNonNull(theme.getSelectedItem()).toString()).getTheme());
+      try {
+        new Parser(java.util.Objects.requireNonNull(theme.getSelectedItem()).toString()).parseThemeToProperty();
+      } catch (IOException e1) {
+        e1.printStackTrace();
+      }
+    }
   }
 
 }

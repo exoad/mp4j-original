@@ -22,7 +22,7 @@ import java.io.IOException;
 public class ErrorMessage implements ActionListener {
   private final JButton okButton, pathBtn;
   private final JFrame frame;
-  private String path;
+  private final String path;
 
   public ErrorMessage(String message) {
     this.path = Logger.log(message);

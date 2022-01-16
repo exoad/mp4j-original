@@ -1,4 +1,4 @@
-package app.core.rules;
+package app.rules;
 
 public abstract class DefProperties {
   private DefProperties() {}

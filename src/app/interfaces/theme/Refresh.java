@@ -1,8 +1,9 @@
 package app.interfaces.theme;
 
-import javax.swing.JFrame;
+import java.awt.Window;
+
 import javax.swing.UnsupportedLookAndFeelException;
 
 public interface Refresh {
-  public void refresh(JFrame frame) throws UnsupportedLookAndFeelException;
+  public void refresh(Window jfts) throws UnsupportedLookAndFeelException;
 }

@@ -44,18 +44,17 @@ import app.global.Items;
  */
 
 public class Runner {
-  private static PropertiesReader properties;
 
   /**
    * @return String
-   * @throws IOException
+   * @throws IOException IO is used here
    */
   public static String readInfo() throws IOException {
     if (new File(Items.items[1] + "/" + app.global.Sources.LIFEPRESERVER_PREVDIR).exists()
         || new File(Items.items[1] + "/" + app.global.Sources.LIFEPRESERVER_PREVDIR).isDirectory()) {
 
       BufferedReader br = new BufferedReader(
-          new FileReader(new File(Items.items[1] + "/" + app.global.Sources.LIFEPRESERVER_PREVDIR)));
+          new FileReader(app.global.Items.items[1] + "/" + app.global.Sources.LIFEPRESERVER_PREVDIR));
       StringBuilder sb = new StringBuilder();
       String line = br.readLine();
       while (line != null) {
@@ -102,12 +101,12 @@ public class Runner {
       socket.connect(new InetSocketAddress("google.com", 80), 3000);
       socket.close();
     } catch (IOException e) {
-      BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Items.items[6])));
+      BufferedWriter bw = new BufferedWriter(new FileWriter(app.global.Items.items[6]));
       bw.write("0");
       bw.close();
       return false;
     }
-    BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Items.items[6])));
+    BufferedWriter bw = new BufferedWriter(new FileWriter(app.global.Items.items[6]));
     bw.write("1");
     bw.close();
     
@@ -121,12 +120,9 @@ public class Runner {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    properties = new PropertiesReader();
-    String laf = properties.getProp("gui.defaultTheme");
+    new app.core.PropertiesReader();
+    String laf = app.core.PropertiesReader.getProp("gui.defaultTheme");
     switch (laf) {
-      case "regulardark":
-        FlatDarkLaf.setup();
-        break;
       case "material":
         FlatMaterialDarkerIJTheme.setup();
         break;

@@ -7,7 +7,7 @@ import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 
 public class Splash {
-  private float seconds = 3000f;
+  private final float seconds;
 
   public Splash(float seconds) {
     this.seconds = seconds;

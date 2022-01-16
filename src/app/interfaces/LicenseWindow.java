@@ -123,7 +123,4 @@ public class LicenseWindow implements Runnable, ActionListener {
     }
   }
 
-  public boolean isVisible() {
-    return frame.isVisible();
-  }
 }

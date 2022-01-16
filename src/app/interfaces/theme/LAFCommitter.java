@@ -1,27 +1,32 @@
 package app.interfaces.theme;
 
-import javax.swing.JFrame;
-import javax.swing.UnsupportedLookAndFeelException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import java.awt.Frame;
 
 import app.interfaces.ErrorMessage;
 
 public class LAFCommitter {
-  private static JFrame frame;
+  private static ArrayList<Frame> jfxs = new ArrayList<>();
 
-  public LAFCommitter(JFrame inst) {
-    frame = inst;
+  public LAFCommitter(Frame... jfxs) {
+    LAFCommitter.jfxs.addAll(java.util.Arrays.asList(jfxs));
   }
 
-  public void setTheme(Refresh theme) {
+  public void setMultTheme(Refresh theme) {
     try {
-      if(!(theme instanceof Refresh)) {
-        new ErrorMessage("Unable to process the specified Refresh theme.");
-        return;
+      for (Frame jfts : jfxs) {
+        if (theme == null) {
+          new ErrorMessage("Unable to process the specified Refresh theme.\nTrace Dump: "
+              + Arrays.toString(jfxs.toArray()) + "\nArgument Type:" + jfts.getClass().getName());
+          return;
+        }
+        theme.refresh(jfts);
+
       }
-      theme.refresh(frame);
-    } catch (UnsupportedLookAndFeelException ex) {
-      new ErrorMessage("Unable to set look and feel \n" + ex.getMessage());
+    } catch (Exception ex) {
+      // do nothing
     }
   }
-
 }

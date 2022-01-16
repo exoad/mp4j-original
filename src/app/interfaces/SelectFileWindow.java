@@ -24,7 +24,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
   private final JButton button;
   private final JButton openExplorer;
   private final JTextField textField;
-  private String lastDir = "";
+  private final String lastDir;
 
   public SelectFileWindow(String lastFilePath) {
     lastDir = lastFilePath;
@@ -58,16 +58,8 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     frame.add(this);
   }
 
-  
-  /** 
-   * @return String
-   */
-  public String getFilePath() {
-    return filePath;
-  }
 
-  
-  /** 
+  /**
    * @return File
    */
   public static File getFile() {
@@ -108,7 +100,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     if (e.getSource().equals(button)) {
       check(textField.getText());
     } else if (e.getSource().equals(openExplorer)) {
-      File f = null;
+      File f;
       new app.core.Host(lastDir);
       f = Host.openFileBrowser(this);
 

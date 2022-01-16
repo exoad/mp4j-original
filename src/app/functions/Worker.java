@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Worker {
   private Thread worker;
-  private ArrayList<Runnable> args = new ArrayList<>();
+  private final ArrayList<Runnable> args = new ArrayList<>();
 
   public synchronized void threadedWorker(Runnable r) {
     worker = new Thread(r);

@@ -1,4 +1,4 @@
-package app.core.rules;
+package app.rules;
 
 import java.io.File;
 import java.util.HashSet;
