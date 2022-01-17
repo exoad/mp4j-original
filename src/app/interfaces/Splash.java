@@ -14,7 +14,7 @@ public class Splash {
   }
 
   public void run() {
-    URL splash_screen = getClass().getResource("/splash_screen.png");
+    URL splash_screen = getClass().getResource("/icons/others/splash_screen.png");
     JWindow window = new JWindow();
     assert splash_screen != null;
     window.getContentPane().add(

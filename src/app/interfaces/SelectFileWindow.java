@@ -28,8 +28,8 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
 
   public SelectFileWindow(String lastFilePath) {
     lastDir = lastFilePath;
-    
-    URL frameIcon = getClass().getResource("/file_select_folder_icon.png");
+
+    URL frameIcon = getClass().getResource("/icons/others/file_select_folder_icon.png");
     assert frameIcon != null;
     ImageIcon frameImageIcon = new ImageIcon(frameIcon);
     button = new JButton("Select File");
@@ -72,7 +72,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     frame.pack();
   }
 
-  
+
   /** 
    * @param field
    */
@@ -91,7 +91,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     }
   }
 
-  
+
   /** 
    * @param e
    */

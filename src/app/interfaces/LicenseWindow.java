@@ -27,7 +27,7 @@ public class LicenseWindow implements Runnable, ActionListener {
 
   public LicenseWindow(int firstTime) throws IOException {
 
-    URL url = getClass().getResource("/license_icon.png");
+    URL url = getClass().getResource("/icons/others/license_icon.png");
     assert url != null;
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Music Player | License");

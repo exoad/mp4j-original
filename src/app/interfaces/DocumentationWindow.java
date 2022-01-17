@@ -23,7 +23,7 @@ public class DocumentationWindow implements Runnable {
 
   public DocumentationWindow() throws IOException {
     
-    URL url = getClass().getResource("/documentation_icon.png");
+    URL url = getClass().getResource("/icons/others/documentation_icon.png");
     assert url != null;
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Music Player | Documentation");

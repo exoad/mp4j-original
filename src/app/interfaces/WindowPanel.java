@@ -42,7 +42,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected boolean loop = false;
   protected static boolean alreadyPlaying = false, toPause = false, playAsMp3 = false;
   protected static String music_path;
-  protected URL pause_icon = getClass().getResource("/pause_button.png");
+  protected URL pause_icon = getClass().getResource("/icons/others/pause_button.png");
   protected Icon pause_button_ico;
   protected Worker master = new Worker();
 
@@ -51,7 +51,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     pause_button_ico = new javax.swing.ImageIcon(pause_icon);
   }
 
-  protected URL play_icon = getClass().getResource("/play_button.png");
+  protected URL play_icon = getClass().getResource("/icons/others/play_button.png");
   protected Icon play_button_ico;
 
   {
@@ -68,7 +68,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
-    URL frame_icon = getClass().getResource("/frame-icon.png");
+    URL frame_icon = getClass().getResource("/icons/others/frame-icon.png");
 
     assert pause_icon != null;
 
@@ -87,7 +87,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_btn.setToolTipText("Play the current media");
     play_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    URL new_file_icon = getClass().getResource("/file_select_folder_icon.png");
+    URL new_file_icon = getClass().getResource("/icons/others/file_select_folder_icon.png");
     assert new_file_icon != null;
     Icon new_file_ico = new ImageIcon(new_file_icon);
 

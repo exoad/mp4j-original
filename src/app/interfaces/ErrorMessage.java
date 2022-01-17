@@ -46,7 +46,7 @@ public class ErrorMessage implements ActionListener {
     panel.add(okButton);
     panel.add(pathBtn);
     JScrollPane jsp = new JScrollPane(panel);
-    URL url = getClass().getResource("/error_frame_icon.png");
+    URL url = getClass().getResource("/icons/others/error_frame_icon.png");
     assert url != null;
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Error!");

@@ -7,9 +7,11 @@ import java.io.InputStreamReader;
 import java.awt.Dimension;
 import javax.swing.JFileChooser;
 
+import app.core.ico.IconRules;
 
 public class Host {
   private static String lastDir = "";
+  private static IconRules ir = new IconRules();
 
   public Host(String lastDir) {
     Host.lastDir = lastDir;
@@ -36,6 +38,7 @@ public class Host {
       
       fileChooser = new JFileChooser();
       fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+      fileChooser.setFileView(ir);
       fileChooser.setDialogTitle("Select File using File Explorer");
       fileChooser.setApproveButtonText("Select");
       fileChooser.setApproveButtonToolTipText("Select the file");
@@ -50,7 +53,7 @@ public class Host {
       return fileChooser.getSelectedFile();
     } catch (Exception e) {
       e.printStackTrace();
-      new app.interfaces.ErrorMessage(e.getStackTrace().toString());
+      new app.interfaces.ErrorMessage(java.util.Arrays.toString(e.getStackTrace()));
     }
     return null;
 

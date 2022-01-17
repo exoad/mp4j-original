@@ -55,7 +55,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
 
     verifyFile = new JButton("Verify File Integrity");
     verifyFile.setAlignmentX(Component.CENTER_ALIGNMENT);
-    URL URLFILEINT = getClass().getResource("/fileint_icon.png");
+    URL URLFILEINT = getClass().getResource("/icons/others/fileint_icon.png");
     assert URLFILEINT != null;
     Icon fileINTCO = new ImageIcon(URLFILEINT);
     verifyFile.setIcon(fileINTCO);
@@ -106,7 +106,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
 
     resetProperties = new JButton("Reset Properties");
     resetProperties.setAlignmentX(Component.CENTER_ALIGNMENT);
-    URL URLRESETPROP = getClass().getResource("/reset_icon.png");
+    URL URLRESETPROP = getClass().getResource("/icons/others/reset_icon.png");
     assert URLRESETPROP != null;
     Icon resetPROPCO = new ImageIcon(URLRESETPROP);
     resetProperties.setIcon(resetPROPCO);
@@ -123,7 +123,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
     panel.add(Box.createHorizontalStrut(10));
     panel.add(information);
 
-    URL icon = getClass().getResource("/information_icon.png");
+    URL icon = getClass().getResource("/icons/others/information_icon.png");
     assert icon != null;
     ImageIcon imageIcon = new ImageIcon(icon);
     frame = new JFrame("Music Player | Settings");
@@ -147,7 +147,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
 
     verifyFile = new JButton("Check File Integrity");
     verifyFile.setAlignmentX(Component.CENTER_ALIGNMENT);
-    URL URLFILEINT = getClass().getResource("/fileint_icon.png");
+    URL URLFILEINT = getClass().getResource("/icons/others/fileint_icon.png");
     assert URLFILEINT != null;
     Icon fileINTCO = new ImageIcon(URLFILEINT);
     verifyFile.setIcon(fileINTCO);
@@ -185,7 +185,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
 
     clearCache = new JButton("Clear Cache");
     clearCache.setAlignmentX(Component.CENTER_ALIGNMENT);
-    URL URLCLEARCACHE = getClass().getResource("/trashcan_icon.png");
+    URL URLCLEARCACHE = getClass().getResource("/icons/others/trashcan_icon.png");
     assert URLCLEARCACHE != null;
     Icon trashcanCO = new ImageIcon(URLCLEARCACHE);
     clearCache.setIcon(trashcanCO);
@@ -198,7 +198,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
 
     resetProperties = new JButton("Reset Properties");
     resetProperties.setAlignmentX(Component.CENTER_ALIGNMENT);
-    URL URLRESETPROP = getClass().getResource("/reset_icon.png");
+    URL URLRESETPROP = getClass().getResource("/icons/others/reset_icon.png");
     assert URLRESETPROP != null;
     Icon resetPROPCO = new ImageIcon(URLRESETPROP);
     resetProperties.setIcon(resetPROPCO);
@@ -215,7 +215,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
     panel.add(Box.createHorizontalStrut(30));
     panel.add(information);
 
-    URL icon = getClass().getResource("/information_icon.png");
+    URL icon = getClass().getResource("/icons/others/information_icon.png");
     assert icon != null;
     ImageIcon imageIcon = new ImageIcon(icon);
     frame = new JFrame("Music Player | Settings");
