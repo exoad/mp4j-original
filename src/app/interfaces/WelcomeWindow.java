@@ -3,6 +3,7 @@ package app.interfaces;
 import javax.swing.JFrame;
 
 import app.core.PropertiesReader;
+import app.interfaces.event.RoundFrame;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -22,7 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class WelcomeWindow implements Runnable, ActionListener {
+public class WelcomeWindow implements Runnable, ActionListener{
   private final JFrame frame;
   private final JButton openSelectFile;
   private final JButton github;
@@ -119,6 +120,7 @@ public class WelcomeWindow implements Runnable, ActionListener {
     frame = new JFrame("Music-Player v1.0 | Jack Meng | Welcome!");
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     frame.setLocationRelativeTo(null);
+    frame.addComponentListener(new RoundFrame(frame));
     frame.setIconImage(frame_ico.getImage());
     frame.setResizable(false);
     frame.add(panel);

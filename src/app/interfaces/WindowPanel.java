@@ -29,6 +29,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import app.functions.Worker;
+import app.interfaces.event.RoundFrame;
 import javazoom.jl.decoder.JavaLayerException;
 
 public class WindowPanel implements ActionListener, ChangeListener {
@@ -79,6 +80,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
     frame = new JFrame("Music Player - Jack Meng");
     frame.setIconImage(frame_ico.getImage());
+    frame.addComponentListener(new RoundFrame(frame));
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     frame.setResizable(false);
 
@@ -167,7 +169,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
           play_btn.setIcon(play_button_ico);
         }).start();
       } else {
-        if(!running) {
+        if (!running) {
           volume_slider.setEnabled(false);
           playAsMp3 = true;
           mp3Player = new javazoom.jl.player.Player(new java.io.FileInputStream(musicFile));
@@ -193,8 +195,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
     if (clip != null) {
       currentFrame = clip.getMicrosecondPosition();
       clip.stop();
-    } 
-    if(!worker.isInterrupted() || mp3Player != null) {
+    }
+    if (!worker.isInterrupted() || mp3Player != null) {
       worker.interrupt();
       worker = new Thread();
       mp3Player.close();
@@ -231,10 +233,10 @@ public class WindowPanel implements ActionListener, ChangeListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(play_btn)) {
-      if(worker != null)
+      if (worker != null)
         worker.interrupt();
       if (play_btn.getIcon() == play_button_ico) {
-        if(worker != null)
+        if (worker != null)
           worker.interrupt();
         try {
           playMusic();
@@ -243,7 +245,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
         }
         setPlayState();
       } else if (play_btn.getIcon() == pause_button_ico) {
-        if(worker != null)
+        if (worker != null)
           worker.interrupt();
         pauseMusic();
         setPauseState();

@@ -14,6 +14,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import app.interfaces.event.RoundFrame;
+
 public class OKWindow implements ActionListener {
   private final JButton okButton;
   private final JFrame frame;
@@ -40,6 +42,7 @@ public class OKWindow implements ActionListener {
     frame.add(panel);
     frame.setSize(300, 100);
     frame.setResizable(false);
+    frame.addComponentListener(new RoundFrame(frame));
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setVisible(true);

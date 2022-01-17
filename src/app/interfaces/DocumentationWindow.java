@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import app.functions.Parser;
+import app.interfaces.event.RoundFrame;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -73,7 +74,7 @@ public class DocumentationWindow implements Runnable {
     frame.add(label);
     frame.add(Box.createVerticalStrut(7));
     frame.add(scrollPane);
-
+    frame.addComponentListener(new RoundFrame(frame));
   }
 
   @Override

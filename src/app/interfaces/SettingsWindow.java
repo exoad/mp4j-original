@@ -14,6 +14,7 @@ import app.telemetry.Logger;
 import app.telemetry.api.Wrapper;
 import app.interfaces.theme.LAFCommitter;
 import app.interfaces.theme.Parser;
+import app.interfaces.event.RoundFrame;
 
 import java.net.URL;
 import java.awt.Font;
@@ -129,6 +130,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
     frame = new JFrame("Music Player | Settings");
     frame.setSize(500, 600);
     frame.setResizable(false);
+    frame.addComponentListener(new RoundFrame(frame));
     frame.setIconImage(imageIcon.getImage());
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

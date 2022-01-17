@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import app.telemetry.Logger;
+import app.interfaces.event.RoundFrame;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -53,6 +54,7 @@ public class ErrorMessage implements ActionListener {
     frame.setIconImage(icon.getImage());
     frame.add(jsp);
     frame.setSize(400, 150);
+    frame.addComponentListener(new RoundFrame(frame));
     frame.setResizable(false);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
