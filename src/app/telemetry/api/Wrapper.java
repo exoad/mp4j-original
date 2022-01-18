@@ -23,7 +23,7 @@ public class Wrapper implements API {
 
   @Override
   public URL returnLink() throws IOException {
-    return new URL("https://exoad.github.io/MusicPlayer/api/version");
+    return new URL("https://exoad.github.io/MusicPlayer4J/api/version");
   }
   
 }

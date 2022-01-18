@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import app.interfaces.event.WebsiteButtons;
+import app.interfaces.event.RoundFrame;
 
 import java.awt.BorderLayout;
 
@@ -92,9 +93,10 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setSize(400, 400);
     frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
     frame.getContentPane().setBackground(new java.awt.Color(0, 0, 0, 0));
     frame.setResizable(false);
+    frame.setUndecorated(true);
+    frame.addComponentListener(new RoundFrame(frame));
     frame.add(this);
   }
 
