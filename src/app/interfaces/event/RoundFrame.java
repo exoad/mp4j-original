@@ -40,17 +40,17 @@ public class RoundFrame extends JComponent implements ComponentListener {
 
   @Override
   public void componentMoved(ComponentEvent e) {
-
+    // UNUSED
   }
 
   @Override
   public void componentShown(ComponentEvent e) {
-
+    // UNUSED
   }
 
   @Override
   public void componentHidden(ComponentEvent e) {
-
+    // UNUSED
   }
 
 }

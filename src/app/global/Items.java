@@ -1,6 +1,7 @@
 package app.global;
 
 public class Items {
+  private Items() {}
   public static final String[] items = {
       "MusicPlayer/cache",
       "MusicPlayer",
@@ -12,7 +13,7 @@ public class Items {
       "MusicPlayer/rsc/"
   };
   public static final float SPLASH_SECONDS = 800f;
-  public static String[] themes = {
+  public static final String[] themes = {
     "Regular Dark",
     "Arc Dark",
     "One Dark",

@@ -6,6 +6,8 @@ import java.net.URL;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 
 import app.core.Host;
 import app.core.LifePreserver;
@@ -14,6 +16,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import app.interfaces.event.WebsiteButtons;
+
+import java.awt.BorderLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,13 +27,46 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
   private String filePath;
   private static File file;
   private final JFrame frame;
-  private final JButton button;
+  private final JButton button, openYouTube, openSoundCloud, openSpotify;
   private final JButton openExplorer;
   private final JTextField textField;
   private final String lastDir;
+  private final JToolBar toolBar;
 
   public SelectFileWindow(String lastFilePath) {
     lastDir = lastFilePath;
+
+    URL youtube = getClass().getResource("/icons/logos/youtube.png");
+    URL soundcloud = getClass().getResource("/icons/logos/soundcloud.png");
+    URL spotify = getClass().getResource("/icons/logos/spotify.png");
+
+    ImageIcon youtubeICO = new ImageIcon(youtube);
+    ImageIcon soundcloudICO = new ImageIcon(soundcloud);
+    ImageIcon spotifyICO = new ImageIcon(spotify);
+
+    openYouTube = new JButton("YouTube");
+    openYouTube.setIcon(youtubeICO);
+    openYouTube.addActionListener(this);
+    openYouTube.setBorderPainted(false);
+    openYouTube.addActionListener(new WebsiteButtons("https://www.youtube.com/"));
+
+    openSoundCloud = new JButton("SoundCloud");
+    openSoundCloud.setIcon(soundcloudICO);
+    openSoundCloud.addActionListener(this);
+    openSoundCloud.setBorderPainted(false);
+    openSoundCloud.addActionListener(new WebsiteButtons("https://soundcloud.com/"));
+
+    openSpotify = new JButton("Spotify");
+    openSpotify.setIcon(spotifyICO);
+    openSpotify.addActionListener(this);
+    openSpotify.setBorderPainted(false);
+    openSpotify.addActionListener(new WebsiteButtons("https://open.spotify.com/"));
+
+    toolBar = new JToolBar(SwingConstants.HORIZONTAL);
+    toolBar.setFloatable(false);
+    toolBar.add(openYouTube);
+    toolBar.add(openSoundCloud);
+    toolBar.add(openSpotify);
 
     URL frameIcon = getClass().getResource("/icons/others/file_select_folder_icon.png");
     assert frameIcon != null;
@@ -43,10 +82,11 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     openExplorer.addActionListener(this);
     openExplorer.setIcon(frameImageIcon);
 
-    add(button);
-    add(textField);
-    add(openExplorer);
-
+    setLayout(new BorderLayout());
+    add(toolBar, BorderLayout.NORTH);
+    add(button, BorderLayout.CENTER);
+    add(textField, BorderLayout.CENTER);
+    add(openExplorer, BorderLayout.SOUTH);
     frame = new JFrame("Select File");
     frame.setIconImage(frameImageIcon.getImage());
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
