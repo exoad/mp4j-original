@@ -23,7 +23,9 @@ public class Items {
     "Gruvbox",
     "Vuesion",
     "Regular Light",
-    "Solarized"
+    "Solarized",
+    "Monokai",
+    "Material Lighter"
   };
   public static final String PROPERTIES_HEADER_COMMENT = "Read the documentation in the program to understand how to modify the properties file!\nALSO DO NOT REMOVE ANY OF THE PROPERTIES!!!";
 }

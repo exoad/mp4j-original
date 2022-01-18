@@ -31,7 +31,9 @@ public class Logger {
     assert files != null;
     for (File f : files) {
       if (f.getName().endsWith(".log")) {
-        f.delete();
+        if(!f.delete()) {
+          return false;
+        }
       }
     }
     return true;

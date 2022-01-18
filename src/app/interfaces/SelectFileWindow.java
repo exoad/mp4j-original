@@ -48,18 +48,21 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     openYouTube = new JButton("YouTube");
     openYouTube.setIcon(youtubeICO);
     openYouTube.addActionListener(this);
+    openYouTube.setToolTipText("Open YouTube");
     openYouTube.setBorderPainted(false);
     openYouTube.addActionListener(new WebsiteButtons("https://www.youtube.com/"));
 
     openSoundCloud = new JButton("SoundCloud");
     openSoundCloud.setIcon(soundcloudICO);
     openSoundCloud.addActionListener(this);
+    openSoundCloud.setToolTipText("Open SoundCloud");
     openSoundCloud.setBorderPainted(false);
     openSoundCloud.addActionListener(new WebsiteButtons("https://soundcloud.com/"));
 
     openSpotify = new JButton("Spotify");
     openSpotify.setIcon(spotifyICO);
     openSpotify.addActionListener(this);
+    openSpotify.setToolTipText("Open Spotify");
     openSpotify.setBorderPainted(false);
     openSpotify.addActionListener(new WebsiteButtons("https://open.spotify.com/"));
 

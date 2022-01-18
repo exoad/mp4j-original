@@ -21,6 +21,8 @@ public class AllowedProperties {
 
     allowedLiteLaf.add("regularlight");
     allowedLiteLaf.add("solarized");
+    allowedLiteLaf.add("gradientogreen");
+    allowedLiteLaf.add("materiallighter");
 
     allowedDefCache.add("false");
     allowedDefCache.add("true");

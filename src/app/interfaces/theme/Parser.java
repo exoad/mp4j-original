@@ -62,6 +62,17 @@ public class Parser {
       "REGULARLIGHT",
       "Regular Light",
   };
+  private final String[] themePartsMaterialLighter = {
+      "materiallighter",
+      "material lighter",
+      "MATERIALLIGHTER",
+      "Material Lighter",
+  };
+  private final String[] themePartsMonokai = {
+      "Monokai",
+      "monokai",
+      "MONOKAI",
+  };
 
   public Parser(String theme) {
     assert theme != null;
@@ -98,6 +109,10 @@ public class Parser {
       return new SolarizedLight();
     } else if (contains(themePartsRegularLight, theme)) {
       return new RegularLight();
+    } else if (contains(themePartsMonokai, theme)) {
+      return new Monokai();
+    } else if (contains(themePartsMaterialLighter, theme)) {
+      return new MaterialLighter();
     } else {
       return new RegularDark();
     }

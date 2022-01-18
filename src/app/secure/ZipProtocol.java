@@ -13,6 +13,7 @@ import app.global.Items;
 import java.util.List;
 import java.util.Arrays;
 
+@Deprecated(since="1.5", forRemoval=false)
 public class ZipProtocol {
   public void zipResources() throws IOException {
     String fileNames = FileIntegrity.getAllFiles();

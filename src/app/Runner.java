@@ -19,6 +19,8 @@ import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMonokaiProContrastIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
 import app.core.PropertiesReader;
 import app.global.Items;
@@ -149,6 +151,12 @@ public class Runner {
         break;
       case "solarized":
         FlatSolarizedLightIJTheme.setup();
+        break;
+      case "gradientogreen":
+        FlatMonokaiProContrastIJTheme.setup();
+        break;
+      case "materiallighter":
+        FlatMaterialLighterIJTheme.setup();
         break;
       default:
         FlatDarkLaf.setup();
