@@ -33,8 +33,8 @@ public class FilesIntChecker {
           if(f.isDirectory() || filesSeq.toString().contains(f.getName())) {
             continue;
           }
-          filesSeq.append(f.getName() + "\n");
-          System.out.println(filesSeq.toString());
+          filesSeq.append(secondPaths + f.getName() + "\n");
+          System.out.println(secondPaths + filesSeq.toString());
         }
       }
     }
