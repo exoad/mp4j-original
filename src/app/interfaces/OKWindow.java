@@ -42,6 +42,7 @@ public class OKWindow implements ActionListener {
     frame.add(panel);
     frame.setSize(300, 100);
     frame.setResizable(false);
+    frame.setUndecorated(true);
     frame.addComponentListener(new RoundFrame(frame));
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

@@ -130,6 +130,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
     frame = new JFrame("Music Player | Settings");
     frame.setSize(500, 600);
     frame.setResizable(false);
+    frame.setUndecorated(true);
     frame.addComponentListener(new RoundFrame(frame));
     frame.setIconImage(imageIcon.getImage());
     frame.setLocationRelativeTo(null);

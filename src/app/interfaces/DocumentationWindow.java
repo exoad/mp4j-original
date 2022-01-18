@@ -74,6 +74,7 @@ public class DocumentationWindow implements Runnable {
     frame.add(label);
     frame.add(Box.createVerticalStrut(7));
     frame.add(scrollPane);
+    frame.setUndecorated(true);
     frame.addComponentListener(new RoundFrame(frame));
   }
 

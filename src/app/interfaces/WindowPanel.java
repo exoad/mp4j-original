@@ -80,6 +80,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
     frame = new JFrame("Music Player - Jack Meng");
     frame.setIconImage(frame_ico.getImage());
+    frame.setUndecorated(true);
     frame.addComponentListener(new RoundFrame(frame));
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     frame.setResizable(false);

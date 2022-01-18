@@ -97,6 +97,7 @@ public class LicenseWindow implements Runnable, ActionListener {
       frame.add(Box.createVerticalStrut(7));
     }
     frame.add(scrollPane);
+    frame.setUndecorated(true);
     frame.addComponentListener(new RoundFrame(frame));
   }
 

@@ -54,6 +54,7 @@ public class ErrorMessage implements ActionListener {
     frame.setIconImage(icon.getImage());
     frame.add(jsp);
     frame.setSize(400, 150);
+    frame.setUndecorated(true);
     frame.addComponentListener(new RoundFrame(frame));
     frame.setResizable(false);
     frame.setLocationRelativeTo(null);
