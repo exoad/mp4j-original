@@ -5,21 +5,13 @@ import java.net.URI;
 
 import app.interfaces.ErrorMessage;
 
-import javax.swing.JButton;
 import java.awt.Desktop;
 
 public class WebsiteButtons implements java.awt.event.ActionListener {
-  private final JButton button;
   private final String url;
-
-  public WebsiteButtons(String url, JButton button) {
-    this.url = url;
-    this.button = button;
-  }
 
   public WebsiteButtons(String url) {
     this.url = url;
-    button = null;
   }
 
   @Override

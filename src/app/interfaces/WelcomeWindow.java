@@ -4,11 +4,11 @@ import javax.swing.JFrame;
 
 import app.core.PropertiesReader;
 import app.interfaces.event.RoundFrame;
+import app.interfaces.event.WebsiteButtons;
 
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Component;
-import java.net.URI;
 import java.net.URL;
 
 import javax.swing.Box;
@@ -16,8 +16,6 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
-import java.awt.Desktop;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -72,7 +70,7 @@ public class WelcomeWindow implements Runnable, ActionListener{
     Icon git_ico = new ImageIcon(github_icon);
     github = new JButton("GitHub Repository");
     github.setIcon(git_ico);
-    github.addActionListener(this);
+    github.addActionListener(new WebsiteButtons("https://github.com/exoad/MusicPlayer"));
     github.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     URL license_icon = getClass().getResource("/icons/others/license_icon.png");
@@ -147,19 +145,12 @@ public class WelcomeWindow implements Runnable, ActionListener{
   public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(openSelectFile)) {
       new SelectFileWindow(lastDir).run();
-    } else if (e.getSource().equals(github)) {
-      try {
-        Desktop.getDesktop().browse(new URI("https://github.com/exoad/MusicPlayer"));
-      } catch (java.io.IOException | java.net.URISyntaxException e1) {
-        e1.printStackTrace();
-        new ErrorMessage(java.util.Arrays.toString(e1.getStackTrace()));
-      }
     } else if (e.getSource().equals(license)) {
       try {
         new app.interfaces.LicenseWindow(0).run();
       } catch (IOException e1) {
         e1.printStackTrace();
-      }
+      } 
     } else if (e.getSource().equals(settings)) {
       try {
         new app.interfaces.SettingsWindow().run();
