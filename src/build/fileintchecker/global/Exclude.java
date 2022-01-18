@@ -1,4 +1,4 @@
-package build.global;
+package build.fileintchecker.global;
 
 public abstract class Exclude {
   public static final String IGNORE_DEPRECATED = "/deprecated";

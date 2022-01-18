@@ -6,4 +6,4 @@
 /makes
 /MusicPlayer
 /build/CMakeCache.txt
-/src/build/loader
+/src/build/fileintchecker/loader
