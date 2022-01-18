@@ -70,7 +70,7 @@ public class WelcomeWindow implements Runnable, ActionListener{
     Icon git_ico = new ImageIcon(github_icon);
     github = new JButton("GitHub Repository");
     github.setIcon(git_ico);
-    github.addActionListener(new WebsiteButtons("https://github.com/exoad/MusicPlayer"));
+    github.addActionListener(new WebsiteButtons("https://github.com/exoad/MusicPlayer4J"));
     github.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     URL license_icon = getClass().getResource("/icons/others/license_icon.png");
