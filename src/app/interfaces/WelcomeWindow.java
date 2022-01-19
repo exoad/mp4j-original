@@ -143,6 +143,7 @@ public class WelcomeWindow implements Runnable, ActionListener{
    */
   @Override
   public void actionPerformed(ActionEvent e) {
+    // hide windows
     if (e.getSource().equals(openSelectFile)) {
       new SelectFileWindow(lastDir).run();
     } else if (e.getSource().equals(license)) {
