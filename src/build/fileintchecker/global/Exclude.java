@@ -6,5 +6,7 @@ public abstract class Exclude {
     "/icons/audio-type/",
     "/icons/logos/",
     "/icons/others/",
+    "/icons/animated/waves/",
+    "/icons/animated/waves/paused/"
   };
 }

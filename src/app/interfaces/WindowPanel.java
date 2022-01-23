@@ -31,14 +31,17 @@ import javax.swing.event.ChangeListener;
 import app.interfaces.dialog.FrameConfirmDialog;
 import app.functions.Worker;
 import app.interfaces.event.RoundFrame;
-import javazoom.jl.decoder.JavaLayerException;
-
+import javazoom.jl.decoder.*;
+import javazoom.jl.player.JavaSoundAudioDevice;
 import app.CLI;
+
+import static java.lang.Math.*;
 
 public class WindowPanel implements ActionListener, ChangeListener {
   protected JPanel bp, mainPanel;
+  protected URL[] waves = new URL[4];
   protected JButton play_btn, new_file;
-  protected JLabel header_notice, status;
+  protected JLabel header_notice, status, wave_synth;
   protected JSlider volume_slider;
   protected static JFrame frame;
   protected static File musicFile;
@@ -46,6 +49,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected boolean loop = false;
   protected static boolean alreadyPlaying = false, toPause = false, playAsMp3 = false;
   protected static String music_path;
+  private final JavaSoundAudioDevice audioDevice = new javazoom.jl.player.JavaSoundAudioDevice();
+  private javazoom.jl.player.Player mp3Player;
   protected URL pause_icon = getClass().getResource("/icons/others/pause_button.png");
   protected Icon pause_button_ico;
   protected Worker master = new Worker();
@@ -63,7 +68,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_button_ico = new javax.swing.ImageIcon(play_icon);
   }
 
-  public long currentFrame = 0;
+  public int currentFrame = 0;
 
   public WindowPanel(String resource) {
     music_path = resource;
@@ -71,6 +76,14 @@ public class WindowPanel implements ActionListener, ChangeListener {
     musicFile = SelectFileWindow.getFile();
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
+
+    waves[0] = getClass().getResource("/icons/animated/waves/wave_1.gif");
+    waves[1] = getClass().getResource("/icons/animated/waves/wave_2.gif");
+    waves[2] = getClass().getResource("/icons/animated/waves/wave_3.gif");
+    waves[3] = getClass().getResource("/icons/animated/waves/paused/waves0.png");
+
+    wave_synth = new JLabel(new ImageIcon(waves[3]));
+    wave_synth.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
     URL frame_icon = getClass().getResource("/icons/others/frame-icon.png");
 
@@ -121,17 +134,20 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
     bp = new JPanel();
     bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
+    bp.add(wave_synth);
     bp.add(status);
     bp.add(play_btn);
     bp.add(new_file);
     bp.add(volume_slider);
 
-    bp.setPreferredSize(new Dimension(450, 200));
+    bp.setPreferredSize(new Dimension(500, 200));
 
     mainPanel = new JPanel();
     mainPanel.add(bp);
 
     frame.add(mainPanel);
+
+    currentFrame = 0;
   }
 
   public void volumeControl() {
@@ -144,8 +160,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
     }
   }
 
-  private Thread worker;
-  private javazoom.jl.player.Player mp3Player;
+  private Thread worker = new Thread();
+  
   private boolean running = false;
 
   /**
@@ -168,19 +184,23 @@ public class WindowPanel implements ActionListener, ChangeListener {
             try {
               Thread.sleep(100);
             } catch (InterruptedException e) {
-              e.printStackTrace();
+              CLI.print(e, app.global.cli.CliType.ERROR);
             }
           }
           play_btn.setIcon(play_button_ico);
         }).start();
       } else {
         if (!running) {
-          volume_slider.setEnabled(false);
           playAsMp3 = true;
-          mp3Player = new javazoom.jl.player.Player(new java.io.FileInputStream(musicFile));
+          mp3Player = new javazoom.jl.player.Player(new java.io.FileInputStream(musicFile), audioDevice);
+          volumeControlMP3();
           worker = new Thread(() -> {
             try {
-              mp3Player.play();
+              if (currentFrame < 0 || currentFrame != 0) {
+                mp3Player.play(currentFrame);
+              } else {
+                mp3Player.play();
+              }
             } catch (JavaLayerException e) {
               e.getException();
             }
@@ -198,14 +218,22 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
   public void pauseMusic() {
     if (clip != null) {
-      currentFrame = clip.getMicrosecondPosition();
+      currentFrame = (int) clip.getMicrosecondPosition();
       clip.stop();
     }
-    if (!worker.isInterrupted() || mp3Player != null) {
+    if (!worker.isInterrupted() && mp3Player != null) {
       worker.interrupt();
       worker = new Thread();
+      currentFrame = mp3Player.getPosition();
       mp3Player.close();
       mp3Player = null;
+    }
+  }
+
+  public void volumeControlMP3() {
+    if (mp3Player != null) {
+      audioDevice.setLineGain(volume_slider.getValue() / 100.0f);
+      volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
     }
   }
 
@@ -224,12 +252,14 @@ public class WindowPanel implements ActionListener, ChangeListener {
     play_btn.setIcon(play_button_ico);
     play_btn.setToolTipText("Play the current media");
     status.setText("<html><b>Currently Playing Nothing</b></html>");
+    wave_synth.setIcon(new ImageIcon(waves[3]));
   }
 
   public void setPlayState() {
     play_btn.setIcon(pause_button_ico);
     play_btn.setToolTipText("Pause the current media");
     status.setText("<html><b>Currently Playing: </b><br>" + musicFile.getName() + "</html>");
+    wave_synth.setIcon(new ImageIcon(waves[(int) random() * 3]));
   }
 
   /**
@@ -238,6 +268,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     CLI.print(e.getSource());
+    CLI.print("Current: " + currentFrame);
     if (e.getSource().equals(play_btn)) {
       if (worker != null)
         worker.interrupt();
@@ -257,15 +288,11 @@ public class WindowPanel implements ActionListener, ChangeListener {
         setPauseState();
       }
     } else if (e.getSource().equals(volume_slider)) {
-      if (playAsMp3 || musicFile.getName().endsWith(".mp3")) {
-        volume_slider.setEnabled(false);
-        volume_slider.setToolTipText("MP3 is only semi supported for now");
-      } else {
-        volume_slider.setEnabled(true);
-        volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
-      }
-      volumeControl();
-    } else if(e.getSource().equals(new_file)) {
+      if(musicFile.getName().endsWith(".mp3")) 
+        volumeControlMP3();
+      else
+        volumeControl();
+    } else if (e.getSource().equals(new_file)) {
       new FrameConfirmDialog("Are you sure you want to exit?", frame, new SelectFileWindow(music_path));
       pauseMusic();
       setPauseState();
@@ -285,7 +312,10 @@ public class WindowPanel implements ActionListener, ChangeListener {
   @Override
   public void stateChanged(ChangeEvent e) {
     if (e.getSource().equals(volume_slider)) {
-      volumeControl();
+      if(musicFile.getAbsolutePath().endsWith(".mp3"))
+        volumeControlMP3();
+      else
+        volumeControl();
     }
   }
 }
