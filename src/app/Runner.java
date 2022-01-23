@@ -167,7 +167,7 @@ public class Runner {
         FlatMaterialLighterIJTheme.setup();
         break;
       default:
-        FlatDarkLaf.setup();
+        FlatMaterialDarkerIJTheme.setup();
         break;
     }
     

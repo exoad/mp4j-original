@@ -258,7 +258,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
   public void setPlayState() {
     play_btn.setIcon(pause_button_ico);
     play_btn.setToolTipText("Pause the current media");
-    status.setText("<html><b>Currently Playing: </b><br>" + musicFile.getName() + "</html>");
+    status.setText("<html><u><b>Currently Playing: </b></u><br>" + musicFile.getName() + "</html>");
     wave_synth.setIcon(new ImageIcon(waves[(int) random() * 3]));
   }
 
