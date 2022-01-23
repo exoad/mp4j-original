@@ -1,0 +1,70 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.214.0/containers/cpp
+{
+	"name": "C++",
+	"build": {
+		"dockerfile": "Dockerfile",
+		// Update 'VARIANT' to pick an Debian / Ubuntu OS version: debian-11, debian-10, debian-9, ubuntu-21.04, ubuntu-20.04, ubuntu-18.04
+		// Use Debian 11, Debian 9, Ubuntu 18.04 or Ubuntu 21.04 on local arm64/Apple Silicon
+		"args": { "VARIANT": "debian-11" }
+	},
+	"runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-vscode.cpptools",
+		"ms-vscode.cmake-tools",
+		"danielpinto8zz6.c-cpp-compile-run",
+		"utsavm9.c-cpp-flag-debugging",
+		"ms-vscode.cpptools-extension-pack",
+		"jaycetyle.vscode-gnu-global",
+		"franneck94.c-cpp-runner",
+		"austin.code-gnu-global",
+		"twxs.cmake",
+		"firefox-devtools.vscode-firefox-debug",
+		"leonardssh.vscord",
+		"kuscamara.electron",
+		"github.vscode-pull-request-github",
+		"mhutchie.git-graph",
+		"vscjava.vscode-java-pack",
+		"eamodio.gitlens",
+		"vscjava.vscode-gradle",
+		"richardwillis.vscode-gradle-preview",
+		"naco-siren.gradle-language"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "gcc -v",
+
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode",
+	"features": {
+		"docker-in-docker": "20.10",
+		"docker-from-docker": "latest",
+		"kubectl-helm-minikube": "latest",
+		"terraform": "0.15",
+		"git": "latest",
+		"git-lfs": "latest",
+		"github-cli": "latest",
+		"azure-cli": "latest",
+		"sshd": "latest",
+		"desktop-lite": "latest",
+		"homebrew": "latest",
+		"node": "lts",
+		"python": "latest",
+		"golang": "latest",
+		"java": "lts",
+		"maven": "latest",
+		"gradle": "latest",
+		"ruby": "3.0",
+		"rust": "1.54",
+		"powershell": "latest",
+		"dotnet": "latest"
+	}
+}

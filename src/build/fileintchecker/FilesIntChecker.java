@@ -13,7 +13,7 @@ public class FilesIntChecker {
     Scanner sc = new Scanner(new File("src/build/fileintchecker/.loader"));
     String loadedPath = sc.nextLine();
     sc.close();
-    File exclude = new File(loadedPath + Exclude.IGNORE_DEPRECATED);
+    
     File mainPath = new File(loadedPath);
     File[] files = mainPath.listFiles();
     StringBuilder filesSeq = new StringBuilder();
