@@ -2,11 +2,8 @@ package app.interfaces.dialog;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-
 import java.awt.event.ActionListener;
 import java.awt.Component;
 import java.awt.Dimension;

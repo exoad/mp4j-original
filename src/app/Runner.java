@@ -26,6 +26,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 
 import app.core.PropertiesReader;
 import app.global.Items;
+import app.global.cli.CliException;
 
 /**
  * <h1>Runner</h1>
@@ -176,8 +177,9 @@ public class Runner {
    * @param args
    * @throws InterruptedException
    * @throws IOException
+   * @throws CliException
    */
-  public static void main(String[] args) throws InterruptedException, IOException {
+  public static void main(String[] args) throws InterruptedException, IOException, CliException {
     
     CLI.print(Runner.readInfo());
     CLI.print(Runner.class);
