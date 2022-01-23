@@ -9,6 +9,7 @@ import javax.swing.WindowConstants;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import app.CLI;
 import app.core.Host;
 import app.core.LifePreserver;
 
@@ -17,10 +18,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import app.interfaces.event.WebsiteButtons;
+import app.interfaces.dialog.ErrorMessage;
 import app.interfaces.event.RoundFrame;
 
 import java.awt.BorderLayout;
-
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,6 +37,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
   private final JToolBar toolBar;
 
   public SelectFileWindow(String lastFilePath) {
+    CLI.print(lastFilePath);
     lastDir = lastFilePath;
 
     URL youtube = getClass().getResource("/icons/logos/youtube.png");
@@ -78,7 +81,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     button = new JButton("Select File");
     button.addActionListener(this);
 
-    textField = new JTextField(20);
+    textField = new JTextField();
     textField.setEditable(true);
     textField.setToolTipText("Enter the file path here");
 
@@ -91,10 +94,11 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     add(button, BorderLayout.CENTER);
     add(textField, BorderLayout.CENTER);
     add(openExplorer, BorderLayout.SOUTH);
+    setPreferredSize(new Dimension(300, 80));
     frame = new JFrame("Select File");
     frame.setIconImage(frameImageIcon.getImage());
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    frame.setSize(400, 400);
+    frame.setSize(300, 100);
     frame.setLocationRelativeTo(null);
     frame.getContentPane().setBackground(new java.awt.Color(0, 0, 0, 0));
     frame.setResizable(false);
@@ -102,7 +106,6 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     frame.addComponentListener(new RoundFrame(frame));
     frame.add(this);
   }
-
 
   /**
    * @return File
@@ -117,11 +120,11 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     frame.pack();
   }
 
-
-  /** 
+  /**
    * @param field
    */
   public void check(String field) {
+    CLI.print(field);
     filePath = field;
     if (filePath == null || filePath.equals("") || !new File(filePath).exists()) {
       new ErrorMessage("Invalid file path");
@@ -130,18 +133,19 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     if (file.getName().endsWith(".wav") || file.getName().endsWith(".mp3")) {
       frame.setVisible(false);
       frame.dispose();
+      new WindowPanel(lastDir);
       WindowPanel.run();
     } else {
       new ErrorMessage("Invalid file type");
     }
   }
 
-
-  /** 
+  /**
    * @param e
    */
   @Override
   public void actionPerformed(ActionEvent e) {
+    CLI.print(e.getActionCommand());
     if (e.getSource().equals(button)) {
       check(textField.getText());
     } else if (e.getSource().equals(openExplorer)) {

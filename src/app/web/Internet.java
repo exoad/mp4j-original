@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import app.global.Items;
+import app.telemetry.Logger;
 
 import java.io.File;
 
@@ -23,6 +24,7 @@ public abstract class Internet {
       }
     } catch (IOException e) {
       e.printStackTrace();
+      Logger.log(e.getLocalizedMessage());
     }
     return false;
   }

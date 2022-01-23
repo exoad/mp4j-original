@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 
+import app.interfaces.dialog.ErrorMessage;
+
 public class Splash {
   private final float seconds;
 

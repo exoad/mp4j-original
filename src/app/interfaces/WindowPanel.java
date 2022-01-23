@@ -28,9 +28,12 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import app.interfaces.dialog.FrameConfirmDialog;
 import app.functions.Worker;
 import app.interfaces.event.RoundFrame;
 import javazoom.jl.decoder.JavaLayerException;
+
+import app.CLI;
 
 public class WindowPanel implements ActionListener, ChangeListener {
   protected JPanel bp, mainPanel;
@@ -120,6 +123,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
     bp.add(status);
     bp.add(play_btn);
+    bp.add(new_file);
     bp.add(volume_slider);
 
     bp.setPreferredSize(new Dimension(450, 200));
@@ -233,6 +237,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
+    CLI.print(e.getSource());
     if (e.getSource().equals(play_btn)) {
       if (worker != null)
         worker.interrupt();
@@ -260,6 +265,10 @@ public class WindowPanel implements ActionListener, ChangeListener {
         volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
       }
       volumeControl();
+    } else if(e.getSource().equals(new_file)) {
+      new FrameConfirmDialog("Are you sure you want to exit?", frame, new SelectFileWindow(music_path));
+      pauseMusic();
+      setPauseState();
     }
   }
 

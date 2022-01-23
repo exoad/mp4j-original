@@ -2,12 +2,13 @@ package app.rules;
 
 import java.io.File;
 import java.util.HashSet;
+import java.util.Set;
 
 public class AllowedProperties {
-  public static final HashSet<String> allowedDarkLaf = new HashSet<>();
-  public static final HashSet<String> allowedLiteLaf = new HashSet<>();
-  public static final HashSet<String> allowedDefCache = new HashSet<>();
-  public static final HashSet<String> allowedDefDirs = new HashSet<>();
+  protected static final Set<String> allowedDarkLaf = new HashSet<>();
+  protected static final Set<String> allowedLiteLaf = new HashSet<>();
+  protected static final Set<String> allowedDefCache = new HashSet<>();
+  protected static final Set<String> allowedDefDirs = new HashSet<>();
 
   public AllowedProperties() {
     allowedDarkLaf.add("regulardark");
@@ -33,7 +34,7 @@ public class AllowedProperties {
   }
 
   public static boolean validate(String s) {
-    if(s == null || s.isEmpty() || s == " ")
+    if(s == null || s.isEmpty() || " ".equals(s))
       return false;
     return ((allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s)) || new File(s).isFile() || allowedDefCache.contains(s) || allowedDefDirs.contains(s));
   }

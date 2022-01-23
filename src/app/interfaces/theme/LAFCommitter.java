@@ -3,9 +3,9 @@ package app.interfaces.theme;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import java.awt.Frame;
+import app.interfaces.dialog.ErrorMessage;
 
-import app.interfaces.ErrorMessage;
+import java.awt.Frame;
 
 public class LAFCommitter {
   private static ArrayList<Frame> jfxs = new ArrayList<>();

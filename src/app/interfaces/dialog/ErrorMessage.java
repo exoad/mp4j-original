@@ -1,4 +1,4 @@
-package app.interfaces;
+package app.interfaces.dialog;
 
 import java.net.URL;
 
@@ -29,7 +29,7 @@ public class ErrorMessage implements ActionListener {
     this.path = Logger.log(message);
     JPanel panel = new JPanel();
 
-    JLabel label = new JLabel("<html><p>An error occured click below to view the error<br></p></html>");
+    JLabel label = new JLabel("<html><center><p>An error occured click below to view the error<br></p></center></html>");
 
     okButton = new JButton("OK");
     okButton.addActionListener(this);

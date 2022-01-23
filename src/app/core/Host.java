@@ -53,7 +53,7 @@ public class Host {
       return fileChooser.getSelectedFile();
     } catch (Exception e) {
       e.printStackTrace();
-      new app.interfaces.ErrorMessage(java.util.Arrays.toString(e.getStackTrace()));
+      new app.interfaces.dialog.ErrorMessage(java.util.Arrays.toString(e.getStackTrace()));
     }
     return null;
 

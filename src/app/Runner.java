@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+import javax.swing.UIManager;
+
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
@@ -52,11 +54,11 @@ public class Runner {
    * @throws IOException IO is used here
    */
   public static String readInfo() throws IOException {
-    if (new File(Items.items[1] + "/" + app.global.Sources.LIFEPRESERVER_PREVDIR).exists()
-        || new File(Items.items[1] + "/" + app.global.Sources.LIFEPRESERVER_PREVDIR).isDirectory()) {
+    if (new File(Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR).exists()
+        || new File(Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR).isDirectory()) {
 
       BufferedReader br = new BufferedReader(
-          new FileReader(app.global.Items.items[1] + "/" + app.global.Sources.LIFEPRESERVER_PREVDIR));
+          new FileReader(app.global.Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR));
       StringBuilder sb = new StringBuilder();
       String line = br.readLine();
       while (line != null) {
@@ -122,6 +124,11 @@ public class Runner {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    UIManager.put("Button.arc", 999);
+    UIManager.put("Component.arc", 999);
+    UIManager.put("CheckBox.arc", 999);
+    UIManager.put("ComboBox.arc", 999);
+    UIManager.put("TextComponent.arc", 999);
     new app.core.PropertiesReader();
     String laf = app.core.PropertiesReader.getProp("gui.defaultTheme");
     switch (laf) {
@@ -171,6 +178,9 @@ public class Runner {
    * @throws IOException
    */
   public static void main(String[] args) throws InterruptedException, IOException {
+    
+    CLI.print(Runner.readInfo());
+    CLI.print(Runner.class);
     new Runner().run();
     new app.interfaces.Splash(Items.SPLASH_SECONDS).run();
     new app.interfaces.WelcomeWindow(readInfo()).run();

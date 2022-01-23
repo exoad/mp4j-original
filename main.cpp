@@ -1,5 +1,5 @@
 #include <iostream>
-// unused target file
+// trim from start
 int main(int, char**) {
-    std::cout << "Hello, world!\n";
+    char buffer[1024];
 }

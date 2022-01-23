@@ -2,9 +2,12 @@ package app.interfaces;
 
 import javax.swing.JFrame;
 
+import app.CLI;
 import app.core.PropertiesReader;
+import app.interfaces.dialog.ErrorMessage;
 import app.interfaces.event.RoundFrame;
 import app.interfaces.event.WebsiteButtons;
+import app.telemetry.Logger;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -143,6 +146,8 @@ public class WelcomeWindow implements Runnable, ActionListener{
    */
   @Override
   public void actionPerformed(ActionEvent e) {
+    Logger.log(e.getSource() + "\n" + e.getWhen());
+    CLI.print(e.getSource());
     if (e.getSource().equals(openSelectFile)) {
       new SelectFileWindow(lastDir).run();
     } else if (e.getSource().equals(license)) {

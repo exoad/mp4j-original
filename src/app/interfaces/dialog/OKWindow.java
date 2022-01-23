@@ -1,4 +1,4 @@
-package app.interfaces;
+package app.interfaces.dialog;
 
 import java.net.URL;
 
@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import app.interfaces.event.RoundFrame;
+import app.telemetry.Logger;
 
 public class OKWindow implements ActionListener {
   private final JButton okButton;
@@ -23,7 +24,7 @@ public class OKWindow implements ActionListener {
   public OKWindow(String message) {
     
     JPanel panel = new JPanel();
-    JLabel label = new JLabel("<html><p>" + message + "</p></html>");
+    JLabel label = new JLabel("<html><center><p>" + message + "</p></center></html>");
     okButton = new JButton("Yay!");
     okButton.addActionListener(this);
     okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -57,6 +58,7 @@ public class OKWindow implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(okButton)) {
       frame.dispose();
+      Logger.log(e.getSource() + "\n" + frame.getClass());
     }
   }
 

@@ -14,6 +14,8 @@ import app.telemetry.Logger;
 import app.telemetry.api.Wrapper;
 import app.interfaces.theme.LAFCommitter;
 import app.interfaces.theme.Parser;
+import app.interfaces.dialog.ErrorMessage;
+import app.interfaces.dialog.OKWindow;
 import app.interfaces.event.RoundFrame;
 
 import java.net.URL;

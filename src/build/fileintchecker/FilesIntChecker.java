@@ -10,7 +10,7 @@ import build.fileintchecker.global.Exclude;
 
 public class FilesIntChecker {
   public static void main(String[] args) throws IOException {
-    Scanner sc = new Scanner(new File("src/build/loader"));
+    Scanner sc = new Scanner(new File("src/build/fileintchecker/.loader"));
     String loadedPath = sc.nextLine();
     sc.close();
     File exclude = new File(loadedPath + Exclude.IGNORE_DEPRECATED);
