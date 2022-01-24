@@ -9,6 +9,7 @@ public class AllowedProperties {
   protected static final Set<String> allowedLiteLaf = new HashSet<>();
   protected static final Set<String> allowedDefCache = new HashSet<>();
   protected static final Set<String> allowedDefDirs = new HashSet<>();
+  protected static final Set<String> allowedButtonShape = new HashSet<>();
 
   public AllowedProperties() {
     allowedDarkLaf.add("regulardark");
@@ -31,12 +32,16 @@ public class AllowedProperties {
     allowedDefDirs.add(".");
     allowedDefDirs.add("~");
     allowedDefDirs.add("/");
+
+    allowedButtonShape.add("round");
+    allowedButtonShape.add("square");
+    allowedButtonShape.add("default");
   }
 
   public static boolean validate(String s) {
     if(s == null || s.isEmpty() || " ".equals(s))
       return false;
-    return ((allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s)) || new File(s).isFile() || allowedDefCache.contains(s) || allowedDefDirs.contains(s));
+    return ((allowedButtonShape.contains(s) || allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s)) || new File(s).isFile() || allowedDefCache.contains(s) || allowedDefDirs.contains(s));
   }
 
   public static boolean valInt(Object a) {

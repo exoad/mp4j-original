@@ -1,6 +1,7 @@
 package app.core;
 
 import java.util.Properties;
+import java.util.Set;
 
 import app.global.Items;
 import app.global.Sources;
@@ -16,10 +17,11 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
+import java.util.Map;
 
 public class PropertiesReader {
   private static Properties p;
-  private static HashMap<String, String> setProp = new HashMap<>();
+  private static Map<String, String> setProp = new HashMap<>();
 
   public PropertiesReader() throws IOException {
     p = new Properties();
@@ -31,6 +33,7 @@ public class PropertiesReader {
         p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
         p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
         p.setProperty("gui.defaultBoxSize", String.valueOf(DefProperties.DEFAULT_BOX_SIZE));
+        p.setProperty("gui.buttonShape", DefProperties.DEFAULT_BUTTON_SHAPE);
         p.store(os, Items.PROPERTIES_HEADER_COMMENT);
       }
     }
@@ -39,7 +42,7 @@ public class PropertiesReader {
 
   }
 
-  public static HashSet<String> generalProp() throws IOException, InvalidPropertiesFormatException {
+  public static Set<String> generalProp() throws IOException {
     HashSet<String> properties = new HashSet<>();
     p = new Properties();
     if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
@@ -59,12 +62,16 @@ public class PropertiesReader {
 
       if (AllowedProperties.validate(p.getProperty("gui.defaultBoxSize")))
         properties.add(p.getProperty("gui.defaultBoxSize"));
+
+      if (AllowedProperties.validate(p.getProperty("gui.buttonShape")))
+        properties.add(p.getProperty("gui.buttonShape"));
+
     }
 
     return properties;
   }
 
-  public static HashMap<String, String> keyyedProp() throws IOException, InvalidPropertiesFormatException {
+  public static Map<String, String> keyyedProp() throws IOException {
     HashMap<String, String> properties = new HashMap<>();
     p = new Properties();
     if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
@@ -84,6 +91,10 @@ public class PropertiesReader {
 
       if (AllowedProperties.validate(p.getProperty("gui.defaultBoxSize")))
         properties.put("gui.defaultBoxSize", p.getProperty("gui.defaultBoxSize"));
+
+      if(AllowedProperties.validate(p.getProperty("gui.buttonShape"))){
+        properties.put("gui.buttonShape", p.getProperty("gui.buttonShape"));
+      }
     }
     return properties;
   }
@@ -96,7 +107,8 @@ public class PropertiesReader {
         return false;
       if (!AllowedProperties.validate(p.getProperty("explorer.defaultDir"))
           || !AllowedProperties.validate(p.getProperty("runner.disableCache"))
-          || !AllowedProperties.validate(p.getProperty("gui.defaultTheme")))
+          || !AllowedProperties.validate(p.getProperty("gui.defaultTheme")) ||
+          !AllowedProperties.validate(p.getProperty("gui.buttonShape")))
         return false;
     }
     return true;
@@ -108,7 +120,8 @@ public class PropertiesReader {
 
   public static String setProperty(String key, String value) throws IOException {
     p.setProperty(key, value);
-    try (OutputStream os = new FileOutputStream(new File(Items.items[1] + System.getProperty("file.separator") + Sources.PROPERTIES_FILE))) {
+    try (OutputStream os = new FileOutputStream(
+        new File(Items.items[1] + System.getProperty("file.separator") + Sources.PROPERTIES_FILE))) {
       p.store(os, Items.PROPERTIES_HEADER_COMMENT);
     }
     return value;
@@ -128,6 +141,7 @@ public class PropertiesReader {
       p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
       p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
       p.setProperty("gui.defaultBoxSize", String.valueOf(DefProperties.DEFAULT_BOX_SIZE));
+      p.setProperty("gui.buttonShape", String.valueOf(DefProperties.DEFAULT_BUTTON_SHAPE));
 
       p.store(os, Items.PROPERTIES_HEADER_COMMENT);
     } catch (IOException e) {

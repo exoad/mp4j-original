@@ -55,11 +55,14 @@ public class Runner {
    * @throws IOException IO is used here
    */
   public static String readInfo() throws IOException {
-    if (new File(Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR).exists()
-        || new File(Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR).isDirectory()) {
+    if (new File(Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR)
+        .exists()
+        || new File(Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR)
+            .isDirectory()) {
 
       BufferedReader br = new BufferedReader(
-          new FileReader(app.global.Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR));
+          new FileReader(app.global.Items.items[1] + System.getProperty("file.separator")
+              + app.global.Sources.LIFEPRESERVER_PREVDIR));
       StringBuilder sb = new StringBuilder();
       String line = br.readLine();
       while (line != null) {
@@ -97,10 +100,10 @@ public class Runner {
     }
 
     File mpLogs = new File(Items.items[2]);
-    if(!mpLogs.isDirectory()) {
+    if (!mpLogs.isDirectory()) {
       mpLogs.mkdir();
     }
-    
+
     try {
       Socket socket = new Socket();
       socket.connect(new InetSocketAddress("google.com", 80), 3000);
@@ -114,7 +117,7 @@ public class Runner {
     BufferedWriter bw = new BufferedWriter(new FileWriter(app.global.Items.items[6]));
     bw.write("1");
     bw.close();
-    
+
     return true;
   }
 
@@ -125,11 +128,20 @@ public class Runner {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    UIManager.put("Button.arc", 999);
-    UIManager.put("Component.arc", 999);
-    UIManager.put("CheckBox.arc", 999);
-    UIManager.put("ComboBox.arc", 999);
-    UIManager.put("TextComponent.arc", 999);
+    CLI.print(new PropertiesReader().toString(), app.global.cli.CliType.WARNING);
+    if (PropertiesReader.getProp("gui.buttonShape").equals("round")) {
+      UIManager.put("Button.arc", 999);
+      UIManager.put("Component.arc", 999);
+      UIManager.put("CheckBox.arc", 999);
+      UIManager.put("ComboBox.arc", 999);
+      UIManager.put("TextComponent.arc", 999);
+    } else if(PropertiesReader.getProp("gui.buttonShape").equals("square")) {
+      UIManager.put("Button.arc", 0);
+      UIManager.put("Component.arc", 0);
+      UIManager.put("CheckBox.arc", 0);
+      UIManager.put("ComboBox.arc", 0);
+      UIManager.put("TextComponent.arc", 0);
+    }
     new app.core.PropertiesReader();
     String laf = app.core.PropertiesReader.getProp("gui.defaultTheme");
     switch (laf) {
@@ -170,7 +182,7 @@ public class Runner {
         FlatMaterialDarkerIJTheme.setup();
         break;
     }
-    
+
   }
 
   /**
@@ -180,7 +192,7 @@ public class Runner {
    * @throws CliException
    */
   public static void main(String[] args) throws InterruptedException, IOException, CliException {
-    
+
     CLI.print(Runner.readInfo());
     CLI.print(Runner.class);
     new Runner().run();
