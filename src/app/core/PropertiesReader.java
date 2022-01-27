@@ -1,7 +1,6 @@
 package app.core;
 
 import java.util.Properties;
-import java.util.Set;
 
 import app.global.Items;
 import app.global.Sources;
@@ -16,8 +15,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
+
 
 public class PropertiesReader {
   private static Properties p;
@@ -27,22 +26,15 @@ public class PropertiesReader {
     p = new Properties();
     new AllowedProperties();
 
-    if (!hasAllProperties() || !new File(Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).exists()) {
-      try (OutputStream os = new FileOutputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
-        p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
-        p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
-        p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
-        p.setProperty("gui.defaultBoxSize", String.valueOf(DefProperties.DEFAULT_BOX_SIZE));
-        p.setProperty("gui.buttonShape", DefProperties.DEFAULT_BUTTON_SHAPE);
-        p.store(os, Items.PROPERTIES_HEADER_COMMENT);
-      }
+    if (!new File(Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).exists() || !hasAllProperties()) {
+      reset();
     }
 
     setProp = keyyedProp();
 
   }
 
-  public static Set<String> generalProp() throws IOException {
+  public static void generalProp() throws IOException {
     HashSet<String> properties = new HashSet<>();
     p = new Properties();
     if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
@@ -68,7 +60,6 @@ public class PropertiesReader {
 
     }
 
-    return properties;
   }
 
   public static Map<String, String> keyyedProp() throws IOException {
@@ -78,7 +69,7 @@ public class PropertiesReader {
       new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).createNewFile();
       reset();
     }
-    try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
+    try (InputStream isr = new FileInputStream(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE)) {
       p.load(isr);
       if (AllowedProperties.validate(p.getProperty("explorer.defaultDir")))
         properties.put("explorer.defaultDir", p.getProperty("explorer.defaultDir"));
@@ -101,7 +92,7 @@ public class PropertiesReader {
 
   public static boolean hasAllProperties() throws IOException {
     p = new Properties();
-    try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
+    try (InputStream isr = new FileInputStream(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE)) {
       p.load(isr);
       if (p.getProperty("gui.defaultBoxSize") == null || p.getProperty("gui.defaultBoxSize").isEmpty())
         return false;
@@ -130,21 +121,21 @@ public class PropertiesReader {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     for (String key : setProp.keySet()) {
-      sb.append(key + "=" + setProp.get(key) + "\n");
+      sb.append(key).append("=").append(setProp.get(key)).append("\n");
     }
     return sb.toString();
   }
 
   public static boolean reset() {
-    try (OutputStream os = new FileOutputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
+    try (OutputStream os = new FileOutputStream(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE)) {
       p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
       p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
       p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
       p.setProperty("gui.defaultBoxSize", String.valueOf(DefProperties.DEFAULT_BOX_SIZE));
-      p.setProperty("gui.buttonShape", String.valueOf(DefProperties.DEFAULT_BUTTON_SHAPE));
-
+      p.setProperty("gui.buttonShape", DefProperties.DEFAULT_BUTTON_SHAPE);
       p.store(os, Items.PROPERTIES_HEADER_COMMENT);
-    } catch (IOException e) {
+    } catch (java.io.IOException e) {
+      e.printStackTrace();
       return false;
     }
     return true;

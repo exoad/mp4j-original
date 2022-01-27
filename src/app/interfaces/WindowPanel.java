@@ -40,7 +40,7 @@ import static java.lang.Math.*;
 public class WindowPanel implements ActionListener, ChangeListener {
   protected JPanel bp, mainPanel;
   protected URL[] waves = new URL[4];
-  protected JButton play_btn, new_file;
+  protected JButton play_btn, new_file, loop_btn;
   protected JLabel header_notice, status, wave_synth;
   protected JSlider volume_slider;
   protected static JFrame frame;
@@ -52,8 +52,11 @@ public class WindowPanel implements ActionListener, ChangeListener {
   private final JavaSoundAudioDevice audioDevice = new javazoom.jl.player.JavaSoundAudioDevice();
   private javazoom.jl.player.Player mp3Player;
   protected URL pause_icon = getClass().getResource("/icons/others/pause_button.png");
+  protected URL looped = getClass().getResource("/icons/others/loop_icon.png");
+  protected Icon looped_icon = new ImageIcon(looped);
   protected Icon pause_button_ico;
   protected Worker master = new Worker();
+  protected Thread loopWatcher = new Thread();
 
   {
     assert pause_icon != null;
@@ -84,6 +87,13 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
     wave_synth = new JLabel(new ImageIcon(waves[3]));
     wave_synth.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
+
+    Icon loop_button_ico = new javax.swing.ImageIcon(looped);
+
+    loop_btn = new JButton(loop_button_ico);
+    loop_btn.setToolTipText("Loop");
+    loop_btn.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
+    loop_btn.addActionListener(this);
 
     URL frame_icon = getClass().getResource("/icons/others/frame-icon.png");
 
@@ -138,6 +148,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     bp.add(status);
     bp.add(play_btn);
     bp.add(new_file);
+    bp.add(loop_btn);
     bp.add(volume_slider);
 
     bp.setPreferredSize(new Dimension(500, 200));
@@ -161,7 +172,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
   }
 
   private Thread worker = new Thread();
-  
+
   private boolean running = false;
 
   /**
@@ -176,6 +187,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
         clip.open(audioInputStream);
         clip.setMicrosecondPosition(currentFrame);
         clip.start();
+
         playAsMp3 = false;
         volumeControl();
         new Thread(() -> {
@@ -188,6 +200,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
             }
           }
           play_btn.setIcon(play_button_ico);
+          wave_synth.setIcon(new ImageIcon(waves[3]));
         }).start();
       } else {
         if (!running) {
@@ -268,13 +281,21 @@ public class WindowPanel implements ActionListener, ChangeListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     CLI.print(e.getSource());
-    CLI.print("Current: " + currentFrame);
+    CLI.print("Current: " + (clip != null ? clip.getMicrosecondPosition() : 0));
     if (e.getSource().equals(play_btn)) {
       if (worker != null)
         worker.interrupt();
       if (play_btn.getIcon() == play_button_ico) {
-        if (worker != null)
+        if (worker != null) {
           worker.interrupt();
+        }
+        if (clip != null) {
+          try {
+            playMusic();
+          } catch (javazoom.jl.decoder.JavaLayerException javaLayerException) {
+            javaLayerException.printStackTrace();
+          }
+        }
         try {
           playMusic();
         } catch (JavaLayerException e1) {
@@ -288,7 +309,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
         setPauseState();
       }
     } else if (e.getSource().equals(volume_slider)) {
-      if(musicFile.getName().endsWith(".mp3")) 
+      if (musicFile.getName().endsWith(".mp3"))
         volumeControlMP3();
       else
         volumeControl();
@@ -296,6 +317,24 @@ public class WindowPanel implements ActionListener, ChangeListener {
       new FrameConfirmDialog("Are you sure you want to exit?", frame, new SelectFileWindow(music_path));
       pauseMusic();
       setPauseState();
+    } else if (e.getSource().equals(loop_btn)) {
+      URL clicked = getClass().getResource("/icons/others/loop_clicked_icon.png");
+      if (loop_btn.getIcon() == looped_icon) {
+        loop_btn.setIcon(new ImageIcon(clicked));
+        loop_btn.setToolTipText("Looping is now on");
+        loop = true;
+
+        if (clip != null && (clip.isRunning() || clip.isActive())) {
+
+          clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+      } else {
+        loop_btn.setIcon(looped_icon);
+        loop_btn.setToolTipText("Looping is now off");
+        loop = false;
+        if (clip.isRunning() || clip.isActive())
+          clip.loop(0);
+      }
     }
   }
 
@@ -312,7 +351,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
   @Override
   public void stateChanged(ChangeEvent e) {
     if (e.getSource().equals(volume_slider)) {
-      if(musicFile.getAbsolutePath().endsWith(".mp3"))
+      if (musicFile.getAbsolutePath().endsWith(".mp3"))
         volumeControlMP3();
       else
         volumeControl();

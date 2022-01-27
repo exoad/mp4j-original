@@ -26,6 +26,7 @@ files.txt
 /icons/others/splash_screen.png
 /icons/others/trashcan_icon.png
 /icons/others/welcome_icon.png
+/icons/others/loop_icon.png
 /icons/animated/waves/wave_3.gif
 /icons/animated/waves/wave_2.gif
 /icons/animated/waves/wave_1.gif

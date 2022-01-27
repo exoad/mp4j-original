@@ -135,7 +135,7 @@ public class Runner {
       UIManager.put("CheckBox.arc", 999);
       UIManager.put("ComboBox.arc", 999);
       UIManager.put("TextComponent.arc", 999);
-    } else if(PropertiesReader.getProp("gui.buttonShape").equals("square")) {
+    } else if (PropertiesReader.getProp("gui.buttonShape").equals("square")) {
       UIManager.put("Button.arc", 0);
       UIManager.put("Component.arc", 0);
       UIManager.put("CheckBox.arc", 0);
