@@ -7,6 +7,7 @@ public abstract class Exclude {
     "/icons/logos/",
     "/icons/others/",
     "/icons/animated/waves/",
-    "/icons/animated/waves/paused/"
+    "/icons/animated/waves/paused/",
+    "/icons/splash/"
   };
 }

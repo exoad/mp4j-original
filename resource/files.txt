@@ -23,11 +23,12 @@ files.txt
 /icons/others/pause_button.png
 /icons/others/play_button.png
 /icons/others/reset_icon.png
-/icons/others/splash_screen.png
 /icons/others/trashcan_icon.png
 /icons/others/welcome_icon.png
 /icons/others/loop_icon.png
-/icons/animated/waves/wave_3.gif
-/icons/animated/waves/wave_2.gif
+/icons/others/loop_clicked_icon.png
 /icons/animated/waves/wave_1.gif
+/icons/animated/waves/wave_2.gif
+/icons/animated/waves/wave_3.gif
 /icons/animated/waves/paused/waves0.png
+/icons/splash/splash_screen.png

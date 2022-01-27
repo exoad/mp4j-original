@@ -34,7 +34,7 @@ public class RoundFrame extends JComponent implements ComponentListener {
   @Override
   public void componentResized(ComponentEvent e) {
 
-    frame.setShape(new RoundRectangle2D.Double(0, 0, frame.getWidth(), frame.getHeight(), 20, 20));
+    frame.setShape(new RoundRectangle2D.Double(0, 0, frame.getWidth(), frame.getHeight(), 5, 5));
 
   }
 

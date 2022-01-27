@@ -12,7 +12,7 @@ public class Items {
       "MusicPlayer/cache/internetcache",
       "MusicPlayer/rsc/"
   };
-  public static final float SPLASH_SECONDS = 800f;
+  public static final float SPLASH_SECONDS = 1400f;
   public static final String[] themes = {
     "Regular Dark",
     "Arc Dark",

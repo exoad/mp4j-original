@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import app.CLI;
 import app.core.Cache;
 import app.core.JSONParser;
 import app.core.PropertiesReader;
@@ -255,12 +256,12 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
   public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(verifyFile)) {
       try {
-        boolean isNice = fileIntegrity.isGood();
+        String isNice = fileIntegrity.isGood();
         Thread.sleep(800);
-        if (isNice)
+        if (isNice.equals("0"))
           new OKWindow("Files are all good!");
         else
-          new ErrorMessage("Was unable to process the files");
+          new ErrorMessage("Was unable to process the file: \n" + isNice);
 
       } catch (Exception e1) {
         e1.printStackTrace();
@@ -270,10 +271,11 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
         if (Cache.cleanCache()) {
           new OKWindow("Cache Cleared");
         } else {
-          new ErrorMessage("Cannot Clear Cache at this moment");
+          new ErrorMessage("Could not clear Cache at this moment");
         }
       } catch (Exception e1) {
         e1.printStackTrace();
+        CLI.print(e1.getMessage(), app.global.cli.CliType.WARNING);
       }
     } else if (e.getSource().equals(resetProperties)) {
       if (PropertiesReader.reset()) {

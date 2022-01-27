@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
+import app.CLI;
+import app.global.cli.CliType;
+
 public class FileIntegrity {
   private static URL fileList;
 
@@ -12,16 +15,19 @@ public class FileIntegrity {
     fileList = getClass().getResource("/files.txt");
   }
 
-  public boolean isGood() throws IOException {
+  public String isGood() throws IOException {
     Scanner sc = new Scanner(fileList.openStream());
     while (sc.hasNextLine()) {
+      String str = sc.nextLine();
       if (!new File("./resource/" + sc.nextLine()).exists()) {
+        CLI.print("NOT FOUND: " + new File("./resource/" + str).getName(), CliType.ERROR);
         sc.close();
-        return false;
+        return str;
       }
+      CLI.print("FOUND: " + new File("./resource/" + str).getName(), CliType.SUCCESS);
     }
     sc.close();
-    return true;
+    return "0";
   }
 
   public static String getAllFiles() throws IOException {

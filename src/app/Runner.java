@@ -191,7 +191,7 @@ public class Runner {
    * @throws IOException
    * @throws CliException
    */
-  public static void main(String[] args) throws InterruptedException, IOException, CliException {
+  public static void main(String[] args) throws IOException {
 
     CLI.print(Runner.readInfo());
     CLI.print(Runner.class);
