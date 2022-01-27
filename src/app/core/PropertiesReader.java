@@ -38,7 +38,6 @@ public class PropertiesReader {
     HashSet<String> properties = new HashSet<>();
     p = new Properties();
     if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
-      new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).createNewFile();
       reset();
     }
     try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {

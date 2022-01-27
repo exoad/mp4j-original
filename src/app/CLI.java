@@ -2,35 +2,45 @@ package app;
 
 import static java.lang.System.*;
 
+import java.util.Scanner;
+
 import app.global.cli.CliType;
 import app.global.cli.CliColors;
 import app.global.cli.CliException;
 
 public abstract class CLI {
   private static final String consoleLikeDir = " > MPlayer4J CLI $ ";
+  private static final String cliLikeDir = " > MPlayer4J USR @ ";
 
   private CLI() {
   }
 
   private static void out(Object s, CliType type) throws CliException {
-    if (type == CliType.ERROR)
-      out.println(CliColors.UNDERLINE.getColor() + CliColors.RED_BG.getColor() + CliColors.BOLD.getColor() + CliColors.BLACK_TXT.getColor()
+    if (type == CliType.ERROR) {
+      out.println(CliColors.UNDERLINE.getColor() + CliColors.RED_BG.getColor() + CliColors.BOLD.getColor()
+          + CliColors.WHITE_TXT.getColor()
           + consoleLikeDir + CliColors.RESET.getColor() + " " + s);
-    else if (type == CliType.WARNING)
+    } else if (type == CliType.WARNING) {
       out.println(CliColors.UNDERLINE.getColor()
-          + CliColors.YELLOW_BG.getColor() + CliColors.BOLD.getColor() + CliColors.BLACK_TXT.getColor()
+          + CliColors.YELLOW_BG.getColor() + CliColors.BOLD.getColor() + CliColors.WHITE_TXT.getColor()
           + consoleLikeDir + CliColors.RESET.getColor()
           + " " + s);
-    else if (type == CliType.INFO)
+    } else if (type == CliType.INFO) {
       out.println(CliColors.UNDERLINE.getColor()
-          + CliColors.BLUE_BG.getColor() + CliColors.BOLD.getColor() + CliColors.BLACK_TXT.getColor()
+          + CliColors.BLUE_BG.getColor() + CliColors.BOLD.getColor() + CliColors.WHITE_TXT.getColor()
           + consoleLikeDir + CliColors.RESET.getColor()
           + " " + s);
-    else if (type == CliType.SUCCESS)
+    } else if (type == CliType.SUCCESS) {
       out.println(CliColors.UNDERLINE.getColor()
-          + CliColors.GREEN_BG.getColor() + CliColors.BOLD.getColor() + CliColors.BLACK_TXT.getColor()
+          + CliColors.GREEN_BG.getColor() + CliColors.BOLD.getColor() + CliColors.WHITE_TXT.getColor()
           + consoleLikeDir + CliColors.RESET.getColor()
           + " " + s);
+    } else if (type == CliType.CHARM)
+      out.print(CliColors.UNDERLINE.getColor()
+          + CliColors.MAGENTA_BG.getColor() + CliColors.BOLD.getColor() + CliColors.WHITE_TXT.getColor()
+          + cliLikeDir + CliColors.RESET.getColor()
+          + " " + s);
+
     else
       throw new CliException("Unusable CLI_TYPE: " + type);
   }
@@ -43,13 +53,43 @@ public abstract class CLI {
     }
   }
 
+  public static void nl() {
+    out.println();
+  }
+
   public static void print(Object j, CliType type) {
     try {
+      nl();
       out(j, type);
     } catch (CliException e) {
       System.err.print(e);
       System.exit(2);
     }
+  }
+
+  public static void runAsInterface() {
+    try (Scanner sc = new Scanner(System.in)) {
+      //print("", CliType.CHARM);
+      while (true) {
+        // constantly print the prompt of Charm
+        nl();
+        print("", CliType.CHARM);
+        String input = sc.nextLine();
+        if (input.equals("exit"))
+          break;
+        else if(input.equals("version")) {
+          out.print(app.global.VersionInfo.VERSION);
+        }
+
+        try {
+          Thread.sleep(100);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+          CLI.print(e.getMessage(), app.global.cli.CliType.ERROR);
+        }
+      }
+    }
+
   }
 
 }

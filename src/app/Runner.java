@@ -131,13 +131,11 @@ public class Runner {
     CLI.print(new PropertiesReader().toString(), app.global.cli.CliType.WARNING);
     if (PropertiesReader.getProp("gui.buttonShape").equals("round")) {
       UIManager.put("Button.arc", 999);
-      UIManager.put("Component.arc", 999);
       UIManager.put("CheckBox.arc", 999);
       UIManager.put("ComboBox.arc", 999);
       UIManager.put("TextComponent.arc", 999);
     } else if (PropertiesReader.getProp("gui.buttonShape").equals("square")) {
       UIManager.put("Button.arc", 0);
-      UIManager.put("Component.arc", 0);
       UIManager.put("CheckBox.arc", 0);
       UIManager.put("ComboBox.arc", 0);
       UIManager.put("TextComponent.arc", 0);
@@ -195,9 +193,16 @@ public class Runner {
 
     CLI.print(Runner.readInfo());
     CLI.print(Runner.class);
+
+    Thread cli = new Thread(CLI::runAsInterface);
+
+
     new Runner().run();
     new app.interfaces.Splash(Items.SPLASH_SECONDS).run();
     new app.interfaces.WelcomeWindow(readInfo()).run();
+    
+    
+    //cli.start(); - Until fully implemented for a standard CLI-based debug session
   }
 
 }
