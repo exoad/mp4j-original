@@ -3,12 +3,13 @@ package app.interfaces.event;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import app.core.PropertiesReader;
+
 import java.awt.event.ComponentEvent;
+import java.awt.RenderingHints;
 import java.awt.event.ComponentListener;
 import java.awt.geom.RoundRectangle2D;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 public class RoundFrame extends JComponent implements ComponentListener {
   private JFrame frame;
@@ -16,26 +17,16 @@ public class RoundFrame extends JComponent implements ComponentListener {
   public RoundFrame(JFrame frame) {
     this.frame = frame;
     frame.setUndecorated(true);
-  }
-
-  @Override
-  public void paintComponent(Graphics g) {
-    Graphics2D g2 = (Graphics2D) g;
-
-    g2.setRenderingHint(
-        java.awt.RenderingHints.KEY_ANTIALIASING,
-        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
-    g2.setRenderingHint(
-        java.awt.RenderingHints.KEY_RENDERING,
-        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
-
+    RenderingHints qualityHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+        RenderingHints.VALUE_ANTIALIAS_ON);
+    qualityHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
   }
 
   @Override
   public void componentResized(ComponentEvent e) {
-
-    frame.setShape(new RoundRectangle2D.Double(0, 0, frame.getWidth(), frame.getHeight(), 5, 5));
-
+    frame.setShape(new RoundRectangle2D.Float(0, 0, frame.getWidth(), frame.getHeight(), 15, 15));
+    frame.repaint();
+    frame.setOpacity(Float.parseFloat(PropertiesReader.getProp("gui.window_transparency")));
   }
 
   @Override
