@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 import app.CLI;
 import app.core.PropertiesReader;
 import app.interfaces.dialog.ErrorMessage;
-import app.interfaces.event.RoundFrame;
 import app.interfaces.event.WebsiteButtons;
 import app.telemetry.Logger;
 
@@ -121,7 +120,7 @@ public class WelcomeWindow implements Runnable, ActionListener{
     frame = new JFrame("Music-Player v1.0 | Jack Meng | Welcome!");
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     frame.setLocationRelativeTo(null);
-    frame.addComponentListener(new RoundFrame(frame));
+    frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
     frame.setIconImage(frame_ico.getImage());
     frame.setResizable(false);
     frame.add(panel);

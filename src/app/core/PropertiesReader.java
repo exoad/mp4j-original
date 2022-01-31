@@ -57,6 +57,9 @@ public class PropertiesReader {
       if (AllowedProperties.validate(p.getProperty("gui.buttonShape")))
         properties.add(p.getProperty("gui.buttonShape"));
 
+      if(AllowedProperties.validate(p.getProperty("gui.window_transparency"))){
+        properties.add(p.getProperty("gui.window_transparency"));
+      }
     }
 
   }
@@ -85,6 +88,10 @@ public class PropertiesReader {
       if(AllowedProperties.validate(p.getProperty("gui.buttonShape"))){
         properties.put("gui.buttonShape", p.getProperty("gui.buttonShape"));
       }
+
+      if(AllowedProperties.validate(p.getProperty("gui.window_transparency"))){
+        properties.put("gui.window_transparency", p.getProperty("gui.window_transparency"));
+      }
     }
     return properties;
   }
@@ -98,12 +105,20 @@ public class PropertiesReader {
       if (!AllowedProperties.validate(p.getProperty("explorer.defaultDir"))
           || !AllowedProperties.validate(p.getProperty("runner.disableCache"))
           || !AllowedProperties.validate(p.getProperty("gui.defaultTheme")) ||
-          !AllowedProperties.validate(p.getProperty("gui.buttonShape")))
+          !AllowedProperties.validate(p.getProperty("gui.buttonShape")) || 
+          !AllowedProperties.valTransparency(p.getProperty("gui.window_transparency")))
         return false;
     }
     return true;
   }
 
+  /**
+   *
+   * @param key
+   * @return
+   * @deprecated
+   */
+  @Deprecated(forRemoval = true)
   public static String getProp(String key) {
     return setProp.get(key);
   }
@@ -132,6 +147,7 @@ public class PropertiesReader {
       p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
       p.setProperty("gui.defaultBoxSize", String.valueOf(DefProperties.DEFAULT_BOX_SIZE));
       p.setProperty("gui.buttonShape", DefProperties.DEFAULT_BUTTON_SHAPE);
+      p.setProperty("gui.window_transparency", String.valueOf(DefProperties.DEFAULT_WINDOW_TRANSPARENCY));
       p.store(os, Items.PROPERTIES_HEADER_COMMENT);
     } catch (java.io.IOException e) {
       e.printStackTrace();
@@ -140,7 +156,7 @@ public class PropertiesReader {
     return true;
   }
 
-  public String getVal(String key) {
+  public static String getVal(String key) {
     return p.getProperty(key);
   }
 

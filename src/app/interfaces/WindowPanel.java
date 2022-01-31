@@ -30,7 +30,6 @@ import javax.swing.event.ChangeListener;
 
 import app.interfaces.dialog.FrameConfirmDialog;
 import app.functions.Worker;
-import app.interfaces.event.RoundFrame;
 import javazoom.jl.decoder.*;
 import javazoom.jl.player.JavaSoundAudioDevice;
 import app.CLI;
@@ -107,7 +106,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
     frame = new JFrame("Music Player - Jack Meng");
     frame.setIconImage(frame_ico.getImage());
     frame.setUndecorated(true);
-    frame.addComponentListener(new RoundFrame(frame));
+    frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     frame.setResizable(false);
 
@@ -155,7 +154,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
     mainPanel = new JPanel();
     mainPanel.add(bp);
-
+    
     frame.add(mainPanel);
 
     currentFrame = 0;

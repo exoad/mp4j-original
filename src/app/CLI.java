@@ -5,9 +5,9 @@ import static java.lang.System.*;
 import java.util.Scanner;
 
 import app.global.cli.CliType;
+import app.core.PropertiesReader;
 import app.global.cli.CliColors;
 import app.global.cli.CliException;
-
 public abstract class CLI {
   private static final String consoleLikeDir = " > MPlayer4J CLI $ ";
   private static final String cliLikeDir = " > MPlayer4J USR @ ";
@@ -69,15 +69,15 @@ public abstract class CLI {
 
   public static void runAsInterface() {
     try (Scanner sc = new Scanner(System.in)) {
-      //print("", CliType.CHARM);
+
       while (true) {
-        // constantly print the prompt of Charm
+
         nl();
         print("", CliType.CHARM);
         String input = sc.nextLine();
         if (input.equals("exit"))
           break;
-        else if(input.equals("version")) {
+        else if (input.equals("version")) {
           out.print(app.global.VersionInfo.VERSION);
         }
 

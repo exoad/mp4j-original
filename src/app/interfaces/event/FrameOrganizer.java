@@ -10,11 +10,12 @@ import java.awt.RenderingHints;
 import java.awt.event.ComponentListener;
 import java.awt.geom.RoundRectangle2D;
 
+import app.CLI;
 
-public class RoundFrame extends JComponent implements ComponentListener {
+public class FrameOrganizer extends JComponent implements ComponentListener {
   private JFrame frame;
 
-  public RoundFrame(JFrame frame) {
+  public FrameOrganizer(JFrame frame) {
     this.frame = frame;
     frame.setUndecorated(true);
     RenderingHints qualityHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
@@ -26,7 +27,9 @@ public class RoundFrame extends JComponent implements ComponentListener {
   public void componentResized(ComponentEvent e) {
     frame.setShape(new RoundRectangle2D.Float(0, 0, frame.getWidth(), frame.getHeight(), 15, 15));
     frame.repaint();
-    frame.setOpacity(Float.parseFloat(PropertiesReader.getProp("gui.window_transparency")));
+    CLI.print("Window transparency: " + PropertiesReader.getVal("gui.window_transparency"));
+    frame.setOpacity(Float.parseFloat(PropertiesReader.getVal("gui.window_transparency")));
+
   }
 
   @Override

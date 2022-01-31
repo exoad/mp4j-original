@@ -14,7 +14,6 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import app.interfaces.event.RoundFrame;
 import app.telemetry.Logger;
 
 public class OKWindow implements ActionListener {
@@ -44,7 +43,7 @@ public class OKWindow implements ActionListener {
     frame.setSize(300, 100);
     frame.setResizable(false);
     frame.setUndecorated(true);
-    frame.addComponentListener(new RoundFrame(frame));
+    frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setVisible(true);

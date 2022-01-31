@@ -9,6 +9,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class Logger {
+  public Logger(Object s) {
+    log(s);
+  }
+
   public static String log(Object t) {
     long time = System.currentTimeMillis();
     File curr = new File(Items.items[2] + "/" + "Log_" + time + ".log");

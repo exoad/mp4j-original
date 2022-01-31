@@ -20,8 +20,6 @@ import javax.swing.text.StyledDocument;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import app.interfaces.event.RoundFrame;
-
 public class LicenseWindow implements Runnable, ActionListener {
   private final JFrame frame;
   private final JButton agree, disagree;
@@ -98,7 +96,7 @@ public class LicenseWindow implements Runnable, ActionListener {
     }
     frame.add(scrollPane);
     frame.setUndecorated(true);
-    frame.addComponentListener(new RoundFrame(frame));
+    frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
   }
 
   @Override

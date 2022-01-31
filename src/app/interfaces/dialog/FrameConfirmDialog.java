@@ -9,8 +9,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
-import app.interfaces.event.RoundFrame;
-
 public class FrameConfirmDialog implements ActionListener {
   private final JFrame frame;
   private final JFrame frameToListen;
@@ -45,7 +43,7 @@ public class FrameConfirmDialog implements ActionListener {
     frame.add(pane);
     frame.setUndecorated(true);
     frame.setSize(300, 150);
-    frame.addComponentListener(new RoundFrame(frame));
+    frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setResizable(false);

@@ -7,4 +7,5 @@ public abstract class DefProperties {
   public static final String DISABLE_CACHE = "false";
   public static final int DEFAULT_BOX_SIZE = 3;
   public static final String DEFAULT_BUTTON_SHAPE = "default";
+  public static final String DEFAULT_WINDOW_TRANSPARENCY = "1";
 }

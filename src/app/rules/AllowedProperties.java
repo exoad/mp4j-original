@@ -51,4 +51,12 @@ public class AllowedProperties {
     int b = Integer.parseInt(String.valueOf(a));
     return (b >= 1 && b <= 64);
   }
+
+  public static boolean valTransparency(Object a) {
+    if(!(a instanceof Integer))
+      return false;
+    
+    int b = Integer.parseInt(String.valueOf(a));
+    return (b >= 0 && b <= 1);
+  }
 }

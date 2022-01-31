@@ -17,7 +17,6 @@ import app.interfaces.theme.LAFCommitter;
 import app.interfaces.theme.Parser;
 import app.interfaces.dialog.ErrorMessage;
 import app.interfaces.dialog.OKWindow;
-import app.interfaces.event.RoundFrame;
 
 import java.net.URL;
 import java.awt.Font;
@@ -137,7 +136,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setUndecorated(true);
-    frame.addComponentListener(new RoundFrame(frame));
+    frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
     frame.add(panel);
   }
 
@@ -231,7 +230,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setUndecorated(true);
-    frame.addComponentListener(new RoundFrame(frame));
+    frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
     frame.add(panel);
   }
 
