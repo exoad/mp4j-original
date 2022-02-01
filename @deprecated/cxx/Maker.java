@@ -16,9 +16,9 @@ import app.global.SystemType;
 
 public class Maker extends ToolInterface implements Tool {
 
-    static ArrayList<String> arr = new ArrayList<>();
-    static Commands type;
-    static final Runtime rt = Runtime.getRuntime();
+ ArrayList<String> arr = new ArrayList<>();
+ Commands type;
+ final Runtime rt = Runtime.getRuntime();
 
     public Maker(Commands e, String... files) {
         for (String er : files) {
@@ -29,7 +29,7 @@ public class Maker extends ToolInterface implements Tool {
 
     }
 
-    private static boolean checkIfAvaliable(Notions e) {
+    private boolean checkIfAvaliable(Notions e) {
         try {
             rt.exec(e.getCommand());
         } catch (IOException e1) {
@@ -38,7 +38,7 @@ public class Maker extends ToolInterface implements Tool {
         return true;
     }
 
-    private static boolean checkIfAvaliable(NotionsMake e) {
+    private boolean checkIfAvaliable(NotionsMake e) {
         try {
             rt.exec(e.getCommand() + " --version");
         } catch (IOException e1) {
@@ -47,7 +47,7 @@ public class Maker extends ToolInterface implements Tool {
         return true;
     }
 
-    public static String compileNRun(NotionsMake x) throws IOException {
+    public String compileNRun(NotionsMake x) throws IOException {
         Process proc = Runtime.getRuntime().exec(x.getCommand() + " " + arr.get(0) + " -o " + SystemType.removeFileExtension(arr.get(0)) + SystemType.osCXXExec());
         proc = rt.exec(SystemType.removeFileExtension(arr.get(0)) + SystemType.osCXXExec());
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -59,7 +59,7 @@ public class Maker extends ToolInterface implements Tool {
         return null;
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
         if (type == Commands.G_PLUS_PLUS) {
             if (checkIfAvaliable(Notions.G_PLUS_PLUS)) {
@@ -93,6 +93,6 @@ public class Maker extends ToolInterface implements Tool {
 
     @Override
     public void callCell(String[] args) {
-        Maker.main(args);
+        // DO NOTHING
     }
 }

@@ -15,13 +15,17 @@ public class JSScripter implements Tool {
     // for silent calls to subclasses
   }
 
+  // suppress Warning: Nashorn engine is planned to be removed from a future JDK
+  // release
+  @SuppressWarnings("deprecation")
   private void engine(int type) {
     if(type == 0) {
       ScriptEngine se = new ScriptEngineManager().getEngineByName("JavaScript");
       try {
-        se.eval(new FileReader("/js/Test.js"));
+        
+        se.eval(new FileReader("src/js/Test.js"));
       } catch (ScriptException | FileNotFoundException e) {
-        CLI.print(e.getMessage(), CliType.ERROR_BLINK);
+        CLI.print(e.getMessage(), CliType.WARNING);
       }
 
     }

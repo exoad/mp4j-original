@@ -11,6 +11,7 @@ import app.global.cli.CliException;
 public abstract class CLI {
   private static final String consoleLikeDir = " > MPlayer4J CLI $ ";
   private static final String cliLikeDir = " > MPlayer4J USR @ ";
+  private static final String cliLikeJS = " > Script Out $ ";
 
   private CLI() {
   }
@@ -43,6 +44,33 @@ public abstract class CLI {
 
     else
       throw new CliException("Unusable CLI_TYPE: " + type);
+  }
+
+  public static void scriptOut(Object s, CliType type) {
+    if (type == CliType.ERROR) {
+      out.println(CliColors.UNDERLINE.getColor() + CliColors.RED_BG.getColor() + CliColors.BOLD.getColor()
+          + CliColors.WHITE_TXT.getColor()
+          + cliLikeJS + CliColors.RESET.getColor() + " " + s);
+    } else if (type == CliType.WARNING) {
+      out.println(CliColors.UNDERLINE.getColor()
+          + CliColors.YELLOW_BG.getColor() + CliColors.BOLD.getColor() + CliColors.WHITE_TXT.getColor()
+          + cliLikeJS + CliColors.RESET.getColor()
+          + " " + s);
+    } else if (type == CliType.INFO) {
+      out.println(CliColors.UNDERLINE.getColor()
+          + CliColors.BLUE_BG.getColor() + CliColors.BOLD.getColor() + CliColors.WHITE_TXT.getColor()
+          + cliLikeJS + CliColors.RESET.getColor()
+          + " " + s);
+    } else if (type == CliType.SUCCESS) {
+      out.println(CliColors.UNDERLINE.getColor()
+          + CliColors.GREEN_BG.getColor() + CliColors.BOLD.getColor() + CliColors.WHITE_TXT.getColor()
+          + cliLikeJS + CliColors.RESET.getColor()
+          + " " + s);
+    } else if (type == CliType.CHARM)
+      out.print(CliColors.UNDERLINE.getColor()
+          + CliColors.MAGENTA_BG.getColor() + CliColors.BOLD.getColor() + CliColors.WHITE_TXT.getColor()
+          + cliLikeJS + CliColors.RESET.getColor()
+          + " " + s);
   }
 
   public static void print(Object j) {
