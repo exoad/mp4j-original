@@ -1,5 +1,7 @@
 package app.global.cli;
-
+/**
+ * @author Jack Meng
+ */
 public class CliException extends Exception {
   public CliException(String message) {
     super(message);

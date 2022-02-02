@@ -6,6 +6,10 @@ import app.global.Items;
 
 import java.io.File;
 
+/**
+ * @author Jack Meng
+ */
+
 public abstract class Cache {
   private Cache() {
   }

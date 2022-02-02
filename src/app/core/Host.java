@@ -8,7 +8,9 @@ import java.awt.Dimension;
 import javax.swing.JFileChooser;
 
 import app.core.ico.IconRules;
-
+/**
+ * @author Jack Meng
+ */
 public class Host {
   private static String lastDir = "";
   private static IconRules ir = new IconRules();

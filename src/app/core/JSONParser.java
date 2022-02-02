@@ -1,5 +1,7 @@
 package app.core;
-
+/**
+ * @author Jack Meng
+ */
 public abstract class JSONParser {
   private JSONParser() {
 

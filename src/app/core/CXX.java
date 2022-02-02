@@ -2,7 +2,9 @@ package app.core;
 
 import java.io.IOException;
 import java.net.URL;
-
+/**
+ * @author Jack Meng
+ */
 public class CXX {
   @Deprecated
   public CXX() {

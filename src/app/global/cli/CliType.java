@@ -1,5 +1,7 @@
 package app.global.cli;
-
+/**
+ * @author Jack Meng
+ */
 public enum CliType {
   ERROR,
   WARNING,

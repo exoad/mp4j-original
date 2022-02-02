@@ -1,5 +1,7 @@
 package app.global;
-
+/**
+ * @author Jack Meng
+ */
 public abstract class SystemType {
   private SystemType() {}
   public static String osCXXExec() {

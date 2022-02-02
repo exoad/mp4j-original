@@ -7,7 +7,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import app.interfaces.theme.Refresh;
 
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
-
+/**
+ * @author Jack Meng
+ */
 public class ArcDark implements Refresh {
 
   @Override

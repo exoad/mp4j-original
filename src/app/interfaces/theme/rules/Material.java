@@ -7,7 +7,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import app.interfaces.theme.Refresh;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
-
+/**
+ * @author Jack Meng
+ */
 public class Material implements Refresh {
 
   @Override

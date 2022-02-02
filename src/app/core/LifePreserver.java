@@ -3,7 +3,9 @@ package app.core;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**
+ * @author Jack Meng
+ */
 public class LifePreserver {
   private final String data;
 

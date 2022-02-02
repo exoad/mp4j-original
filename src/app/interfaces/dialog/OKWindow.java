@@ -15,7 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import app.telemetry.Logger;
-
+/**
+ * @author Jack Meng
+ */
 public class OKWindow implements ActionListener {
   private final JButton okButton;
   private final JFrame frame;

@@ -18,7 +18,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * @author Jack Meng
+ */
 public class ErrorMessage implements ActionListener {
   private final JButton okButton, pathBtn;
   private final JFrame frame;

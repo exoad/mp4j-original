@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-
+/**
+ * @author Jack Meng
+ */
 public class FrameConfirmDialog implements ActionListener {
   private final JFrame frame;
   private final JFrame frameToListen;

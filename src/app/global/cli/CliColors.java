@@ -1,5 +1,7 @@
 package app.global.cli;
-
+/**
+ * @author Jack Meng
+ */
 public enum CliColors {
 
   RED_BG("\u001B[41m"),

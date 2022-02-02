@@ -1,5 +1,7 @@
 package app.global;
-
+/**
+ * @author Jack Meng
+ */
 public class Pair<T, E> {
   public T first;
   public E second;

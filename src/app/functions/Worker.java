@@ -1,7 +1,9 @@
 package app.functions;
 
 import java.util.ArrayList;
-
+/**
+ * @author Jack Meng
+ */
 public class Worker {
   private Thread worker;
   private final ArrayList<Runnable> args = new ArrayList<>();

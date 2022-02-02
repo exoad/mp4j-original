@@ -17,7 +17,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-
+/**
+ * @author Jack Meng
+ */
 public class PropertiesReader {
   private static Properties p;
   private static Map<String, String> setProp = new HashMap<>();

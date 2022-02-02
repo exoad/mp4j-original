@@ -11,7 +11,9 @@ import java.awt.event.ComponentListener;
 import java.awt.geom.RoundRectangle2D;
 
 import app.CLI;
-
+/**
+ * @author Jack Meng
+ */
 public class FrameOrganizer extends JComponent implements ComponentListener {
   private JFrame frame;
 

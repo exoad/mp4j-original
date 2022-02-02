@@ -6,7 +6,9 @@ import java.net.URI;
 import app.interfaces.dialog.ErrorMessage;
 
 import java.awt.Desktop;
-
+/**
+ * @author Jack Meng
+ */
 public class WebsiteButtons implements java.awt.event.ActionListener {
   private final String url;
 

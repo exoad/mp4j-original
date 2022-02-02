@@ -1,5 +1,7 @@
 package app.global;
-
+/**
+ * @author Jack Meng
+ */
 public class Items {
   private Items() {}
   public static final String[] items = {
