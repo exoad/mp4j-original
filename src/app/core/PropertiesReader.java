@@ -6,6 +6,7 @@ import app.global.Items;
 import app.global.Sources;
 import app.rules.AllowedProperties;
 import app.rules.DefProperties;
+import backend.setup.CheckSetup;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +24,7 @@ public class PropertiesReader {
   private static Properties p;
 
   public PropertiesReader() {
+    CheckSetup.checkNativeDirs();
     System.out.println("hasAll" + checkPropertiesAll() + "\nFile exists? " + new java.io.File(app.global.Items.items[1] + System.getProperty("file.separator") + app.global.Sources.PROPERTIES_FILE).exists());
     if (!new java.io.File(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).exists()) {
       reset();
@@ -85,7 +87,9 @@ public class PropertiesReader {
 
   public static boolean reset() {
     try {
-      new File(Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).createNewFile();
+      File t =new File(Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE);
+      if(!t.exists())
+        t.createNewFile();
     } catch (IOException e) {
       e.printStackTrace();
     }
