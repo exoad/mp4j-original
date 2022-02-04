@@ -30,9 +30,7 @@ import javax.swing.event.ChangeListener;
 
 import app.interfaces.dialog.FrameConfirmDialog;
 import app.functions.Worker;
-import javazoom.jl.decoder.*;
 import backend.audio.*;
-import javazoom.jl.player.JavaSoundAudioDevice;
 import app.CLI;
 
 import static java.lang.Math.*;
@@ -49,8 +47,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected boolean loop = false;
   protected static boolean alreadyPlaying = false, toPause = false, playAsMp3 = false;
   protected static String music_path;
-  private final JavaSoundAudioDevice audioDevice = new javazoom.jl.player.JavaSoundAudioDevice();
-  private javazoom.jl.player.Player mp3Player;
   protected URL pause_icon = getClass().getResource("/icons/others/pause_button.png");
   protected URL looped = getClass().getResource("/icons/others/loop_icon.png");
   protected Icon looped_icon = new ImageIcon(looped);
@@ -219,21 +215,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
       currentFrame = (int) clip.getMicrosecondPosition();
       clip.stop();
     }
-    if (!worker.isInterrupted() && mp3Player != null) {
-      worker.interrupt();
-      worker = new Thread();
-      currentFrame = mp3Player.getPosition();
-      mp3Player.close();
-      mp3Player = null;
-    }
   }
 
-  public void volumeControlMP3() {
-    if (mp3Player != null) {
-      audioDevice.setLineGain(volume_slider.getValue() / 100.0f);
-      volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
-    }
-  }
 
   /**
    * @param args
@@ -286,9 +269,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
         setPauseState();
       }
     } else if (e.getSource().equals(volume_slider)) {
-      if (musicFile.getName().endsWith(".mp3"))
-        volumeControlMP3();
-      else
         volumeControl();
     } else if (e.getSource().equals(new_file)) {
       new FrameConfirmDialog("Are you sure you want to exit?", frame, new SelectFileWindow(music_path));
@@ -328,9 +308,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
   @Override
   public void stateChanged(ChangeEvent e) {
     if (e.getSource().equals(volume_slider)) {
-      if (musicFile.getAbsolutePath().endsWith(".mp3"))
-        volumeControlMP3();
-      else
         volumeControl();
     }
   }
