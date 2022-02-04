@@ -23,13 +23,9 @@ public class PropertiesReader {
   private static Properties p;
 
   public PropertiesReader() {
-    try {
-      System.out.println("hasAll" + hasAllProperties() + "\nFile exists? " + new File(Items.items[1] + System.getProperty("file.separator") + Sources.PROPERTIES_FILE).exists());
-      if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
-        reset();
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
+    System.out.println("hasAll" + checkPropertiesAll() + "\nFile exists? " + new java.io.File(app.global.Items.items[1] + System.getProperty("file.separator") + app.global.Sources.PROPERTIES_FILE).exists());
+    if (!new java.io.File(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).exists()) {
+      reset();
     }
   }
 
@@ -61,37 +57,22 @@ public class PropertiesReader {
     return properties;
   }
 
-  public boolean hasAllProperties() throws IOException {
-    try {
-      InputStream isr = new FileInputStream(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE);
-      p = new Properties();
-      p.load(isr);
-      if (!AllowedProperties.valTheme(p.getProperty("gui.defaultTheme"))) {
-        System.out.println("!> " + p.getProperty("gui.defaultTheme"));
-        return false;
-      }
-      if (!AllowedProperties.valCache(p.getProperty("runner.disableCache"))) {
-        System.out.println("!> " + p.getProperty("runner.disableCache"));
-        return false;
-      }
-      if (!AllowedProperties.valBoxSize(p.getProperty("gui.defaultBoxSize"))) {
-        System.out.println("!> " + p.getProperty("gui.defaultBoxSize"));
-        return false;
-      }
-      if (!AllowedProperties.valBox(p.getProperty("gui.buttonShape"))) {
-        System.out.println("!> " + p.getProperty("gui.buttonShape"));
-        return false;
-      }
-      if (!AllowedProperties.valTransparency(p.getProperty("gui.window_transparency"))) {
-        System.out.println("!> " + p.getProperty("gui.window_transparency"));
-        return false;
-      }
-    } catch (java.io.FileNotFoundException io) {
-      app.CLI.print("Properties File Not found...", app.global.cli.CliType.ERROR);
+  public boolean checkPropertiesAll() {
+    p = new Properties();
+    if(!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
       return false;
     }
+    try (InputStream isr = new FileInputStream(Items.items[1] + "/" + Sources.PROPERTIES_FILE)) {
+      p.load(isr);
+
+      if(!AllowedProperties.valTheme(p.getProperty("gui.defaultTheme")) || !AllowedProperties.valCache(p.getProperty("runner.disableCache")) || !AllowedProperties.valBoxSize(p.getProperty("gui.defaultBoxSize")) || !AllowedProperties.valBox(p.getProperty("gui.buttonShape")) || !AllowedProperties.valTransparency(p.getProperty("gui.window_transparency"))) {
+        return false;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     return true;
-  }
+  } 
 
   public String setProperty(String key, String value) throws IOException {
     p.setProperty(key, value);
