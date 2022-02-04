@@ -37,27 +37,27 @@ public class AllowedProperties {
   }
 
   public static boolean valTheme(String s) {
-    return allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s);
+    return allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s) && (!s.isBlank() || s.isBlank());
   }
 
 
   public static boolean valCache(String s) {
     CLI.print(allowedDefCache.contains(s), CliType.INFO);
-    return allowedDefCache.contains(s);
+    return allowedDefCache.contains(s) && (!s.isBlank() || s.isBlank());
   }
 
   public static boolean valBox(String s) {
     CLI.print(allowedButtonShape.contains(s), CliType.INFO);
-    return allowedButtonShape.contains(s);
+    return allowedButtonShape.contains(s) && (!s.isBlank() || s.isBlank());
   }
 
-  public static boolean valBoxSize(Object a) {
+  public static boolean valBoxSize(String a) {
     int b = Integer.parseInt(String.valueOf(a));
     CLI.print(b >= 1 && b <= 32, CliType.INFO);
     return (b >= 1 && b <= 32);
   }
 
-  public static boolean valTransparency(Object a) {
+  public static boolean valTransparency(String a) {
     double d = Double.parseDouble(String.valueOf(a));
     CLI.print(d >= 0.0 && d <= 1.0, CliType.INFO);
     return (d > 0 && d <= 1);
