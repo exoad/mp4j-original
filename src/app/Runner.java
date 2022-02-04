@@ -11,7 +11,6 @@ import java.net.Socket;
 
 import javax.swing.UIManager;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
@@ -49,14 +48,10 @@ import app.global.cli.CliException;
  */
 
 public class Runner {
-  private PropertiesReader pr;
+  private static PropertiesReader pr;
 
   public Runner() {
-    try {
-      pr = new PropertiesReader();
-    } catch (IOException e) {
-      System.exit(-1);
-    }
+    pr = new app.core.PropertiesReader();
   }
   /**
    * @return String
@@ -84,14 +79,10 @@ public class Runner {
   }
 
   public boolean run() throws IOException {
-    try {
-      initLAF();
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
+
 
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
-    System.setProperty("flatlaf.animation", "false");
+    System.setProperty("flatlaf.animation", "true");
 
     File apiCache = new File(Items.items[0]);
     if (!apiCache.isDirectory()) {
@@ -113,6 +104,12 @@ public class Runner {
     }
 
     try {
+      initLAF();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+
+    try {
       Socket socket = new Socket();
       socket.connect(new InetSocketAddress("google.com", 80), 3000);
       socket.close();
@@ -130,62 +127,63 @@ public class Runner {
   }
 
   private static void initLAF() throws IOException {
-    try {
-      PropertiesReader.generalProp();
-      PropertiesReader.keyyedProp();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
     CLI.print(new PropertiesReader().toString(), app.global.cli.CliType.WARNING);
-    if (PropertiesReader.getVal("gui.buttonShape").equals("round")) {
+    if (pr.getVal("gui.buttonShape").equals("round")) {
       UIManager.put("Button.arc", 999);
       UIManager.put("CheckBox.arc", 999);
       UIManager.put("ComboBox.arc", 999);
       UIManager.put("TextComponent.arc", 999);
-    } else if (PropertiesReader.getVal("gui.buttonShape").equals("square")) {
+    } else if (pr.getVal("gui.buttonShape").equals("square")) {
       UIManager.put("Button.arc", 0);
       UIManager.put("CheckBox.arc", 0);
       UIManager.put("ComboBox.arc", 0);
       UIManager.put("TextComponent.arc", 0);
     }
-    new app.core.PropertiesReader();
-    String laf = app.core.PropertiesReader.getVal("gui.defaultTheme");
+    String laf = pr.getVal("gui.defaultTheme");
     switch (laf) {
       case "material":
         FlatMaterialDarkerIJTheme.setup();
+        CLI.print("Material Theme", app.global.cli.CliType.INFO);
         break;
       case "onedark":
         FlatOneDarkIJTheme.setup();
+        CLI.print("One Dark Theme", app.global.cli.CliType.INFO);
         break;
       case "arcdark":
         FlatArcDarkIJTheme.setup();
+        CLI.print("Arc Dark Theme", app.global.cli.CliType.INFO);
         break;
       case "nord":
         FlatNordIJTheme.setup();
+        CLI.print("Nord Theme", app.global.cli.CliType.INFO);
         break;
       case "dracula":
         FlatDraculaIJTheme.setup();
+        CLI.print("Dracula Theme", app.global.cli.CliType.INFO);
         break;
       case "gruvbox":
         FlatGruvboxDarkMediumIJTheme.setup();
+        CLI.print("Gruvbox Theme", app.global.cli.CliType.INFO);
         break;
       case "vuesion":
         FlatVuesionIJTheme.setup();
+        CLI.print("Vuesion Theme", app.global.cli.CliType.INFO);
         break;
       case "regularlight":
         FlatLightLaf.setup();
+        CLI.print("Regular Light Theme", app.global.cli.CliType.INFO);
         break;
       case "solarized":
         FlatSolarizedLightIJTheme.setup();
+        CLI.print("Solarized Light Theme", app.global.cli.CliType.INFO);
         break;
       case "gradientogreen":
         FlatMonokaiProContrastIJTheme.setup();
+        CLI.print("Gradiento Green Theme", app.global.cli.CliType.INFO);
         break;
       case "materiallighter":
         FlatMaterialLighterIJTheme.setup();
-        break;
-      default:
-        FlatMaterialDarkerIJTheme.setup();
+        CLI.print("Material Light Theme", app.global.cli.CliType.INFO);
         break;
     }
 
@@ -202,10 +200,6 @@ public class Runner {
     CLI.print(Runner.readInfo());
     CLI.print(Runner.class);
 
-    if(!PropertiesReader.hasAllProperties()) {
-      PropertiesReader.reset();
-      CLI.print("Reset All Properties for: " + Runner.class);
-    }
 
     /**
      * Disposed:

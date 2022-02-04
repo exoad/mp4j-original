@@ -43,11 +43,13 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
   private final JLabel title;
   private final JComboBox<String> theme;
   private final JLabel information;
+  private PropertiesReader pr;
   private final JButton verifyFile, clearCache, resetProperties, clearLogs;
   private Wrapper wrapper = new Wrapper();
   private FileIntegrity fileIntegrity = new FileIntegrity();
 
   public SettingsWindow(WelcomeWindow something) throws IOException {
+    pr = new PropertiesReader();
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 400));
@@ -67,7 +69,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
     theme = new JComboBox<>(Items.themes);
     theme.setAlignmentX(Component.CENTER_ALIGNMENT);
     theme.setMaximumSize(new Dimension(theme.getPreferredSize().width, theme.getPreferredSize().height));
-    theme.setSelectedItem(PropertiesReader.getProp("gui.defaultTheme"));
+    theme.setSelectedItem(pr.getVal("gui.defaultTheme"));
     theme.setToolTipText("Change the theme of the application");
     theme.addItemListener(this);
 
@@ -141,7 +143,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
   }
 
   public SettingsWindow() throws IOException {
-
+    pr = new PropertiesReader();
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setPreferredSize(new Dimension(500, 600));
@@ -162,7 +164,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
     theme.setToolTipText("Change the theme of the application");
     theme.setAlignmentX(Component.CENTER_ALIGNMENT);
     theme.setMaximumSize(new Dimension(theme.getPreferredSize().width, theme.getPreferredSize().height));
-    theme.setSelectedItem(PropertiesReader.getProp("gui.defaultTheme"));
+    theme.setSelectedItem(pr.getVal("gui.defaultTheme"));
     theme.addItemListener(this);
 
     String json = wrapper.run();

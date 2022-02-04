@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
+import app.CLI;
+import app.global.cli.CliType;
+
 public class AllowedProperties {
   protected static final Set<String> allowedDarkLaf = new HashSet<>();
   protected static final Set<String> allowedLiteLaf = new HashSet<>();
@@ -29,35 +32,35 @@ public class AllowedProperties {
     allowedDefCache.add("false");
     allowedDefCache.add("true");
 
-    allowedDefDirs.add(".");
-    allowedDefDirs.add("~");
-    allowedDefDirs.add("/");
-
     allowedButtonShape.add("round");
     allowedButtonShape.add("square");
     allowedButtonShape.add("default");
   }
 
-  public static boolean validate(String s) {
-    if(s == null || s.isEmpty() || " ".equals(s))
-      return false;
-    return ((allowedButtonShape.contains(s) || allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s)) || new File(s).isFile() || allowedDefCache.contains(s) || allowedDefDirs.contains(s));
+  public static boolean valTheme(String s) {
+    return allowedDarkLaf.contains(s) || allowedLiteLaf.contains(s);
   }
 
-  public static boolean valInt(Object a) {
-    if(!(a instanceof Integer))
-      return false;
 
+  public static boolean valCache(String s) {
+    CLI.print(allowedDefCache.contains(s), CliType.INFO);
+    return allowedDefCache.contains(s);
+  }
+
+  public static boolean valBox(String s) {
+    CLI.print(allowedButtonShape.contains(s), CliType.INFO);
+    return allowedButtonShape.contains(s);
+  }
+
+  public static boolean valBoxSize(Object a) {
     int b = Integer.parseInt(String.valueOf(a));
-    return (b >= 1 && b <= 64);
+    CLI.print(b >= 1 && b <= 32, CliType.INFO);
+    return (b >= 1 && b <= 32);
   }
 
   public static boolean valTransparency(Object a) {
-    if(!(a instanceof Integer))
-      return false;
-    
-    int b = Integer.parseInt(String.valueOf(a));
-    return (b >= 0 && b <= 1);
+    double d = Double.parseDouble(String.valueOf(a));
+    CLI.print(d >= 0.0 && d <= 1.0, CliType.INFO);
+    return (d > 0 && d <= 1);
   }
-
 }

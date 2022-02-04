@@ -2,7 +2,6 @@ package app.core;
 
 import java.util.Properties;
 
-import app.CLI;
 import app.global.Items;
 import app.global.Sources;
 import app.rules.AllowedProperties;
@@ -15,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -23,126 +21,79 @@ import java.util.Map;
  */
 public class PropertiesReader {
   private static Properties p;
-  private static Map<String, String> setProp = new HashMap<>();
 
-  public PropertiesReader() throws IOException {
-    p = new Properties();
-
-    if (!new File(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).exists() || !hasAllProperties()) {
-      reset();
-    }
-
-    setProp = keyyedProp();
-
-  }
-
-  public static void generalProp() throws IOException {
-    HashSet<String> properties = new HashSet<>();
-    p = new Properties();
-    if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
-      reset();
-    }
-    try (InputStream isr = new FileInputStream(new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE))) {
-      p.load(isr);
-      if (AllowedProperties.validate(p.getProperty("explorer.defaultDir")))
-        properties.add(p.getProperty("explorer.defaultDir"));
-
-      if (AllowedProperties.validate(p.getProperty("gui.defaultTheme")))
-        properties.add(p.getProperty("gui.defaultTheme"));
-
-      if (AllowedProperties.validate(p.getProperty("runner.disableCache")))
-        properties.add(p.getProperty("runner.disableCache"));
-
-      if (AllowedProperties.validate(p.getProperty("gui.defaultBoxSize")))
-        properties.add(p.getProperty("gui.defaultBoxSize"));
-
-      if (AllowedProperties.validate(p.getProperty("gui.buttonShape")))
-        properties.add(p.getProperty("gui.buttonShape"));
-
-      if (AllowedProperties.validate(p.getProperty("gui.window_transparency"))) {
-        properties.add(p.getProperty("gui.window_transparency"));
+  public PropertiesReader() {
+    try {
+      System.out.println("hasAll" + hasAllProperties() + "\nFile exists? " + new File(Items.items[1] + System.getProperty("file.separator") + Sources.PROPERTIES_FILE).exists());
+      if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
+        reset();
       }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-
   }
 
-  public static Map<String, String> keyyedProp() throws IOException {
+  public Map<String, String> keyyedProp() throws IOException {
     HashMap<String, String> properties = new HashMap<>();
     p = new Properties();
     if (!new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).exists()) {
-      new File(Items.items[1] + "/" + Sources.PROPERTIES_FILE).createNewFile();
       reset();
     }
     try (InputStream isr = new FileInputStream(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE)) {
       p.load(isr);
-      if (AllowedProperties.validate(p.getProperty("explorer.defaultDir")))
-        properties.put("explorer.defaultDir", p.getProperty("explorer.defaultDir"));
-
-      if (AllowedProperties.validate(p.getProperty("gui.defaultTheme")))
+      if (AllowedProperties.valTheme(p.getProperty("gui.defaultTheme")))
         properties.put("gui.defaultTheme", p.getProperty("gui.defaultTheme"));
 
-      if (AllowedProperties.validate(p.getProperty("runner.disableCache")))
+      if (AllowedProperties.valCache(p.getProperty("runner.disableCache")))
         properties.put("runner.disableCache", p.getProperty("runner.disableCache"));
 
-      if (AllowedProperties.validate(p.getProperty("gui.defaultBoxSize")))
+      if (AllowedProperties.valBoxSize(p.getProperty("gui.defaultBoxSize")))
         properties.put("gui.defaultBoxSize", p.getProperty("gui.defaultBoxSize"));
 
-      if (AllowedProperties.validate(p.getProperty("gui.buttonShape"))) {
+      if (AllowedProperties.valBox(p.getProperty("gui.buttonShape"))) {
         properties.put("gui.buttonShape", p.getProperty("gui.buttonShape"));
       }
 
-      if (AllowedProperties.validate(p.getProperty("gui.window_transparency"))) {
+      if (AllowedProperties.valTransparency(p.getProperty("gui.window_transparency"))) {
         properties.put("gui.window_transparency", p.getProperty("gui.window_transparency"));
       }
     }
     return properties;
   }
 
-  public static boolean hasAllProperties() throws IOException {
-    try (InputStream isr = new FileInputStream(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE)) {
+  public boolean hasAllProperties() throws IOException {
+    try {
+      InputStream isr = new FileInputStream(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE);
       p = new Properties();
       p.load(isr);
-      if(!AllowedProperties.validate(p.getProperty("explorer.defaultDir"))) {
-        System.out.println(p.getProperty("explorer.defaultDir"));
+      if (!AllowedProperties.valTheme(p.getProperty("gui.defaultTheme"))) {
+        System.out.println("!> " + p.getProperty("gui.defaultTheme"));
         return false;
       }
-      if(!AllowedProperties.validate(p.getProperty("gui.defaultTheme"))) {
-        System.out.println(p.getProperty("gui.defaultTheme"));
+      if (!AllowedProperties.valCache(p.getProperty("runner.disableCache"))) {
+        System.out.println("!> " + p.getProperty("runner.disableCache"));
         return false;
       }
-      if(!AllowedProperties.validate(p.getProperty("runner.disableCache"))) {
-        System.out.println(p.getProperty("runner.disableCache"));
+      if (!AllowedProperties.valBoxSize(p.getProperty("gui.defaultBoxSize"))) {
+        System.out.println("!> " + p.getProperty("gui.defaultBoxSize"));
         return false;
       }
-      if(!AllowedProperties.valInt(p.getProperty("gui.defaultBoxSize"))) {
-        System.out.println(p.getProperty("gui.defaultBoxSize"));
+      if (!AllowedProperties.valBox(p.getProperty("gui.buttonShape"))) {
+        System.out.println("!> " + p.getProperty("gui.buttonShape"));
         return false;
       }
-      if(!AllowedProperties.validate(p.getProperty("gui.buttonShape"))) {
-        System.out.println(p.getProperty("gui.buttonShape"));
+      if (!AllowedProperties.valTransparency(p.getProperty("gui.window_transparency"))) {
+        System.out.println("!> " + p.getProperty("gui.window_transparency"));
         return false;
       }
-      if(!AllowedProperties.valTransparency(p.getProperty("gui.window_transparency"))) {
-        System.out.println(p.getProperty("gui.window_transparency"));
-        return false;
-      }
+    } catch (java.io.FileNotFoundException io) {
+      app.CLI.print("Properties File Not found...", app.global.cli.CliType.ERROR);
+      return false;
     }
     return true;
   }
 
-  /**
-   *
-   * @param key
-   * @return
-   * @deprecated
-   */
-  @Deprecated(forRemoval = true)
-  public static String getProp(String key) {
-    return setProp.get(key);
-  }
-
-
-  public static String setProperty(String key, String value) throws IOException {
+  public String setProperty(String key, String value) throws IOException {
     p.setProperty(key, value);
     try (OutputStream os = new FileOutputStream(
         new File(Items.items[1] + System.getProperty("file.separator") + Sources.PROPERTIES_FILE))) {
@@ -151,22 +102,14 @@ public class PropertiesReader {
     return value;
   }
 
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    for (String key : setProp.keySet()) {
-      sb.append(key).append("=").append(setProp.get(key)).append("\n");
-    }
-    return sb.toString();
-  }
-
   public static boolean reset() {
     try {
-      new File(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).createNewFile();
+      new File(Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).createNewFile();
     } catch (IOException e) {
-      CLI.print(e.getMessage(), app.global.cli.CliType.ERROR);
+      e.printStackTrace();
     }
     try (OutputStream os = new FileOutputStream(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE)) {
-      p.setProperty("explorer.defaultDir", DefProperties.DEFAULT_DIR);
+      p = new java.util.Properties();
       p.setProperty("gui.defaultTheme", DefProperties.DEFAULT_GUI_LAF);
       p.setProperty("runner.disableCache", DefProperties.DISABLE_CACHE);
       p.setProperty("gui.defaultBoxSize", String.valueOf(DefProperties.DEFAULT_BOX_SIZE));
@@ -180,16 +123,7 @@ public class PropertiesReader {
     return true;
   }
 
-  public static String getVal(String key) {
+  public String getVal(String key) {
     return p.getProperty(key);
-  }
-
-  public static void main(String[] args) {
-    try {
-      PropertiesReader pr = new PropertiesReader();
-      System.out.println(pr.toString());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 }

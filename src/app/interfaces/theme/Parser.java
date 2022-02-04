@@ -119,6 +119,6 @@ public class Parser {
   }
 
   public void parseThemeToProperty() throws IOException {
-    PropertiesReader.setProperty("gui.defaultTheme", getTheme().toString());
+    new PropertiesReader().setProperty("gui.defaultTheme", getTheme().toString());
   }
 }
