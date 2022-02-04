@@ -194,6 +194,11 @@ public class Runner {
     CLI.print(Runner.readInfo());
     CLI.print(Runner.class);
 
+    if(!PropertiesReader.hasAllProperties()) {
+      PropertiesReader.reset();
+      CLI.print("Reset All Properties for: " + Runner.class);
+    }
+
     Thread cli = new Thread(CLI::runAsInterface);
 
 

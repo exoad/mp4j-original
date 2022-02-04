@@ -59,4 +59,5 @@ public class AllowedProperties {
     int b = Integer.parseInt(String.valueOf(a));
     return (b >= 0 && b <= 1);
   }
+
 }
