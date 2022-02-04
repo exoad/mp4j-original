@@ -1,6 +1,5 @@
 package app.rules;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ public class AllowedProperties {
   protected static final Set<String> allowedDefDirs = new HashSet<>();
   protected static final Set<String> allowedButtonShape = new HashSet<>();
 
-  public AllowedProperties() {
+  private AllowedProperties() {
     allowedDarkLaf.add("regulardark");
     allowedDarkLaf.add("material");
     allowedDarkLaf.add("onedark");

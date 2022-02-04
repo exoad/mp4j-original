@@ -5,7 +5,6 @@ import static java.lang.System.*;
 import java.util.Scanner;
 
 import app.global.cli.CliType;
-import app.core.PropertiesReader;
 import app.global.cli.CliColors;
 import app.global.cli.CliException;
 public abstract class CLI {

@@ -2,7 +2,6 @@ package test;
 
 import java.awt.event.ActionListener;
 import java.util.EventListener;
-import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 

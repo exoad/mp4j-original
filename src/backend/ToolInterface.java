@@ -1,7 +1,5 @@
 package backend;
 
-import backend.Tool;
-
 public class ToolInterface {
   private Tool clazz;
   private String[] args;
