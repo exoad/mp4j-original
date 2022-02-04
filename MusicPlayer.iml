@@ -23,5 +23,6 @@
     <orderEntry type="library" name="ant:ant-junit:1.6.5" level="project" />
     <orderEntry type="library" name="player-4.0.1.FINAL" level="project" />
     <orderEntry type="library" name="mp3plugin" level="project" />
+    <orderEntry type="library" name="jave-1.0.1" level="project" />
   </component>
 </module>

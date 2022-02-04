@@ -31,6 +31,7 @@ import javax.swing.event.ChangeListener;
 import app.interfaces.dialog.FrameConfirmDialog;
 import app.functions.Worker;
 import javazoom.jl.decoder.*;
+import backend.audio.*;
 import javazoom.jl.player.JavaSoundAudioDevice;
 import app.CLI;
 
@@ -154,7 +155,7 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
     mainPanel = new JPanel();
     mainPanel.add(bp);
-    
+
     frame.add(mainPanel);
 
     currentFrame = 0;
@@ -162,70 +163,55 @@ public class WindowPanel implements ActionListener, ChangeListener {
 
   public void volumeControl() {
     if (clip != null) {
+      new Thread(() -> {
       FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
       float range = gainControl.getMaximum() - gainControl.getMinimum();
       float gain = (volume_slider.getValue() / 100.0f) * range + gainControl.getMinimum();
       gainControl.setValue(gain);
       volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
+      }).start();
     }
   }
 
   private Thread worker = new Thread();
 
-  private boolean running = false;
-
-  /**
-   * @throws JavaLayerException
-   */
-  public void playMusic() throws JavaLayerException {
-    try {
-      if (!musicFile.getName().endsWith(".mp3")) {
-        javax.sound.sampled.AudioInputStream audioInputStream = javax.sound.sampled.AudioSystem
-            .getAudioInputStream(musicFile);
-        clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.setMicrosecondPosition(currentFrame);
-        clip.start();
-
-        playAsMp3 = false;
-        volumeControl();
-        new Thread(() -> {
-          // if the music is finished playing, update the button icon to be play
-          while (clip.isActive() && clip != null) {
-            try {
-              Thread.sleep(100);
-            } catch (InterruptedException e) {
-              CLI.print(e, app.global.cli.CliType.ERROR);
-            }
-          }
-          play_btn.setIcon(play_button_ico);
-          wave_synth.setIcon(new ImageIcon(waves[3]));
-        }).start();
-      } else {
-        if (!running) {
-          playAsMp3 = true;
-          mp3Player = new javazoom.jl.player.Player(new java.io.FileInputStream(musicFile), audioDevice);
-          volumeControlMP3();
-          worker = new Thread(() -> {
-            try {
-              if (currentFrame < 0 || currentFrame != 0) {
-                mp3Player.play(currentFrame);
-              } else {
-                mp3Player.play();
-              }
-            } catch (JavaLayerException e) {
-              e.getException();
-            }
-
-          });
-          worker.start();
-        }
-
+  public void playMusic() {
+    if(musicFile.getAbsolutePath().endsWith(".mp3")) {
+      try {
+        musicFile = Music.convert(musicFile);
+      } catch (AudioConversionException e) {
+        e.printStackTrace();
       }
-
-    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+    }
+    javax.sound.sampled.AudioInputStream audioInputStream;
+    try {
+      audioInputStream = javax.sound.sampled.AudioSystem
+          .getAudioInputStream(musicFile);
+      clip = AudioSystem.getClip();
+      clip.open(audioInputStream);
+    } catch (UnsupportedAudioFileException | IOException e1) {
+      e1.printStackTrace();
+    } catch (LineUnavailableException e) {
       e.printStackTrace();
     }
+
+    clip.setMicrosecondPosition(currentFrame);
+    clip.start();
+
+    playAsMp3 = false;
+    volumeControl();
+    new Thread(() -> {
+      // if the music is finished playing, update the button icon to be play
+      while (clip.isActive() && clip != null) {
+        try {
+          Thread.sleep(100);
+        } catch (InterruptedException e) {
+          CLI.print(e, app.global.cli.CliType.ERROR);
+        }
+      }
+      play_btn.setIcon(play_button_ico);
+      wave_synth.setIcon(new ImageIcon(waves[3]));
+    }).start();
   }
 
   public void pauseMusic() {
@@ -289,17 +275,9 @@ public class WindowPanel implements ActionListener, ChangeListener {
           worker.interrupt();
         }
         if (clip != null) {
-          try {
-            playMusic();
-          } catch (javazoom.jl.decoder.JavaLayerException javaLayerException) {
-            javaLayerException.printStackTrace();
-          }
-        }
-        try {
           playMusic();
-        } catch (JavaLayerException e1) {
-          e1.printStackTrace();
         }
+        playMusic();
         setPlayState();
       } else if (play_btn.getIcon() == pause_button_ico) {
         if (worker != null)

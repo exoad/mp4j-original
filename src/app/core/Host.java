@@ -37,7 +37,6 @@ public class Host {
   public static File openFileBrowser(java.awt.Component parent) {
     JFileChooser fileChooser = null;
     try {
-      
       fileChooser = new JFileChooser();
       fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
       fileChooser.setFileView(ir);
