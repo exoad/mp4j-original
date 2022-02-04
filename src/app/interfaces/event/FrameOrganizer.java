@@ -16,6 +16,7 @@ import app.CLI;
  */
 public class FrameOrganizer extends JComponent implements ComponentListener {
   private JFrame frame;
+  private PropertiesReader pr;
 
   public FrameOrganizer(JFrame frame) {
     this.frame = frame;
@@ -23,15 +24,15 @@ public class FrameOrganizer extends JComponent implements ComponentListener {
     RenderingHints qualityHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
     qualityHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+    pr = new app.core.PropertiesReader();
   }
 
   @Override
   public void componentResized(ComponentEvent e) {
     frame.setShape(new RoundRectangle2D.Float(0, 0, frame.getWidth(), frame.getHeight(), 15, 15));
     frame.repaint();
-    CLI.print("Window transparency: " + PropertiesReader.getVal("gui.window_transparency"));
-    frame.setOpacity(Float.parseFloat(PropertiesReader.getVal("gui.window_transparency")));
-
+    CLI.print("Window transparency: " + pr.getVal("gui.window_transparency"));
+    frame.setOpacity(Float.parseFloat(pr.getVal("gui.window_transparency")));
   }
 
   @Override
