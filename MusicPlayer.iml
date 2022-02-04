@@ -19,5 +19,9 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="korau-mp3-0.19.1 (2)" level="project" />
+    <orderEntry type="library" name="ant:ant-junit:1.6.5" level="project" />
+    <orderEntry type="library" name="player-4.0.1.FINAL" level="project" />
+    <orderEntry type="library" name="mp3plugin" level="project" />
   </component>
 </module>
