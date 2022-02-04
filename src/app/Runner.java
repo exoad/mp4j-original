@@ -49,7 +49,15 @@ import app.global.cli.CliException;
  */
 
 public class Runner {
+  private PropertiesReader pr;
 
+  public Runner() {
+    try {
+      pr = new PropertiesReader();
+    } catch (IOException e) {
+      System.exit(-1);
+    }
+  }
   /**
    * @return String
    * @throws IOException IO is used here
@@ -129,19 +137,19 @@ public class Runner {
       e.printStackTrace();
     }
     CLI.print(new PropertiesReader().toString(), app.global.cli.CliType.WARNING);
-    if (PropertiesReader.getProp("gui.buttonShape").equals("round")) {
+    if (PropertiesReader.getVal("gui.buttonShape").equals("round")) {
       UIManager.put("Button.arc", 999);
       UIManager.put("CheckBox.arc", 999);
       UIManager.put("ComboBox.arc", 999);
       UIManager.put("TextComponent.arc", 999);
-    } else if (PropertiesReader.getProp("gui.buttonShape").equals("square")) {
+    } else if (PropertiesReader.getVal("gui.buttonShape").equals("square")) {
       UIManager.put("Button.arc", 0);
       UIManager.put("CheckBox.arc", 0);
       UIManager.put("ComboBox.arc", 0);
       UIManager.put("TextComponent.arc", 0);
     }
     new app.core.PropertiesReader();
-    String laf = app.core.PropertiesReader.getProp("gui.defaultTheme");
+    String laf = app.core.PropertiesReader.getVal("gui.defaultTheme");
     switch (laf) {
       case "material":
         FlatMaterialDarkerIJTheme.setup();
@@ -199,7 +207,12 @@ public class Runner {
       CLI.print("Reset All Properties for: " + Runner.class);
     }
 
-    Thread cli = new Thread(CLI::runAsInterface);
+    /**
+     * Disposed:
+     * 
+     * Thread cli = new Thread(CLI::runAsInterface);
+     */
+
 
 
     new Runner().run();

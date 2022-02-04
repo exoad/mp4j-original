@@ -34,7 +34,7 @@ public class Music {
     CLI.print("Converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath());
     AudioAttributes audio = new AudioAttributes();
     audio.setCodec("pcm_s16le");
-    audio.setBitRate(128000);
+    audio.setBitRate(320000);
     audio.setChannels(1);
     audio.setSamplingRate(44100);
     EncodingAttributes attrs = new EncodingAttributes();
