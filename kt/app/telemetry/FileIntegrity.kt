@@ -32,7 +32,7 @@ class FileIntegrity {
         }
 
     companion object {
-        private var fileList: URL
+        private lateinit var fileList: URL
 
         @get:Throws(IOException::class)
         val allFiles: String

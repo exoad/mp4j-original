@@ -6,7 +6,7 @@ import java.io.File
 import java.io.IOException
 import javax.sound.sampled.*
 
-class Player(f: File, volume: Float) {
+class Player(f: Any, volume: Float) {
     private var f: File? = null
     var c: Clip? = null
 

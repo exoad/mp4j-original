@@ -43,7 +43,7 @@ class ErrorMessage(message: String?) : ActionListener {
     }
 
     init {
-        path = Logger.log(message)
+        path = message?.let { Logger.log(it) }.toString()
         val panel = JPanel()
         val label = JLabel("<html><center><p>An error occured click below to view the error<br></p></center></html>")
         okButton = JButton("OK")

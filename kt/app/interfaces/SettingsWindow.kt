@@ -1,59 +1,30 @@
 package app.interfaces
 
-import app.core.PropertiesReader.getVal
-import app.interfaces.DocumentationWindow.run
-import app.core.JSONParser.parseElement
-import app.core.Cache.cleanCache
-import app.core.PropertiesReader.Companion.reset
-import app.interfaces.theme.LAFCommitter.setMultTheme
-import app.interfaces.theme.Parser.getTheme
-import app.interfaces.theme.Parser.parseThemeToProperty
-import app.core.Host.Companion.openFileBrowser
-import app.core.LifePreserver.saveToPrevDir
-import java.lang.InterruptedException
-import app.interfaces.dialog.ErrorMessage
-import java.awt.event.ActionListener
-import javax.swing.event.ChangeListener
-import java.lang.Runnable
-import backend.audioutil.Player
-import app.interfaces.WindowPanel
-import java.lang.Math
-import kotlin.jvm.Synchronized
-import java.awt.event.ActionEvent
-import app.interfaces.dialog.FrameConfirmDialog
-import app.interfaces.SelectFileWindow
-import javax.swing.event.ChangeEvent
-import app.interfaces.event.FrameOrganizer
-import kotlin.Throws
-import java.io.IOException
-import kotlin.jvm.JvmStatic
-import app.interfaces.LicenseWindow
-import java.io.BufferedReader
-import java.lang.StringBuilder
-import javax.swing.text.StyledDocument
-import javax.swing.text.SimpleAttributeSet
-import javax.swing.text.StyleConstants
 import app.CLI
-import app.interfaces.WelcomeWindow
-import app.interfaces.SettingsWindow
-import app.interfaces.DocumentationWindow
-import app.interfaces.event.WebsiteButtons
+import app.core.Cache.cleanCache
+import app.core.JSONParser.parseElement
 import app.core.PropertiesReader
-import java.awt.event.ItemListener
-import app.telemetry.FileIntegrity
-import app.interfaces.dialog.OKWindow
-import java.awt.event.ItemEvent
-import app.interfaces.theme.LAFCommitter
-import app.core.Host
-import app.core.LifePreserver
+import app.core.PropertiesReader.Companion.reset
 import app.global.Items
 import app.global.VersionInfo
 import app.global.cli.CliType
+import app.interfaces.dialog.ErrorMessage
+import app.interfaces.dialog.OKWindow
+import app.interfaces.event.FrameOrganizer
+import app.interfaces.theme.LAFCommitter
 import app.interfaces.theme.Parser
+import app.telemetry.FileIntegrity
 import app.telemetry.Logger
 import app.telemetry.api.Wrapper
-import java.awt.*
-import java.lang.Exception
+import java.awt.Component
+import java.awt.Dimension
+import java.awt.Font
+import java.awt.Frame
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
+import java.awt.event.ItemEvent
+import java.awt.event.ItemListener
+import java.io.IOException
 import java.util.*
 import javax.swing.*
 
@@ -273,7 +244,7 @@ class SettingsWindow : Runnable, ActionListener, ItemListener {
     }
 
     companion object {
-        var frame: JFrame
+        lateinit var frame: JFrame
 
         /**
          * @param args

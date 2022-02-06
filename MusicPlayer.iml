@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/audio" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/cmake" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/kt" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/musicML" />
       <excludeFolder url="file://$MODULE_DIR$/@deprecated" />
       <excludeFolder url="file://$MODULE_DIR$/build" />

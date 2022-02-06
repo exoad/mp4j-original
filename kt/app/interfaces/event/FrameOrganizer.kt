@@ -1,20 +1,13 @@
 package app.interfaces.event
 
-import app.core.PropertiesReader.getVal
-import javax.swing.JFrame
-import javax.swing.JComponent
-import java.awt.event.ComponentListener
-import app.core.PropertiesReader
-import java.awt.event.ComponentEvent
-import java.awt.geom.RoundRectangle2D
 import app.CLI
+import app.core.PropertiesReader
 import java.awt.RenderingHints
-import java.awt.event.ActionListener
-import java.awt.event.ActionEvent
-import java.awt.Desktop
-import java.io.IOException
-import app.interfaces.dialog.ErrorMessage
-import java.net.URISyntaxException
+import java.awt.event.ComponentEvent
+import java.awt.event.ComponentListener
+import java.awt.geom.RoundRectangle2D
+import javax.swing.JComponent
+import javax.swing.JFrame
 
 /**
  * @author Jack Meng
@@ -22,7 +15,7 @@ import java.net.URISyntaxException
 class FrameOrganizer(private val frame: JFrame) : JComponent(), ComponentListener {
     private val pr: PropertiesReader
     override fun componentResized(e: ComponentEvent) {
-        frame.shape = RoundRectangle2D.Float(0, 0, frame.width.toFloat(), frame.height.toFloat(), 5, 5)
+        frame.shape = RoundRectangle2D.Float(0F, 0F, frame.width.toFloat(), frame.height.toFloat(), 5F, 5F)
         frame.repaint()
         CLI.print("Window transparency: " + pr.getVal("gui.window_transparency"))
         frame.opacity = pr.getVal("gui.window_transparency").toFloat()
