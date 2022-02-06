@@ -29,7 +29,7 @@ public class FrameOrganizer extends JComponent implements ComponentListener {
 
   @Override
   public void componentResized(ComponentEvent e) {
-    frame.setShape(new RoundRectangle2D.Float(0, 0, frame.getWidth(), frame.getHeight(), 15, 15));
+    //frame.setShape(new RoundRectangle2D.Float(0, 0, frame.getWidth(), frame.getHeight(), 5, 5));
     frame.repaint();
     CLI.print("Window transparency: " + pr.getVal("gui.window_transparency"));
     frame.setOpacity(Float.parseFloat(pr.getVal("gui.window_transparency")));

@@ -20,6 +20,14 @@ public abstract class Cache {
       for (File f : java.util.Objects.requireNonNull(cache.listFiles())) {
         f.delete();
       }
+      File audio = new File(Items.items[0] + "\\audio");
+      if (audio.isDirectory()) {
+        for (File f : java.util.Objects.requireNonNull(audio.listFiles())) {
+          f.delete();
+        }
+      }
+
+
       return true;
     }
     return false;

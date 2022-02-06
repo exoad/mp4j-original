@@ -133,7 +133,7 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
       frame.setVisible(false);
       frame.dispose();
       new WindowPanel(lastDir);
-      WindowPanel.run();
+      new WindowPanel(lastDir).run();
     } else {
       new ErrorMessage("Invalid file type");
     }

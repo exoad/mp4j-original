@@ -26,7 +26,6 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 import app.core.PropertiesReader;
 import app.global.Items;
 import app.global.cli.CliException;
-import backend.setup.CheckSetup;
 
 /**
  * <h1>Runner</h1>
@@ -80,8 +79,6 @@ public class Runner {
   }
 
   public boolean run() throws IOException {
-    System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
-    System.setProperty("flatlaf.animation", "true");
 
     CLI.print(Runner.readInfo());
     CLI.print(Runner.class);
@@ -185,6 +182,33 @@ public class Runner {
      * Thread cli = new Thread(CLI::runAsInterface);
      */
 
+    //System.setProperty("flatlaf.useWindowDecorations", "true");
+
+    File mpSaves = new File(Items.items[1]);
+    if (!mpSaves.isDirectory()) {
+      mpSaves.mkdir();
+    }
+
+    File apiCache = new File(Items.items[0]);
+    if (!apiCache.isDirectory()) {
+      apiCache.mkdir();
+    }
+
+
+    File customs = new File(Items.items[5]);
+    if (!customs.isDirectory()) {
+      customs.mkdir();
+    }
+
+    File mpLogs = new File(Items.items[2]);
+    if (!mpLogs.isDirectory()) {
+      mpLogs.mkdir();
+    }
+
+    File mpInternetCache = new File(Items.items[6]);
+    if (!mpInternetCache.isFile()) {
+      mpInternetCache.createNewFile();
+    }
 
 
     new Runner().run();

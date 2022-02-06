@@ -24,7 +24,7 @@ public class PropertiesReader {
   private static Properties p;
 
   public PropertiesReader() {
-    CheckSetup.checkNativeDirs();
+    
     System.out.println("hasAll" + checkPropertiesAll() + "\nFile exists? " + new java.io.File(app.global.Items.items[1] + System.getProperty("file.separator") + app.global.Sources.PROPERTIES_FILE).exists());
     if (!new java.io.File(app.global.Items.items[1] + "/" + app.global.Sources.PROPERTIES_FILE).exists()) {
       reset();

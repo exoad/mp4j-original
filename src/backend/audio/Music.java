@@ -26,16 +26,16 @@ public class Music {
   }
 
   public static File convert(File f) throws AudioConversionException {
-    File wav = new File(GlobalVars.ITEM_DIR + "\\" + randomFileName() + ".wav");
+    File wav = new File(GlobalVars.ITEM_DIR + "\\" + f.getName().replace(".mp3", "") + ".wav");
     if (wav.exists()) {
-      CLI.print("WAV file already exists, skipping conversion", CliType.ERROR);
-      return null;
+      CLI.print("WAV file already exists, skipping conversion", CliType.WARNING);
+      return wav;
     }
     CLI.print("Converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath());
     AudioAttributes audio = new AudioAttributes();
     audio.setCodec("pcm_s16le");
     audio.setBitRate(320000);
-    audio.setChannels(1);
+    audio.setChannels(2);
     audio.setSamplingRate(44100);
     EncodingAttributes attrs = new EncodingAttributes();
     attrs.setFormat("wav");

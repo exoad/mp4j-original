@@ -9,11 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -28,6 +24,8 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import backend.audioutil.*;
+
 import app.interfaces.dialog.FrameConfirmDialog;
 import app.functions.Worker;
 import backend.audio.*;
@@ -35,7 +33,7 @@ import app.CLI;
 
 import static java.lang.Math.*;
 
-public class WindowPanel implements ActionListener, ChangeListener {
+public class WindowPanel implements ActionListener, ChangeListener, Runnable {
   protected JPanel bp, mainPanel;
   protected URL[] waves = new URL[4];
   protected JButton play_btn, new_file, loop_btn;
@@ -43,15 +41,15 @@ public class WindowPanel implements ActionListener, ChangeListener {
   protected JSlider volume_slider;
   protected static JFrame frame;
   protected static File musicFile;
-  protected static Clip clip;
   protected boolean loop = false;
-  protected static boolean alreadyPlaying = false, toPause = false, playAsMp3 = false;
+  protected static boolean alreadyPlaying = false, toPause = false;
   protected static String music_path;
   protected URL pause_icon = getClass().getResource("/icons/others/pause_button.png");
   protected URL looped = getClass().getResource("/icons/others/loop_icon.png");
   protected Icon looped_icon = new ImageIcon(looped);
   protected Icon pause_button_ico;
-  protected Worker master = new Worker();
+  protected Player pl;
+  protected Thread master = new Thread();
   protected Thread loopWatcher = new Thread();
 
   {
@@ -73,6 +71,8 @@ public class WindowPanel implements ActionListener, ChangeListener {
     music_path = resource;
 
     musicFile = SelectFileWindow.getFile();
+    pl = new Player(musicFile, 50f);
+
     status = new JLabel("<html><b>Currently Playing: </b></html>" + musicFile.getName());
     status.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
@@ -137,7 +137,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
     volume_slider.setAlignmentX(Component.CENTER_ALIGNMENT);
     volume_slider.addChangeListener(this);
     volume_slider.setToolTipText("Change the volume. Current: " + volume_slider.getValue() + "%");
-
     bp = new JPanel();
     bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
     bp.add(wave_synth);
@@ -157,78 +156,6 @@ public class WindowPanel implements ActionListener, ChangeListener {
     currentFrame = 0;
   }
 
-  public void volumeControl() {
-    if (clip != null) {
-      new Thread(() -> {
-      FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-      float range = gainControl.getMaximum() - gainControl.getMinimum();
-      float gain = (volume_slider.getValue() / 100.0f) * range + gainControl.getMinimum();
-      gainControl.setValue(gain);
-      volume_slider.setToolTipText("Current Volume: " + volume_slider.getValue() + "%");
-      }).start();
-    }
-  }
-
-  private Thread worker = new Thread();
-
-  public void playMusic() {
-    if(musicFile.getAbsolutePath().endsWith(".mp3")) {
-      try {
-        musicFile = Music.convert(musicFile);
-      } catch (AudioConversionException e) {
-        e.printStackTrace();
-      }
-    }
-    javax.sound.sampled.AudioInputStream audioInputStream;
-    try {
-      audioInputStream = javax.sound.sampled.AudioSystem
-          .getAudioInputStream(musicFile);
-      clip = AudioSystem.getClip();
-      clip.open(audioInputStream);
-    } catch (UnsupportedAudioFileException | IOException e1) {
-      e1.printStackTrace();
-    } catch (LineUnavailableException e) {
-      e.printStackTrace();
-    }
-
-    clip.setMicrosecondPosition(currentFrame);
-    clip.start();
-
-    playAsMp3 = false;
-    volumeControl();
-    new Thread(() -> {
-      // if the music is finished playing, update the button icon to be play
-      while (clip.isActive() && clip != null) {
-        try {
-          Thread.sleep(100);
-        } catch (InterruptedException e) {
-          CLI.print(e, app.global.cli.CliType.ERROR);
-        }
-      }
-      play_btn.setIcon(play_button_ico);
-      wave_synth.setIcon(new ImageIcon(waves[3]));
-    }).start();
-  }
-
-  public void pauseMusic() {
-    if (clip != null) {
-      currentFrame = (int) clip.getMicrosecondPosition();
-      clip.stop();
-    }
-  }
-
-
-  /**
-   * @param args
-   */
-  public static void main(String[] args) {
-    SwingUtilities.invokeLater(WindowPanel::run);
-    File f = new File("musicML");
-    if (!f.exists())
-      f.mkdir();
-    WindowPanel.run();
-  }
-
   public void setPauseState() {
     play_btn.setIcon(play_button_ico);
     play_btn.setToolTipText("Play the current media");
@@ -243,61 +170,52 @@ public class WindowPanel implements ActionListener, ChangeListener {
     wave_synth.setIcon(new ImageIcon(waves[(int) random() * 3]));
   }
 
-  /**
-   * @param e
-   */
+  private Thread volumeWorker = new Thread();
+
+  public void updateVolume() {
+
+    volumeWorker = new Thread(() -> {
+      pl.vols = volume_slider.getValue();
+      pl.setVolume();
+      volume_slider.setToolTipText("Volume: " + volume_slider.getValue() + "%");
+    });
+    volumeWorker.start();
+  }
+
   @Override
-  public void actionPerformed(ActionEvent e) {
-    CLI.print(e.getSource());
-    CLI.print("Current: " + (clip != null ? clip.getMicrosecondPosition() : 0));
-    if (e.getSource().equals(play_btn)) {
-      if (worker != null)
-        worker.interrupt();
-      if (play_btn.getIcon() == play_button_ico) {
-        if (worker != null) {
-          worker.interrupt();
-        }
-        if (clip != null) {
-          playMusic();
-        }
-        playMusic();
-        setPlayState();
-      } else if (play_btn.getIcon() == pause_button_ico) {
-        if (worker != null)
-          worker.interrupt();
-        pauseMusic();
+  public synchronized void actionPerformed(ActionEvent e) {
+    if (e.getSource() == play_btn) {
+      updateVolume();
+      if (alreadyPlaying) {
+
+        pl.pause();
         setPauseState();
+        alreadyPlaying = false;
+      } else {
+        pl.play();
+
+        setPlayState();
+        alreadyPlaying = true;
       }
-    } else if (e.getSource().equals(volume_slider)) {
-        volumeControl();
     } else if (e.getSource().equals(new_file)) {
       new FrameConfirmDialog("Are you sure you want to exit?", frame, new SelectFileWindow(music_path));
-      pauseMusic();
+      pl.pause();
       setPauseState();
+      alreadyPlaying = false;
     } else if (e.getSource().equals(loop_btn)) {
-      URL clicked = getClass().getResource("/icons/others/loop_clicked_icon.png");
-      if (loop_btn.getIcon() == looped_icon) {
-        loop_btn.setIcon(new ImageIcon(clicked));
-        loop_btn.setToolTipText("Looping is now on");
-        loop = true;
 
-        if (clip != null && (clip.isRunning() || clip.isActive())) {
-
-          clip.loop(Clip.LOOP_CONTINUOUSLY);
-        }
-      } else {
-        loop_btn.setIcon(looped_icon);
-        loop_btn.setToolTipText("Looping is now off");
-        loop = false;
-        if (clip.isRunning() || clip.isActive())
-          clip.loop(0);
-      }
+    } else if (e.getSource().equals(volume_slider)) {
+      Thread t = new Thread(() -> {
+        pl.vols = volume_slider.getValue();
+        pl.setVolume();
+        volume_slider.setToolTipText("Volume: " + volume_slider.getValue() + "%");
+      });
+      t.start();
     }
   }
 
-  public static void run() {
-    new WindowPanel(music_path);
-    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+  @Override
+  public void run() {
     frame.pack();
     frame.setVisible(true);
   }
@@ -306,9 +224,15 @@ public class WindowPanel implements ActionListener, ChangeListener {
    * @param e
    */
   @Override
-  public void stateChanged(ChangeEvent e) {
+  public synchronized void stateChanged(ChangeEvent e) {
+    // make this multi-threaded
     if (e.getSource().equals(volume_slider)) {
-        volumeControl();
+      Thread t = new Thread(() -> {
+        pl.vols = volume_slider.getValue();
+        pl.setVolume();
+        volume_slider.setToolTipText("Volume: " + volume_slider.getValue() + "%");
+      });
+      t.start();
     }
   }
 }
