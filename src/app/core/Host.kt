@@ -41,6 +41,7 @@ class Host(lastDir: String?) {
          * @param parent
          * @return File
          */
+        @JvmStatic
         fun openFileBrowser(parent: Component?): File? {
             var fileChooser: JFileChooser? = null
             try {
@@ -83,6 +84,7 @@ class Host(lastDir: String?) {
             return null
         }
 
+        @JvmStatic
         @Throws(IOException::class)
         fun returnJava(): String? {
             val rt = Runtime.getRuntime()
@@ -96,6 +98,7 @@ class Host(lastDir: String?) {
             return null
         }
 
+        @JvmStatic
         fun openInBrowser(url: String?) {
             try {
                 Desktop.getDesktop().browse(URI.create(url))

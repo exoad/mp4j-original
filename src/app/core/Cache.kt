@@ -10,6 +10,7 @@ import java.util.*
  * @author Jack Meng
  */
 object Cache {
+    @JvmStatic
     @Throws(IOException::class)
     fun cleanCache(): Boolean {
         val cache = File(Items.items[0])

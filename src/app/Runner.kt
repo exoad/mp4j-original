@@ -1,30 +1,22 @@
 package app
 
-import app.core.PropertiesReader.getVal
 import app.CLI.print
-import app.interfaces.Splash.run
-import app.interfaces.WelcomeWindow.run
 import app.core.PropertiesReader
-import kotlin.Throws
-import java.lang.StringBuilder
-import java.net.Socket
-import java.net.InetSocketAddress
-import javax.swing.UIManager
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme
-import app.CLI
-import com.formdev.flatlaf.FlatLightLaf
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMonokaiProContrastIJTheme
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme
-import kotlin.jvm.JvmStatic
-import app.Runner
 import app.global.Items
 import app.global.Sources
 import app.global.cli.CliType
 import app.interfaces.Splash
 import app.interfaces.WelcomeWindow
 import backend.setup.CheckSetup
+import com.formdev.flatlaf.FlatLightLaf
 import com.formdev.flatlaf.intellijthemes.*
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMonokaiProContrastIJTheme
 import java.io.*
+import java.net.InetSocketAddress
+import java.net.Socket
+import javax.swing.UIManager
 
 /**
  * <h1>Runner</h1>

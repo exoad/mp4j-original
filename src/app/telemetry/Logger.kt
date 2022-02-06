@@ -14,6 +14,7 @@ import java.io.File
 
 class Logger(s: Any) {
     companion object {
+        @JvmStatic
         fun log(t: Any): String {
             val time = System.currentTimeMillis()
             val curr = File(Items.items[2] + "/" + "Log_" + time + ".log")

@@ -9,6 +9,7 @@ object JSONParser {
      * @param JSON
      * @return String
      */
+    @JvmStatic
     fun parseElement(element: String?, JSON: String): String? {
         val elements = JSON.split(",".toRegex()).toTypedArray()
         for (e in elements) {

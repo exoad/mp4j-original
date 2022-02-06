@@ -71,6 +71,7 @@ class PropertiesReader {
 
     companion object {
         private var p: Properties? = null
+        @JvmStatic
         fun reset(): Boolean {
             try {
                 val t = File(Items.items[1].toString() + "/" + Sources.PROPERTIES_FILE)

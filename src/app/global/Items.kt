@@ -4,6 +4,7 @@ package app.global
  * @author Jack Meng
  */
 object Items {
+    @JvmField
     val items = arrayOf(
             "MusicPlayer/cache",
             "MusicPlayer",
@@ -15,6 +16,7 @@ object Items {
             "MusicPlayer/rsc/"
     )
     const val SPLASH_SECONDS = 1400f
+    @JvmField
     val themes = arrayOf(
             "Regular Dark",
             "Arc Dark",
