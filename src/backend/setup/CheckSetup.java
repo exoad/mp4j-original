@@ -1,13 +1,14 @@
 package backend.setup;
 
 import java.io.File;
+import java.io.IOException;
 
+import app.core.Host;
 import app.global.Items;
 
 public class CheckSetup {
   private CheckSetup() {
   }
-
   public static void checkNativeDirs() {
     File apiCache = new File(Items.items[0]);
     if (!apiCache.isDirectory()) {
@@ -28,4 +29,18 @@ public class CheckSetup {
       mpLogs.mkdir();
     }
   }
-}
+
+  public static void checkJBR() {
+    try {
+      if(Host.returnJava().contains("JBR")) {
+        new app.interfaces.setup.JBRNotFound().show();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void main(String[] args) {
+    
+  }
+} 

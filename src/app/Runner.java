@@ -48,7 +48,7 @@ import app.global.cli.CliException;
  */
 
 public class Runner {
-  private static PropertiesReader pr;
+  private final PropertiesReader pr;
 
   public Runner() {
     pr = new app.core.PropertiesReader();
@@ -57,7 +57,7 @@ public class Runner {
    * @return String
    * @throws IOException IO is used here
    */
-  public static String readInfo() throws IOException {
+  public String readInfo() throws IOException {
     if (new File(Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR)
         .exists()
         || new File(Items.items[1] + System.getProperty("file.separator") + app.global.Sources.LIFEPRESERVER_PREVDIR)
@@ -80,8 +80,8 @@ public class Runner {
 
   public boolean run() throws IOException {
 
-    CLI.print(Runner.readInfo());
-    CLI.print(Runner.class);
+    //CLI.print(Runner.readInfo());
+    //CLI.print(Runner.class);
 
     try {
       initLAF();
@@ -106,14 +106,14 @@ public class Runner {
     return true;
   }
 
-  private static void initLAF() throws IOException {
-    CLI.print(new PropertiesReader().toString(), app.global.cli.CliType.WARNING);
+  private void initLAF() throws IOException {
+    //CLI.print(new PropertiesReader().toString(), app.global.cli.CliType.WARNING);
     if (pr.getVal("gui.buttonShape").equals("round")) {
       UIManager.put("Button.arc", 999);
       UIManager.put("CheckBox.arc", 999);
       UIManager.put("ComboBox.arc", 999);
       UIManager.put("TextComponent.arc", 999);
-    } else if (pr.getVal("gui.buttonShape").equals("square")) {
+    } else if (pr.getVal("gui.buttonShape").equals("square") || pr.getVal("gui.buttonShape").equals("default")) {
       UIManager.put("Button.arc", 0);
       UIManager.put("CheckBox.arc", 0);
       UIManager.put("ComboBox.arc", 0);
@@ -184,6 +184,8 @@ public class Runner {
 
     //System.setProperty("flatlaf.useWindowDecorations", "true");
 
+    backend.setup.CheckSetup.checkJBR();
+
     File mpSaves = new File(Items.items[1]);
     if (!mpSaves.isDirectory()) {
       mpSaves.mkdir();
@@ -210,10 +212,10 @@ public class Runner {
       mpInternetCache.createNewFile();
     }
 
-
-    new Runner().run();
+    Runner b = new Runner();
+    b.run();
     new app.interfaces.Splash(Items.SPLASH_SECONDS).run();
-    new app.interfaces.WelcomeWindow(readInfo()).run();
+    new app.interfaces.WelcomeWindow(b.readInfo()).run();
     
     
     //cli.start(); - Until fully implemented for a standard CLI-based debug session

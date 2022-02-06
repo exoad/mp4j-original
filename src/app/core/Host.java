@@ -80,4 +80,25 @@ public class Host {
     return null;
   }
 
+  public static String returnJava() throws IOException {
+    Runtime rt = Runtime.getRuntime();
+    String[] commands = { "java", "--version" };
+    Process proc = rt.exec(commands);
+    BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+    String s = null;
+    while ((s = stdInput.readLine()) != null) {
+      return s;
+    }
+    return null;
+  }
+ 
+  public static void openInBrowser(String url) {
+    try {
+      java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

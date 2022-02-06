@@ -1,14 +1,11 @@
 package backend.audioutil;
 
 import java.io.File;
-import java.io.IOException;
-
 import backend.audio.*;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.AudioSystem;
 
 public class Player {
@@ -42,7 +39,7 @@ public class Player {
     if (c != null) {
       volumeWorker = new Thread(() -> {
 
-        FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.VOLUME);
+        FloatControl gainControl = (FloatControl) c.getControl(javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
         float range = gainControl.getMaximum() - gainControl.getMinimum();
         float gain = (vols / 100.0f) * range + gainControl.getMinimum();
         gainControl.setValue(gain);

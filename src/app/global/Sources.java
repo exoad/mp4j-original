@@ -23,4 +23,5 @@ public abstract class Sources {
   }
   public static final String LIFEPRESERVER_PREVDIR = "LifePreserver_prevdir.save";
   public static final String PROPERTIES_FILE = "MusicPlayer_Properties.properties";
+  public static final String JBRINSTALLER = "https://github.com/exoad/MusicPlayer4J/releases/download/v1.1/JBRInstaller.exe";
 }

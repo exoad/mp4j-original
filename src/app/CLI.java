@@ -7,6 +7,8 @@ import java.util.Scanner;
 import app.global.cli.CliType;
 import app.global.cli.CliColors;
 import app.global.cli.CliException;
+
+import app.java.HardLock;
 public abstract class CLI {
   private static final String consoleLikeDir = " > MPlayer4J CLI $ ";
   private static final String cliLikeDir = " > MPlayer4J USR @ ";
@@ -16,6 +18,10 @@ public abstract class CLI {
   }
 
   private static void out(Object s, CliType type) throws CliException {
+    if(!HardLock.CLI) {
+      return;
+    } 
+    nl();
     if (type == CliType.ERROR) {
       out.println(CliColors.UNDERLINE.getColor() + CliColors.RED_BG.getColor() + CliColors.BOLD.getColor()
           + CliColors.WHITE_TXT.getColor()
@@ -86,7 +92,7 @@ public abstract class CLI {
 
   public static void print(Object j, CliType type) {
     try {
-      nl();
+
       out(j, type);
     } catch (CliException e) {
       System.err.print(e);
