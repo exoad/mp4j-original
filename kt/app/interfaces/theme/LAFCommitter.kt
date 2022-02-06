@@ -26,7 +26,7 @@ class LAFCommitter(vararg jfxs: Frame?) {
     companion object {
         private val jfxs = ArrayList<Frame>()
     }
-    
+
 }
 
 
