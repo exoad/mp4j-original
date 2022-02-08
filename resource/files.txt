@@ -10,6 +10,7 @@ files.txt
 /icons/logos/soundcloud.png
 /icons/logos/spotify.png
 /icons/logos/youtube.png
+/icons/logos/jetbrains.jpg
 /icons/others/colormode_icon.png
 /icons/others/documentation_icon.png
 /icons/others/error_frame_icon.png
@@ -27,6 +28,14 @@ files.txt
 /icons/others/welcome_icon.png
 /icons/others/loop_icon.png
 /icons/others/loop_clicked_icon.png
+/icons/others/slider_cursor.png
+/icons/others/app-logo.png
+/icons/others/frame-playing.png
+/icons/others/frame-error.png
+/icons/others/frame-warning.png
+/icons/others/frame-refreshing.png
+/icons/others/frame-confirm.png
+/icons/others/frame-paused.png
 /icons/animated/waves/wave_1.gif
 /icons/animated/waves/wave_2.gif
 /icons/animated/waves/wave_3.gif

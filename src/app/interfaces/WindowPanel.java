@@ -154,6 +154,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     play_btn.setToolTipText("Play the current media");
     status.setText("<html><b>Currently Playing Nothing</b></html>");
     wave_synth.setIcon(new ImageIcon(waves[3]));
+    frame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-paused.png")).getImage());
   }
 
   public void setPlayState() {
@@ -161,6 +162,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     play_btn.setToolTipText("Pause the current media");
     status.setText("<html><u><b>Currently Playing: </b></u><br>" + musicFile.getName() + "</html>");
     wave_synth.setIcon(new ImageIcon(waves[(int) random() * 3]));
+    frame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-playing.png")).getImage());
   }
 
   private Thread volumeWorker = new Thread();

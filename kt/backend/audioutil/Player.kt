@@ -13,7 +13,7 @@ class Player(f: Any, volume: Float) {
     @get:Synchronized
     @set:Synchronized
     var frame = 0L
-    var vols: Float
+    var vols: Float = 0.0f
     private var alreadyOpen = false
     private val worker = Thread()
     private var volumeWorker = Thread()
@@ -75,21 +75,4 @@ class Player(f: Any, volume: Float) {
         return false
     }
 
-    init {
-        if (f.absolutePath.endsWith(".mp3")) {
-            try {
-                this.f = Music.convert(f)
-            } catch (e: AudioConversionException) {
-                e.printStackTrace()
-            }
-        } else {
-            this.f = f
-        }
-        vols = volume
-        try {
-            c = AudioSystem.getClip()
-        } catch (e1: LineUnavailableException) {
-            e1.printStackTrace()
-        }
-    }
 }

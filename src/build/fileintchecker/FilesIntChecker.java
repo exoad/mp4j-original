@@ -12,6 +12,7 @@ public class FilesIntChecker {
   public static void main(String[] args) throws IOException {
     Scanner sc = new Scanner(new File("src/build/fileintchecker/.loader"));
     String loadedPath = sc.nextLine();
+    System.out.println("> " + loadedPath);
     sc.close();
     
     File mainPath = new File(loadedPath);

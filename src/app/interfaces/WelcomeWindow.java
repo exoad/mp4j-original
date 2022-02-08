@@ -121,7 +121,7 @@ public class WelcomeWindow implements Runnable, ActionListener{
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     frame.setLocationRelativeTo(null);
     frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
-    frame.setIconImage(frame_ico.getImage());
+    frame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-refreshing.png")).getImage());
     frame.setResizable(false);
     frame.add(panel);
   }
