@@ -4,6 +4,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -41,7 +43,7 @@ public class FrameConfirmDialog implements ActionListener {
     pane.add(cancelButton);
 
     frame = new JFrame("Confirm Action");
-    frame.setIconImage(parent.getIconImage());
+    frame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-playing.png")).getImage());
     frame.add(pane);
     frame.setUndecorated(true);
     frame.setSize(300, 150);

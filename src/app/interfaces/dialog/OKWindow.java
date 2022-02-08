@@ -40,7 +40,7 @@ public class OKWindow implements ActionListener {
     assert url != null;
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame(message);
-    frame.setIconImage(icon.getImage());
+    frame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-warning.png")).getImage());
     frame.add(panel);
     frame.setSize(300, 100);
     frame.setResizable(false);

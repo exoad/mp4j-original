@@ -52,7 +52,7 @@ public class ErrorMessage implements ActionListener {
     assert url != null;
     ImageIcon icon = new ImageIcon(url);
     frame = new JFrame("Error!");
-    frame.setIconImage(icon.getImage());
+    frame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-error.png")).getImage());
     frame.add(jsp);
     frame.setSize(400, 150);
     frame.setUndecorated(true);
