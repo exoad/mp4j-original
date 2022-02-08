@@ -1,11 +1,13 @@
 package app.global
 
+import java.util.*
+
 /**
  * @author Jack Meng
  */
 object SystemType {
     fun osCXXExec(): String {
-        return if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+        return if (System.getProperty("os.name").lowercase(Locale.getDefault()).contains("windows")) {
             ".exe"
         } else {
             ".out"

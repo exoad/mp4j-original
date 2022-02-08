@@ -18,11 +18,12 @@ public class FilesIntChecker {
     File mainPath = new File(loadedPath);
     File[] files = mainPath.listFiles();
     StringBuilder filesSeq = new StringBuilder();
+    assert files != null;
     for(var f : files) {
       if(f.getPath().contains("deprecated") || f.isDirectory() || filesSeq.toString().contains(f.getName())) {
         continue;
       }
-      filesSeq.append(f.getName() + "\n");
+      filesSeq.append(f.getName()).append("\n");
       System.out.println(filesSeq.toString());
     }
     for(String secondPaths : Exclude.ndPaths) {
@@ -30,11 +31,12 @@ public class FilesIntChecker {
       System.out.println(secondPath.getName());
       if(secondPath.isDirectory()) {
         File[] secondFiles = secondPath.listFiles();
+        assert secondFiles != null;
         for(var f : secondFiles) {
           if(f.isDirectory() || filesSeq.toString().contains(f.getName())) {
             continue;
           }
-          filesSeq.append(secondPaths + f.getName() + "\n");
+          filesSeq.append(secondPaths).append(f.getName()).append("\n");
           System.out.println(secondPaths + filesSeq.toString());
         }
       }

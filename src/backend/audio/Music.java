@@ -10,7 +10,7 @@ import app.global.cli.CliType;
 public class Music {
   private Music() {}
 
-  private static String randomFileName() {
+  private static @org.jetbrains.annotations.NotNull String randomFileName() {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < 16; i++) {
       int n = (int) (Math.random() * 62);
@@ -43,15 +43,9 @@ public class Music {
     Encoder encoder = new Encoder();
     try {
       encoder.encode(f, wav, attrs);
-    } catch (IllegalArgumentException e) {
-      CLI.print("Error converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath(), CliType.ERROR);
-      CLI.print(e.getMessage(), CliType.ERROR);
-    } catch (InputFormatException e) {
-      CLI.print("Error converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath(), CliType.ERROR);
-      CLI.print(e.getMessage(), CliType.ERROR);
-    } catch (EncoderException e) {
-      CLI.print("Error converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath(), CliType.ERROR);
-      CLI.print(e.getMessage(), CliType.ERROR);
+    } catch (IllegalArgumentException | it.sauronsoftware.jave.EncoderException e) {
+      app.CLI.print("Error converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath(), app.global.cli.CliType.ERROR);
+      app.CLI.print(e.getMessage(), app.global.cli.CliType.ERROR);
     }
     return wav;
   }

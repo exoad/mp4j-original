@@ -17,6 +17,12 @@ public abstract class CLI {
   private CLI() {
   }
 
+  
+  /** 
+   * @param s
+   * @param type
+   * @throws CliException
+   */
   private static void out(Object s, CliType type) throws CliException {
     if(!HardLock.CLI) {
       return;
@@ -51,6 +57,11 @@ public abstract class CLI {
       throw new CliException("Unusable CLI_TYPE: " + type);
   }
 
+  
+  /** 
+   * @param s
+   * @param type
+   */
   public static void scriptOut(Object s, CliType type) {
     if (type == CliType.ERROR) {
       out.println(CliColors.UNDERLINE.getColor() + CliColors.RED_BG.getColor() + CliColors.BOLD.getColor()
@@ -78,6 +89,10 @@ public abstract class CLI {
           + " " + s);
   }
 
+  
+  /** 
+   * @param j
+   */
   public static void print(Object j) {
     try {
       out(j, CliType.INFO);
@@ -90,6 +105,11 @@ public abstract class CLI {
     out.println();
   }
 
+  
+  /** 
+   * @param j
+   * @param type
+   */
   public static void print(Object j, CliType type) {
     try {
 

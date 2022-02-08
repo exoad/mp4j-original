@@ -1,7 +1,7 @@
 package build.fileintchecker.global
 
 object Exclude {
-    const val IGNORE_DEPRECATED = "/deprecated"
+    @JvmField
     val ndPaths = arrayOf(
             "/icons/audio-type/",
             "/icons/logos/",

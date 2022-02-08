@@ -14,7 +14,7 @@ public class Player {
   private long frame = 0L;
   public float vols;
   private boolean alreadyOpen = false;
-  private Thread worker = new Thread(), volumeWorker = new Thread();
+  private final Thread worker = new Thread();
 
   public Player(File f, float volume) {
     if (f.getAbsolutePath().endsWith(".mp3")) {
@@ -37,9 +37,9 @@ public class Player {
 
   public void setVolume() {
     if (c != null) {
-      volumeWorker = new Thread(() -> {
+      Thread volumeWorker = new Thread(() -> {
 
-        FloatControl gainControl = (FloatControl) c.getControl(javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
+        javax.sound.sampled.FloatControl gainControl = (javax.sound.sampled.FloatControl) c.getControl(javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
         float range = gainControl.getMaximum() - gainControl.getMinimum();
         float gain = (vols / 100.0f) * range + gainControl.getMinimum();
         gainControl.setValue(gain);

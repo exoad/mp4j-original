@@ -16,7 +16,7 @@ import app.CLI;
  */
 public class FrameOrganizer extends JComponent implements ComponentListener {
   private JFrame frame;
-  private PropertiesReader pr;
+  private transient PropertiesReader pr;
 
   public FrameOrganizer(JFrame frame) {
     this.frame = frame;
