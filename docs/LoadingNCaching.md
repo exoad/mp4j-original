@@ -24,7 +24,12 @@ if(not native_dir.contains src) {
 // a lambda "->" signifies we load thus file
 cacher -> properties_file(native_dir + "/properties.file")
 
-// the cacher would mostly use a 
+// the cacher would mostly use a hashmap in order to achieve
+// said values
+// for example we can then thus use this hashamp to keep track
+// of where we are and also if certain values exists in the map
+// this is not like a need for any other form of data structure
+// as mostly we do not care about the order
 if(not cacher.contains(src)) {
   cacher.add(
     key: src,
@@ -32,6 +37,5 @@ if(not cacher.contains(src)) {
   )
 }
 
-// do other stuffs
-
+// do other stuffs with the code generated from the contaienr
 ```
