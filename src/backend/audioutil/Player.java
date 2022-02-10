@@ -4,7 +4,6 @@ import java.io.File;
 import backend.audio.*;
 
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.AudioSystem;
 
