@@ -6,6 +6,14 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileView;
 
+/**
+ * <p>
+ * This class will handle all exception rules for the icons without the 
+ * internal classes having to attempt for further URL resourcing.
+ * </p>
+ * @since 1.0.1
+ * @author Jack Meng
+ */
 public class IconRules extends FileView {
   private Hashtable<String, ImageIcon> icons = new Hashtable<>();
 
@@ -19,10 +27,19 @@ public class IconRules extends FileView {
     icons.put("folder", new ImageIcon(getClass().getResource("/icons/others/file_select_folder_icon.png")));
   }
 
+  /**
+   * <p>Returns the value within the hashtable found with the given key</p>
+   * @param token The token value to search for 
+   * @return an ImageIcon of the original keys in the HashTable
+   */
   public ImageIcon fetchByKey(String token) {
     return icons.get(token);
   }
 
+  /**
+   * @param file
+   * @return The file view icon for the original file type in the fileviewer
+   */
   @Override
   public Icon getIcon(File file) {
     String fileName = file.getName();
