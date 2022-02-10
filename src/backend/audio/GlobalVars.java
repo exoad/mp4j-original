@@ -5,5 +5,5 @@ public class GlobalVars {
 
   }
 
-  public static final String ITEM_DIR = "MusicPlayer/cache/audio";
+  public static final String ITEM_DIR = "MP4J/cache/audio";
 }

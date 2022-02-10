@@ -4,7 +4,7 @@
 /bin
 .vscode
 /makes
-/MusicPlayer
+/MP4J
 /build/CMakeCache.txt
 *.loader
 /audio

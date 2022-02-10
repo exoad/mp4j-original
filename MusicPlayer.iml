@@ -31,5 +31,8 @@
     <orderEntry type="library" name="mp3plugin" level="project" />
     <orderEntry type="library" name="jave-1.0.1" level="project" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
+    <orderEntry type="library" name="javamp3-1.0.4" level="project" />
+    <orderEntry type="library" name="jsyn-20171016" level="project" />
+    <orderEntry type="library" name="sound" level="project" />
   </component>
 </module>

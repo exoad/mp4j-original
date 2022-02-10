@@ -303,13 +303,15 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
 
   @Override
   public void itemStateChanged(ItemEvent e) {
-    if(e.getSource().equals(theme)) {
-      new LAFCommitter(java.awt.Frame.getFrames()).setMultTheme(new Parser(java.util.Objects.requireNonNull(theme.getSelectedItem()).toString()).getTheme());
+    if (e.getSource().equals(theme)) {
+      new LAFCommitter(java.awt.Frame.getFrames())
+          .setMultTheme(new Parser(java.util.Objects.requireNonNull(theme.getSelectedItem()).toString()).getTheme());
       try {
         new Parser(java.util.Objects.requireNonNull(theme.getSelectedItem()).toString()).parseThemeToProperty();
       } catch (IOException e1) {
         e1.printStackTrace();
       }
+
     }
   }
 

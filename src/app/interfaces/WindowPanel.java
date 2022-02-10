@@ -23,6 +23,7 @@ import javax.swing.event.ChangeListener;
 import backend.audioutil.*;
 
 import app.interfaces.dialog.FrameConfirmDialog;
+import app.interfaces.event.AudioDestroy;
 
 import static java.lang.Math.*;
 
@@ -95,9 +96,10 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
 
     frame = new JFrame("Music Player - Jack Meng");
     frame.setIconImage(frame_ico.getImage());
+    frame.addWindowListener(new AudioDestroy(frame, pl));
     frame.setUndecorated(true);
     frame.addComponentListener(new app.interfaces.event.FrameOrganizer(frame));
-    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     frame.setResizable(false);
 
     play_btn = new JButton(play_button_ico);

@@ -1,9 +1,7 @@
 package test;
 
 import javax.swing.JSlider;
-import javax.swing.UIDefaults;
 import javax.swing.WindowConstants;
-import javax.swing.plaf.SliderUI;
 import javax.swing.plaf.basic.BasicSliderUI;
 
 import java.awt.Dimension;

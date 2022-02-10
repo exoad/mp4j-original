@@ -18,11 +18,7 @@ public class Player {
 
   public Player(File f, float volume) {
     if (f.getAbsolutePath().endsWith(".mp3")) {
-      try {
-        this.f = Music.convert(f);
-      } catch (AudioConversionException e) {
-        e.printStackTrace();
-      }
+      this.f = Music.convert(f);
     } else {
       this.f = f;
     }
@@ -35,25 +31,31 @@ public class Player {
 
   }
 
+  public Clip get() {
+    return c;
+  }
+
   public void setVolume() {
     if (c != null) {
-      Thread volumeWorker = new Thread(() -> {
-
-        javax.sound.sampled.FloatControl gainControl = (javax.sound.sampled.FloatControl) c.getControl(javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
-        float range = gainControl.getMaximum() - gainControl.getMinimum();
-        float gain = (vols / 100.0f) * range + gainControl.getMinimum();
-        gainControl.setValue(gain);
-      });
-      volumeWorker.start();
+      try {
+      javax.sound.sampled.FloatControl gainControl = (javax.sound.sampled.FloatControl) c
+          .getControl(javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
+      float range = gainControl.getMaximum() - gainControl.getMinimum();
+      float gain = (vols / 100.0f) * range + gainControl.getMinimum();
+      gainControl.setValue(gain);
+      } catch (IllegalArgumentException e) {
+        // DO NOTHING
+      }
     }
   }
 
   public synchronized void play() {
-    if(!alreadyOpen) {
+    if (!alreadyOpen) {
       try {
         c.open(AudioSystem.getAudioInputStream(f));
         alreadyOpen = true;
-      } catch (java.io.IOException | javax.sound.sampled.UnsupportedAudioFileException | javax.sound.sampled.LineUnavailableException e) {
+      } catch (java.io.IOException | javax.sound.sampled.UnsupportedAudioFileException
+          | javax.sound.sampled.LineUnavailableException e) {
         e.printStackTrace();
       }
     }

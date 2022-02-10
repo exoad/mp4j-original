@@ -1,5 +1,5 @@
 package app.java
 
 object HardLock {
-    const val CLI = false
+    const val CLI = true
 }

@@ -5,14 +5,14 @@ package app.global;
 public class Items {
   private Items() {}
   public static final String[] items = {
-      "MusicPlayer/cache",
-      "MusicPlayer",
-      "MusicPlayer/logs",
-      "MusicPlayer/key/license_agree.lock",
-      "MusicPlayer/Properties_doc.txt",
-      "MusicPlayer/custom",
-      "MusicPlayer/cache/internetcache",
-      "MusicPlayer/rsc/"
+      "MP4J/cache",
+      "MP4J",
+      "MP4J/logs",
+      "MP4J/key/license_agree.lock",
+      "MP4J/Properties_doc.txt",
+      "MP4J/custom",
+      "MP4J/cache/internetcache",
+      "MP4J/rsc/"
   };
   public static final float SPLASH_SECONDS = 1400f;
   public static final String[] themes = {

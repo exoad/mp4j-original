@@ -10,7 +10,8 @@ import app.global.cli.CliType;
 import app.global.Pair;
 
 public class Music {
-  private Music() {}
+  private Music() {
+  }
 
   private static String randomFileName() {
     StringBuilder sb = new StringBuilder();
@@ -27,15 +28,12 @@ public class Music {
     return sb.toString();
   }
 
-  public static File convert(File f) throws AudioConversionException {
-    File wav = new File(GlobalVars.ITEM_DIR + "\\" + f.getName().replace(".mp3", "") + ".wav");
-    if (wav.exists()) {
-      CLI.print("WAV file already exists, skipping conversion", CliType.WARNING);
-      return wav;
-    }
+  public static File convert(File f) {
+    File wav = new File(GlobalVars.ITEM_DIR + "/" + randomFileName().replace(".mp3", "") + ".wav");
     CLI.print("Converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath());
     AudioAttributes audio = new AudioAttributes();
-    audio.setCodec("pcm_s16le");
+    // mp3 to wav
+    audio.setCodec("libmp3lame");
     audio.setBitRate(320000);
     audio.setChannels(2);
     audio.setSamplingRate(44100);
@@ -45,15 +43,16 @@ public class Music {
     Encoder encoder = new Encoder();
     try {
       encoder.encode(f, wav, attrs);
-    } catch (IllegalArgumentException | it.sauronsoftware.jave.EncoderException e) {
-      app.CLI.print("Error converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath(), app.global.cli.CliType.ERROR);
-      app.CLI.print(e.getMessage(), app.global.cli.CliType.ERROR);
+    } catch (it.sauronsoftware.jave.EncoderException e) {
+      e.printStackTrace();
     }
+
     return wav;
   }
 
   public static File convert(File f, CodecDecoders s, Pair<?, ?> typeNames) {
-    File wav = new File(GlobalVars.ITEM_DIR + "\\" + f.getName().replace((String) typeNames.first, "") + (String) typeNames.second);
+    File wav = new File(
+        GlobalVars.ITEM_DIR + "\\" + f.getName().replace((String) typeNames.first, "") + (String) typeNames.second);
     if (wav.exists()) {
       CLI.print("File already exists, skipping conversion", CliType.WARNING);
       return wav;
@@ -65,7 +64,7 @@ public class Music {
     audio.setChannels(2);
     audio.setSamplingRate(44100);
     EncodingAttributes attrs = new EncodingAttributes();
-    attrs.setFormat(((String)typeNames.second).replace(".", ""));
+    attrs.setFormat(((String) typeNames.second).replace(".", ""));
     attrs.setAudioAttributes(audio);
     Encoder encoder = new Encoder();
     try {
