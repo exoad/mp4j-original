@@ -26,6 +26,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 import app.core.PropertiesReader;
 import app.global.Items;
 import app.global.cli.CliException;
+import backend.audio.GlobalVars;
 
 /**
  * <h1>Runner</h1>
@@ -210,6 +211,21 @@ public class Runner {
     File mpInternetCache = new File(Items.items[6]);
     if (!mpInternetCache.isFile()) {
       mpInternetCache.createNewFile();
+    }
+
+    File mpSettings = new File(Items.items[7]);
+    if (!mpSettings.isDirectory()) {
+      mpSettings.mkdir();
+    }
+
+    File codecFinak = new File(GlobalVars.CODEC_FINAL);
+    if(!codecFinak.isDirectory()) {
+      codecFinak.mkdir();
+    }
+
+    codecFinak = new File(GlobalVars.ITEM_DIR);
+    if (!codecFinak.isDirectory()) {
+      codecFinak.mkdir();
     }
 
     Runner b = new Runner();

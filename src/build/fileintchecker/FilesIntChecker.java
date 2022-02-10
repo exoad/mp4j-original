@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import build.fileintchecker.global.Exclude;
 
+
 public class FilesIntChecker {
   public static void main(String[] args) throws IOException {
     Scanner sc = new Scanner(new File("src/build/fileintchecker/.loader"));
