@@ -1,0 +1,4 @@
+These are deprecated packages that I made myself. Most of them are in languages other than Java.
+
+They were primarily used to remove less strain on the Java Application itself, however I found out that some of the platforms that the SRC code compiled here were not 
+compatible with other archs. of many other computers/machines.
