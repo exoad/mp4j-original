@@ -10,11 +10,11 @@ import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme;
 public class Nord implements Refresh {
 
   @Override
-  public void refresh(java.awt.Window frame) throws UnsupportedLookAndFeelException {
-    UIManager.setLookAndFeel(new FlatNordIJTheme());
+  public void refresh(java.awt.Window frame) {
     try {
+      UIManager.setLookAndFeel(new FlatNordIJTheme());
       SwingUtilities.updateComponentTreeUI(frame);
-    } catch (NullPointerException e) {
+    } catch (javax.swing.UnsupportedLookAndFeelException | NullPointerException e ) {
       // do nothing
       e.addSuppressed(e);
     }
