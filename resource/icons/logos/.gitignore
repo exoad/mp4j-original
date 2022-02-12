@@ -1,0 +1,11 @@
+/.idea
+/out
+*.class
+/bin
+.vscode
+/makes
+/MP4J
+/build/CMakeCache.txt
+*.loader
+/audio
+/old
