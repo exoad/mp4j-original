@@ -1,9 +1,8 @@
 package test;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.EventListener;
-
-import javax.swing.*;
 
 public class SimpleWindow {
   public SimpleWindow(EventListener listener) {

@@ -1,29 +1,17 @@
 package app.interfaces;
 
-import java.io.File;
-import java.net.URL;
-
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-
 import app.CLI;
 import app.core.Host;
 import app.core.LifePreserver;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-
-import app.interfaces.event.WebsiteButtons;
 import app.interfaces.dialog.ErrorMessage;
+import app.interfaces.event.WebsiteButtons;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URL;
 
 public class SelectFileWindow extends JPanel implements Runnable, ActionListener {
   private String filePath;

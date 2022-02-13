@@ -1,17 +1,11 @@
 package test;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
-import java.awt.event.ActionListener;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
-
-import com.formdev.flatlaf.*;
+import java.awt.event.ActionListener;
 @Deprecated
 public class RefreshLAF implements ActionListener, Runnable {
   JFrame frame;

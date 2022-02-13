@@ -1,25 +1,13 @@
 package backend.audioutil;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
+import backend.audio.Music;
 
-import backend.audio.*;
-import it.sauronsoftware.jave.AudioInfo;
-
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.sound.sampled.spi.AudioFileReader;
-
-import app.CLI;
-import app.global.cli.CliType;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-
-import java.util.concurrent.TimeUnit;
+import java.io.File;
+import java.io.IOException;
 
 public class Player {
   private File f;

@@ -1,10 +1,10 @@
 package backend.setup;
 
-import java.io.File;
-import java.io.IOException;
-
 import app.core.Host;
 import app.global.Items;
+
+import java.io.File;
+import java.io.IOException;
 
 public class CheckSetup {
   private CheckSetup() {

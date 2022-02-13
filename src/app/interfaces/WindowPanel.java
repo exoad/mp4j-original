@@ -1,41 +1,24 @@
 package app.interfaces;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
+import app.functions.Time;
+import app.interfaces.dialog.FrameConfirmDialog;
+import app.interfaces.event.AudioDestroy;
+import app.interfaces.modifier.WindowPaneSize;
+import backend.audioutil.Player;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
 import java.util.Random;
 
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import backend.audioutil.*;
-
-import app.interfaces.dialog.FrameConfirmDialog;
-import app.interfaces.event.AudioDestroy;
-import app.interfaces.modifier.WindowPaneSize;
-import app.CLI;
-import app.functions.Time;
-
-import static java.lang.Math.*;
-
 public class WindowPanel implements ActionListener, ChangeListener, Runnable {
-  protected JPanel bp, mainPanel, sliderPanel;
+  protected JPanel bp, mainPanel, sliderPanel, framePanel;
   protected JScrollPane sliders;
   protected URL[] waves = new URL[4];
   protected JButton play_btn, new_file, loop_btn;
@@ -52,8 +35,6 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
   protected Icon pause_button_ico;
   protected Player pl;
   protected Thread master = new Thread();
-  protected Thread loopWatcher = new Thread();
-  protected String fileLength = "";
   protected URL play_icon = getClass().getResource("/icons/others/play_button.png");
   protected Icon play_button_ico;
 
@@ -123,6 +104,13 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     play_btn.addActionListener(this);
     play_btn.setToolTipText("Play the current media");
     play_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+    play_btn.setAlignmentY(java.awt.Component.CENTER_ALIGNMENT);
+    // make it a circle in shape
+    play_btn.setPreferredSize(new Dimension(50, 50));
+    
+    
+
+    play_btn.setAlignmentY(java.awt.Component.CENTER_ALIGNMENT);
 
     URL new_file_icon = getClass().getResource("/icons/others/file_select_folder_icon.png");
     assert new_file_icon != null;
@@ -133,19 +121,23 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     new_file.setToolTipText("Select a new media file");
     new_file.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    header_notice = new JLabel(
-        "<html><body><strong><u>Supported File Types : .mp3 & .wav</u></strong><br><center>Place files in folder: <code>/musicML/</code></center></body></html><br>");
-
-    header_notice.setFont(new Font("Courier", Font.PLAIN, 13));
-    header_notice.setAlignmentX(Component.CENTER_ALIGNMENT);
-
     volume_slider = new JSlider(0, 100, 50);
     volume_slider.setMinimum(0);
     volume_slider.setMaximum(100);
     volume_slider.setAlignmentX(Component.CENTER_ALIGNMENT);
-    volume_slider.setAlignmentY(Component.CENTER_ALIGNMENT);
     volume_slider.addChangeListener(this);
-    volume_slider.setToolTipText("Change the volume. Current: " + volume_slider.getValue() + "%");
+    volume_slider.setOrientation(SwingConstants.VERTICAL);
+    volume_slider.setToolTipText("Volume: " + volume_slider.getValue() + "%");
+
+    JSlider[] stubs = new JSlider[2];
+    stubs[0] = new JSlider(0, 100, 50);
+    stubs[0].setAlignmentX(Component.CENTER_ALIGNMENT);
+    stubs[0].setOrientation(SwingConstants.VERTICAL);
+    stubs[0].setEnabled(false);
+    stubs[1] = new JSlider(0, 100, 50);
+    stubs[1].setAlignmentX(Component.CENTER_ALIGNMENT);
+    stubs[1].setEnabled(false);
+    stubs[1].setOrientation(SwingConstants.VERTICAL);
 
     frameSlider = new JSlider(0, 100, 0);
     frameSlider.setMinimum(0);
@@ -154,34 +146,48 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     frameSlider.setAlignmentY(Component.CENTER_ALIGNMENT);
     frameSlider.setForeground(new Color(97, 175, 239));
     frameSlider.setOpaque(true);
+    frameSlider.setSize(20, 100);
     frameSlider.setAutoscrolls(true);
-    frameSlider.setToolTipText("Current Time: " + Time.msToHHMMSS(pl.getFrame()));
+    frameSlider.setToolTipText("Time: " + Time.msToHHMMSS(pl.getFrame()) + "%");
+
+    framePanel = new JPanel();
+    framePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    framePanel.setPreferredSize(new Dimension(320, (WindowPaneSize.FINALSIZE.height / 3)));
 
     bp = new JPanel();
+    bp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
     bp.add(wave_synth);
     bp.add(status);
-    bp.add(play_btn);
-    bp.add(new_file);
-    bp.add(loop_btn);
 
-    bp.setPreferredSize(new Dimension(320, (int) WindowPaneSize.FINALSIZE.getHeight()));
-    volumeText = new JLabel("Volume", SwingConstants.CENTER);
+    bp.setPreferredSize(new Dimension(320, (int) WindowPaneSize.FINALSIZE.getHeight() / 3));
+    volumeText = new JLabel("<html><div style='text-align: center;'>Volume: " + volume_slider.getValue()
+        + "%</div></html>", SwingConstants.CENTER);
     volumeText.setFont(new Font("Courier", Font.BOLD, 13));
 
-    frameText = new JLabel("Position: " + Time.msToHHMMSS(pl.getFrame()), SwingConstants.CENTER);
+    frameText = new JLabel("<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame())
+        + "</div></html>", SwingConstants.CENTER);
     frameText.setFont(new Font("Courier", Font.BOLD, 13));
 
-    sliderPanel.add(volumeText);
+    framePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+    framePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    framePanel.add(play_btn);
+    framePanel.add(new_file);
+    framePanel.add(loop_btn);
+    framePanel.add(frameSlider);
+
+    sliderPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+    sliderPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     sliderPanel.add(volume_slider);
-    sliderPanel.add(frameText);
-    sliderPanel.add(frameSlider);
-    sliderPanel.add(new JSlider());
+    sliderPanel.add(stubs[0]);
+    sliderPanel.add(stubs[1]);
     sliders.add(sliderPanel);
 
     mainPanel = new JPanel();
-    mainPanel.add(bp);
-    mainPanel.add(sliderPanel);
+    mainPanel.setLayout(new BorderLayout());
+    mainPanel.add(framePanel, BorderLayout.SOUTH);
+    mainPanel.add(bp, BorderLayout.CENTER);
+    mainPanel.add(sliderPanel, BorderLayout.EAST);
 
     frame.add(mainPanel);
 
@@ -198,9 +204,11 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     frame.setIconImage(
         new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource("/icons/others/frame-paused.png")))
             .getImage());
-    frameText.setText("Position: " + Time.msToHHMMSS(pl.getFrame()));
-    if(timeKeeper != null)
+    if (timeKeeper != null)
       timeKeeper.interrupt();
+    frameText.setText(
+        "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
+
   }
 
   public void watchEnd() {
@@ -213,8 +221,10 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
       if (pl.getFrame() >= pl.getLength()) {
         pl.setFrame(0);
         frameSlider.setValue(0);
-        frameSlider.setToolTipText("Current Time: " + Time.msToHHMMSS(pl.getFrame()));
-        frameText.setText("Position: " + Time.msToHHMMSS(pl.getFrame()));
+        frameSlider.setToolTipText(
+            "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
+        frameText.setText(
+            "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
         setPauseState();
       }
     });
@@ -232,8 +242,10 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
       while (true) {
         if (pl.isPlaying()) {
           frameSlider.setValue((int) (((double) pl.getFrame() / (double) pl.getLength()) * 100));
-          frameSlider.setToolTipText("Current Time: " + Time.msToHHMMSS(pl.getFrame()));
-          frameText.setText("Position: " + Time.msToHHMMSS(pl.getFrame()));
+          frameSlider.setToolTipText(
+              "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
+          frameText.setText(
+              "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
         }
       }
     });
@@ -244,8 +256,10 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     Thread volumeWorker = new Thread(() -> {
       pl.vols = volume_slider.getValue();
       pl.setVolume();
-      volume_slider.setToolTipText("Volume: " + volume_slider.getValue() + "%");
-      volumeText.setText("Volume: " + volume_slider.getValue() + "%");
+      volume_slider.setToolTipText(
+          "<html><div style='text-align: center;'>Volume: " + volume_slider.getValue() + "%</div></html>");
+      volumeText.setText(
+          "<html><div style='text-align: center;'>Volume: " + volume_slider.getValue() + "%</div></html>");
     });
     volumeWorker.start();
   }
@@ -276,8 +290,10 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
       Thread t = new Thread(() -> {
         pl.vols = volume_slider.getValue();
         pl.setVolume();
-        volume_slider.setToolTipText("Volume: " + volume_slider.getValue() + "%");
-        volumeText.setText("Volume: " + volume_slider.getValue() + "%");
+        volume_slider.setToolTipText(
+            "<html><div style='text-align: center;'>Volume: " + volume_slider.getValue() + "%</div></html>");
+        volumeText.setText(
+            "<html><div style='text-align: center;'>Volume: " + volume_slider.getValue() + "%</div></html>");
       });
       t.start();
     }

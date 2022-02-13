@@ -1,14 +1,13 @@
 package app;
 
-import static java.lang.System.*;
+import app.global.cli.CliColors;
+import app.global.cli.CliException;
+import app.global.cli.CliType;
+import app.java.HardLock;
 
 import java.util.Scanner;
 
-import app.global.cli.CliType;
-import app.global.cli.CliColors;
-import app.global.cli.CliException;
-
-import app.java.HardLock;
+import static java.lang.System.out;
 public abstract class CLI {
   private static final String consoleLikeDir = " > MPlayer4J CLI $ ";
   private static final String cliLikeDir = " > MPlayer4J USR @ ";

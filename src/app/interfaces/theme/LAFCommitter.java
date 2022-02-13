@@ -1,11 +1,10 @@
 package app.interfaces.theme;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import app.interfaces.dialog.ErrorMessage;
 
-import java.awt.Frame;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LAFCommitter {
   private static ArrayList<Frame> jfxs = new ArrayList<>();

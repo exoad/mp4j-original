@@ -1,11 +1,9 @@
 package app.interfaces.theme.rules;
 
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme;
+
+import javax.swing.*;
 
 public class Vuesion implements Refresh {
 

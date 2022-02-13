@@ -1,20 +1,8 @@
 package test;
 
-import javax.swing.JSlider;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicSliderUI;
-
-import java.awt.Dimension;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import java.awt.RenderingHints;
+import java.awt.*;
 
 public class AudioPartitionSlider {
   public static class PartitionUI extends BasicSliderUI {

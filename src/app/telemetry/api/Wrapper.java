@@ -1,10 +1,10 @@
 package app.telemetry.api;
 
+import app.telemetry.API;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
-
-import app.telemetry.API;
 
 public class Wrapper implements API {
 

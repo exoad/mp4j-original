@@ -1,12 +1,12 @@
 package app.telemetry;
 
+import app.CLI;
+import app.global.cli.CliType;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
-
-import app.CLI;
-import app.global.cli.CliType;
 
 public class FileIntegrity {
   private static URL fileList;

@@ -1,20 +1,12 @@
 package app.interfaces.dialog;
 
-import java.net.URL;
+import app.telemetry.Logger;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import app.telemetry.Logger;
+import java.net.URL;
 /**
  * @author Jack Meng
  */

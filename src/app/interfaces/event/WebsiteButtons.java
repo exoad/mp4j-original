@@ -1,11 +1,10 @@
 package app.interfaces.event;
 
-import java.awt.event.ActionEvent;
-import java.net.URI;
-
 import app.interfaces.dialog.ErrorMessage;
 
-import java.awt.Desktop;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.net.URI;
 /**
  * @author Jack Meng
  */

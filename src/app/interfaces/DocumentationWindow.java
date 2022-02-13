@@ -1,22 +1,16 @@
 package app.interfaces;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Frame;
+import app.functions.Parser;
+
+import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-
-import app.functions.Parser;
-
-import javax.swing.Box;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 public class DocumentationWindow implements Runnable {
   private final JFrame frame;

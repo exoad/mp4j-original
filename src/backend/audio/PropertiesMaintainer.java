@@ -1,13 +1,12 @@
 package backend.audio;
 
-import java.util.Properties;
-
 import app.global.Items;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 public class PropertiesMaintainer {
   public Properties p = new Properties();

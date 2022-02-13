@@ -1,12 +1,9 @@
 package app.interfaces;
 
-import java.net.URL;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JWindow;
-import javax.swing.SwingConstants;
-
 import app.interfaces.dialog.ErrorMessage;
+
+import javax.swing.*;
+import java.net.URL;
 
 public class Splash {
   private final float seconds;

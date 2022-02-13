@@ -1,10 +1,10 @@
 package app.rules;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import app.CLI;
 import app.global.cli.CliType;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class AllowedProperties {
   protected static final Set<String> allowedDarkLaf = new HashSet<>();

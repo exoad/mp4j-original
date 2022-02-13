@@ -1,10 +1,9 @@
 package app.core.ico;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileView;
 import java.io.File;
 import java.util.Hashtable;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.filechooser.FileView;
 
 /**
  * <p>

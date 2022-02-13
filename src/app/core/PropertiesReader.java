@@ -1,19 +1,14 @@
 package app.core;
 
-import java.util.Properties;
-
 import app.global.Items;
 import app.global.Sources;
 import app.rules.AllowedProperties;
 import app.rules.DefProperties;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author Jack Meng

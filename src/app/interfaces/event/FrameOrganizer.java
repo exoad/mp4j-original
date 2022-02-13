@@ -1,16 +1,13 @@
 package app.interfaces.event;
 
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-
+import app.CLI;
 import app.core.PropertiesReader;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ComponentEvent;
-import java.awt.RenderingHints;
 import java.awt.event.ComponentListener;
 import java.awt.geom.RoundRectangle2D;
-
-import app.CLI;
 /**
  * @author Jack Meng
  */

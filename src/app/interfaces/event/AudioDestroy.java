@@ -1,15 +1,10 @@
 package app.interfaces.event;
 
-import java.awt.event.WindowListener;
-import java.io.IOException;
-
-import javax.swing.JFrame;
-
-import app.Runner;
-import app.interfaces.WindowPanel;
 import backend.audioutil.Player;
 
+import javax.swing.*;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class AudioDestroy implements WindowListener {
   private Player m;

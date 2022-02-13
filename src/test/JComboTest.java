@@ -1,8 +1,9 @@
 package test;
 
 import javax.swing.*;
-import java.awt.event.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class JComboTest implements ItemListener {
 

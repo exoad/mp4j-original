@@ -1,41 +1,27 @@
 package app.interfaces;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
 import app.CLI;
 import app.core.Cache;
 import app.core.JSONParser;
 import app.core.PropertiesReader;
 import app.global.Items;
 import app.global.VersionInfo;
+import app.interfaces.dialog.ErrorMessage;
+import app.interfaces.dialog.OKWindow;
+import app.interfaces.theme.LAFCommitter;
+import app.interfaces.theme.Parser;
 import app.telemetry.FileIntegrity;
 import app.telemetry.Logger;
 import app.telemetry.api.Wrapper;
-import app.interfaces.theme.LAFCommitter;
-import app.interfaces.theme.Parser;
-import app.interfaces.dialog.ErrorMessage;
-import app.interfaces.dialog.OKWindow;
 
-import java.net.URL;
-import java.awt.Font;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import java.awt.Dimension;
-import java.awt.Component;
-
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.net.URL;
 
 public class SettingsWindow implements Runnable, ActionListener, ItemListener {
   public static JFrame frame;

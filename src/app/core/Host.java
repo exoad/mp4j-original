@@ -1,13 +1,13 @@
 package app.core;
 
+import app.core.ico.IconRules;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.awt.Dimension;
-import javax.swing.JFileChooser;
-
-import app.core.ico.IconRules;
 /**
  * @author Jack Meng
  */

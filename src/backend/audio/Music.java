@@ -1,15 +1,15 @@
 package backend.audio;
 
+import app.CLI;
+import app.global.Pair;
+import app.global.cli.CliType;
+import it.sauronsoftware.jave.AudioAttributes;
+import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.EncodingAttributes;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-
-import it.sauronsoftware.jave.*;
-
-import app.CLI;
-import app.global.cli.CliType;
-
-import app.global.Pair;
 
 public class Music {
   private Music() {

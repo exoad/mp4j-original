@@ -1,12 +1,11 @@
 package app.telemetry;
 
-import java.io.IOException;
-
 import app.global.Items;
 
-import java.io.File;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class Logger {
   public Logger(Object s) {

@@ -1,12 +1,9 @@
 package app.interfaces.theme.rules;
 
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import app.interfaces.theme.Refresh;
-
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
+
+import javax.swing.*;
 /**
  * @author Jack Meng
  */

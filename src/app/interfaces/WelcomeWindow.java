@@ -1,27 +1,17 @@
 package app.interfaces;
 
-import javax.swing.JFrame;
-
 import app.CLI;
 import app.core.PropertiesReader;
 import app.interfaces.dialog.ErrorMessage;
 import app.interfaces.event.WebsiteButtons;
 import app.telemetry.Logger;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Component;
-import java.net.URL;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URL;
 
 public class WelcomeWindow implements Runnable, ActionListener{
   private final JFrame frame;
