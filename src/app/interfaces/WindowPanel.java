@@ -4,6 +4,7 @@ import app.functions.Time;
 import app.interfaces.dialog.FrameConfirmDialog;
 import app.interfaces.event.AudioDestroy;
 import app.interfaces.modifier.WindowPaneSize;
+import app.interfaces.theme.LAFCommitter;
 import backend.audioutil.Player;
 
 import javax.swing.*;
@@ -146,12 +147,14 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     frameSlider.setAutoscrolls(true);
     frameSlider.setToolTipText("Time: " + Time.msToHHMMSS(pl.getFrame()) + "%");
 
+    Color border = new LAFCommitter().setBorderColor();
+
     framePanel = new JPanel();
-    framePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    framePanel.setBorder(BorderFactory.createLineBorder(border));
     framePanel.setPreferredSize(new Dimension(320, (WindowPaneSize.FINALSIZE.height / 3)));
 
     bp = new JPanel();
-    bp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    bp.setBorder(BorderFactory.createLineBorder(border));
     bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
     bp.add(wave_synth);
     bp.add(status);
@@ -166,14 +169,14 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     frameText.setFont(new Font("Courier", Font.BOLD, 13));
 
     framePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-    framePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    framePanel.setBorder(BorderFactory.createLineBorder(border));
     framePanel.add(play_btn);
     framePanel.add(new_file);
     framePanel.add(loop_btn);
     framePanel.add(frameSlider);
 
     sliderPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
-    sliderPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    sliderPanel.setBorder(BorderFactory.createLineBorder(border));
     sliderPanel.add(volume_slider);
     sliderPanel.add(stubs[0]);
     sliderPanel.add(stubs[1]);

@@ -3,6 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class Nord implements Refresh {
@@ -21,5 +23,10 @@ public class Nord implements Refresh {
 
   public String toString() {
     return "nord";
+  }
+
+  @Override
+  public Color getBorderColor() {
+    return new Color(236, 235, 241);
   }
 }

@@ -3,6 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class MaterialLighter implements Refresh {
@@ -21,5 +23,10 @@ public class MaterialLighter implements Refresh {
 
   public String toString() {
     return "MaterialLighter";
+  }
+
+  @Override
+  public Color getBorderColor() {
+    return new Color(10, 189, 201);
   }
 }

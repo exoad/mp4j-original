@@ -3,6 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.FlatDarkLaf;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class RegularDark implements Refresh {
@@ -20,5 +22,10 @@ public class RegularDark implements Refresh {
 
   public String toString() {
     return "regulardark";
+  }
+
+  @Override
+  public Color getBorderColor() {
+    return new Color(137, 133, 112);
   }
 }

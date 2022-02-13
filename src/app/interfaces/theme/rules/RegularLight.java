@@ -3,6 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.FlatLightLaf;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class RegularLight implements Refresh {
@@ -21,5 +23,10 @@ public class RegularLight implements Refresh {
 
   public String toString() {
     return "regularlight";
+  }
+
+  @Override
+  public Color getBorderColor() {
+    return new Color(30, 34, 35);
   }
 }

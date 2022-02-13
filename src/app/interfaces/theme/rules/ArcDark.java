@@ -3,6 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
 
+import java.awt.Color;
+
 import javax.swing.*;
 /**
  * @author Jack Meng
@@ -23,5 +25,10 @@ public class ArcDark implements Refresh {
 
   public String toString() {
     return "arcdark";
+  }
+
+  @Override
+  public Color getBorderColor() {
+    return new Color(68, 147, 212);
   }
 }

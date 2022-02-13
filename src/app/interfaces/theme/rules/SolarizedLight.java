@@ -3,6 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class SolarizedLight implements Refresh {
@@ -21,5 +23,10 @@ public class SolarizedLight implements Refresh {
 
   public String toString() {
     return "solarized";
+  }
+
+  @Override
+  public Color getBorderColor() {
+    return new Color(0, 43, 54);
   }
 }

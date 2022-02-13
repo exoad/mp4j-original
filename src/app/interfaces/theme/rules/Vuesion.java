@@ -3,6 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class Vuesion implements Refresh {
@@ -23,5 +25,10 @@ public class Vuesion implements Refresh {
 
   public String toString() {
     return "vuesion";
+  }
+
+  @Override
+  public Color getBorderColor() {
+    return new Color(0, 202, 114);
   }
 }

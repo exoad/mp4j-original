@@ -3,6 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class OneDark implements Refresh {
@@ -21,5 +23,10 @@ public class OneDark implements Refresh {
 
   public String toString() {
     return "onedark";
+  }
+
+  @Override
+  public Color getBorderColor() {
+    return new Color(220, 223, 228);
   }
 }
