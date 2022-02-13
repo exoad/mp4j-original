@@ -1,11 +1,25 @@
 package backend.audioutil;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+
 import backend.audio.*;
+import it.sauronsoftware.jave.AudioInfo;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.spi.AudioFileReader;
+
+import app.CLI;
+import app.global.cli.CliType;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+
+import java.util.concurrent.TimeUnit;
 
 public class Player {
   private File f;
@@ -37,15 +51,26 @@ public class Player {
   public void setVolume() {
     if (c != null) {
       try {
-      javax.sound.sampled.FloatControl gainControl = (javax.sound.sampled.FloatControl) c
-          .getControl(javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
-      float range = gainControl.getMaximum() - gainControl.getMinimum();
-      float gain = (vols / 100.0f) * range + gainControl.getMinimum();
-      gainControl.setValue(gain);
+        javax.sound.sampled.FloatControl gainControl = (javax.sound.sampled.FloatControl) c
+            .getControl(javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
+        float range = gainControl.getMaximum() - gainControl.getMinimum();
+        float gain = (vols / 100.0f) * range + gainControl.getMinimum();
+        gainControl.setValue(gain);
       } catch (IllegalArgumentException e) {
         // DO NOTHING
       }
     }
+  }
+
+  public static String removeFileEnding(String s) {
+    return s.substring(0, s.lastIndexOf("."));
+  }
+
+  public static String safeName(String s) {
+    if (s.length() > 30) {
+      return s.substring(0, 30) + "...";
+    }
+    return s;
   }
 
   public synchronized void play() {
@@ -72,7 +97,48 @@ public class Player {
   }
 
   public synchronized long getFrame() {
-    return frame;
+    if (c != null)
+      return c.getMicrosecondPosition();
+    return -1L;
+  }
+
+  public boolean isPlaying() {
+    return c.isRunning();
+  }
+
+  public String getAuthor() {
+    try {
+      return (String) AudioSystem.getAudioFileFormat(f).properties().get("author") == null ? "Unknown"
+          : (String) AudioSystem.getAudioFileFormat(f).properties().get("author");
+    } catch (UnsupportedAudioFileException | IOException e) {
+      // DO NOTHING
+    }
+    return "";
+  }
+
+  public String getTitle() {
+    try {
+      return (String) AudioSystem.getAudioFileFormat(f).properties().get("title") == null ? f.getName()
+          : (String) AudioSystem.getAudioFileFormat(f).properties().get("title");
+    } catch (UnsupportedAudioFileException | IOException e) {
+      // DO NOTHING
+    }
+    return "";
+  }
+
+  public String getDate() {
+    try {
+      return AudioSystem.getAudioFileFormat(f).properties().get("date") == null ? "No Date"
+          : AudioSystem
+              .getAudioFileFormat(f).properties().get("date").toString();
+    } catch (UnsupportedAudioFileException | IOException e) {
+      // DO NOTHING
+    }
+    return "No Date";
+  }
+
+  public Long getLength() {
+    return c.getMicrosecondLength();
   }
 
   public synchronized void setFrame(long frame) {
