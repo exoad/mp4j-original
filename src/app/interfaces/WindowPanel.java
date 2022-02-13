@@ -105,10 +105,6 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     play_btn.setToolTipText("Play the current media");
     play_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
     play_btn.setAlignmentY(java.awt.Component.CENTER_ALIGNMENT);
-    // make it a circle in shape
-    play_btn.setPreferredSize(new Dimension(50, 50));
-    
-    
 
     play_btn.setAlignmentY(java.awt.Component.CENTER_ALIGNMENT);
 
