@@ -60,7 +60,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     sliders.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
     String html = "<html><div style='text-align: center;'><p>Track: <b>"
-        + Player.safeName(musicFile.getName())
+        + Player.safeName(Player.removeFileEnding(musicFile.getName()))
         + "<b></p></div></html>";
 
     status = new JLabel(html, SwingConstants.CENTER);
@@ -212,11 +212,12 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
   public void watchEnd() {
     Thread endWatcher = new Thread(() -> {
       try {
-        Thread.sleep(1000);
+        Thread.sleep(600);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
       if (pl.getFrame() >= pl.getLength()) {
+        wave_synth.setIcon(new ImageIcon(waves[3]));
         pl.setFrame(0);
         frameSlider.setValue(0);
         frameSlider.setToolTipText(
