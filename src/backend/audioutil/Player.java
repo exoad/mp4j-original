@@ -6,6 +6,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import app.CLI;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -17,11 +20,11 @@ public class Player {
   private boolean alreadyOpen = false;
   private final Thread worker = new Thread();
 
-  public Player(File f, float volume) {
-    if (f.getAbsolutePath().endsWith(".mp3")) {
-      this.f = Music.convert(f);
+  public Player(File f33, float volume) {
+    if (f33.getAbsolutePath().endsWith(".mp3")) {
+      this.f = Music.convert(f33);
     } else {
-      this.f = f;
+      this.f = f33;
     }
     this.vols = volume;
     try {

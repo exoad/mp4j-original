@@ -1,11 +1,12 @@
 package backend.audio;
 
 import app.CLI;
-import app.global.Pair;
-import app.global.cli.CliType;
+import app.global.Items;
 import it.sauronsoftware.jave.AudioAttributes;
 import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.EncoderException;
 import it.sauronsoftware.jave.EncodingAttributes;
+import it.sauronsoftware.jave.InputFormatException;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,27 +41,27 @@ public class Music {
     pm.save();
    */
   public static File convert(File f) {
-    String holder = randomFileName();
-    File f2;
-    PropertiesMaintainer pm = new PropertiesMaintainer("convert.properties");
-    if(pm.p.contains(f.getName())) {
-      f2 = new File(pm.p.getProperty(f.getName()));
+    String fName = f.getName();
+    // remove all unicode characters
+    fName = fName.replaceAll("[^a-zA-Z0-9\\s]", "");
+    fName = fName.replaceAll("\\s+", "");
+    File wav = new File(GlobalVars.ITEM_DIR + "\\" + fName.replace(".mp3", "") + ".wav");
+    File f2 = new File(GlobalVars.ITEM_DIR + "\\" + randomFileName() + ".mp3");
+    if (wav.exists()) {
+      System.out.println("WAV file already exists, skipping conversion");
+      return wav;
     } else {
-      f2 = new File(GlobalVars.CODEC_FINAL + "/" + holder + ".mp3");
-      // files copy
       try {
         Files.copy(f.toPath(), f2.toPath());
       } catch (IOException e) {
         e.printStackTrace();
+      } finally {
+        // DO NOTHING
       }
-      pm.p.setProperty(f.getName(), f2.getName());
-      pm.save();
     }
-
-    File wav = new File(GlobalVars.ITEM_DIR + "/" + holder + ".wav");
+    System.out.println("Converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath());
     AudioAttributes audio = new AudioAttributes();
-    // mp3 to wav
-    audio.setCodec("libmp3lame");
+    audio.setCodec("pcm_s16le");
     audio.setBitRate(320000);
     audio.setChannels(2);
     audio.setSamplingRate(44100);
@@ -70,36 +71,12 @@ public class Music {
     Encoder encoder = new Encoder();
     try {
       encoder.encode(f2, wav, attrs);
-    } catch (it.sauronsoftware.jave.EncoderException e) {
+    } catch (IllegalArgumentException e) {
       e.printStackTrace();
-    }
-
-    return wav;
-  }
-
-  public static File convert(File f, CodecDecoders s, Pair<?, ?> typeNames) {
-    File wav = new File(
-        GlobalVars.ITEM_DIR + "\\" + f.getName().replace((String) typeNames.first, "") + (String) typeNames.second);
-    if (wav.exists()) {
-      CLI.print("File already exists, skipping conversion", CliType.WARNING);
-      return wav;
-    }
-    CLI.print("Converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath());
-    AudioAttributes audio = new AudioAttributes();
-    audio.setCodec(s.get());
-    audio.setBitRate(320000);
-    audio.setChannels(2);
-    audio.setSamplingRate(44100);
-    EncodingAttributes attrs = new EncodingAttributes();
-    attrs.setFormat(((String) typeNames.second).replace(".", ""));
-    attrs.setAudioAttributes(audio);
-    Encoder encoder = new Encoder();
-    try {
-      encoder.encode(f, wav, attrs);
-    } catch (IllegalArgumentException | it.sauronsoftware.jave.EncoderException e) {
-      app.CLI.print("Error converting " + f.getAbsolutePath() + " to " + wav.getAbsolutePath(),
-          app.global.cli.CliType.ERROR);
-      app.CLI.print(e.getMessage(), app.global.cli.CliType.ERROR);
+    } catch (InputFormatException e) {
+      e.printStackTrace();
+    } catch (EncoderException e) {
+      e.printStackTrace();
     }
     return wav;
   }

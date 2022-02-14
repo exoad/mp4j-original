@@ -60,7 +60,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     sliders.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
     String html = "<html><div style='text-align: center;'><p>Track: <b>"
-        + Player.safeName(Player.removeFileEnding(musicFile.getName()))
+        + Player.safeName(musicFile.getName())
         + "<b></p></div></html>";
 
     status = new JLabel(html, SwingConstants.CENTER);

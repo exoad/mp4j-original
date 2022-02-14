@@ -13,6 +13,7 @@ public class Items {
       "MP4J/custom",
       "MP4J/cache/internetcache",
       "MP4J/rsc",
+      "MP4J/cache/audio"
   };
   public static final float SPLASH_SECONDS = 1400f;
   public static final String[] themes = {
