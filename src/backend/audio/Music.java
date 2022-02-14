@@ -1,12 +1,6 @@
 package backend.audio;
 
-import app.CLI;
-import app.global.Items;
-import it.sauronsoftware.jave.AudioAttributes;
-import it.sauronsoftware.jave.Encoder;
-import it.sauronsoftware.jave.EncoderException;
-import it.sauronsoftware.jave.EncodingAttributes;
-import it.sauronsoftware.jave.InputFormatException;
+import it.sauronsoftware.jave.*;
 
 import java.io.File;
 import java.io.IOException;
