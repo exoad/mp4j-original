@@ -3,9 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
-import java.awt.Color;
-
 import javax.swing.*;
+import java.awt.*;
 
 public class MaterialLighter implements Refresh {
 

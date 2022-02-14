@@ -3,9 +3,8 @@ package app.interfaces.theme.rules;
 import app.interfaces.theme.Refresh;
 import com.formdev.flatlaf.FlatDarkLaf;
 
-import java.awt.Color;
-
 import javax.swing.*;
+import java.awt.*;
 
 public class RegularDark implements Refresh {
   @Override

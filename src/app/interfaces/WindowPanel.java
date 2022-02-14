@@ -8,7 +8,6 @@ import app.interfaces.theme.LAFCommitter;
 import backend.audioutil.Player;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -168,7 +167,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
         + "</div></html>", SwingConstants.CENTER);
     frameText.setFont(new Font("Courier", Font.BOLD, 13));
 
-    framePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+    framePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
     framePanel.setBorder(BorderFactory.createLineBorder(border));
     framePanel.add(play_btn);
     framePanel.add(new_file);

@@ -1,18 +1,10 @@
 package app.interfaces.theme;
 
-import app.core.PropertiesReader;
 import app.interfaces.dialog.ErrorMessage;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.swing.JFrame;
-
-import com.formdev.flatlaf.intellijthemes.*;
-import com.formdev.flatlaf.*;
-
-import app.interfaces.theme.rules.*;
 
 public class LAFCommitter {
   private static ArrayList<Frame> jfxs = new ArrayList<>();
