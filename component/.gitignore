@@ -1,0 +1,11 @@
+*.class
+/MP4J
+.idea
+.vscode
+/audio
+/old
+/out
+/bin
+/cxx
+/cxx/bin
+/build
