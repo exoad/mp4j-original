@@ -5,15 +5,27 @@ import backend.audio.Music;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+
 import java.io.File;
 import java.io.IOException;
 
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.TagField;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+
 public class Player {
-  private File f;
+  private File f, origF;
   public Clip c;
   private long frame = 0L;
   public float vols;
+  private String orig = "";
   private boolean alreadyOpen = false;
   private final Thread worker = new Thread();
 
@@ -23,6 +35,8 @@ public class Player {
     } else {
       this.f = f33;
     }
+    origF = f33;
+    orig = safeName(removeFileEnding(f33.getName()));
     this.vols = volume;
     try {
       c = AudioSystem.getClip();
@@ -64,6 +78,7 @@ public class Player {
   public synchronized void play() {
     if (!alreadyOpen) {
       try {
+        //System.out.print(f.getAbsolutePath());
         c.open(AudioSystem.getAudioInputStream(f));
         alreadyOpen = true;
       } catch (java.io.IOException | javax.sound.sampled.UnsupportedAudioFileException
@@ -94,35 +109,59 @@ public class Player {
     return c.isRunning();
   }
 
-  public String getAuthor() {
-    try {
-      return (String) AudioSystem.getAudioFileFormat(f).properties().get("author") == null ? "Unknown"
-          : (String) AudioSystem.getAudioFileFormat(f).properties().get("author");
-    } catch (UnsupportedAudioFileException | IOException e) {
-      // DO NOTHING
+  private native void stellar(String s);
+
+  public String prettyMetaData() {
+    StringBuilder sb = new StringBuilder();
+    if (!origF.getName().endsWith(".mp3")) {
+      sb.append("<html><div style='text-align: center;'><p>");
+      sb.append("<b><u>Track Name:</u></b> ").append(orig).append("<br>");
+      sb.append("<b><u>Artist:</u></b> Unsupported<br>");
+      sb.append("<b><u>Album:</u></b> Unsupported<br>");
+      sb.append("<b><u>Genre:</u></b> Unsupported<br>");
+      sb.append("<b><u>Year:</u></b> Unsupported<br>");
+      sb.append("</p></div></html>");
+    } else {
+      try {
+        AudioFile fr = AudioFileIO.read(origF);
+        Tag tag = fr.getTag();
+        sb.append("<html><div style='text-align: center;'><p>");
+        sb.append("<b><u>Track Name:</u></b> ").append(orig).append("<br>");
+        sb.append("<b><u>Artist:</u></b> ").append(tag.getFirst(org.jaudiotagger.tag.FieldKey.ALBUM_ARTIST).equals("") || tag.getFirst(org.jaudiotagger.tag.FieldKey.ALBUM_ARTIST) == null  ? "Unknown" : tag.getFirst(org.jaudiotagger.tag.FieldKey.ALBUM_ARTIST)).append("<br>");
+        sb.append("<b><u>Album:</u></b> ").append(tag.getFirst(org.jaudiotagger.tag.FieldKey.ALBUM).equals("") || tag.getFirst(org.jaudiotagger.tag.FieldKey.ALBUM) == null  ? "Unknown" : tag.getFirst(org.jaudiotagger.tag.FieldKey.ALBUM)).append("<br>");
+        sb.append("<b><u>Genre:</u></b> ").append(tag.getFirst(org.jaudiotagger.tag.FieldKey.GENRE).equals("") || tag.getFirst(org.jaudiotagger.tag.FieldKey.GENRE) == null ? "Unknown"
+                : tag.getFirst(org.jaudiotagger.tag.FieldKey.GENRE)).append("<br>");
+        sb.append("<b><u>Year:</u></b> ").append(tag.getFirst(org.jaudiotagger.tag.FieldKey.YEAR).equals("") || tag.getFirst(org.jaudiotagger.tag.FieldKey.YEAR) == null? "Unknown"
+                : tag.getFirst(org.jaudiotagger.tag.FieldKey.YEAR)).append("<br>");
+        sb.append("</p></div></html>");
+      } catch (CannotReadException | IOException | TagException | ReadOnlyFileException
+          | InvalidAudioFrameException | NullPointerException e) {
+        //e.printStackTrace();
+        sb.append("<html><div style='text-align: center;'><p>");
+        sb.append("<b><u>Track Name:</u></b> ").append(orig).append("<br>");
+        sb.append("<b><u>Artist:</u></b> Confounded<br>");
+        sb.append("<b><u>Album:</u></b> Confounded<br>");
+        sb.append("<b><u>Genre:</u></b> Confounded<br>");
+        sb.append("<b><u>Year:</u></b> Confounded<br>");
+        sb.append("</p></div></html>");
+      }
     }
-    return "";
+    return sb.toString();
   }
 
-  public String getTitle() {
+  public ImageIcon getCoverArt() {
     try {
-      return (String) AudioSystem.getAudioFileFormat(f).properties().get("title") == null ? f.getName()
-          : (String) AudioSystem.getAudioFileFormat(f).properties().get("title");
-    } catch (UnsupportedAudioFileException | IOException e) {
-      // DO NOTHING
-    }
-    return "";
-  }
+      AudioFile fr = AudioFileIO.read(origF);
+      Tag tag = fr.getTag();
+      TagField ft = tag.getFirstField(FieldKey.COVER_ART);
+      if (ft != null) {
+        return new ImageIcon(ft.getRawContent());
+      }
 
-  public String getDate() {
-    try {
-      return AudioSystem.getAudioFileFormat(f).properties().get("date") == null ? "No Date"
-          : AudioSystem
-              .getAudioFileFormat(f).properties().get("date").toString();
-    } catch (UnsupportedAudioFileException | IOException e) {
-      // DO NOTHING
+    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
+      e.printStackTrace();
     }
-    return "No Date";
+    return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource("/icons/others/frame-icon.png")));
   }
 
   public Long getLength() {

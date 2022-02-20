@@ -30,7 +30,6 @@ public class OKWindow implements ActionListener {
     panel.add(okButton);
     URL url = getClass().getResource("/icons/others/ok_icon.png");
     assert url != null;
-    ImageIcon icon = new ImageIcon(url);
     frame = new JFrame(message);
     frame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-warning.png")).getImage());
     frame.add(panel);
