@@ -1,0 +1,238 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch ProgessBarTester",
+      "request": "launch",
+      "mainClass": "test.ProgessBarTester",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch FramePanelTester",
+      "request": "launch",
+      "mainClass": "test.FramePanelTester",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch Time",
+      "request": "launch",
+      "mainClass": "app.functions.Time",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch AudioPartitionSlider",
+      "request": "launch",
+      "mainClass": "test.AudioPartitionSlider",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch AudioWave",
+      "request": "launch",
+      "mainClass": "test.AudioWave",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch WindowPanel",
+      "request": "launch",
+      "mainClass": "app.interfaces.WindowPanel",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch AudioPerformer",
+      "request": "launch",
+      "mainClass": "AudioPerformer",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch AudioPerformer",
+      "request": "launch",
+      "mainClass": "test.AudioPerformer",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch CXX_Test",
+      "request": "launch",
+      "mainClass": "test.CXX_Test",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch ScriptTest",
+      "request": "launch",
+      "mainClass": "test.ScriptTest",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch PropertiesReader",
+      "request": "launch",
+      "mainClass": "app.core.PropertiesReader",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch Tester",
+      "request": "launch",
+      "mainClass": "backend.cxx.test.Tester",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch Tester",
+      "request": "launch",
+      "mainClass": "build.cxx.Tester",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch FilesIntChecker",
+      "request": "launch",
+      "mainClass": "build.fileintchecker.FilesIntChecker",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch Print",
+      "request": "launch",
+      "mainClass": "test.CLI.Print",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch Runner",
+      "request": "launch",
+      "mainClass": "app.Runner",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch Audio",
+      "request": "launch",
+      "mainClass": "test.parserTest.Audio",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch FilesIntChecker",
+      "request": "launch",
+      "mainClass": "build.FilesIntChecker",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch JComboTest",
+      "request": "launch",
+      "mainClass": "test.JComboTest",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch RefreshLAF",
+      "request": "launch",
+      "mainClass": "test.RefreshLAF",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch Sources",
+      "request": "launch",
+      "mainClass": "test.Sources",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch Sources",
+      "request": "launch",
+      "mainClass": "Sources",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch WelcomeWindow",
+      "request": "launch",
+      "mainClass": "main.interfaces.WelcomeWindow",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch PropertiesReader",
+      "request": "launch",
+      "mainClass": "main.advisors.PropertiesReader",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch DocumentationWindow",
+      "request": "launch",
+      "mainClass": "main.util.DocumentationWindow",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch WindowPanel",
+      "request": "launch",
+      "mainClass": "main.util.WindowPanel",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "type": "java",
+      "name": "Launch HostTest",
+      "request": "launch",
+      "mainClass": "main.advisors.test.HostTest",
+      "projectName": "MusicPlayer_7713d0d8"
+    },
+    {
+      "name": "(gdb) Attach",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "enter program name, for example ${workspaceFolder}/a.exe",
+      "processId": "${command:pickProcess}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/path/to/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [
+        ""
+      ],
+      "stopAtEntry": false,
+      "cwd": "d:/zip/projects/MusicPlayer/tools/api_wrapper",
+      "environment": [],
+      "program": "d:/zip/projects/MusicPlayer/tools/api_wrapper/build/Debug/outDebug",
+      "internalConsoleOptions": "openOnSessionStart",
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/cygwin64/bin/gdb.exe",
+      "externalConsole": true,
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
