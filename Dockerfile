@@ -1,4 +1,3 @@
 FROM mcr.microsoft.com/vscode/devcontainers/universal:1-focal
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \ && apt-get -y install build-essential
 USER root
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \ && apt-get -y install --no-install-recommends build-essential
-USER codespace
