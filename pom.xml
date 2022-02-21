@@ -20,5 +20,15 @@
         </repository>
     </repositories>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.github.goxr3plus/java-stream-player -->
+        <dependency>
+            <groupId>com.github.goxr3plus</groupId>
+            <artifactId>java-stream-player</artifactId>
+            <version>9.0.4</version>
+        </dependency>
+
+    </dependencies>
+
     
 </project>
