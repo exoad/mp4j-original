@@ -11,3 +11,4 @@ public class Exclude {
             "/icons/splash/"
     };
 }
+s
