@@ -9,3 +9,4 @@
 /cxx
 /cxx/bin
 /build
+*.loader
