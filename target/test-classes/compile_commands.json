@@ -1,7 +1,0 @@
-[
-{
-  "directory": "D:/zip/projects/MusicPlayer/build",
-  "command": "C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe  @CMakeFiles/cli-player.dir/includes_CXX.rsp -g -o CMakeFiles/cli-player.dir/src/main.cpp.obj -c D:/zip/projects/MusicPlayer/component/src/main.cpp",
-  "file": "D:/zip/projects/MusicPlayer/component/src/main.cpp"
-}
-]
