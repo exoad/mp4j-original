@@ -1,12 +1,12 @@
 package build.fileintchecker;
 
-import build.fileintchecker.global.Exclude;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import build.fileintchecker.global.Exclude;
 
 public class FilesIntChecker {
   public static void main(String[] args) throws IOException {

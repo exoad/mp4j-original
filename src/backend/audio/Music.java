@@ -2,14 +2,10 @@ package backend.audio;
 
 import it.sauronsoftware.jave.*;
 import javazoom.jl.converter.*;
-import javazoom.jl.decoder.JavaLayerException;
-
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import app.CLI;
 import backend.audioutil.PlayerProgress;
 
 public class Music {

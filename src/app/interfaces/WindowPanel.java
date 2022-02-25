@@ -69,7 +69,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     waves[3] = getClass().getResource("/icons/animated/waves/paused/waves0.png");
 
     assert waves[3] != null;
-    wave_synth = new JLabel(new ImageIcon(waves[3]));
+    wave_synth = new JLabel(pl.getCoverArt());
     wave_synth.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
 
     Icon loop_button_ico = new javax.swing.ImageIcon(looped);
@@ -194,7 +194,6 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
   public void setPauseState() {
     play_btn.setIcon(play_button_ico);
     play_btn.setToolTipText("Play the current media");
-    wave_synth.setIcon(new ImageIcon(waves[3]));
     frame.setIconImage(
         new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource("/icons/others/frame-paused.png")))
             .getImage());
@@ -213,7 +212,6 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
         e.printStackTrace();
       }
       if (pl.getFrame() >= pl.getLength()) {
-        wave_synth.setIcon(new ImageIcon(waves[3]));
         pl.setFrame(0);
         frameSlider.setValue(0);
         frameSlider.setToolTipText(
@@ -229,7 +227,6 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
   public void setPlayState() {
     play_btn.setIcon(pause_button_ico);
     play_btn.setToolTipText("Pause the current media");
-    wave_synth.setIcon(new ImageIcon(waves[new Random().nextInt(3)]));
     frame.setIconImage(
         new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource("/icons/others/frame-playing.png")))
             .getImage());

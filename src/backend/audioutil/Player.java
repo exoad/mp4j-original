@@ -150,18 +150,7 @@ public class Player {
   }
 
   public ImageIcon getCoverArt() {
-    try {
-      AudioFile fr = AudioFileIO.read(origF);
-      Tag tag = fr.getTag();
-      TagField ft = tag.getFirstField(FieldKey.COVER_ART);
-      if (ft != null) {
-        return new ImageIcon(ft.getRawContent());
-      }
-
-    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
-      e.printStackTrace();
-    }
-    return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource("/icons/others/frame-icon.png")));
+    return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource("/icons/others/disk.png")));
   }
 
   public Long getLength() {
