@@ -10,3 +10,4 @@
 /cxx/bin
 /build
 *.loader
+/secure
