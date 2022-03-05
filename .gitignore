@@ -11,3 +11,5 @@
 /build
 *.loader
 /secure
+MusicPlayer.iml
+musicplayer_checksum.xml

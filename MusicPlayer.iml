@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="IntelliGuard" name="Obfuscation">
+      <configuration>
+        <option name="yGuardJar" value="D:\zip\projects\MusicPlayer\secure\lib\yguard-3.1.0.jar" />
+        <option name="mainclass" value="app.Runner" />
+        <option name="conservemanifest" value="true" />
+        <option name="namingScheme" value="mix" />
+        <option name="runtimevisibleannotations" value="false" />
+        <option name="runtimevisibleparameterannotations" value="false" />
+        <option name="runtimeinvisibleannotations" value="false" />
+        <option name="runtimeinvisibleparameterannotations" value="false" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
