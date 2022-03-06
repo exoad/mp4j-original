@@ -6,7 +6,9 @@
         <option name="yGuardJar" value="D:\zip\projects\MusicPlayer\secure\lib\yguard-3.1.0.jar" />
         <option name="mainclass" value="app.Runner" />
         <option name="conservemanifest" value="true" />
+        <option name="errorChecking" value="false" />
         <option name="namingScheme" value="mix" />
+        <option name="namingSafety" value="legal" />
         <option name="runtimevisibleannotations" value="false" />
         <option name="runtimevisibleparameterannotations" value="false" />
         <option name="runtimeinvisibleannotations" value="false" />
@@ -25,10 +27,12 @@
       <sourceFolder url="file://$MODULE_DIR$/audio" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/cmake" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/secure" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/musicML" />
       <excludeFolder url="file://$MODULE_DIR$/@deprecated" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
+    <content url="file://$MODULE_DIR$/out" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
@@ -41,13 +45,14 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="ant:ant-junit:1.6.5" level="project" />
-    <orderEntry type="library" name="mp3plugin" level="project" />
+    <orderEntry type="library" exported="" name="mp3plugin" level="project" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
-    <orderEntry type="library" name="flatlaf-1.6.1" level="project" />
-    <orderEntry type="library" name="flatlaf-intellij-themes-1.6.1" level="project" />
+    <orderEntry type="library" exported="" name="flatlaf-1.6.1" level="project" />
+    <orderEntry type="library" exported="" name="flatlaf-intellij-themes-1.6.1" level="project" />
     <orderEntry type="library" name="flatlaf-intellij-themes-1.6.1-sources" level="project" />
-    <orderEntry type="library" name="jave-1.0.11" level="project" />
-    <orderEntry type="library" name="jaudiotagger-2.2.6-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="jlayer-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="jave-1.0.11" level="project" />
+    <orderEntry type="library" exported="" name="jaudiotagger-2.2.6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="jlayer-1.0.1" level="project" />
+    <orderEntry type="library" name="Mp4J" level="project" />
   </component>
 </module>
