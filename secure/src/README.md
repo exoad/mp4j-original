@@ -17,3 +17,12 @@ The secondary reason, these snippets and code blocks aren't specifically part of
 - There might be legal issues (file formats, encodings, etc.)
 - Since they are not part of the same program, using dual-licensing can be confusing during release and building
 
+## Legals
+One is not allowed the following:
+- Copy
+- Modifications of any kind
+- Publication
+- Re-integration
+in any way or form without the original user's permission: @exoad / Jack Meng
+
+Copyright (C) Jack Meng 2021 - 2022
