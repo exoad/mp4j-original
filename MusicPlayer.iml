@@ -54,5 +54,6 @@
     <orderEntry type="library" exported="" name="jaudiotagger-2.2.6-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="jlayer-1.0.1" level="project" />
     <orderEntry type="library" name="Mp4J" level="project" />
+    <orderEntry type="library" name="javafx-sdk-17.0" level="application" />
   </component>
 </module>
