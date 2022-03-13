@@ -25,6 +25,19 @@ export class DiagnosticError extends Error {
   }
 }
 
+export class DiagnosticWarning extends Error {
+  diagnostic: IDiagnostic,
+  construct(message: string, level: DiagnosticError, location IOffsetRange = null) {
+    super(message);
+    location = location || {start = 0, end = null};
+    this.diagnostic = {
+      message,
+      level,
+      location,
+    };
+  }
+}
+
 export interface ICompletionItem {
   name: string;
   sortText: string;
