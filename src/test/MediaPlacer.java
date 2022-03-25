@@ -1,6 +1,6 @@
 package test;
 
-import de.ralleytn.simple.audio.*;
+import com.
 
 public class MediaPlauer {
   public static void main(String[] args) throws AudioException {
