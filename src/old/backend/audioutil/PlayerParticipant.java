@@ -1,10 +1,9 @@
-package backend.audioutil;
+package old.backend.audioutil;
 
 import com.goxr3plus.streamplayer.stream.StreamPlayer;
 import com.goxr3plus.streamplayer.stream.StreamPlayerException;
 
 import java.io.File;
-
 import java.net.URL;
 
 public class PlayerParticipant {

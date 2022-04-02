@@ -34,7 +34,7 @@ public class SettingsWindow implements Runnable, ActionListener, ItemListener {
   private Wrapper wrapper = new Wrapper();
   private FileIntegrity fileIntegrity = new FileIntegrity();
 
-  public SettingsWindow(WelcomeWindow something) throws IOException {
+  public SettingsWindow(app.interfaces.WelcomeWindow something) throws IOException {
     pr = new PropertiesReader();
     panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

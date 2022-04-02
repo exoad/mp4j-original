@@ -25,7 +25,7 @@ public class Host {
    * @throws IOException
    */
   public static void extendedFileSaver(File i) throws IOException {
-    LifePreserver lp = new LifePreserver(i.getAbsolutePath());
+    app.core.LifePreserver lp = new app.core.LifePreserver(i.getAbsolutePath());
     lp.saveToPrevDir();
   }
 

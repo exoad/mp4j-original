@@ -138,7 +138,7 @@ public class WelcomeWindow implements Runnable, ActionListener{
     Logger.log(e.getSource() + "\n" + e.getWhen());
     CLI.print(e.getSource());
     if (e.getSource().equals(openSelectFile)) {
-      new SelectFileWindow(lastDir).run();
+      new app.interfaces.SelectFileWindow(lastDir).run();
     } else if (e.getSource().equals(license)) {
       try {
         new app.interfaces.LicenseWindow(0).run();

@@ -120,8 +120,8 @@ public class SelectFileWindow extends JPanel implements Runnable, ActionListener
     if (file.getName().endsWith(".wav") || file.getName().endsWith(".mp3")) {
       frame.setVisible(false);
       frame.dispose();
-      new WindowPanel(lastDir);
-      new WindowPanel(lastDir).run();
+      new app.interfaces.WindowPanel(lastDir);
+      new app.interfaces.WindowPanel(lastDir).run();
     } else {
       new ErrorMessage("Invalid file type");
     }

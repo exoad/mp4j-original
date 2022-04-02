@@ -1,6 +1,5 @@
 package app.interfaces;
 
-import app.functions.Time;
 import app.interfaces.dialog.FrameConfirmDialog;
 import app.interfaces.event.AudioDestroy;
 import app.interfaces.modifier.WindowPaneSize;
@@ -15,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
-import java.util.Random;
 
 public class WindowPanel implements ActionListener, ChangeListener, Runnable {
   protected JPanel bp, mainPanel, sliderPanel, framePanel;
@@ -43,7 +41,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
   public WindowPanel(String resource) {
     musicPath = resource;
 
-    musicFile = SelectFileWindow.getFile();
+    musicFile = app.interfaces.SelectFileWindow.getFile();
 
     assert pause_icon != null;
     pause_button_ico = new javax.swing.ImageIcon(pause_icon);
@@ -276,7 +274,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
         alreadyPlaying = true;
       }
     } else if (e.getSource().equals(new_file)) {
-      new FrameConfirmDialog("Are you sure you want to exit?", frame, new SelectFileWindow(musicPath));
+      new FrameConfirmDialog("Are you sure you want to exit?", frame, new app.interfaces.SelectFileWindow(musicPath));
       pl.pause();
       setPauseState();
       alreadyPlaying = false;

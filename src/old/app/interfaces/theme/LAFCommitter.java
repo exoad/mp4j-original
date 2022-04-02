@@ -13,7 +13,7 @@ public class LAFCommitter {
     LAFCommitter.jfxs.addAll(java.util.Arrays.asList(jfxs));
   }
 
-  public void setMultTheme(Refresh theme) {
+  public void setMultTheme(app.interfaces.theme.Refresh theme) {
     try {
       for (Frame jfts : jfxs) {
         if (theme == null) {

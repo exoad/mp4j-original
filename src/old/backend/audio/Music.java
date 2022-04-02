@@ -1,12 +1,14 @@
 package backend.audio;
 
-import it.sauronsoftware.jave.*;
-import javazoom.jl.converter.*;
+import backend.audioutil.PlayerProgress;
+import it.sauronsoftware.jave.AudioAttributes;
+import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.EncodingAttributes;
+import javazoom.jl.converter.Converter;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-
-import backend.audioutil.PlayerProgress;
 
 public class Music {
   private Music() {
@@ -47,8 +49,8 @@ public class Music {
     fName = fName.replaceAll("[^a-zA-Z0-9\\s]", "");
     fName = fName.replace(" ", "");
     fName += ".mp3";   
-    File wav = new File(GlobalVars.ITEM_DIR + "\\" + fName.replace(".mp3", "") + ".wav");
-    File f2 = new File(GlobalVars.ITEM_DIR + "\\" + fName);
+    File wav = new File(backend.audio.GlobalVars.ITEM_DIR + "\\" + fName.replace(".mp3", "") + ".wav");
+    File f2 = new File(backend.audio.GlobalVars.ITEM_DIR + "\\" + fName);
     if (wav.exists()) {
       System.out.println("WAV file already exists, skipping conversion" + wav.getAbsolutePath());
       return wav;
@@ -98,8 +100,8 @@ public class Music {
     fName = fName.replaceAll("[^a-zA-Z0-9\\s]", "");  
     fName = fName.replace(" ", "");
     fName += ".mp3"; 
-    File wav = new File(GlobalVars.ITEM_DIR + "\\" + fName.replace(".mp3", "") + ".wav");
-    File f2 = new File(GlobalVars.ITEM_DIR + "\\" + fName);
+    File wav = new File(backend.audio.GlobalVars.ITEM_DIR + "\\" + fName.replace(".mp3", "") + ".wav");
+    File f2 = new File(backend.audio.GlobalVars.ITEM_DIR + "\\" + fName);
     if (wav.exists()) {
       System.out.println("WAV file already exists, skipping conversion" + wav.getAbsolutePath());
       return wav;
