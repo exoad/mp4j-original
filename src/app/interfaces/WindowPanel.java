@@ -140,7 +140,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     frameSlider.setOpaque(true);
     frameSlider.setSize(20, 100);
     frameSlider.setAutoscrolls(true);
-    frameSlider.setToolTipText("Time: " + Time.msToHHMMSS(pl.getFrame()) + "%");
+    //frameSlider.setToolTipText("Time: " + Time.msToHHMMSS(pl.getFrame()) + "%");
 
     Color border = new LAFCommitter().setBorderColor();
 
@@ -159,8 +159,8 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
         + "%</div></html>", SwingConstants.CENTER);
     volumeText.setFont(new Font("Courier", Font.BOLD, 13));
 
-    frameText = new JLabel("<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame())
-        + "</div></html>", SwingConstants.CENTER);
+    //frameText = new JLabel("<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame())
+    //    + "</div></html>", SwingConstants.CENTER);
     frameText.setFont(new Font("Courier", Font.BOLD, 13));
 
     framePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
@@ -199,12 +199,13 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
             .getImage());
     if (timeKeeper != null)
       timeKeeper.interrupt();
-    frameText.setText(
-        "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
+    //frameText.setText(
+     //   "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
 
   }
 
   public void watchEnd() {
+    /*
     Thread endWatcher = new Thread(() -> {
       try {
         Thread.sleep(600);
@@ -222,6 +223,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
       }
     });
     endWatcher.start();
+    */
   }
 
   public void setPlayState() {
@@ -233,12 +235,14 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     timeKeeper = new Thread(() -> {
       while (true) {
         if (pl.sp.isPlaying()) {
+          /*
           frameSlider.setValue((int) (((double) pl.getFrame() / (double) pl.getLength()) * 100));
           frameSlider.setToolTipText(
               "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
           frameText.setText(
               "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
-        }
+          */
+            }
       }
     });
     timeKeeper.start();
