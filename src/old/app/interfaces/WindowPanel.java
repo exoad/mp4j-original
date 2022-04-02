@@ -232,7 +232,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
             .getImage());
     timeKeeper = new Thread(() -> {
       while (true) {
-        if (pl.isPlaying()) {
+        if (pl.sp.isPlaying()) {
           frameSlider.setValue((int) (((double) pl.getFrame() / (double) pl.getLength()) * 100));
           frameSlider.setToolTipText(
               "<html><div style='text-align: center;'>Frame: " + Time.msToHHMMSS(pl.getFrame()) + "</div></html>");
@@ -247,7 +247,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
   public void updateVolume() {
     Thread volumeWorker = new Thread(() -> {
       pl.vols = volume_slider.getValue();
-      pl.setVolume();
+      pl.setVolume(pl.vols);
       volume_slider.setToolTipText(
           "<html><div style='text-align: center;'>Volume: " + volume_slider.getValue() + "%</div></html>");
       volumeText.setText(
@@ -281,7 +281,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     } else if (e.getSource().equals(volume_slider)) {
       Thread t = new Thread(() -> {
         pl.vols = volume_slider.getValue();
-        pl.setVolume();
+        pl.setVolume(volume_slider.getValue());
         volume_slider.setToolTipText(
             "<html><div style='text-align: center;'>Volume: " + volume_slider.getValue() + "%</div></html>");
         volumeText.setText(
@@ -306,7 +306,7 @@ public class WindowPanel implements ActionListener, ChangeListener, Runnable {
     if (e.getSource().equals(volume_slider)) {
       Thread t = new Thread(() -> {
         pl.vols = volume_slider.getValue();
-        pl.setVolume();
+        pl.setVolume(volume_slider.getValue());
         volume_slider.setToolTipText("Volume: " + volume_slider.getValue() + "%");
         volumeText.setText("Volume: " + volume_slider.getValue() + "%");
       });

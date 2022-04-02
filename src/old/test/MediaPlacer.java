@@ -12,6 +12,6 @@ public class MediaPlacer {
     System.out.println("AMOGUS:" + sp.getMinimumGain() + " " + sp.getMaximumGain());
     sp.play();
     // set the volume using setGain to 10%
-    sp.setGain(0.5f);
+    sp.setGain(4f);
   }
 }

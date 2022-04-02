@@ -25,8 +25,7 @@ public class AudioDestroy implements WindowListener {
 
   @Override
   public synchronized  void windowClosing(WindowEvent e) {
-    m.get().stop();
-    m.get().close();
+    m.pause();
     f.dispose();
   }
 
