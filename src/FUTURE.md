@@ -19,9 +19,9 @@ having altered the build of the JDK for this project a lot to suit the needs of 
 a face-lift and a refactor so this came the deprecation of the original.
 
 ## PROJECT - new code
-This planned and hopes to abolish and restart this project with many new things that will come later and of course a better GUI ;)
--Extended API
--Better GUI
--Quality for stereo
--Audio Converter?
--Native Interface Support (API C++)
+This planned and hopes to abolish and restart this project with many new things that will come later and of course a better GUI ;)<br>
+-Extended API<br>
+-Better GUI<br>
+-Quality for stereo<br>
+-Audio Converter?<br>
+-Native Interface Support (API C++)<br>
