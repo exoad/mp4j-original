@@ -16,11 +16,16 @@ public class BigContainer implements Scheduled {
   public BigContainer(JPanel parentJPanel) {
     bigFrame = new JFrame("~ Mp4J");
     bigFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    bigFrame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-icon.png")).getImage());
+    try {
+      bigFrame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-icon.png")).getImage());
+    } catch (NullPointerException e) {
+      // DO NOTHING
+    }
 
     bigFrame.setPreferredSize(new Dimension(Size.WIDTH, Size.HEIGHT));
+    bigFrame.setSize(new Dimension(Size.WIDTH, Size.HEIGHT));
     bigFrame.setLocationRelativeTo(null);
-    bigFrame.add(parentJPanel);
+    bigFrame.getContentPane().add(parentJPanel);
     bigFrame.pack();
   }
 

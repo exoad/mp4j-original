@@ -5,4 +5,5 @@ public final class Size {
 
   public static final int WIDTH = 1200;
   public static final int HEIGHT = 700;
+  public static final String INDENT_SIZE = "   ";
 }
