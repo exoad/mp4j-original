@@ -14,12 +14,15 @@ import java.io.File;
 
 public class TopView extends JPanel {
   private JPanel mainPanel;
+  private JLabel fileNameLabel;
   private Overseer seer;
   public TopView() {
+    fileNameLabel = new JLabel();
     mainPanel = new JPanel();
     mainPanel.setPreferredSize(new Dimension(Size.WIDTH- 530, Size.HEIGHT-300));
     setOpaque(true);
     mainPanel.setBackground(Color.BLACK);
+    add(fileNameLabel);
   }
 
   public void setSeer(Overseer seer) {

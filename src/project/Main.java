@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import java.awt.BorderLayout;
-
+import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +31,7 @@ public class Main {
     TopView tv = new TopView();
     Overseer overseer = new Overseer(null, fileViewPanel, tv);
     JSplitPane otherSide = new InfoView(tv, new BottomView(overseer));
+    otherSide.setMaximumSize(new Dimension(Size.WIDTH, Size.HEIGHT - 600));
     fileViewPanel.getAl();
     FileViewWrapper fvw = new FileViewWrapper(fileViewPanel, overseer);
     JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, otherSide, fvw);

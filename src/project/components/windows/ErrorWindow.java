@@ -25,8 +25,8 @@ public class ErrorWindow {
 
   public ErrorWindow(String message) {
     frame = new JFrame("Error! :(");
-    frame.setSize(new Dimension(500, 300));
-    frame.setPreferredSize(new Dimension(500, 300));
+    frame.setSize(new Dimension(500, 150));
+    frame.setPreferredSize(new Dimension(500, 150));
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setResizable(false);
     frame.setLocationRelativeTo(null);

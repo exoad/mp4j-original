@@ -11,14 +11,13 @@ public class ProcessesSchedule {
   public static void main(String... args) {
     if(PreConfig.USE_NATIVE_LAF) {
       try {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
       } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
           | UnsupportedLookAndFeelException e) {
         e.printStackTrace();
       }
     } else {
       FlatDarculaLaf.setup();
-
     }
     UIManager.put("FileChooser.readOnly", true);
     System.setErr(null);
