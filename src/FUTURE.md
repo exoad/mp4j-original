@@ -24,4 +24,5 @@ This planned and hopes to abolish and restart this project with many new things 
 -Better GUI<br>
 -Quality for stereo<br>
 -Audio Converter?<br>
+-Less Cancerous Source Code<br>
 -Native Interface Support (API C++)<br>
