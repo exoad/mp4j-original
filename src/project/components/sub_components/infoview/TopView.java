@@ -1,7 +1,11 @@
 package project.components.sub_components.infoview;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.io.File;
+
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import project.audio.Overseer;
 import project.audio.content.AudioInfoEditor;
@@ -9,19 +13,16 @@ import project.audio.content.AudioUtil;
 import project.components.windows.ErrorWindow;
 import project.constants.Size;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.io.File;
-
 public class TopView extends JPanel {
   private JPanel mainPanel;
   private JLabel fileNameLabel;
   private Overseer seer;
   private transient AudioInfoEditor aie;
+
   public TopView() {
     fileNameLabel = new JLabel();
     mainPanel = new JPanel();
-    mainPanel.setPreferredSize(new Dimension(Size.WIDTH- 530, Size.HEIGHT-300));
+    mainPanel.setPreferredSize(new Dimension(Size.WIDTH - 530, Size.HEIGHT - 300));
     setOpaque(true);
     mainPanel.setBackground(Color.BLACK);
     add(fileNameLabel);
@@ -43,10 +44,10 @@ public class TopView extends JPanel {
    */
   @Deprecated
   public static boolean check(File f) {
-    if(f == null) {
+    if (f == null) {
       alert("Nothing was selected");
       return false;
-    } else if (!((AudioUtil)f).isMP3()) {
+    } else if (!((AudioUtil) f).isMP3()) {
       alert("This is not a mp3 file");
       return false;
     }

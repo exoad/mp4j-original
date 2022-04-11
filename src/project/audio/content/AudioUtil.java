@@ -3,9 +3,9 @@ package project.audio.content;
 import java.io.File;
 import java.io.IOException;
 
-import project.Utils;
-
 import com.mpatric.mp3agic.*;
+
+import project.Utils;
 
 public class AudioUtil extends File {
   public AudioUtil(String pathname) {
@@ -179,7 +179,9 @@ public class AudioUtil extends File {
   public boolean isMP3() {
     try {
       Mp3File m = new Mp3File(this);
-      if(!checkEmptiness(m.getVersion()) || !checkEmptiness(m.getModeExtension()) || m.getBitrate() != 0) return true;
+      if (!checkEmptiness(m.getVersion()) || !checkEmptiness(m.getModeExtension())
+          || m.getBitrate() != 0)
+        return true;
     } catch (UnsupportedTagException | InvalidDataException | IOException e) {
       return false;
     }
