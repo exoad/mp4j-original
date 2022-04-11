@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import project.audio.Overseer;
+import project.audio.content.AudioInfoEditor;
 import project.audio.content.AudioUtil;
 import project.components.windows.ErrorWindow;
 import project.constants.Size;
@@ -16,6 +17,7 @@ public class TopView extends JPanel {
   private JPanel mainPanel;
   private JLabel fileNameLabel;
   private Overseer seer;
+  private transient AudioInfoEditor aie;
   public TopView() {
     fileNameLabel = new JLabel();
     mainPanel = new JPanel();
@@ -27,6 +29,11 @@ public class TopView extends JPanel {
 
   public void setSeer(Overseer seer) {
     this.seer = seer;
+  }
+
+  public void setAie(AudioInfoEditor aie) {
+    this.aie = aie;
+    fileNameLabel.setText(aie.toString());
   }
 
   /**

@@ -41,8 +41,13 @@ public class Main {
     pb = new ParentPanel(panels);
     new BigContainer(pb).run();
   }
+
   public static synchronized void main(String[] args) {
-    ProcessesSchedule.main();
-    launch();
+    try {
+      ProcessesSchedule.main();
+      launch();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

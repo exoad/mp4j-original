@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 
+import project.audio.content.AudioInfoEditor;
 import project.audio.content.AudioUtil;
 import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.infoview.TopView;
@@ -16,13 +17,16 @@ import com.goxr3plus.streamplayer.stream.StreamPlayerException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.Dimension;
 
-public class Overseer extends StreamPlayer implements ActionListener {
+public class Overseer extends StreamPlayer implements ActionListener, WindowListener {
   private File current;
   private JButton playPauseButton, approveButton;
   private FileViewPanel fvp;
   private TopView topView;
+  private boolean errorShown = false;
 
   public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv) {
     tv.setSeer(this);
@@ -32,7 +36,6 @@ public class Overseer extends StreamPlayer implements ActionListener {
     playPauseButton = new JButton("Play");
     playPauseButton.addActionListener(this);
     playPauseButton.setEnabled(false);
-    playPauseButton.setDoubleBuffered(true);
     playPauseButton.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
     approveButton = new JButton("Select File");
     approveButton.addActionListener(this);
@@ -63,7 +66,7 @@ public class Overseer extends StreamPlayer implements ActionListener {
   }
 
   public synchronized void poke(AudioUtil s) {
-
+    this.current = s;
   }
 
   @Override
@@ -77,11 +80,45 @@ public class Overseer extends StreamPlayer implements ActionListener {
         }
       }
     } else if (e.getSource().equals(approveButton)) {
-      if (fvp.getSelectedFile() != null)
+      if (fvp.getSelectedFile() != null) {
         current = fvp.getSelectedFile();
-      else {
-        new ErrorWindow("No file selected!\nPlease select a valid Audio File of types:\n-mp3\n-wav");
+      topView.setAie(new AudioInfoEditor((AudioUtil) current));
+      } else {
+        if(!errorShown) {
+          new ErrorWindow("No file selected!\nPlease select a valid Audio File of types:\n-mp3\n-wav", this);
+          errorShown = true;
+        }
       }
     }
+  }
+
+
+  /* Junk Methods */
+  @Override
+  public void windowClosed(WindowEvent e) {
+    errorShown = false;
+  }
+
+  @Override
+  public void windowActivated(WindowEvent e) {
+  }
+  @Override
+  public void windowClosing(WindowEvent e) {
+  }
+
+  @Override
+  public void windowDeactivated(WindowEvent e) {
+  }
+
+  @Override
+  public void windowDeiconified(WindowEvent e) {
+  }
+
+  @Override
+  public void windowIconified(WindowEvent e) {
+  }
+
+  @Override
+  public void windowOpened(WindowEvent e) {
   }
 }

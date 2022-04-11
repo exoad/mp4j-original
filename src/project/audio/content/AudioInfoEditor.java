@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 public class AudioInfoEditor {
   private Map<String, String> fullStyle;
-  public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist", TITLE_TOKEN = "title", GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment", ALBUM_TOKEN = "album";
+  public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist", TITLE_TOKEN = "title", GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment", ALBUM_TOKEN = "album", COMPOSER_TOKEN = "compsoer";
   public AudioInfoEditor(String fileName, String artist, String title, String year, String comments, String bitrate,
-      String sampleRate, String channels, String genre, String album) {
+      String sampleRate, String Composer, String genre, String album) {
     fullStyle = new HashMap<>();
     fullStyle.put("fileName", fileName == null ? "" : fileName);
     fullStyle.put("artist", artist == null ? "" : artist);
@@ -16,9 +16,23 @@ public class AudioInfoEditor {
     fullStyle.put("comments", comments == null ? "" : comments);
     fullStyle.put("bitrate", bitrate == null ? "" : bitrate);
     fullStyle.put("sampleRate", sampleRate == null ? "" : sampleRate);
-    fullStyle.put("channels", channels == null ? "" : channels);
+    fullStyle.put("composer", Composer == null ? "" : Composer);
     fullStyle.put("genre", genre == null ? "" : genre);
     fullStyle.put("album", album == null ? "" : album);
+  }
+
+  public AudioInfoEditor(AudioUtil e) {
+    fullStyle = new HashMap<>();
+    fullStyle.put("fileName", e.getFileName());
+    fullStyle.put("artist", e.getArtist());
+    fullStyle.put("title", e.getTitle());
+    fullStyle.put("year", e.getYear());
+    fullStyle.put("comments", e.getComments());
+    fullStyle.put("bitrate", e.getBitrate());
+    fullStyle.put("sampleRate", e.getSampleRate());
+    fullStyle.put("Composer", e.getComposer());
+    fullStyle.put("genre", e.getGenre());
+    fullStyle.put("album", e.getAlbum());
   }
 
   public void setFileName(String arg0) {
@@ -49,8 +63,8 @@ public class AudioInfoEditor {
     fullStyle.put("sampleRate", arg0);
   }
 
-  public void setChannels(String arg0) {
-    fullStyle.put("channels", arg0);
+  public void setComposer(String arg0) {
+    fullStyle.put("Composer", arg0);
   }
 
   public void setGenre(String arg0) {
@@ -76,7 +90,7 @@ public class AudioInfoEditor {
     sb.append("<b>Comments:</b> " + fullStyle.get("comments") + "<br>");
     sb.append("<b>Bitrate:</b> " + fullStyle.get("bitrate") + "<br>");
     sb.append("<b>Sample Rate:</b> " + fullStyle.get("sampleRate") + "<br>");
-    sb.append("<b>Channels:</b> " + fullStyle.get("channels") + "<br>");
+    sb.append("<b>Composer:</b> " + fullStyle.get("Composer") + "<br>");
     sb.append("<b>Genre:</b> " + fullStyle.get("genre") + "<br>");
     sb.append("<b>Album:</b> " + fullStyle.get("album") + "<br>");
     sb.append("</p></body></html>");
