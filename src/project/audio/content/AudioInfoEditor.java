@@ -1,13 +1,16 @@
 package project.audio.content;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AudioInfoEditor {
   private Map<String, String> fullStyle;
-  public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist", TITLE_TOKEN = "title", GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment", ALBUM_TOKEN = "album", COMPOSER_TOKEN = "compsoer";
-  public AudioInfoEditor(String fileName, String artist, String title, String year, String comments, String bitrate,
-      String sampleRate, String Composer, String genre, String album) {
+  public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist",
+      TITLE_TOKEN = "title", GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment",
+      ALBUM_TOKEN = "album", COMPOSER_TOKEN = "compsoer";
+
+  public AudioInfoEditor(String fileName, String artist, String title, String year, String comments,
+      String bitrate, String sampleRate, String Composer, String genre, String album) {
     fullStyle = new HashMap<>();
     fullStyle.put("fileName", fileName == null ? "" : fileName);
     fullStyle.put("artist", artist == null ? "" : artist);
@@ -82,7 +85,8 @@ public class AudioInfoEditor {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("<html><body style=\"font-family: 'Courier New', Courier, monospace; font-size: 12px;\">");
+    sb.append(
+        "<html><body style=\"font-family: 'Courier New', Courier, monospace; font-size: 12px;\">");
     sb.append("<p><b>File Name:</b> " + fullStyle.get("fileName") + "<br>");
     sb.append("<b>Artist:</b> " + fullStyle.get("artist") + "<br>");
     sb.append("<b>Title:</b> " + fullStyle.get("title") + "<br>");
