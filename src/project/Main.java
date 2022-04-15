@@ -15,6 +15,7 @@ import project.components.ProcessesSchedule;
 import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.FileViewWrapper;
 import project.components.sub_components.InfoView;
+import project.components.windows.ErrorWindow;
 import project.components.sub_components.infoview.BottomView;
 import project.components.sub_components.infoview.TopView;
 import project.test_components.FilePaneNOthers.Size;
