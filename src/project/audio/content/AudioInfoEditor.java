@@ -1,11 +1,29 @@
 package project.audio.content;
 
 import java.util.Map;
+import java.io.File;
 import java.util.HashMap;
 
 public class AudioInfoEditor {
   private Map<String, String> fullStyle;
-  public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist", TITLE_TOKEN = "title", GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment", ALBUM_TOKEN = "album", COMPOSER_TOKEN = "compsoer";
+  public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist", TITLE_TOKEN = "title",
+      GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment", ALBUM_TOKEN = "album",
+      COMPOSER_TOKEN = "compsoer";
+
+  @Deprecated
+  /**
+   * @deprecated Use the other provided constructors that take in a specific file instead of pure arguments
+   * @param fileName
+   * @param artist
+   * @param title
+   * @param year
+   * @param comments
+   * @param bitrate
+   * @param sampleRate
+   * @param Composer
+   * @param genre
+   * @param album
+   */
   public AudioInfoEditor(String fileName, String artist, String title, String year, String comments, String bitrate,
       String sampleRate, String Composer, String genre, String album) {
     fullStyle = new HashMap<>();
@@ -23,16 +41,40 @@ public class AudioInfoEditor {
 
   public AudioInfoEditor(AudioUtil e) {
     fullStyle = new HashMap<>();
-    fullStyle.put("fileName", e.getFileName());
-    fullStyle.put("artist", e.getArtist());
-    fullStyle.put("title", e.getTitle());
-    fullStyle.put("year", e.getYear());
-    fullStyle.put("comments", e.getComments());
-    fullStyle.put("bitrate", e.getBitrate());
-    fullStyle.put("sampleRate", e.getSampleRate());
-    fullStyle.put("Composer", e.getComposer());
-    fullStyle.put("genre", e.getGenre());
-    fullStyle.put("album", e.getAlbum());
+    try {
+      fullStyle.put("fileName", e.getFileName() == null ? "" : e.getFileName());
+      fullStyle.put("artist", e.getArtist() == null ? "" : e.getArtist());
+      fullStyle.put("title", e.getTitle() == null ? "" : e.getTitle());
+      fullStyle.put("year", e.getYear() == null ? "" : e.getYear());
+      fullStyle.put("comments", e.getComments() == null ? "" : e.getComments());
+      fullStyle.put("bitrate", e.getBitrate() == null ? "" : e.getBitrate());
+      fullStyle.put("sampleRate", e.getSampleRate() == null ? "" : e.getSampleRate());
+      fullStyle.put("composer", e.getComposer() == null ? "" : e.getComposer());
+      fullStyle.put("genre", e.getGenre() == null ? "" : e.getGenre());
+      fullStyle.put("album", e.getAlbum() == null ? "" : e.getAlbum());
+    } catch (Exception e1) {
+      System.out.println("Bruhhed");
+    }
+  }
+
+  public AudioInfoEditor(File ex) {
+    fullStyle = new HashMap<>();
+    AudioUtil e = new AudioUtil(ex.getAbsolutePath());
+    try {
+      fullStyle.put("fileName", e.getFileName() == null ? "" : e.getFileName());
+      fullStyle.put("artist", e.getArtist() == null ? "" : e.getArtist());
+      fullStyle.put("title", e.getTitle() == null ? "" : e.getTitle());
+      fullStyle.put("year", e.getYear() == null ? "" : e.getYear());
+      fullStyle.put("comments", e.getComments() == null ? "" : e.getComments());
+      fullStyle.put("bitrate", e.getBitrate() == null ? "" : e.getBitrate());
+      fullStyle.put("sampleRate", e.getSampleRate() == null ? "" : e.getSampleRate());
+      fullStyle.put("composer", e.getComposer() == null ? "" : e.getComposer());
+      fullStyle.put("genre", e.getGenre() == null ? "" : e.getGenre());
+      fullStyle.put("album", e.getAlbum() == null ? "" : e.getAlbum());
+    } catch (Exception e1) {
+      System.out.println("Bruhhed");
+    }
+    System.out.println(fullStyle.toString());
   }
 
   public void setFileName(String arg0) {

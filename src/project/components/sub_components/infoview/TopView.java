@@ -21,9 +21,9 @@ public class TopView extends JPanel {
   public TopView() {
     fileNameLabel = new JLabel();
     mainPanel = new JPanel();
-    mainPanel.setPreferredSize(new Dimension(Size.WIDTH- 530, Size.HEIGHT-300));
+    setPreferredSize(new Dimension(Size.WIDTH- 530, Size.HEIGHT-300));
     setOpaque(true);
-    mainPanel.setBackground(Color.BLACK);
+    setBackground(Color.BLACK);
     add(fileNameLabel);
   }
 
@@ -31,9 +31,9 @@ public class TopView extends JPanel {
     this.seer = seer;
   }
 
-  public void setAie(AudioInfoEditor aie) {
+  public synchronized void setAie(AudioInfoEditor aie) {
     this.aie = aie;
-    fileNameLabel.setText(aie.toString());
+    System.out.println(aie.toString());
   }
 
   /**

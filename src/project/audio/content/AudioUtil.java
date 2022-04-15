@@ -16,8 +16,8 @@ public class AudioUtil extends File {
     return Utils.getExtension(this);
   }
 
-  private boolean checkEmptiness(String s) {
-    return s.isEmpty() || s == null || "".equals(s) || " ".equals(s);
+  private synchronized boolean checkEmptiness(String s) {
+    return s == null || s.isEmpty();
   }
 
   public synchronized String getFileName() {

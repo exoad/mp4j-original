@@ -23,7 +23,7 @@ import java.awt.Dimension;
 
 public class Overseer extends StreamPlayer implements ActionListener, WindowListener {
   private File current;
-  private JButton playPauseButton, approveButton;
+  public JButton playPauseButton, approveButton;
   private FileViewPanel fvp;
   private TopView topView;
   private boolean errorShown = false;
@@ -36,7 +36,6 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     playPauseButton = new JButton("Play");
     playPauseButton.addActionListener(this);
     playPauseButton.setEnabled(false);
-    playPauseButton.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
     approveButton = new JButton("Select File");
     approveButton.addActionListener(this);
   }
@@ -82,7 +81,9 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     } else if (e.getSource().equals(approveButton)) {
       if (fvp.getSelectedFile() != null) {
         current = fvp.getSelectedFile();
-      topView.setAie(new AudioInfoEditor((AudioUtil) current));
+        System.out.println(current.getAbsolutePath());
+        System.out.println(new AudioInfoEditor(current).toString());
+        topView.setAie(new AudioInfoEditor(current));
       } else {
         if(!errorShown) {
           new ErrorWindow("No file selected!\nPlease select a valid Audio File of types:\n-mp3\n-wav", this);

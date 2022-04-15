@@ -48,6 +48,7 @@ public class Main {
       launch();
     } catch (Exception e) {
       e.printStackTrace();
+      new ErrorWindow(e.getLocalizedMessage());
     }
   }
 }

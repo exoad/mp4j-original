@@ -14,4 +14,5 @@ MusicPlayer.iml
 musicplayer_checksum.xml
 secure/db
 /vm
+src/project/connection
 .history

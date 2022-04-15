@@ -86,7 +86,7 @@ public class ErrorWindow {
     errorText.setOpaque(true);
     errorText.setBackground(Color.WHITE);
     errorText.setForeground(Color.BLACK);
-    errorText.setBorder(BorderFactory.createBevelBorder(1));
+    errorText.setBorder(BorderFactory.createEtchedBorder());
     errorText.setWrapStyleWord(true);
     errorText.setMargin(new java.awt.Insets(0, 30, 0, 30));
     errorText.setAlignmentX(Component.CENTER_ALIGNMENT);

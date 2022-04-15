@@ -18,12 +18,12 @@ public class FileViewPanel extends JFileChooser {
     super();
     setFileSelectionMode(JFileChooser.FILES_ONLY);
     setApproveButtonText("Select");
-    setPreferredSize(new Dimension(Size.WIDTH - 670, Size.HEIGHT - 270));
+    setPreferredSize(new Dimension(Size.WIDTH - 670, Size.HEIGHT - 300));
     setAcceptAllFileFilterUsed(false);
     setBackground(Color.GRAY);
     setApproveButtonToolTipText("Select the file");
     setControlButtonsAreShown(false);
-    setBounds(0, 0, Size.WIDTH - 670, Size.HEIGHT - 270);
+    setBounds(0, 0, Size.WIDTH - 670, Size.HEIGHT - 300);
     setMultiSelectionEnabled(false);
     setAcceptAllFileFilterUsed(false);
     addChoosableFileFilter(new AudioType());
@@ -32,8 +32,8 @@ public class FileViewPanel extends JFileChooser {
   @Override
   public JDialog createDialog(Component parent) {
     JDialog dialog = super.createDialog(parent);
-    dialog.setPreferredSize(new Dimension(Size.WIDTH - 670, Size.HEIGHT - 270));
-    dialog.setMaximumSize(new Dimension(Size.WIDTH - 670, Size.HEIGHT - 270));
+    dialog.setPreferredSize(new Dimension(Size.WIDTH - 670, Size.HEIGHT - 300));
+    dialog.setMaximumSize(new Dimension(Size.WIDTH - 670, Size.HEIGHT - 300));
     return dialog;
   }
 
