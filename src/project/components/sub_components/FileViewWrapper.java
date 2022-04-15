@@ -2,9 +2,9 @@ package project.components.sub_components;
 
 import javax.swing.JPanel;
 
-import project.test_components.FilePaneNOthers.Size;
 import project.audio.Overseer;
 import project.constants.PreConfig;
+import project.test.FilePaneNOthers.Size;
 
 import javax.swing.JButton;
 import javax.swing.BoxLayout;

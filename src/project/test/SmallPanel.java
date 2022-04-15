@@ -1,4 +1,4 @@
-package project.test_components;
+package project.test;
 
 import javax.swing.JPanel;
 

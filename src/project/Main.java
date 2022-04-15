@@ -16,9 +16,9 @@ import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.FileViewWrapper;
 import project.components.sub_components.InfoView;
 import project.components.windows.ErrorWindow;
+import project.test.FilePaneNOthers.Size;
 import project.components.sub_components.infoview.BottomView;
 import project.components.sub_components.infoview.TopView;
-import project.test_components.FilePaneNOthers.Size;
 
 public class Main {
   private static void launch() {
@@ -39,6 +39,10 @@ public class Main {
     new BigContainer(pb).run();
   }
 
+  
+  /** 
+   * @param args
+   */
   public static synchronized void main(String[] args) {
     try {
       ProcessesSchedule.main();
