@@ -1,0 +1,4 @@
+vm/**
+target/**
+.gitignore
+src/old/**
