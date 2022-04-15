@@ -38,14 +38,26 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     approveButton.addActionListener(this);
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getDir() {
     return fvp.getCurrentDirectory().getAbsolutePath();
   }
 
+  
+  /** 
+   * @return JButton
+   */
   public JButton getPlayPauseButton() {
     return playPauseButton;
   }
 
+  
+  /** 
+   * @return JButton
+   */
   public JButton getApproveButton() {
     return approveButton;
   }
@@ -58,14 +70,26 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     }
   }
 
+  
+  /** 
+   * @return File
+   */
   public File getFile() {
     return current;
   }
 
+  
+  /** 
+   * @param s
+   */
   public synchronized void poke(AudioUtil s) {
     this.current = s;
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(playPauseButton)) {
@@ -93,6 +117,10 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
   }
 
 
+  
+  /** 
+   * @param e
+   */
   /* Junk Methods */
   @Override
   public void windowClosed(WindowEvent e) {

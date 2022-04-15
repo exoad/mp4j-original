@@ -6,6 +6,11 @@ public class Utils {
   private Utils() {
   }
 
+  
+  /** 
+   * @param f
+   * @return String
+   */
   public static String getExtension(File f) {
     String ext = null;
     String s = f.getName();
