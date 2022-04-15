@@ -3,6 +3,7 @@ package project.audio.content;
 import java.util.Map;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AudioInfoEditor {
   private Map<String, String> fullStyle;
@@ -124,7 +125,8 @@ public class AudioInfoEditor {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("<html><body style=\"font-family: 'Courier New', Courier, monospace; font-size: 12px;\">");
+    sb.append(
+        "<html><body style=\"font-family: 'Courier New', Courier, monospace; font-size: 12px;\">");
     sb.append("<p><b>File Name:</b> " + fullStyle.get("fileName") + "<br>");
     sb.append("<b>Artist:</b> " + fullStyle.get("artist") + "<br>");
     sb.append("<b>Title:</b> " + fullStyle.get("title") + "<br>");
