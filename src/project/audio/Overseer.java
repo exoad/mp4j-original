@@ -8,7 +8,11 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.goxr3plus.streamplayer.stream.StreamPlayer;
 import com.goxr3plus.streamplayer.stream.StreamPlayerException;
@@ -19,11 +23,12 @@ import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.infoview.TopView;
 import project.components.windows.ErrorWindow;
 
-public class Overseer extends StreamPlayer implements ActionListener, WindowListener {
+public class Overseer extends StreamPlayer implements ActionListener, WindowListener, ChangeListener {
   private File current;
   public JButton playPauseButton, approveButton;
   private FileViewPanel fvp;
   private TopView topView;
+  private JSlider volumeSlider;
   private boolean errorShown = false;
 
   public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv) {
@@ -36,6 +41,7 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     playPauseButton.setEnabled(false);
     approveButton = new JButton("Select File");
     approveButton.addActionListener(this);
+
   }
 
   
@@ -45,7 +51,6 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
   public synchronized String getDir() {
     return fvp.getCurrentDirectory().getAbsolutePath();
   }
-
   
   /** 
    * @return JButton
@@ -54,6 +59,9 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     return playPauseButton;
   }
 
+  public JSlider getVolumeSlider() {
+    return volumeSlider;
+  }
   
   /** 
    * @return JButton
@@ -116,7 +124,10 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     }
   }
 
-
+  @Override
+  public void stateChanged(ChangeEvent e) {
+    System.out.println(e.getSource());
+  }
   
   /** 
    * @param e
@@ -144,4 +155,7 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
 
   @Override
   public void windowOpened(WindowEvent e) {}
+
+
+
 }

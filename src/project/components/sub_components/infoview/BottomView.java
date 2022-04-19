@@ -2,6 +2,7 @@ package project.components.sub_components.infoview;
 
 import project.audio.Overseer;
 import project.constants.Size;
+import project.constants.ColorContent;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,7 +23,7 @@ public class BottomView extends JPanel {
     setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
     
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 500));
-    setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1, false));
+    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, false));
     setOpaque(true);
     add(jf.getPlayPauseButton());
   }

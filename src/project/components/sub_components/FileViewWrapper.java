@@ -3,10 +3,12 @@ package project.components.sub_components;
 import javax.swing.JPanel;
 
 import project.audio.Overseer;
+import project.constants.ColorContent;
 import project.constants.PreConfig;
 import project.test.FilePaneNOthers.Size;
 
 import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
 import java.awt.BorderLayout;
@@ -37,7 +39,7 @@ public class FileViewWrapper extends JPanel implements ActionListener {
     bugButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
     setPreferredSize(new Dimension((int) fvp.getPreferredSize().getWidth(), Size.HEIGHT));
     setSize(new Dimension((int) fvp.getPreferredSize().getWidth(), Size.HEIGHT));
-
+    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, false));
     setLayout(new BorderLayout());
     add(fvp);
     if (PreConfig.USE_CONSTANT_VIEW)

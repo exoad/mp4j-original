@@ -27,6 +27,16 @@ public class BigContainer implements Scheduled {
     bigFrame.setLocationRelativeTo(null);
     bigFrame.getContentPane().add(parentJPanel);
     bigFrame.pack();
+    new Thread(() -> {
+      while(true) {
+        System.out.println(bigFrame.getSize());
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          // DO NOTHING
+        }
+      }
+    }).start();
   }
 
   @Override

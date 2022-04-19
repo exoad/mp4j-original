@@ -28,7 +28,6 @@ public class Main {
     TopView tv = new TopView();
     Overseer overseer = new Overseer(null, fileViewPanel, tv);
     JSplitPane otherSide = new InfoView(tv, new BottomView(overseer));
-    otherSide.setMaximumSize(new Dimension(Size.WIDTH, Size.HEIGHT - 600));
     fileViewPanel.getAl();
     FileViewWrapper fvw = new FileViewWrapper(fileViewPanel, overseer);
     JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, otherSide, fvw);
@@ -48,8 +47,8 @@ public class Main {
       ProcessesSchedule.main();
       launch();
     } catch (Exception e) {
+      e.fillInStackTrace();
       e.printStackTrace();
-      new ErrorWindow(e.getLocalizedMessage());
     }
   }
 }

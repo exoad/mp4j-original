@@ -2,10 +2,24 @@ package project.components.sub_components.infoview;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Rectangle;
 import java.io.File;
 
-import javax.swing.JLabel;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.text.StyleConstants.FontConstants;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 
 import project.audio.Overseer;
 import project.audio.content.AudioInfoEditor;
@@ -14,27 +28,95 @@ import project.components.windows.ErrorWindow;
 import project.constants.Size;
 
 public class TopView extends JPanel {
-  private JPanel mainPanel;
-  private JLabel fileNameLabel;
-  private Overseer seer;
+  private JPanel mainPanel, sliderPanel;
+  private JLabel artStyle;
+  private JScrollPane infoBoxWrapper;
+  private JEditorPane informationBox;
+  private JSlider volumeSlider;
+  private JSlider[] unusedSliders;
+  private transient Overseer seer;
   private transient AudioInfoEditor aie;
 
+  /**
+   * Previous Impl:
+   * mainPanel = new JPanel();
+   * mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
+   * setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
+   * Size.HEIGHT - 300));
+   * setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1,
+   * false));
+   * informationBox = new JEditorPane();
+   * informationBox.setEditable(false);
+   * informationBox.setAutoscrolls(false);
+   * informationBox.setContentType("text/html");
+   * informationBox.setMaximumSize(new Dimension(200, 300));
+   * informationBox.setText(AudioInfoEditor.getBlank());
+   * informationBox.setFont(new Font("Arial", Font.PLAIN, 13));
+   * infoBoxWrapper = new JScrollPane(informationBox,
+   * ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+   * ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+   * infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
+   * infoBoxWrapper.setMaximumSize(new Dimension(300, 170));
+   * infoBoxWrapper.setPreferredSize(new Dimension(300, 170));
+   * infoBoxWrapper.setMinimumSize(new Dimension(300, 170));
+   * artStyle = new JLabel();
+   * artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
+   * sliderPanel = new JPanel();
+   * sliderPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+   * sliderPanel.setPreferredSize(new Dimension(70, 200));
+   * sliderPanel.setBorder(BorderFactory.createLineBorder(new Color(173, 173,
+   * 173), 1, false));
+   * volumeSlider = new JSlider(SwingConstants.VERTICAL, 0, 100, 50);
+   * sliderPanel.add(volumeSlider);
+   * add(artStyle);
+   * add(Box.createHorizontalStrut(100));
+   * add(infoBoxWrapper);
+   * add(sliderPanel);
+   */
   public TopView() {
-    fileNameLabel = new JLabel();
+    setLayout(new BorderLayout());
+    setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
+        Size.HEIGHT - 300));
+    setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
     mainPanel = new JPanel();
-    setPreferredSize(new Dimension(Size.WIDTH- 530, Size.HEIGHT-300));
-    setOpaque(true);
-    setBackground(Color.BLACK);
-    add(fileNameLabel);
+    mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
+    mainPanel.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 200));
+    informationBox = new JEditorPane();
+    informationBox.setEditable(false);
+    informationBox.setAutoscrolls(false);
+    informationBox.setContentType("text/html");
+    informationBox.setMaximumSize(new Dimension(200, 300));
+    informationBox.setText(AudioInfoEditor.getBlank());
+    informationBox.setFont(new Font("Arial", Font.PLAIN, 13));
+    infoBoxWrapper = new JScrollPane(informationBox, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
+    infoBoxWrapper.setMaximumSize(new Dimension(300, 170));
+    infoBoxWrapper.setPreferredSize(new Dimension(300, 170));
+    infoBoxWrapper.setMinimumSize(new Dimension(300, 170));
+    artStyle = new JLabel();
+    artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
+    mainPanel.add(artStyle);
+    mainPanel.add(Box.createHorizontalStrut(100));
+    mainPanel.add(infoBoxWrapper);
+    add(mainPanel, BorderLayout.NORTH);
+    sliderPanel = new JPanel();
+    sliderPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+    sliderPanel.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 130));
+    sliderPanel.setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
+    volumeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 50);
+    sliderPanel.add(volumeSlider);
+    add(sliderPanel, BorderLayout.SOUTH);
   }
 
-  public void setSeer(Overseer seer) {
+  public synchronized void setSeer(Overseer seer) {
     this.seer = seer;
   }
 
   public synchronized void setAie(AudioInfoEditor aie) {
     this.aie = aie;
-    System.out.println(aie.toString());
+    informationBox.setText(aie.toString());
+    informationBox.setPreferredSize(informationBox.getPreferredSize());
   }
 
   /**
