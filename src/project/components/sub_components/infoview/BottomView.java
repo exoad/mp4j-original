@@ -22,7 +22,7 @@ public class BottomView extends JPanel {
     setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
     
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 500));
-    setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1, false));
+    setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
     setOpaque(true);
     add(jf.getPlayPauseButton());
   }

@@ -7,12 +7,14 @@ import project.constants.PreConfig;
 import project.test.FilePaneNOthers.Size;
 
 import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Color;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -46,6 +48,7 @@ public class FileViewWrapper extends JPanel implements ActionListener {
     someRandom.add(approve);
     someRandom.add(exitButton);
     add(someRandom, BorderLayout.PAGE_END);
+    setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
   }
 
   public FileViewPanel getFVP() {
