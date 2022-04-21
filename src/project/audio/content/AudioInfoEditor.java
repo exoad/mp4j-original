@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AudioInfoEditor {
+  private AudioUtil directedFile;
   private Map<String, String> fullStyle;
   public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist", TITLE_TOKEN = "title",
       GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment", ALBUM_TOKEN = "album",
@@ -43,6 +44,7 @@ public class AudioInfoEditor {
 
   public AudioInfoEditor(AudioUtil e) {
     fullStyle = new HashMap<>();
+    directedFile = e;
     try {
       fullStyle.put("fileName", e.getFileName() == null ? "" : e.getFileName());
       fullStyle.put("artist", e.getArtist() == null ? "" : e.getArtist());
@@ -62,6 +64,7 @@ public class AudioInfoEditor {
   public AudioInfoEditor(File ex) {
     fullStyle = new HashMap<>();
     AudioUtil e = new AudioUtil(ex.getAbsolutePath());
+    directedFile = e;
     try {
       fullStyle.put("fileName", e.getFileName() == null ? "" : e.getFileName());
       fullStyle.put("artist", e.getArtist() == null ? "" : e.getArtist());
@@ -77,6 +80,10 @@ public class AudioInfoEditor {
       System.out.println("Bruhhed");
     }
     System.out.println(fullStyle.toString());
+  }
+
+  public AudioUtil getUtilFile() {
+    return directedFile;
   }
 
   public void setFileName(String arg0) {

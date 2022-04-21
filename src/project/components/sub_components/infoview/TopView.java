@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.io.File;
-
+import java.io.IOException;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -116,6 +118,13 @@ public class TopView extends JPanel {
   public synchronized void setAie(AudioInfoEditor aie) {
     this.aie = aie;
     informationBox.setText(aie.toString());
+    BufferedImage ico = null;
+    try {
+      ico = ImageIO.read(aie.getUtilFile());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    artStyle.setIcon(new ImageIcon(ico));
     informationBox.setPreferredSize(informationBox.getPreferredSize());
   }
 

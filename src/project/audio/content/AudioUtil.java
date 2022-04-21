@@ -2,10 +2,12 @@ package project.audio.content;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import com.mpatric.mp3agic.*;
 
 import project.Utils;
+import project.usables.ResourceGrabber;
 
 public class AudioUtil extends File {
   public AudioUtil(String pathname) {
@@ -71,6 +73,24 @@ public class AudioUtil extends File {
       e.printStackTrace();
       return "";
     }
+  }
+
+  public synchronized File getAlbumCoverArt() {
+    try {
+      Mp3File mp3File = new Mp3File(this);
+      if(mp3File.hasId3v2Tag()) {
+        ID3v2 tag = mp3File.getId3v2Tag();
+        byte[] img = tag.getAlbumImage();
+        if(img != null) {          RandomAccessFile file = new RandomAccessFile(getFileName() + "__ALBPIC", "rw");
+          file.write(img);
+          file.close();
+        }
+      }
+    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
+      e.printStackTrace();
+      return new File(ResourceGrabber.getDefaultCoverArt().getFile());
+    }
+    return new File(ResourceGrabber.getDefaultCoverArt().getFile());
   }
 
   public synchronized String getYear() {

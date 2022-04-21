@@ -111,8 +111,6 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     } else if (e.getSource().equals(approveButton)) {
       if (fvp.getSelectedFile() != null) {
         current = fvp.getSelectedFile();
-        System.out.println(current.getAbsolutePath());
-        System.out.println(new AudioInfoEditor(current).toString());
         topView.setAie(new AudioInfoEditor(current));
       } else {
         if (!errorShown) {
