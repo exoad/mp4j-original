@@ -29,7 +29,8 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
   private FileViewPanel fvp;
   private TopView topView;
   private JSlider volumeSlider;
-  private boolean errorShown = false;
+  private boolean errorShown = false, isOpened = false;
+  private long time = 0L;
 
   public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv) {
     tv.setSeer(this);
@@ -38,10 +39,8 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     this.topView = tv;
     playPauseButton = new JButton("Play");
     playPauseButton.addActionListener(this);
-    playPauseButton.setEnabled(false);
     approveButton = new JButton("Select File");
     approveButton.addActionListener(this);
-
   }
 
   
@@ -72,13 +71,20 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
 
   public void playFile() {
     try {
-      open(current);
+      if(!isOpened) {
+        open(current);
+        isOpened = true;
+      }
+      play();
     } catch (StreamPlayerException e) {
       e.printStackTrace();
     }
   }
 
-  
+  public void pokeFile(File f) {
+    this.current = f;
+  }
+
   /** 
    * @return File
    */
@@ -99,13 +105,20 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
    * @param e
    */
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public synchronized void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(playPauseButton)) {
       if (current.getAbsolutePath().endsWith("mp3")) {
-        if (isPlaying()) {
-          playPauseButton.setText("Play");
-        } else {
+        if(!isPlaying()) {
+          if(!isPaused())
+            playFile();
+          else
+            resume();
+          playPauseButton.setEnabled(true);
           playPauseButton.setText("Pause");
+        } else {
+          stop();
+          playPauseButton.setEnabled(true);
+          playPauseButton.setText("Play");
         }
       }
     } else if (e.getSource().equals(approveButton)) {

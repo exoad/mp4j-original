@@ -87,15 +87,15 @@ public class TopView extends JPanel {
     informationBox.setEditable(false);
     informationBox.setAutoscrolls(false);
     informationBox.setContentType("text/html");
-    informationBox.setMaximumSize(new Dimension(200, 300));
+    informationBox.setMaximumSize(new Dimension(200, 330));
     informationBox.setText(AudioInfoEditor.getBlank());
     informationBox.setFont(new Font("Arial", Font.PLAIN, 13));
     infoBoxWrapper = new JScrollPane(informationBox, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
-    infoBoxWrapper.setMaximumSize(new Dimension(300, 170));
-    infoBoxWrapper.setPreferredSize(new Dimension(300, 170));
-    infoBoxWrapper.setMinimumSize(new Dimension(300, 170));
+    infoBoxWrapper.setMaximumSize(new Dimension(300, 200));
+    infoBoxWrapper.setPreferredSize(new Dimension(300, 200));
+    infoBoxWrapper.setMinimumSize(new Dimension(300, 200));
     artStyle = new JLabel();
     artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
     mainPanel.add(artStyle);
@@ -108,24 +108,28 @@ public class TopView extends JPanel {
     sliderPanel.setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
     volumeSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 50);
     sliderPanel.add(volumeSlider);
-    add(sliderPanel, BorderLayout.SOUTH);
+    //add(sliderPanel, BorderLayout.SOUTH);
   }
 
-  public synchronized void setSeer(Overseer seer) {
+  public void setSeer(Overseer seer) {
     this.seer = seer;
   }
 
-  public synchronized void setAie(AudioInfoEditor aie) {
+  public void setAie(AudioInfoEditor aie) {
     this.aie = aie;
     informationBox.setText(aie.toString());
-    BufferedImage ico = null;
-    try {
-      ico = ImageIO.read(aie.getUtilFile());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    artStyle.setIcon(new ImageIcon(ico));
+    /**
+     * BufferedImage ico = null;
+     * try {
+     * ico = ImageIO.read(aie.getUtilFile());
+     * } catch (IOException e) {
+     * e.printStackTrace();
+     * }
+     * artStyle.setIcon(new ImageIcon(ico));
+     */
     informationBox.setPreferredSize(informationBox.getPreferredSize());
+    seer.pokeFile(aie.getUtilFile());
+    System.out.println(aie.getUtilFile().getAbsolutePath());
   }
 
   /**
