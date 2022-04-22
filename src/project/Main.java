@@ -16,6 +16,7 @@ import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.FileViewWrapper;
 import project.components.sub_components.InfoView;
 import project.components.windows.ErrorWindow;
+import project.components.windows.LoggerWindow;
 import project.test.FilePaneNOthers.Size;
 import project.components.sub_components.infoview.BottomView;
 import project.components.sub_components.infoview.TopView;

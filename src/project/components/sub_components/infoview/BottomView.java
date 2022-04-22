@@ -20,11 +20,12 @@ public class BottomView extends JPanel {
   public BottomView(Overseer jf) {
     super();
     this.seer = jf;
-    setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
+    setLayout(new FlowLayout(FlowLayout.LEFT, 20, 15));
     
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 500));
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, false));
     setOpaque(true);
     add(jf.getPlayPauseButton());
+    add(jf.getVolumeSlider());
   }
 }

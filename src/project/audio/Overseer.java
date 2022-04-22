@@ -1,5 +1,6 @@
 package project.audio;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -19,9 +20,11 @@ import com.goxr3plus.streamplayer.stream.StreamPlayerException;
 
 import project.audio.content.AudioInfoEditor;
 import project.audio.content.AudioUtil;
+import project.audio.content.VolumeConversion;
 import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.infoview.TopView;
 import project.components.windows.ErrorWindow;
+import project.constants.ColorContent;
 
 public class Overseer extends StreamPlayer implements ActionListener, WindowListener, ChangeListener {
   private File current;
@@ -33,6 +36,7 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
   private long time = 0L;
 
   public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv) {
+    super();
     tv.setSeer(this);
     this.current = f;
     this.fvp = fvp;
@@ -41,17 +45,22 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     playPauseButton.addActionListener(this);
     approveButton = new JButton("Select File");
     approveButton.addActionListener(this);
+    volumeSlider = new JSlider(0, 100);
+    volumeSlider.setValue(45);
+    volumeSlider.addChangeListener(this);
+    volumeSlider.setBackground(ColorContent.VOLUME_SLIDER_BG);
+    volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
+    setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getDir() {
     return fvp.getCurrentDirectory().getAbsolutePath();
   }
-  
-  /** 
+
+  /**
    * @return JButton
    */
   public JButton getPlayPauseButton() {
@@ -61,8 +70,8 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
   public JSlider getVolumeSlider() {
     return volumeSlider;
   }
-  
-  /** 
+
+  /**
    * @return JButton
    */
   public JButton getApproveButton() {
@@ -71,7 +80,7 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
 
   public void playFile() {
     try {
-      if(!isOpened) {
+      if (!isOpened) {
         open(current);
         isOpened = true;
       }
@@ -85,31 +94,30 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     this.current = f;
   }
 
-  /** 
+  /**
    * @return File
    */
   public File getFile() {
     return current;
   }
 
-  
-  /** 
+  /**
    * @param s
    */
   public synchronized void poke(AudioUtil s) {
     this.current = s;
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override
-  public synchronized void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(playPauseButton)) {
       if (current.getAbsolutePath().endsWith("mp3")) {
-        if(!isPlaying()) {
-          if(!isPaused())
+        setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
+        if (!isPlaying()) {
+          if (!isPaused())
             playFile();
           else
             resume();
@@ -137,10 +145,18 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
 
   @Override
   public void stateChanged(ChangeEvent e) {
-    System.out.println(e.getSource());
+    float volNow = VolumeConversion.convertVolume(volumeSlider.getValue());
+    setGain(volNow);
+    if (volumeSlider.getValue() >= 90) {
+      volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_HEARING_LOSS_FG);
+    } else if (volumeSlider.getValue() >= 70 && volumeSlider.getValue() < 90) {
+      volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_WARNING_FG);
+    } else {
+      volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
+    }
   }
-  
-  /** 
+
+  /**
    * @param e
    */
   /* Junk Methods */
@@ -150,23 +166,27 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
   }
 
   @Override
-  public void windowActivated(WindowEvent e) {}
+  public void windowActivated(WindowEvent e) {
+  }
 
   @Override
-  public void windowClosing(WindowEvent e) {}
+  public void windowClosing(WindowEvent e) {
+  }
 
   @Override
-  public void windowDeactivated(WindowEvent e) {}
+  public void windowDeactivated(WindowEvent e) {
+  }
 
   @Override
-  public void windowDeiconified(WindowEvent e) {}
+  public void windowDeiconified(WindowEvent e) {
+  }
 
   @Override
-  public void windowIconified(WindowEvent e) {}
+  public void windowIconified(WindowEvent e) {
+  }
 
   @Override
-  public void windowOpened(WindowEvent e) {}
-
-
+  public void windowOpened(WindowEvent e) {
+  }
 
 }
