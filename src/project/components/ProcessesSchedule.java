@@ -1,15 +1,26 @@
 package project.components;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
-import com.formdev.flatlaf.FlatDarkLaf;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import project.components.windows.LoggerWindow;
+import com.formdev.flatlaf.FlatDarculaLaf;
 
 public class ProcessesSchedule {
   public static void main(String... args) {
-    new LoggerWindow().run();
-    ///FlatDarkLaf.setup();
-    UIManager.put("FileChooser.readOnly", true);    
+
+    SwingUtilities.invokeLater(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarculaLaf");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+            | UnsupportedLookAndFeelException e) {
+          e.printStackTrace();
+        }
+      }
+    });
+    UIManager.put("FileChooser.readOnly", true);
   }
 }

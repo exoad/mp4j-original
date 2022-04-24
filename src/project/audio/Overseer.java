@@ -85,6 +85,7 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
         isOpened = true;
       }
       play();
+      setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
     } catch (StreamPlayerException e) {
       e.printStackTrace();
     }
@@ -112,9 +113,9 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
    * @param e
    */
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public synchronized void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(playPauseButton)) {
-      if (current.getAbsolutePath().endsWith("mp3")) {
+      if (current.getAbsolutePath().endsWith("mp3") && current != null) {
         setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
         if (!isPlaying()) {
           if (!isPaused())
@@ -132,6 +133,11 @@ public class Overseer extends StreamPlayer implements ActionListener, WindowList
     } else if (e.getSource().equals(approveButton)) {
       if (fvp.getSelectedFile() != null) {
         current = fvp.getSelectedFile();
+        try {
+          open(current);
+        } catch (StreamPlayerException e1) {
+          e1.printStackTrace();
+        }
         topView.setAie(new AudioInfoEditor(current));
       } else {
         if (!errorShown) {

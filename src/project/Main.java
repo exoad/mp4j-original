@@ -46,6 +46,7 @@ public class Main {
   public static synchronized void main(String[] args) {
     try {
       ProcessesSchedule.main();
+      Thread.sleep(100);
       launch();
     } catch (Exception e) {
       e.fillInStackTrace();
