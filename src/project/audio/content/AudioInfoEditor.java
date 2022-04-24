@@ -79,7 +79,6 @@ public class AudioInfoEditor {
     } catch (Exception e1) {
       System.out.println("Bruhhed");
     }
-    System.out.println(fullStyle.toString());
   }
 
   public AudioUtil getUtilFile() {

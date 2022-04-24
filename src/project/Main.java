@@ -49,7 +49,6 @@ public class Main {
       Thread.sleep(100);
       launch();
     } catch (Exception e) {
-      e.fillInStackTrace();
       e.printStackTrace();
     }
   }
