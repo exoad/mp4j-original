@@ -16,3 +16,4 @@ secure/db
 /vm
 src/project/connection
 .history
+/cache

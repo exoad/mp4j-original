@@ -283,7 +283,6 @@ public class Overseer extends StreamPlayer
         BufferedImage bi = new BufferedImage(pcmDataInt.length, pcmDataInt.length, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = bi.createGraphics();
 
-        // draw 3 bars representing the waveform
         for (int i = 0; i < pcmDataInt.length; i++) {
           int val = pcmDataInt[i];
           int height = val * 2;
@@ -293,19 +292,16 @@ public class Overseer extends StreamPlayer
         }
         g.dispose();
         try {
-          File frr = new File(".cache");
+          File frr = new File("cache");
           if(!frr.isDirectory()) {
             frr.mkdirs();
           }
-          ImageIO.write(bi, "png", new File(".cache/" + System.currentTimeMillis() + "waveform.png"));
+          ImageIO.write(bi, "png", new File("cache/" + System.currentTimeMillis() + "waveform.png"));
         } catch (IOException e) {
           e.printStackTrace();
         }
       }
     }).start();
-
-    System.out.println(arg3.toString());
-
   }
 
   @Override
