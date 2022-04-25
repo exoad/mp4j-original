@@ -123,6 +123,10 @@ public class Overseer extends StreamPlayer
     this.current = f;
   }
 
+  public float getConversionFactorWave() {
+    return VolumeConversion.convertVolume(volumeSlider.getValue());
+  }
+
   /**
    * @return File
    */
@@ -262,11 +266,20 @@ public class Overseer extends StreamPlayer
     long totalBytes = getTotalBytes();
     double progress = (arg0 > 0 && totalBytes > 0) ? (arg0 * 1.0f / totalBytes * 1.0f)
         : -1.0f;
-    new Thread(() -> {
-      byte[] curr = pcmData;
+    int[] bars = new int[200];
 
-    
-    }).start();
+    int[] temp = new int[pcmData.length / 2];
+    for (int i = 0; i < pcmData.length / 2; i++) {
+      temp[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
+    }
+
+    for (int i = 0; i < 200; i++) {
+      bars[i] = temp[i];
+      bars[i] = (int) (bars[i] / 300.4f);
+    }
+
+    topView.pokeAndDraw(bars);
+
   }
 
   @Override

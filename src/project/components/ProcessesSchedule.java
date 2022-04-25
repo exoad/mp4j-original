@@ -3,10 +3,6 @@ package project.components;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import project.components.windows.LoggerWindow;
-import com.formdev.flatlaf.FlatDarculaLaf;
-
 public class ProcessesSchedule {
   public static void main(String... args) {
 
@@ -14,7 +10,7 @@ public class ProcessesSchedule {
       @Override
       public void run() {
         try {
-          UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarculaLaf");
+          UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
             | UnsupportedLookAndFeelException e) {
           e.printStackTrace();
@@ -22,5 +18,6 @@ public class ProcessesSchedule {
       }
     });
     UIManager.put("FileChooser.readOnly", true);
+    System.setErr(null);
   }
 }

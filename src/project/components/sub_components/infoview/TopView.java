@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Polygon;
@@ -23,6 +24,9 @@ import javax.swing.SwingConstants;
 import javax.swing.text.StyleConstants.FontConstants;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+
+import java.awt.RenderingHints;
+import java.awt.Graphics2D;
 
 import project.audio.Overseer;
 import project.audio.content.AudioInfoEditor;
@@ -43,8 +47,9 @@ public class TopView extends JPanel {
   private JSlider[] unusedSliders;
   private transient Overseer seer;
   private transient AudioInfoEditor aie;
-  private static final int[] DEFAULT_BARS = {10, 10, 10};
-  private int[] bars = DEFAULT_BARS;
+  private int[] bars = new int[200];
+  private transient Thread worker;
+  private Polygon currPoly;
 
   /**
    * Previous Impl:
@@ -83,6 +88,7 @@ public class TopView extends JPanel {
    * add(sliderPanel);
    */
   public TopView() {
+    Arrays.fill(bars, 1);
     setLayout(new BorderLayout());
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
         Size.HEIGHT - 300));
@@ -112,12 +118,25 @@ public class TopView extends JPanel {
       @Override
       public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(ColorContent.WAVE_FORM_BAR);
-        
-        int widthPerBar = (int) getPreferredSize().getWidth() / bars.length;
-        for(int i = 0, x = 30; i < bars.length && x < 200; i++, x += 50) {
-          g.fillRect(x, (190 - bars[i] < 10 ? 10 : 190 - bars[i]), 40, bars[i] < 10 ? 10 : bars[i]);
+        Graphics2D g2 = (Graphics2D) g;
+        RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHints(rh);
+        g2.setColor(ColorContent.WAVE_FORM_BAR);
+        currPoly = new Polygon();
+        /**
+         * Previous Impl:
+         * for(int i = 0, x = 30; i < bars.length && x < 200; i++, x += 50) {
+         * g.fillRect(x, (190 - bars[i] < 10 ? 10 : 190 - bars[i]), 40, bars[i] < 10 ?
+         * 10 : bars[i]);
+         * }
+         */
+        // draw vertical lines representing the waveform
+        for (int i = 0, x = 10; i < bars.length && x < 200; i++, x += 1) {
+          currPoly.addPoint(100-bars[i], x);
+          g2.drawPolygon(currPoly);
         }
+
+        g2.dispose();
       }
     };
     waveForm.setPreferredSize(defaultWaveFormFault);
