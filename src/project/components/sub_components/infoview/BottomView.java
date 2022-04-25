@@ -4,6 +4,8 @@ import project.audio.Overseer;
 import project.constants.Size;
 import project.constants.ColorContent;
 
+import project.components.sub_components.infoview.SubVolumeView;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;

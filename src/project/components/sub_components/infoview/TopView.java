@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import java.awt.Polygon;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -27,6 +28,7 @@ import project.audio.Overseer;
 import project.audio.content.AudioInfoEditor;
 import project.audio.content.AudioUtil;
 import project.components.windows.ErrorWindow;
+import project.constants.ColorContent;
 import project.constants.ProjectManager;
 import project.constants.Size;
 
@@ -41,7 +43,8 @@ public class TopView extends JPanel {
   private JSlider[] unusedSliders;
   private transient Overseer seer;
   private transient AudioInfoEditor aie;
-  private int[] bars = new int[3];
+  private static final int[] DEFAULT_BARS = {10, 10, 10};
+  private int[] bars = DEFAULT_BARS;
 
   /**
    * Previous Impl:
@@ -104,14 +107,20 @@ public class TopView extends JPanel {
     infoBoxWrapper.setMinimumSize(new Dimension(280, 200));
     artStyle = new JLabel();
     artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
+    Dimension defaultWaveFormFault = new Dimension(210, 200);
     waveForm = new JPanel() {
       @Override
       public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.setColor(ColorContent.WAVE_FORM_BAR);
         
+        int widthPerBar = (int) getPreferredSize().getWidth() / bars.length;
+        for(int i = 0, x = 30; i < bars.length && x < 200; i++, x += 50) {
+          g.fillRect(x, (190 - bars[i] < 10 ? 10 : 190 - bars[i]), 40, bars[i] < 10 ? 10 : bars[i]);
+        }
       }
     };
-    waveForm.setPreferredSize(new Dimension(210, 200));
+    waveForm.setPreferredSize(defaultWaveFormFault);
     if(ProjectManager.DEBUG_LAYOUT) {
       waveForm.setOpaque(true);
       waveForm.setBackground(Color.GREEN);
@@ -120,6 +129,11 @@ public class TopView extends JPanel {
     mainPanel.add(infoBoxWrapper);
     add(mainPanel, BorderLayout.NORTH);
     // add(sliderPanel, BorderLayout.SOUTH);
+  }
+
+  public synchronized void pokeAndDraw(int[] bars) {
+    this.bars = bars;
+    waveForm.repaint();
   }
 
   public JPanel getMainP() {

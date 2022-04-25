@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Map;
 
 import java.awt.image.BufferedImage;
@@ -48,12 +48,11 @@ public class Overseer extends StreamPlayer
   private boolean errorShown = false, isOpened = false;
   private long time = 0L;
   private Map<String, Object> prop;
-  private PrintWriter pw;
 
   public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv) {
     super();
     tv.setSeer(this);
-    // tv.add(new SubVolumeView(this));
+
     this.current = f;
     this.fvp = fvp;
     this.topView = tv;
@@ -79,9 +78,8 @@ public class Overseer extends StreamPlayer
       if (!logFile.exists()) {
         logFile.createNewFile();
       }
-      pw = new PrintWriter(logFile);
     } catch (Exception e) {
-      // DO NOTHING
+
     }
 
     setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
@@ -233,7 +231,7 @@ public class Overseer extends StreamPlayer
   /**
    * @param e
    */
-  /* Junk Methods */
+
   @Override
   public void windowClosed(WindowEvent e) {
     errorShown = false;
@@ -280,26 +278,50 @@ public class Overseer extends StreamPlayer
         for (int i = 0; i < pcmData.length / 2; i++) {
           pcmDataInt[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
         }
-        BufferedImage bi = new BufferedImage(pcmDataInt.length, pcmDataInt.length, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = bi.createGraphics();
 
-        for (int i = 0; i < pcmDataInt.length; i++) {
-          int val = pcmDataInt[i];
-          int height = val * 2;
-          int y = pcmDataInt.length - i - 1;
-          g.setColor(Color.BLUE);
-          g.drawLine(i, y, i, y - height);
+        int[] waveform = new int[pcmDataInt.length / 3];
+        for (int i = 0; i < waveform.length; i++) {
+          waveform[i] = pcmDataInt[i * 3];
         }
-        g.dispose();
-        try {
-          File frr = new File("cache");
-          if(!frr.isDirectory()) {
-            frr.mkdirs();
-          }
-          ImageIO.write(bi, "png", new File("cache/" + System.currentTimeMillis() + "waveform.png"));
-        } catch (IOException e) {
-          e.printStackTrace();
+        int[] waveform2 = new int[pcmDataInt.length / 3];
+        for (int i = 0; i < waveform2.length; i++) {
+          waveform2[i] = pcmDataInt[i * 3 + 1];
         }
+
+        int[] waveform3 = new int[pcmDataInt.length / 3];
+        for (int i = 0; i < waveform3.length; i++) {
+          waveform3[i] = pcmDataInt[i * 3 + 2];
+        }
+
+        int avg = 0;
+        for (int i = 0; i < waveform.length; i++) {
+          avg += waveform[i];
+        }
+
+        avg /= waveform.length;
+
+        int avg2 = 0;
+        for (int i = 0; i < waveform2.length; i++) {
+          avg2 += waveform2[i];
+        }
+
+        avg2 /= waveform2.length;
+
+        int avg3 = 0;
+        for (int i = 0; i < waveform3.length; i++) {
+          avg3 += waveform3[i];
+        }
+
+        avg3 /= waveform3.length;
+    
+        // convert the averages to heights of rectangles with a max of 180
+        int avgHeight = (int) (avg * 180.0f / 32767.0f);
+        int avgHeight2 = (int) (avg2 * 180.0f / 32767.0f);
+        int avgHeight3 = (int) (avg3 * 180.0f / 32767.0f);
+
+        int[] bar = new int[] { avgHeight, avgHeight2, avgHeight3 };
+
+        topView.pokeAndDraw(bar);
       }
     }).start();
   }
