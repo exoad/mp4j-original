@@ -275,8 +275,8 @@ public class Overseer extends StreamPlayer
       byte[] curr = pcmData;
       if (curr != null) {
         int[] pcmDataInt = new int[curr.length / 2];
-        for (int i = 0; i < pcmData.length / 2; i++) {
-          pcmDataInt[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
+        for (int i = 0; i < curr.length / 2; i++) {
+          pcmDataInt[i] = (curr[i * 2] & 0xFF) | (curr[i * 2 + 1] << 8);
         }
 
         int[] waveform = new int[pcmDataInt.length / 3];

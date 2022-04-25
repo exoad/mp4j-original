@@ -13,6 +13,9 @@
 #define BITRATE_NATIVE_BUFFER_SIZE 4096
 #define NATIVE_DEBUGGER_SERIAL tpe1
 
+#define SHIFT_MOD 0xFF
+#define SHIFT_OFF 8
+
 #define STD_POS_RATE 0x41400
 
 #define HEX_STD 43
