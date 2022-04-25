@@ -73,15 +73,6 @@ public class Overseer extends StreamPlayer
     progressSlider.setOrientation(SwingConstants.HORIZONTAL);
     progressSlider.setValue(0);
 
-    try {
-      File logFile = new File(System.currentTimeMillis() + ".log.txt");
-      if (!logFile.exists()) {
-        logFile.createNewFile();
-      }
-    } catch (Exception e) {
-
-    }
-
     setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
     addStreamPlayerListener(this);
   }
@@ -273,56 +264,8 @@ public class Overseer extends StreamPlayer
         : -1.0f;
     new Thread(() -> {
       byte[] curr = pcmData;
-      if (curr != null) {
-        int[] pcmDataInt = new int[curr.length / 2];
-        for (int i = 0; i < curr.length / 2; i++) {
-          pcmDataInt[i] = (curr[i * 2] & 0xFF) | (curr[i * 2 + 1] << 8);
-        }
 
-        int[] waveform = new int[pcmDataInt.length / 3];
-        for (int i = 0; i < waveform.length; i++) {
-          waveform[i] = pcmDataInt[i * 3];
-        }
-        int[] waveform2 = new int[pcmDataInt.length / 3];
-        for (int i = 0; i < waveform2.length; i++) {
-          waveform2[i] = pcmDataInt[i * 3 + 1];
-        }
-
-        int[] waveform3 = new int[pcmDataInt.length / 3];
-        for (int i = 0; i < waveform3.length; i++) {
-          waveform3[i] = pcmDataInt[i * 3 + 2];
-        }
-
-        int avg = 0;
-        for (int i = 0; i < waveform.length; i++) {
-          avg += waveform[i];
-        }
-
-        avg /= waveform.length;
-
-        int avg2 = 0;
-        for (int i = 0; i < waveform2.length; i++) {
-          avg2 += waveform2[i];
-        }
-
-        avg2 /= waveform2.length;
-
-        int avg3 = 0;
-        for (int i = 0; i < waveform3.length; i++) {
-          avg3 += waveform3[i];
-        }
-
-        avg3 /= waveform3.length;
     
-        // convert the averages to heights of rectangles with a max of 180
-        int avgHeight = (int) (avg * 180.0f / 32767.0f);
-        int avgHeight2 = (int) (avg2 * 180.0f / 32767.0f);
-        int avgHeight3 = (int) (avg3 * 180.0f / 32767.0f);
-
-        int[] bar = new int[] { avgHeight, avgHeight2, avgHeight3 };
-
-        topView.pokeAndDraw(bar);
-      }
     }).start();
   }
 
