@@ -22,7 +22,7 @@ public class SubVolumeView extends JPanel {
     System.out.println(j.getVolumeSlider());
     setLayout(new FlowLayout(FlowLayout.LEFT, 20, 0));
     setOpaque(true);
-    setPreferredSize(new Dimension(170, 200));
+    setPreferredSize(new Dimension(150, 200));
     if(ProjectManager.DEBUG_LAYOUT)
       setBackground(Color.BLUE);
     JSlider js = j.getVolumeSlider();

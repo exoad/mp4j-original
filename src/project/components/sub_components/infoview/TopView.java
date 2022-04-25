@@ -30,8 +30,10 @@ import project.components.windows.ErrorWindow;
 import project.constants.ProjectManager;
 import project.constants.Size;
 
+import java.awt.Graphics;
+
 public class TopView extends JPanel {
-  private JPanel mainPanel, sliderPanel, artStyleWrapper;
+  private JPanel mainPanel, sliderPanel, waveForm;
   private JLabel artStyle;
   private JScrollPane infoBoxWrapper;
   private JEditorPane informationBox;
@@ -39,6 +41,7 @@ public class TopView extends JPanel {
   private JSlider[] unusedSliders;
   private transient Overseer seer;
   private transient AudioInfoEditor aie;
+  private int[] bars = new int[3];
 
   /**
    * Previous Impl:
@@ -88,7 +91,7 @@ public class TopView extends JPanel {
     informationBox.setEditable(false);
     informationBox.setAutoscrolls(false);
     informationBox.setContentType("text/html");
-    informationBox.setMaximumSize(new Dimension(200, 330));
+    informationBox.setMaximumSize(new Dimension(180, 330));
     if (ProjectManager.DEBUG_LAYOUT)
       informationBox.setBackground(Color.RED);
     informationBox.setText(AudioInfoEditor.getBlank());
@@ -96,19 +99,24 @@ public class TopView extends JPanel {
     infoBoxWrapper = new JScrollPane(informationBox, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
-    infoBoxWrapper.setMaximumSize(new Dimension(300, 200));
-    infoBoxWrapper.setPreferredSize(new Dimension(300, 200));
-    infoBoxWrapper.setMinimumSize(new Dimension(300, 200));
+    infoBoxWrapper.setMaximumSize(new Dimension(280, 200));
+    infoBoxWrapper.setPreferredSize(new Dimension(280, 200));
+    infoBoxWrapper.setMinimumSize(new Dimension(280, 200));
     artStyle = new JLabel();
     artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
-    artStyleWrapper = new JPanel() {
+    waveForm = new JPanel() {
       @Override
       public void paintComponent(Graphics g) {
-
+        super.paintComponent(g);
+        
       }
     };
-    mainPanel.add(artStyle);
-    mainPanel.add(Box.createHorizontalStrut(10));
+    waveForm.setPreferredSize(new Dimension(210, 200));
+    if(ProjectManager.DEBUG_LAYOUT) {
+      waveForm.setOpaque(true);
+      waveForm.setBackground(Color.GREEN);
+    }
+    mainPanel.add(waveForm);
     mainPanel.add(infoBoxWrapper);
     add(mainPanel, BorderLayout.NORTH);
     // add(sliderPanel, BorderLayout.SOUTH);
