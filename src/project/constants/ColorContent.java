@@ -10,6 +10,9 @@ public class ColorContent {
   public static final Color VOLUME_SLIDER_NORMAL_FG = new Color(186, 245, 110);
   public static final Color VOLUME_SLIDER_MUTED_FG = new Color(105, 105, 105);
   public static final Color PROGRESS_SLIDER_NORMAL= new Color(69, 193, 255);
-  public static final Color WAVE_FORM_BAR = new Color(252, 176, 83);
+  public static final Color WAVE_FORM_BAR_X = new Color(130, 242, 90);
+  public static final Color WAVE_FORM_LOWER_X = new Color(97, 182, 242);
+  public static final Color WAVE_FORM_BAR_Y = new Color(245, 171, 98);
+  public static final Color WAVE_FORM_LOWER_Y = new Color(255, 120, 203);
   private ColorContent() {}
 }

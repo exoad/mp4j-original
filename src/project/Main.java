@@ -37,6 +37,18 @@ public class Main {
     panels.put(jsp, BorderLayout.CENTER);
     pb = new ParentPanel(panels);
     new BigContainer(pb).run();
+
+    // make a thread to print how much memory this program is using in mb
+    new Thread(() -> {
+      while (true) {
+        System.out.println("Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "mb");
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }).start();
   }
 
   

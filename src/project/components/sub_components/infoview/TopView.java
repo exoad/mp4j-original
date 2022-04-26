@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.text.StyleConstants.FontConstants;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -47,9 +48,8 @@ public class TopView extends JPanel {
   private JSlider[] unusedSliders;
   private transient Overseer seer;
   private transient AudioInfoEditor aie;
-  private int[] bars = new int[200];
-  private transient Thread worker;
-  private Polygon currPoly;
+  public static final int MAX_BAR = 215;
+  private int[] firstBars = new int[MAX_BAR];
 
   /**
    * Previous Impl:
@@ -88,13 +88,13 @@ public class TopView extends JPanel {
    * add(sliderPanel);
    */
   public TopView() {
-    Arrays.fill(bars, 1);
+    Arrays.fill(firstBars, 1);
     setLayout(new BorderLayout());
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
         Size.HEIGHT - 300));
     setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
     mainPanel = new JPanel();
-    mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
+    mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 10));
     mainPanel.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 200));
     informationBox = new JEditorPane();
     informationBox.setEditable(false);
@@ -114,35 +114,45 @@ public class TopView extends JPanel {
     artStyle = new JLabel();
     artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
     Dimension defaultWaveFormFault = new Dimension(210, 200);
-    waveForm = new JPanel() {
+    waveForm = new JPanel(true) {
       @Override
       public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        RenderingHints rhSpeed = new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         g2.setRenderingHints(rh);
-        g2.setColor(ColorContent.WAVE_FORM_BAR);
-        currPoly = new Polygon();
+        g2.addRenderingHints(rhSpeed);
+        g2.setColor(ColorContent.WAVE_FORM_BAR_X);
         /**
          * Previous Impl:
-         * for(int i = 0, x = 30; i < bars.length && x < 200; i++, x += 50) {
-         * g.fillRect(x, (190 - bars[i] < 10 ? 10 : 190 - bars[i]), 40, bars[i] < 10 ?
-         * 10 : bars[i]);
+         * for(int i = 0, x = 30; i < firstBars.length && x < 200; i++, x += 50) {
+         * g.fillRect(x, (190 - firstBars[i] < 10 ? 10 : 190 - firstBars[i]), 40, firstBars[i] < 10 ?
+         * 10 : firstBars[i]);
          * }
          */
         // draw vertical lines representing the waveform
-        for (int i = 0, x = 10; i < bars.length && x < 200; i++, x += 1) {
-          currPoly.addPoint(100-bars[i], x);
-          g2.drawPolygon(currPoly);
+        for (int i = 0, x = 0; i < firstBars.length && x < MAX_BAR; i++, x += 1) {
+          if(i > 0 && firstBars[i] < firstBars[i - 1]) {
+            g2.setColor(ColorContent.WAVE_FORM_LOWER_X);
+          } else {
+            g2.setColor(ColorContent.WAVE_FORM_BAR_X);
+          }
+          // draw a horizontal line
+          g2.drawLine(100, x, 100 - firstBars[i], x);
         }
 
         g2.dispose();
       }
     };
+    waveForm.setOpaque(isOpaque());
+
     waveForm.setPreferredSize(defaultWaveFormFault);
     if(ProjectManager.DEBUG_LAYOUT) {
       waveForm.setOpaque(true);
       waveForm.setBackground(Color.GREEN);
+      mainPanel.setOpaque(true);
+      mainPanel.setBackground(Color.PINK);
     }
     mainPanel.add(waveForm);
     mainPanel.add(infoBoxWrapper);
@@ -150,8 +160,8 @@ public class TopView extends JPanel {
     // add(sliderPanel, BorderLayout.SOUTH);
   }
 
-  public synchronized void pokeAndDraw(int[] bars) {
-    this.bars = bars;
+  public synchronized void pokeAndDraw(int[] firstBars) {
+    this.firstBars = firstBars;
     waveForm.repaint();
   }
 

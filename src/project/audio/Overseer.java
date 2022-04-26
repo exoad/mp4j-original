@@ -210,16 +210,20 @@ public class Overseer extends StreamPlayer
 
   @Override
   public void stateChanged(ChangeEvent e) {
-    float volNow = VolumeConversion.convertVolume(volumeSlider.getValue());
-    setGain(volNow);
-    if (volumeSlider.getValue() >= 90) {
-      volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_HEARING_LOSS_FG);
-    } else if (volumeSlider.getValue() >= 70 && volumeSlider.getValue() < 90) {
-      volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_WARNING_FG);
-    } else if (volumeSlider.getValue() < 70 && volumeSlider.getValue() > 0) {
-      volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
-    } else {
-      volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_MUTED_FG);
+    if (e.getSource().equals(volumeSlider)) {
+      float volNow = VolumeConversion.convertVolume(volumeSlider.getValue());
+      setGain(volNow);
+      if (volumeSlider.getValue() >= 90) {
+        volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_HEARING_LOSS_FG);
+      } else if (volumeSlider.getValue() >= 70 && volumeSlider.getValue() < 90) {
+        volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_WARNING_FG);
+      } else if (volumeSlider.getValue() < 70 && volumeSlider.getValue() > 0) {
+        volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
+      } else {
+        volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_MUTED_FG);
+      }
+    } else if (e.getSource().equals(progressSlider)) {
+
     }
   }
 
@@ -261,32 +265,32 @@ public class Overseer extends StreamPlayer
   }
 
   @Override
-  public synchronized void progress(int arg0, long arg1, byte[] pcmData, Map<String, Object> arg3) {
+  public void progress(int arg0, long arg1, byte[] pcmData, Map<String, Object> arg3) {
     time = arg1;
     long totalBytes = getTotalBytes();
     double progress = (arg0 > 0 && totalBytes > 0) ? (arg0 * 1.0f / totalBytes * 1.0f)
         : -1.0f;
-    int[] bars = new int[200];
 
-    int[] temp = new int[pcmData.length / 2];
-    for (int i = 0; i < pcmData.length / 2; i++) {
-      temp[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
-    }
+    progressSlider.setValue((int) progress * 100);
+    progressSlider.setToolTipText("Progress: " + (int) progress * 100 + "%");
+    progressSlider.revalidate();
+      int[] temp = new int[pcmData.length / 2];
+      for (int i = 0; i < pcmData.length / 2; i++) {
+        temp[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
+      }
 
-    for (int i = 0; i < 200; i++) {
-      bars[i] = temp[i];
-      bars[i] = (int) (bars[i] / 300.4f);
-    }
+      int[] bars = new int[TopView.MAX_BAR];
+      for(int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
+        bars[j] = Math.min(Math.max(temp[i] / 439, -180), 180);
+      }
 
-    topView.pokeAndDraw(bars);
-
+      topView.pokeAndDraw(bars);
   }
 
   @Override
   public void statusUpdated(StreamPlayerEvent arg0) {
     if (arg0.getPlayerStatus().equals(Status.STOPPED)) {
       playPauseButton.setText("Play");
-
     }
   }
 
