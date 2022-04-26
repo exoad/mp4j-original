@@ -6,4 +6,12 @@ public class VolumeConversion {
   public static float convertVolume(float unConverted){ 
     return unConverted / 100 * CONVERSION_FACTOR;
   }
+
+  public static float convertPan(float unConverted){ 
+    return unConverted / 100 * 2 - 1;
+  }
+
+  public static float convertSpeedFactor(float unConverted) {
+    return unConverted / 100 * 2 - 1;
+  }
 }

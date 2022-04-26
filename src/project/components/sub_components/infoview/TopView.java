@@ -94,7 +94,7 @@ public class TopView extends JPanel {
         Size.HEIGHT - 300));
     setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
     mainPanel = new JPanel();
-    mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 10));
+    mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     mainPanel.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 200));
     informationBox = new JEditorPane();
     informationBox.setEditable(false);

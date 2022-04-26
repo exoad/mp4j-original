@@ -1,6 +1,7 @@
 package project.audio;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -44,7 +45,7 @@ public class Overseer extends StreamPlayer
   public JButton playPauseButton, approveButton;
   public FileViewPanel fvp;
   public TopView topView;
-  private JSlider volumeSlider, progressSlider;
+  private JSlider volumeSlider, progressSlider, panSlider;
   private boolean errorShown = false, isOpened = false;
   private long time = 0L;
   private Map<String, Object> prop;
@@ -71,10 +72,24 @@ public class Overseer extends StreamPlayer
     progressSlider.setBackground(ColorContent.VOLUME_SLIDER_BG);
     progressSlider.setForeground(ColorContent.PROGRESS_SLIDER_NORMAL);
     progressSlider.setOrientation(SwingConstants.HORIZONTAL);
+    progressSlider.setPreferredSize(new Dimension(350, 15));
     progressSlider.setValue(0);
+
+    panSlider = new JSlider(0, 100);
+    panSlider.setValue(50);
+    panSlider.setMinorTickSpacing(5);
+    panSlider.setPaintTicks(true);
+    panSlider.setSnapToTicks(true);
+    panSlider.addChangeListener(this);
+    panSlider.setToolTipText("None " + VolumeConversion.convertPan(50));
+    panSlider.setBackground(ColorContent.VOLUME_SLIDER_BG);
+    panSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
+    panSlider.setOrientation(SwingConstants.VERTICAL);
 
     setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
     addStreamPlayerListener(this);
+    setPan(VolumeConversion.convertPan(panSlider.getValue()));
+
   }
 
   /**
@@ -93,6 +108,10 @@ public class Overseer extends StreamPlayer
 
   public JSlider getProgressSlider() {
     return progressSlider;
+  }
+
+  public JSlider getPanSlider() {
+    return panSlider;
   }
 
   public JSlider getVolumeSlider() {
@@ -114,6 +133,8 @@ public class Overseer extends StreamPlayer
       }
       play();
       setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
+      setPan(VolumeConversion.convertPan(panSlider.getValue()));
+
     } catch (StreamPlayerException e) {
       e.printStackTrace();
     }
@@ -146,6 +167,9 @@ public class Overseer extends StreamPlayer
     try {
       seekTo((int) secTime);
       play();
+      setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
+      setPan(VolumeConversion.convertPan(panSlider.getValue()));
+
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -168,6 +192,8 @@ public class Overseer extends StreamPlayer
         }
       } else if (current.getAbsolutePath().endsWith("mp3")) {
         setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
+        setPan(VolumeConversion.convertPan(panSlider.getValue()));
+
         if (!isPlaying()) {
           if (!hasPlayed) {
             playFile();
@@ -192,6 +218,9 @@ public class Overseer extends StreamPlayer
         current = fvp.getSelectedFile();
         try {
           open(current);
+          setPan(VolumeConversion.convertPan(panSlider.getValue()));
+
+          setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
         } catch (StreamPlayerException e1) {
           e1.printStackTrace();
         }
@@ -222,8 +251,18 @@ public class Overseer extends StreamPlayer
       } else {
         volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_MUTED_FG);
       }
-    } else if (e.getSource().equals(progressSlider)) {
-
+    } else if (e.getSource().equals(panSlider)) {
+      setPan(VolumeConversion.convertPan(panSlider.getValue()));
+      panSlider.setToolTipText(String.valueOf(panSlider.getValue()));
+      panSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
+      if(panSlider.getValue() > 50) {
+        panSlider.setToolTipText("Right " + VolumeConversion.convertPan(panSlider.getValue()));
+      } else if(panSlider.getValue() < 50) {
+        panSlider.setToolTipText("Left " + VolumeConversion.convertPan(panSlider.getValue()));
+      } else {
+        panSlider.setToolTipText("Center");
+        panSlider.setForeground(ColorContent.VOLUME_SLIDER_WARNING_FG);
+      }
     }
   }
 
@@ -274,17 +313,17 @@ public class Overseer extends StreamPlayer
     progressSlider.setValue((int) progress * 100);
     progressSlider.setToolTipText("Progress: " + (int) progress * 100 + "%");
     progressSlider.revalidate();
-      int[] temp = new int[pcmData.length / 2];
-      for (int i = 0; i < pcmData.length / 2; i++) {
-        temp[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
-      }
+    int[] temp = new int[pcmData.length / 2];
+    for (int i = 0; i < pcmData.length / 2; i++) {
+      temp[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
+    }
 
-      int[] bars = new int[TopView.MAX_BAR];
-      for(int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
-        bars[j] = Math.min(Math.max(temp[i] / 439, -180), 180);
-      }
+    int[] bars = new int[TopView.MAX_BAR];
+    for (int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
+      bars[j] = Math.min(Math.max(temp[i] / 192, -180), 180);
+    }
 
-      topView.pokeAndDraw(bars);
+    topView.pokeAndDraw(bars);
   }
 
   @Override
