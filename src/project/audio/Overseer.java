@@ -69,6 +69,7 @@ public class Overseer extends StreamPlayer
     volumeSlider.setOrientation(SwingConstants.VERTICAL);
 
     progressSlider = new JSlider(0, 100);
+    progressSlider.setPreferredSize(new Dimension(300, 15));
     progressSlider.setBackground(ColorContent.VOLUME_SLIDER_BG);
     progressSlider.setForeground(ColorContent.PROGRESS_SLIDER_NORMAL);
     progressSlider.setOrientation(SwingConstants.HORIZONTAL);
@@ -205,6 +206,7 @@ public class Overseer extends StreamPlayer
           playPauseButton.setText("Pause");
         } else {
           stop();
+          
           playPauseButton.setEnabled(true);
           playPauseButton.setText("Play");
         }
@@ -213,13 +215,13 @@ public class Overseer extends StreamPlayer
       if (isPlaying() || isOpened()) {
         stop();
         playPauseButton.setText("Play");
+        topView.av.pokeAndResetDrawing();
       }
       if (fvp.getSelectedFile() != null) {
         current = fvp.getSelectedFile();
         try {
           open(current);
           setPan(VolumeConversion.convertPan(panSlider.getValue()));
-
           setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
         } catch (StreamPlayerException e1) {
           e1.printStackTrace();
@@ -255,9 +257,9 @@ public class Overseer extends StreamPlayer
       setPan(VolumeConversion.convertPan(panSlider.getValue()));
       panSlider.setToolTipText(String.valueOf(panSlider.getValue()));
       panSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
-      if(panSlider.getValue() > 50) {
+      if (panSlider.getValue() > 50) {
         panSlider.setToolTipText("Right " + VolumeConversion.convertPan(panSlider.getValue()));
-      } else if(panSlider.getValue() < 50) {
+      } else if (panSlider.getValue() < 50) {
         panSlider.setToolTipText("Left " + VolumeConversion.convertPan(panSlider.getValue()));
       } else {
         panSlider.setToolTipText("Center");
@@ -318,12 +320,13 @@ public class Overseer extends StreamPlayer
       temp[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
     }
 
-    int[] bars = new int[TopView.MAX_BAR];
+    int[] bars = new int[topView.av.MAX_DRAW];
     for (int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
-      bars[j] = Math.min(Math.max(temp[i] / 192, -180), 180);
+      bars[j] = Math.min(Math.max(temp[i] / 69, -200), 200);
+      bars[i] *= VolumeConversion.convertVolume(volumeSlider.getValue()) * 2;
     }
 
-    topView.pokeAndDraw(bars);
+    topView.av.pokeAndDraw(bars);
   }
 
   @Override

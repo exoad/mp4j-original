@@ -24,7 +24,9 @@ public class BottomView extends JPanel {
     this.seer = jf;
     setLayout(new FlowLayout(FlowLayout.LEFT, 20, 15));
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 500));
-    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, false));
+    setMaximumSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 530));
+
+    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setOpaque(true);
     add(jf.getPlayPauseButton());
     add(jf.getProgressSlider());

@@ -40,7 +40,7 @@ import project.constants.Size;
 import java.awt.Graphics;
 
 public class TopView extends JPanel {
-  private JPanel mainPanel, sliderPanel, waveForm;
+  private JPanel mainPanel, sliderPanel;
   private JLabel artStyle;
   private JScrollPane infoBoxWrapper;
   private JEditorPane informationBox;
@@ -48,8 +48,7 @@ public class TopView extends JPanel {
   private JSlider[] unusedSliders;
   private transient Overseer seer;
   private transient AudioInfoEditor aie;
-  public static final int MAX_BAR = 215;
-  private int[] firstBars = new int[MAX_BAR];
+  public AppsView av;
 
   /**
    * Previous Impl:
@@ -88,7 +87,6 @@ public class TopView extends JPanel {
    * add(sliderPanel);
    */
   public TopView() {
-    Arrays.fill(firstBars, 1);
     setLayout(new BorderLayout());
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
         Size.HEIGHT - 300));
@@ -113,56 +111,15 @@ public class TopView extends JPanel {
     infoBoxWrapper.setMinimumSize(new Dimension(280, 200));
     artStyle = new JLabel();
     artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
-    Dimension defaultWaveFormFault = new Dimension(210, 200);
-    waveForm = new JPanel(true) {
-      @Override
-      public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        RenderingHints rhSpeed = new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-        g2.setRenderingHints(rh);
-        g2.addRenderingHints(rhSpeed);
-        g2.setColor(ColorContent.WAVE_FORM_BAR_X);
-        /**
-         * Previous Impl:
-         * for(int i = 0, x = 30; i < firstBars.length && x < 200; i++, x += 50) {
-         * g.fillRect(x, (190 - firstBars[i] < 10 ? 10 : 190 - firstBars[i]), 40, firstBars[i] < 10 ?
-         * 10 : firstBars[i]);
-         * }
-         */
-        // draw vertical lines representing the waveform
-        for (int i = 0, x = 0; i < firstBars.length && x < MAX_BAR; i++, x += 1) {
-          if(i > 0 && firstBars[i] < firstBars[i - 1]) {
-            g2.setColor(ColorContent.WAVE_FORM_LOWER_X);
-          } else {
-            g2.setColor(ColorContent.WAVE_FORM_BAR_X);
-          }
-          // draw a horizontal line
-          g2.drawLine(100, x, 100 - firstBars[i], x);
-        }
-
-        g2.dispose();
-      }
-    };
-    waveForm.setOpaque(isOpaque());
-
-    waveForm.setPreferredSize(defaultWaveFormFault);
+    av = new AppsView(new Dimension(getPreferredSize().width, getPreferredSize().height));
     if(ProjectManager.DEBUG_LAYOUT) {
-      waveForm.setOpaque(true);
-      waveForm.setBackground(Color.GREEN);
       mainPanel.setOpaque(true);
       mainPanel.setBackground(Color.PINK);
     }
-    mainPanel.add(waveForm);
+
     mainPanel.add(infoBoxWrapper);
     add(mainPanel, BorderLayout.NORTH);
-    // add(sliderPanel, BorderLayout.SOUTH);
-  }
-
-  public synchronized void pokeAndDraw(int[] firstBars) {
-    this.firstBars = firstBars;
-    waveForm.repaint();
+    add(av, BorderLayout.SOUTH);
   }
 
   public JPanel getMainP() {

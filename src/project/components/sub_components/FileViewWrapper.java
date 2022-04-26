@@ -39,7 +39,7 @@ public class FileViewWrapper extends JPanel implements ActionListener {
     bugButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
     setPreferredSize(new Dimension((int) fvp.getPreferredSize().getWidth(), Size.HEIGHT));
     setSize(new Dimension((int) fvp.getPreferredSize().getWidth(), Size.HEIGHT));
-    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, false));
+    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setLayout(new BorderLayout());
     add(fvp);
     if (PreConfig.USE_CONSTANT_VIEW)
