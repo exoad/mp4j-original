@@ -320,13 +320,6 @@ public class Overseer extends StreamPlayer
   @Override
   public void progress(int arg0, long arg1, byte[] pcmData, Map<String, Object> arg3) {
     time = arg1;
-    long totalBytes = getTotalBytes();
-    double progress = (arg0 > 0 && totalBytes > 0) ? (arg0 * 1.0f / totalBytes * 1.0f)
-        : -1.0f;
-
-    progressSlider.setValue((int) progress * 100);
-    progressSlider.setToolTipText("Progress: " + (int) progress * 100 + "%");
-    progressSlider.revalidate();
     int[] temp = new int[pcmData.length / 2];
     for (int i = 0; i < pcmData.length / 2; i++) {
       temp[i] = (pcmData[i * 2] & 0xFF) | (pcmData[i * 2 + 1] << 8);
