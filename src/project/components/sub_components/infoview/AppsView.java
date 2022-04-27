@@ -11,11 +11,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
+import com.goxr3plus.streamplayer.stream.StreamPlayerListener;
+
 import project.constants.ColorContent;
 import project.constants.ProjectManager;
 import project.test.FilePaneNOthers.Size;
 
-public class AppsView extends JPanel {
+public class AppsView extends JPanel implements StreamPlayerListener {
   private JPanel waveFormDisplay;
   private int[] firstBars;
   public int MAX_DRAW = 0;
@@ -62,4 +64,6 @@ public class AppsView extends JPanel {
     Arrays.fill(firstBars, 1);
     waveFormDisplay.repaint();
   }
+
+  
 }

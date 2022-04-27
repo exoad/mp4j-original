@@ -176,6 +176,25 @@ public class Overseer extends StreamPlayer
     }
   }
 
+  public void assertSliderValues() {
+    setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
+    setPan(VolumeConversion.convertPan(panSlider.getValue()));
+  }
+
+  public void pauseState() {
+    assertSliderValues();
+    stop();
+    playPauseButton.setText("Play");
+    topView.stopSpinning();
+  }
+
+  public void playState() {
+    assertSliderValues();
+    playPauseButton.setEnabled(true);
+    playPauseButton.setText("Pause");
+    topView.startSpinning();
+  }
+
   private boolean hasPlayed = false;
 
   /**
@@ -192,9 +211,7 @@ public class Overseer extends StreamPlayer
           errorShown = false;
         }
       } else if (current.getAbsolutePath().endsWith("mp3")) {
-        setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
-        setPan(VolumeConversion.convertPan(panSlider.getValue()));
-
+        assertSliderValues();
         if (!isPlaying()) {
           if (!hasPlayed) {
             playFile();
@@ -202,27 +219,22 @@ public class Overseer extends StreamPlayer
           } else {
             resumeTime();
           }
-          playPauseButton.setEnabled(true);
-          playPauseButton.setText("Pause");
+          playState();
         } else {
           stop();
-          
-          playPauseButton.setEnabled(true);
-          playPauseButton.setText("Play");
+          pauseState();
         }
       }
     } else if (e.getSource().equals(approveButton)) {
       if (isPlaying() || isOpened()) {
-        stop();
-        playPauseButton.setText("Play");
+        pauseState();
         topView.av.pokeAndResetDrawing();
       }
       if (fvp.getSelectedFile() != null) {
         current = fvp.getSelectedFile();
         try {
           open(current);
-          setPan(VolumeConversion.convertPan(panSlider.getValue()));
-          setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
+          assertSliderValues();
         } catch (StreamPlayerException e1) {
           e1.printStackTrace();
         }
@@ -332,7 +344,7 @@ public class Overseer extends StreamPlayer
   @Override
   public void statusUpdated(StreamPlayerEvent arg0) {
     if (arg0.getPlayerStatus().equals(Status.STOPPED)) {
-      playPauseButton.setText("Play");
+      pauseState();
     }
   }
 

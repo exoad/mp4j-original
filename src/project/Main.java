@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+
 import project.audio.Overseer;
 import project.components.BigContainer;
 import project.components.ParentPanel;
@@ -30,7 +32,7 @@ public class Main {
     TopView tv = new TopView();
     Overseer overseer = new Overseer(null, fileViewPanel, tv);
     JSplitPane otherSide = new InfoView(tv, new BottomView(overseer));
-    otherSide.setDividerLocation(Size.HEIGHT  - 398);
+    otherSide.setDividerLocation(Size.HEIGHT - 398);
     fileViewPanel.getAl();
     FileViewWrapper fvw = new FileViewWrapper(fileViewPanel, overseer);
     JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, otherSide, fvw);
@@ -62,6 +64,8 @@ public class Main {
    */
   public static synchronized void main(String[] args) {
     try {
+      FlatDarkLaf.setup();
+
       ProcessesSchedule.main();
       Thread.sleep(100);
       launch();

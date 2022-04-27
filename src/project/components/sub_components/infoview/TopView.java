@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Polygon;
+import java.awt.geom.AffineTransform;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -36,18 +37,22 @@ import project.components.windows.ErrorWindow;
 import project.constants.ColorContent;
 import project.constants.ProjectManager;
 import project.constants.Size;
+import project.usables.DeImage;
 
 import java.awt.Graphics;
 
 public class TopView extends JPanel {
-  private JPanel mainPanel, sliderPanel;
+  private JPanel mainPanel, sliderPanel, artStyleWrapper;
   private JLabel artStyle;
   private JScrollPane infoBoxWrapper;
   private JEditorPane informationBox;
   private JSlider volumeSlider;
   private JSlider[] unusedSliders;
   private transient Overseer seer;
+  private transient Thread spinWorker;
   private transient AudioInfoEditor aie;
+  private double artStyleRotation = 0.0;
+  private boolean spin = false;
   public AppsView av;
 
   /**
@@ -109,17 +114,52 @@ public class TopView extends JPanel {
     infoBoxWrapper.setMaximumSize(new Dimension(280, 200));
     infoBoxWrapper.setPreferredSize(new Dimension(280, 200));
     infoBoxWrapper.setMinimumSize(new Dimension(280, 200));
-    artStyle = new JLabel();
-    artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
+    artStyle = new JLabel() {
+      @Override
+      public synchronized void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        BufferedImage i = DeImage.imagetoBI(new ImageIcon("resource/newrsc/disk.png").getImage());
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        AffineTransform at = new AffineTransform();
+        at.rotate(artStyleRotation, i.getWidth() / 2, i.getHeight() / 2);
+        g2d.transform(at);
+        if (spin)
+          artStyleRotation += Math.PI / 120;
+        g2d.drawImage(i, at, null);
+      }
+    };
+    artStyle.setIcon(new ImageIcon("resource/newrsc/disk.png"));
     av = new AppsView(new Dimension(getPreferredSize().width, getPreferredSize().height));
-    if(ProjectManager.DEBUG_LAYOUT) {
+    if (ProjectManager.DEBUG_LAYOUT) {
       mainPanel.setOpaque(true);
       mainPanel.setBackground(Color.PINK);
     }
-
     mainPanel.add(infoBoxWrapper);
+    mainPanel.add(artStyle);
     add(mainPanel, BorderLayout.NORTH);
     add(av, BorderLayout.SOUTH);
+
+    spinWorker = new Thread(() -> {
+      while (true) {
+        try {
+          Thread.sleep(50);
+        } catch (InterruptedException e) {
+          // IGNORE EXCEPTION
+        }
+        artStyle.repaint();
+      }
+    });
+    spinWorker.start();
+  }
+
+  public void stopSpinning() {
+    spin = false;
+
+  }
+
+  public void startSpinning() {
+    spin = true;
   }
 
   public JPanel getMainP() {
