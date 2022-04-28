@@ -64,8 +64,9 @@ public class Main {
    */
   public static synchronized void main(String[] args) {
     try {
+      System.setProperty("flatlaf.useJetBrainsCustomDecorations", "false");
+      Thread.sleep(100);
       FlatDarkLaf.setup();
-
       ProcessesSchedule.main();
       Thread.sleep(100);
       launch();
