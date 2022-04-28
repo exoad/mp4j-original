@@ -16,6 +16,7 @@
       <excludeFolder url="file://$MODULE_DIR$/@deprecated" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/src/old" />
+      <excludeFolder url="file://$MODULE_DIR$/src/project/test" />
     </content>
     <content url="file://$MODULE_DIR$/out" />
     <orderEntry type="inheritedJdk" />
@@ -54,5 +55,6 @@
     <orderEntry type="library" name="discord-rpc" level="project" />
     <orderEntry type="library" name="annotations-23.0.0" level="project" />
     <orderEntry type="library" name="flatlaf-1.6.1-javadoc" level="project" />
+    <orderEntry type="library" name="mp3agic-0.9.1" level="project" />
   </component>
 </module>

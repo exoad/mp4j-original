@@ -1,15 +1,6 @@
 package project;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.JSplitPane;
-
 import com.formdev.flatlaf.FlatDarkLaf;
-
 import project.audio.Overseer;
 import project.components.BigContainer;
 import project.components.ParentPanel;
@@ -17,12 +8,15 @@ import project.components.ProcessesSchedule;
 import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.FileViewWrapper;
 import project.components.sub_components.InfoView;
-import project.components.windows.ErrorWindow;
-import project.components.windows.LoggerWindow;
-import project.constants.ProjectManager;
-import project.test.FilePaneNOthers.Size;
 import project.components.sub_components.infoview.BottomView;
 import project.components.sub_components.infoview.TopView;
+import project.constants.ProjectManager;
+import project.constants.Size;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
   private static void launch() {

@@ -1,23 +1,14 @@
 package project.components.sub_components;
 
-import javax.swing.JPanel;
-
 import project.audio.Overseer;
 import project.constants.ColorContent;
 import project.constants.PreConfig;
-import project.test.FilePaneNOthers.Size;
+import project.constants.Size;
 
-import javax.swing.JButton;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FileViewWrapper extends JPanel implements ActionListener {
   private FileViewPanel fvp;

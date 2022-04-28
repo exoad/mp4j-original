@@ -1,23 +1,15 @@
 package project.components.sub_components.infoview;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Graphics;
-import java.awt.RenderingHints;
-import java.util.Arrays;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-
-import com.goxr3plus.streamplayer.stream.StreamPlayerListener;
-
 import project.constants.ColorContent;
 import project.constants.ProjectManager;
-import project.test.FilePaneNOthers.Size;
+import project.constants.Size;
 
-public class AppsView extends JPanel implements StreamPlayerListener {
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.util.Arrays;
+
+public class AppsView extends JPanel {
   private JPanel waveFormDisplay;
   private int[] firstBars;
   public int MAX_DRAW = 0;
