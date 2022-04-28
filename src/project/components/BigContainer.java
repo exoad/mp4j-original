@@ -14,7 +14,7 @@ public class BigContainer implements Scheduled {
   protected JFrame bigFrame;
 
   public BigContainer(JPanel parentJPanel) {
-    bigFrame = new JFrame("~ Mp4J");
+    bigFrame = new JFrame("Halcyon ~ Mp4J");
     bigFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     try {
       bigFrame.setIconImage(new ImageIcon(getClass().getResource("/icons/others/frame-icon.png")).getImage());
