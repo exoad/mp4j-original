@@ -29,8 +29,8 @@ public class BottomView extends JPanel implements StreamPlayerListener {
     super();
     this.seer = jf;
     setLayout(new FlowLayout(FlowLayout.LEFT, 20, 15));
-    setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 500));
-    setMaximumSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 530));
+    setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.PREV_HEIGHT - 500));
+    setMaximumSize(new Dimension((int) getPreferredSize().getWidth(), Size.PREV_HEIGHT - 530));
     seer.addStreamPlayerListener(this);
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setOpaque(true);
