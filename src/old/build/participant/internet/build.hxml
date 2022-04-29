@@ -1,3 +1,0 @@
--cp src/build/participant/internet/code
--main code.SocketIntegrityParticipant
--java src/build/participant/internet/cache
