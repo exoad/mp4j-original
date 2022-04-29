@@ -25,8 +25,9 @@ public class Main {
     Map<JComponent, String> panels = new HashMap<>();
     TopView tv = new TopView();
     Overseer overseer = new Overseer(null, fileViewPanel, tv);
-    JSplitPane otherSide = new InfoView(tv, new BottomView(overseer));
-    otherSide.setDividerLocation(Size.HEIGHT - 398);
+    BottomView bw = new BottomView(overseer);
+    JSplitPane otherSide = new InfoView(tv, bw);
+    otherSide.setDividerLocation(Size.HEIGHT - 100);
     fileViewPanel.getAl();
     FileViewWrapper fvw = new FileViewWrapper(fileViewPanel, overseer);
     JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, otherSide, fvw);
@@ -48,6 +49,7 @@ public class Main {
             e.printStackTrace();
           }
           System.out.println("Divider Pos: " + otherSide.getDividerLocation());
+          System.out.println("BigContainer Size: " + pb.getSize().toString());
         }
       }).start();
     }

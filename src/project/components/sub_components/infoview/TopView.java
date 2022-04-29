@@ -94,7 +94,7 @@ public class TopView extends JPanel {
   public TopView() {
     setLayout(new BorderLayout());
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
-        Size.PREV_HEIGHT - 300));
+        Size.PREV_HEIGHT - 320));
     setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
     mainPanel = new JPanel();
     mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -103,7 +103,7 @@ public class TopView extends JPanel {
     informationBox.setEditable(false);
     informationBox.setAutoscrolls(false);
     informationBox.setContentType("text/html");
-    informationBox.setMaximumSize(new Dimension(180, 330));
+    informationBox.setMaximumSize(new Dimension(180, 230));
     if (ProjectManager.DEBUG_LAYOUT)
       informationBox.setBackground(Color.RED);
     informationBox.setText(AudioInfoEditor.getBlank());
@@ -111,9 +111,10 @@ public class TopView extends JPanel {
     infoBoxWrapper = new JScrollPane(informationBox, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
-    infoBoxWrapper.setMaximumSize(new Dimension(280, 200));
-    infoBoxWrapper.setPreferredSize(new Dimension(280, 200));
-    infoBoxWrapper.setMinimumSize(new Dimension(280, 200));
+    infoBoxWrapper.setMaximumSize(new Dimension(250, 200));
+    infoBoxWrapper.setPreferredSize(new Dimension(250, 200));
+    infoBoxWrapper.setMinimumSize(new Dimension(250, 200));
+    
     artStyle = new JLabel() {
       @Override
       public synchronized void paintComponent(Graphics g) {

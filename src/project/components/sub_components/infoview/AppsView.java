@@ -18,12 +18,14 @@ public class AppsView extends JPanel {
     if (ProjectManager.DEBUG_LAYOUT) {
       setOpaque(true);
       setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.RED, Color.RED));
+      setBackground(Color.GREEN);
     }
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setOpaque(true);
-    MAX_DRAW = Size.WIDTH - 530 - 10;
-    setPreferredSize(new Dimension(Size.WIDTH - 530 - 10, Size.HEIGHT - 600));
-    firstBars = new int[Size.WIDTH - 530 - 10];
+    MAX_DRAW = Size.WIDTH - 250;
+    setPreferredSize(new Dimension(MAX_DRAW, g.height));
+    setMinimumSize(new Dimension(MAX_DRAW, g.height));
+    firstBars = new int[MAX_DRAW];
     Arrays.fill(firstBars, 1);
     waveFormDisplay = new JPanel() {
       @Override
@@ -38,12 +40,16 @@ public class AppsView extends JPanel {
           } else {
             g2.setColor(ColorContent.WAVE_FORM_BAR_X);
           }
-          g2.drawLine(x, 50, x, 50 - firstBars[i]);
+          g2.drawLine(x, getHeight() / 2, x, (getHeight() / 2) - firstBars[i]);
         }
         g2.dispose();
       }
     };
-    waveFormDisplay.setPreferredSize(getPreferredSize());
+    if(ProjectManager.DEBUG_LAYOUT) {
+      waveFormDisplay.setOpaque(true);
+      waveFormDisplay.setBackground(Color.MAGENTA);
+    }
+    waveFormDisplay.setPreferredSize(new Dimension(getPreferredSize().width, getPreferredSize().height));
     add(waveFormDisplay);
   }
 

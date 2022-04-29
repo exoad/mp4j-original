@@ -21,10 +21,11 @@ public class BigContainer implements Scheduled {
     } catch (NullPointerException e) {
       // DO NOTHING
     }
-    bigFrame.setResizable(false);
+    bigFrame.setResizable(true);
     bigFrame.setAutoRequestFocus(true);
-    bigFrame.setPreferredSize(new Dimension(Size.WIDTH, Size.PREV_HEIGHT));
-    bigFrame.setSize(new Dimension(Size.WIDTH, Size.PREV_HEIGHT));
+    bigFrame.setPreferredSize(new Dimension(Size.WIDTH, Size.HEIGHT));
+    bigFrame.setMinimumSize(new Dimension(Size.WIDTH, Size.HEIGHT));
+    bigFrame.setSize(new Dimension(Size.WIDTH, Size.HEIGHT));
     bigFrame.setLocationRelativeTo(null);
     bigFrame.getContentPane().add(parentJPanel);
     bigFrame.pack();

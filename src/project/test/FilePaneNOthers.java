@@ -10,8 +10,11 @@ import java.awt.*;
 public class FilePaneNOthers {
   public static class Size {
     private Size(){}
-    public static final int WIDTH = 1200;
+    //public static final int WIDTH = 1200;
+    //public static final int HEIGHT = 700;
+
     public static final int HEIGHT = 700;
+    public static final int WIDTH = 1200 - 300;
   }
 
   public static void someother(){
@@ -26,8 +29,8 @@ public class FilePaneNOthers {
     jfc.setBackground(Color.GRAY);
     jfc.setMultiSelectionEnabled(false);
     jfc.setApproveButtonToolTipText("Select the file");
-    JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jp2, jfc);
-    jsp.setDividerLocation(Size.WIDTH - 100);
+    JSplitPane jsp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, jp2, jfc);
+    jsp.setDividerLocation(Size.HEIGHT - 100);
 
     JFrame jf = new JFrame();
     jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
