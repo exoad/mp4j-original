@@ -2,7 +2,6 @@ package project.components.sub_components.infoview;
 
 import project.constants.ColorContent;
 import project.constants.ProjectManager;
-import project.constants.Size;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -10,9 +9,9 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class AppsView extends JPanel {
-  private JPanel waveFormDisplay;
+  private final JPanel waveFormDisplay;
   private int[] firstBars;
-  public int MAX_DRAW = 0;
+  public int MAX_DRAW;
 
   public AppsView(Dimension g) {
     if (ProjectManager.DEBUG_LAYOUT) {
@@ -22,7 +21,7 @@ public class AppsView extends JPanel {
     }
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setOpaque(true);
-    MAX_DRAW = Size.WIDTH - 250;
+    MAX_DRAW = 1000;
     setPreferredSize(new Dimension(MAX_DRAW, g.height));
     setMinimumSize(new Dimension(MAX_DRAW, g.height));
     firstBars = new int[MAX_DRAW];

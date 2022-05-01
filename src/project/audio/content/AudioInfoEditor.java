@@ -1,6 +1,5 @@
 package project.audio.content;
 
-import java.util.Map;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +9,7 @@ public class AudioInfoEditor {
   private Map<String, String> fullStyle;
   public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist", TITLE_TOKEN = "title",
       GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment", ALBUM_TOKEN = "album",
-      COMPOSER_TOKEN = "compsoer";
+      COMPOSER_TOKEN = "composer";
   protected static final int MAX_LEN = 40;
   @Deprecated
   /**

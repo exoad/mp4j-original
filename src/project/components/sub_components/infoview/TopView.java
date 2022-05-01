@@ -36,21 +36,21 @@ import project.audio.content.AudioUtil;
 import project.components.windows.ErrorWindow;
 import project.constants.ColorContent;
 import project.constants.ProjectManager;
+import project.constants.ResourceConst;
+import project.constants.ResourceDistributor;
 import project.constants.Size;
 import project.usables.DeImage;
 
 import java.awt.Graphics;
 
 public class TopView extends JPanel {
-  private JPanel mainPanel, sliderPanel, artStyleWrapper;
+  private JPanel mainPanel;
   private JLabel artStyle;
   private JScrollPane infoBoxWrapper;
   private JEditorPane informationBox;
-  private JSlider volumeSlider;
-  private JSlider[] unusedSliders;
   private transient Overseer seer;
   private transient Thread spinWorker;
-  private transient AudioInfoEditor aie;
+  private AudioInfoEditor aie;
   private double artStyleRotation = 0.0;
   private boolean spin = false;
   public AppsView av;
@@ -120,17 +120,17 @@ public class TopView extends JPanel {
       public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        BufferedImage i = DeImage.imagetoBI(new ImageIcon("resource/newrsc/disk.png").getImage());
+        BufferedImage i = DeImage.imagetoBI(new ResourceDistributor().getIconResource(ResourceConst.DISK_PLAYING_SPIN_ICON).getImage());
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         AffineTransform at = new AffineTransform();
-        at.rotate(artStyleRotation, i.getWidth() / 2, i.getHeight() / 2);
+        at.rotate(artStyleRotation, i.getWidth() / 2.0d, i.getHeight() / 2.0d);
         g2d.transform(at);
         if (spin)
           artStyleRotation += Math.PI / 120;
         g2d.drawImage(i, at, null);
       }
     };
-    artStyle.setIcon(new ImageIcon("resource/newrsc/disk.png"));
+    artStyle.setIcon(new ResourceDistributor().getIconResource(ResourceConst.DISK_PLAYING_SPIN_ICON));
     av = new AppsView(new Dimension(getPreferredSize().width, getPreferredSize().height));
     if (ProjectManager.DEBUG_LAYOUT) {
       mainPanel.setOpaque(true);

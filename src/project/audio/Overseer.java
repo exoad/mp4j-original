@@ -1,43 +1,28 @@
 package project.audio;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import com.goxr3plus.streamplayer.enums.Status;
+import com.goxr3plus.streamplayer.stream.StreamPlayer;
+import com.goxr3plus.streamplayer.stream.StreamPlayerEvent;
+import com.goxr3plus.streamplayer.stream.StreamPlayerException;
+import com.goxr3plus.streamplayer.stream.StreamPlayerListener;
+import project.audio.content.AudioInfoEditor;
+import project.audio.content.AudioUtil;
+import project.audio.content.VolumeConversion;
+import project.components.sub_components.FileViewPanel;
+import project.components.sub_components.infoview.TopView;
+import project.components.windows.ErrorWindow;
+import project.constants.ColorContent;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
-
-import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.imageio.ImageIO;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JSlider;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import com.goxr3plus.streamplayer.stream.StreamPlayer;
-import com.goxr3plus.streamplayer.stream.StreamPlayerEvent;
-import com.goxr3plus.streamplayer.stream.StreamPlayerException;
-import com.goxr3plus.streamplayer.stream.StreamPlayerListener;
-import com.goxr3plus.streamplayer.enums.Status;
-
-import project.audio.content.AudioInfoEditor;
-import project.audio.content.AudioUtil;
-import project.audio.content.VolumeConversion;
-import project.components.sub_components.FileViewPanel;
-import project.components.sub_components.infoview.SubVolumeView;
-import project.components.sub_components.infoview.TopView;
-import project.components.windows.ErrorWindow;
-import project.constants.ColorContent;
 
 public class Overseer extends StreamPlayer
     implements ActionListener, WindowListener, ChangeListener, StreamPlayerListener {
@@ -48,7 +33,6 @@ public class Overseer extends StreamPlayer
   private JSlider volumeSlider, progressSlider, panSlider;
   private boolean errorShown = false, isOpened = false;
   private long time = 0L;
-  private Map<String, Object> prop;
 
   public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv) {
     super();
@@ -57,8 +41,13 @@ public class Overseer extends StreamPlayer
     this.current = f;
     this.fvp = fvp;
     this.topView = tv;
-    playPauseButton = new JButton("Play");
+    playPauseButton = new JButton();
+    playPauseButton.setToolTipText("Play/Pause");
     playPauseButton.addActionListener(this);
+    playPauseButton.setIcon(new ImageIcon("resource/newrsc/play.png"));
+    playPauseButton.setOpaque(true);
+    playPauseButton.setBackground(null);
+    playPauseButton.setPreferredSize(new Dimension(25, 25));
     approveButton = new JButton("Select File");
     approveButton.addActionListener(this);
     volumeSlider = new JSlider(0, 100);

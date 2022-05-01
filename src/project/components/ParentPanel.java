@@ -1,14 +1,9 @@
 package project.components;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import project.constants.Size;
 
-import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import project.constants.*;
-
+import javax.swing.*;
+import java.awt.*;
 import java.util.Map;
 
 public class ParentPanel extends JPanel {

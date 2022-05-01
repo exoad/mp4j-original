@@ -1,10 +1,9 @@
 package project.audio.content;
 
-import java.io.File;
+import project.Utils;
 
 import javax.swing.filechooser.FileFilter;
-
-import project.Utils;
+import java.io.File;
 
 public class AudioType extends FileFilter {
   String MP3_EXTENSION = "mp3", WAV_EXTENSION = "wav";

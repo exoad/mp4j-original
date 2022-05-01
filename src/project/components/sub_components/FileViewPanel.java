@@ -1,15 +1,11 @@
 package project.components.sub_components;
 
-import javax.swing.JFileChooser;
-import javax.swing.JDialog;
-
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionListener;
-
 import project.audio.content.AudioType;
 import project.constants.Size;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class FileViewPanel extends JFileChooser {
   private transient Thread worker;

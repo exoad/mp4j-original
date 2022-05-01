@@ -1,16 +1,10 @@
 package project.components.sub_components.infoview;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-
 import project.audio.Overseer;
 import project.constants.ProjectManager;
 
-import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 
 public class SubVolumeView extends JPanel {
   private static JSlider getRandomSlider() {

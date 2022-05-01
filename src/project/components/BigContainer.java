@@ -1,14 +1,10 @@
 package project.components;
 
-import java.awt.Dimension;
-
 import project.constants.Size;
-import project.usables.*;
+import project.usables.Scheduled;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
+import java.awt.*;
 
 public class BigContainer implements Scheduled {
   protected JFrame bigFrame;
@@ -25,6 +21,7 @@ public class BigContainer implements Scheduled {
     bigFrame.setAutoRequestFocus(true);
     bigFrame.setPreferredSize(new Dimension(Size.WIDTH, Size.HEIGHT));
     bigFrame.setMinimumSize(new Dimension(Size.WIDTH, Size.HEIGHT));
+    bigFrame.setMaximumSize(new Dimension(Size.MAX_BIGCONTAINER_WIDTH, Size.MAX_BIGCONTAINER_HEIGHT));
     bigFrame.setSize(new Dimension(Size.WIDTH, Size.HEIGHT));
     bigFrame.setLocationRelativeTo(null);
     bigFrame.getContentPane().add(parentJPanel);

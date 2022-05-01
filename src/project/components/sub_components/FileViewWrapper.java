@@ -12,13 +12,13 @@ import java.awt.event.ActionListener;
 
 public class FileViewWrapper extends JPanel implements ActionListener {
   private FileViewPanel fvp;
-  private JButton approve, bugButton, exitButton;
+  private JButton bugButton, exitButton;
   private Overseer obj;
 
   public FileViewWrapper(FileViewPanel fvp, Overseer obj) {
     this.fvp = fvp;
     this.obj = obj;
-    approve = obj.getApproveButton();
+    JButton approve = obj.getApproveButton();
     approve.setAlignmentY(Component.BOTTOM_ALIGNMENT);
     approve.setAlignmentX(Component.CENTER_ALIGNMENT);
     exitButton = new JButton("Exit Program");
@@ -43,10 +43,6 @@ public class FileViewWrapper extends JPanel implements ActionListener {
 
   public FileViewPanel getFVP() {
     return fvp;
-  }
-
-  public JButton getApButton() {
-    return approve;
   }
 
   @Override

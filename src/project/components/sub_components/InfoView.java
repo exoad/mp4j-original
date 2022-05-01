@@ -1,13 +1,9 @@
 package project.components.sub_components;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JSplitPane;
-
-import java.awt.Color;
-import java.awt.Dimension;
-
 import project.constants.Size;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class InfoView extends JSplitPane { 
   public InfoView(JComponent top, JComponent bottom) {

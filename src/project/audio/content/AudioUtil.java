@@ -1,13 +1,15 @@
 package project.audio.content;
 
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
+import project.Utils;
+import project.usables.ResourceGrabber;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
-import com.mpatric.mp3agic.*;
-
-import project.Utils;
-import project.usables.ResourceGrabber;
 
 public class AudioUtil extends File {
   public AudioUtil(String pathname) {
