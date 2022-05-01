@@ -39,6 +39,7 @@ import project.constants.ProjectManager;
 import project.constants.ResourceConst;
 import project.constants.ResourceDistributor;
 import project.constants.Size;
+import project.usables.API;
 import project.usables.DeImage;
 
 import java.awt.Graphics;
@@ -120,7 +121,7 @@ public class TopView extends JPanel {
       public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        BufferedImage i = DeImage.imagetoBI(new ResourceDistributor().getIconResource(ResourceConst.DISK_PLAYING_SPIN_ICON).getImage());
+        BufferedImage i = DeImage.imagetoBI(new ResourceDistributor().getDiskPNG().getImage());
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         AffineTransform at = new AffineTransform();
         at.rotate(artStyleRotation, i.getWidth() / 2.0d, i.getHeight() / 2.0d);
@@ -130,7 +131,7 @@ public class TopView extends JPanel {
         g2d.drawImage(i, at, null);
       }
     };
-    artStyle.setIcon(new ResourceDistributor().getIconResource(ResourceConst.DISK_PLAYING_SPIN_ICON));
+    artStyle.setIcon(new ResourceDistributor().getDiskPNG());
     av = new AppsView(new Dimension(getPreferredSize().width, getPreferredSize().height));
     if (ProjectManager.DEBUG_LAYOUT) {
       mainPanel.setOpaque(true);

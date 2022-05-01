@@ -1,5 +1,6 @@
 package project.components.sub_components;
 
+import project.Main;
 import project.audio.Overseer;
 import project.constants.ColorContent;
 import project.constants.PreConfig;
@@ -7,24 +8,21 @@ import project.constants.Size;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class FileViewWrapper extends JPanel implements ActionListener {
+public class FileViewWrapper extends JPanel {
   private FileViewPanel fvp;
-  private JButton bugButton, exitButton;
-  private Overseer obj;
+  private JButton bugButton, windowResize;
 
-  public FileViewWrapper(FileViewPanel fvp, Overseer obj) {
+  public FileViewWrapper(Main e, FileViewPanel fvp, Overseer obj) {
     this.fvp = fvp;
-    this.obj = obj;
     JButton approve = obj.getApproveButton();
     approve.setAlignmentY(Component.BOTTOM_ALIGNMENT);
     approve.setAlignmentX(Component.CENTER_ALIGNMENT);
-    exitButton = new JButton("Exit Program");
-    exitButton.addActionListener(this);
-    exitButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-    exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    windowResize = new JButton("Reset Window Size");
+    windowResize.addActionListener(e);
+    windowResize.setToolTipText("Resizes the window Size to the default size");
+    windowResize.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+    windowResize.setAlignmentX(Component.CENTER_ALIGNMENT);
     bugButton = new JButton();
     bugButton.setVisible(false);
     bugButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
@@ -35,21 +33,13 @@ public class FileViewWrapper extends JPanel implements ActionListener {
     add(fvp);
     if (PreConfig.USE_CONSTANT_VIEW)
       add(bugButton);
-    JPanel someRandom = new JPanel(new GridLayout(0,1,0,3));
+    JPanel someRandom = new JPanel(new GridLayout(0, 1, 0, 3));
     someRandom.add(approve);
-    someRandom.add(exitButton);
+    someRandom.add(windowResize);
     add(someRandom, BorderLayout.PAGE_END);
   }
 
   public FileViewPanel getFVP() {
     return fvp;
   }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    if (e.getSource().equals(exitButton)) {
-      System.exit(0);
-    }
-  }
-
 }

@@ -15,11 +15,17 @@ import project.constants.Size;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
-  private static void launch() {
+public class Main implements ActionListener {
+  private BigContainer e;
+  public void launch() {
+    System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
+
     ParentPanel pb;
     FileViewPanel fileViewPanel = new FileViewPanel();
     Map<JComponent, String> panels = new HashMap<>();
@@ -29,13 +35,14 @@ public class Main {
     JSplitPane otherSide = new InfoView(tv, bw);
     otherSide.setDividerLocation(Size.HEIGHT - 100);
     fileViewPanel.getAl();
-    FileViewWrapper fvw = new FileViewWrapper(fileViewPanel, overseer);
+    FileViewWrapper fvw = new FileViewWrapper(this, fileViewPanel, overseer);
     JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, otherSide, fvw);
     jsp.setDividerLocation(Size.WIDTH - fvw.getWidth() - 20);
     fileViewPanel.dispatch();
     panels.put(jsp, BorderLayout.CENTER);
     pb = new ParentPanel(panels);
-    new BigContainer(pb).run();
+    e = new BigContainer(pb);
+    e.run();
 
     // make a thread to print how much memory this program is using in mb
     if (ProjectManager.DEBUG_LAYOUT) {
@@ -55,19 +62,30 @@ public class Main {
     }
   }
 
+  public static final PrintStream STDOUT = System.out;
+
   /**
    * @param args
    */
   public static synchronized void main(String[] args) {
+    
     try {
-      System.setProperty("flatlaf.useJetBrainsCustomDecorations", "false");
+      PrintStream s = new PrintStream(OutputStream.nullOutputStream());
+      if(ProjectManager.PRODUCTION_STYLE) {
+        System.setOut(s);
+      }
       Thread.sleep(100);
       FlatDarkLaf.setup();
       ProcessesSchedule.main();
       Thread.sleep(100);
-      launch();
+      new Main().launch();
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent arg0) {
+    e.getBigFrame().setSize(new Dimension(Size.WIDTH, Size.HEIGHT));
   }
 }

@@ -28,6 +28,10 @@ public class BigContainer implements Scheduled {
     bigFrame.pack();
   }
 
+  public JFrame getBigFrame() {
+    return bigFrame;
+  }
+
   @Override
   public void run() {
     bigFrame.setVisible(true);
