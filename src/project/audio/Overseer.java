@@ -223,7 +223,6 @@ public class Overseer extends StreamPlayer
         current = fvp.getSelectedFile();
         try {
           open(current);
-          assertSliderValues();
         } catch (StreamPlayerException e1) {
           e1.printStackTrace();
         }
@@ -316,7 +315,7 @@ public class Overseer extends StreamPlayer
 
     int[] bars = new int[topView.av.MAX_DRAW];
     for (int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
-      bars[j] = Math.min(Math.max(temp[i] / 69, -200), 200);
+      bars[j] = Math.min(Math.max(temp[i] / 85, -180), 180);
       bars[i] *= VolumeConversion.convertVolume(volumeSlider.getValue()) * 2;
     }
 

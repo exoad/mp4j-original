@@ -13,6 +13,7 @@ public class SubVolumeView extends JPanel {
     slider.setPreferredSize(new Dimension(20, 180));
     return slider;
   }
+
   public SubVolumeView(Overseer j) {
     super();
 
@@ -22,7 +23,7 @@ public class SubVolumeView extends JPanel {
     setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
     setOpaque(true);
     setPreferredSize(new Dimension(120, 200));
-    if(ProjectManager.DEBUG_LAYOUT)
+    if (ProjectManager.DEBUG_LAYOUT)
       setBackground(Color.BLUE);
     JSlider js = j.getVolumeSlider();
     js.setPreferredSize(new Dimension(20, 180));
@@ -34,5 +35,5 @@ public class SubVolumeView extends JPanel {
     add(pjs);
     add(getRandomSlider());
   }
-  
+
 }

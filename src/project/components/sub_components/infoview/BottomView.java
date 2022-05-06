@@ -14,6 +14,7 @@ import java.util.Map;
 public class BottomView extends JPanel implements StreamPlayerListener {
   private JSlider progressSlider;
   private JLabel timeLabel;
+  private ButtonsView bv;
   private transient Overseer seer;
   public BottomView(Overseer jf) {
     super();
@@ -25,6 +26,9 @@ public class BottomView extends JPanel implements StreamPlayerListener {
     setOpaque(true);
     add(jf.getPlayPauseButton());
 
+
+    Dimension dimTemp = new Dimension(jf.topView.getPreferredSize().width, jf.topView.getPreferredSize().height);
+    bv = new ButtonsView(dimTemp);
     timeLabel = new JLabel("<html><p><strong>0:00:00 / 0:00:00</strong></p></html>");
     add(timeLabel);
 
@@ -32,6 +36,7 @@ public class BottomView extends JPanel implements StreamPlayerListener {
     progressSlider.setPreferredSize(new Dimension(300, 20));
     add(progressSlider);
     jf.topView.getMainP().add(new SubVolumeView(jf));
+    jf.topView.getMainP().add(bv);
   }
   @Override
   public void opened(Object arg0, Map<String, Object> arg1) {

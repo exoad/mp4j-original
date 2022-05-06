@@ -14,5 +14,7 @@ public class ColorContent {
   public static final Color WAVE_FORM_LOWER_X = new Color(97, 182, 242);
   public static final Color WAVE_FORM_BAR_Y = new Color(245, 171, 98);
   public static final Color WAVE_FORM_LOWER_Y = new Color(255, 120, 203);
+  public static final Color WAVE_FORM_LOWER_Z = new Color(253, 133, 112);
+  public static final Color WAVE_FORM_LOWER_A = new Color(33, 250, 185);
   private ColorContent() {}
 }

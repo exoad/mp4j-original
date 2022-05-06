@@ -51,7 +51,7 @@ public class TopView extends JPanel {
   private JEditorPane informationBox;
   private transient Overseer seer;
   private transient Thread spinWorker;
-  private AudioInfoEditor aie;
+  private transient AudioInfoEditor aie;
   private double artStyleRotation = 0.0;
   private boolean spin = false;
   public AppsView av;
@@ -141,11 +141,10 @@ public class TopView extends JPanel {
     mainPanel.add(artStyle);
     add(mainPanel, BorderLayout.NORTH);
     add(av, BorderLayout.SOUTH);
-
     spinWorker = new Thread(() -> {
       while (true) {
         try {
-          Thread.sleep(50);
+          Thread.sleep(60);
         } catch (InterruptedException e) {
           // IGNORE EXCEPTION
         }
@@ -186,7 +185,6 @@ public class TopView extends JPanel {
      */
     informationBox.setPreferredSize(informationBox.getPreferredSize());
     seer.pokeFile(aie.getUtilFile());
-    System.out.println(aie.getUtilFile().getAbsolutePath());
   }
 
   /**
