@@ -71,11 +71,14 @@ public class Main implements ActionListener {
     
     try {
       PrintStream s = new PrintStream(OutputStream.nullOutputStream());
+      Thread.sleep(100);
+
       if(ProjectManager.PRODUCTION_STYLE) {
         System.setOut(s);
+        FlatDarkLaf.setup();
+      } else {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       }
-      Thread.sleep(100);
-      FlatDarkLaf.setup();
       ProcessesSchedule.main();
       Thread.sleep(100);
       new Main().launch();

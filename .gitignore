@@ -17,3 +17,4 @@ secure/db
 src/project/connection
 .history
 /cache
+/tstex_modules
