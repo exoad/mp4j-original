@@ -43,7 +43,7 @@ public class Main implements ActionListener {
     pb = new ParentPanel(panels);
     e = new BigContainer(pb);
     e.run();
-
+    
     // make a thread to print how much memory this program is using in mb
     if (ProjectManager.DEBUG_LAYOUT) {
       new Thread(() -> {
@@ -70,15 +70,7 @@ public class Main implements ActionListener {
   public static synchronized void main(String[] args) {
     
     try {
-      PrintStream s = new PrintStream(OutputStream.nullOutputStream());
       Thread.sleep(100);
-
-      if(ProjectManager.PRODUCTION_STYLE) {
-        System.setOut(s);
-        FlatDarkLaf.setup();
-      } else {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-      }
       ProcessesSchedule.main();
       Thread.sleep(100);
       new Main().launch();
