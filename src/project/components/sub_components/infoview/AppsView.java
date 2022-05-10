@@ -38,7 +38,7 @@ public class AppsView extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(ColorContent.WAVE_FORM_BAR_X);
         for (int i = 0, x = 0; i < firstBars.length && x < getWidth(); i++, x += 3) {
-          g2.fillRoundRect(x, getHeight() - firstBars[i], 2, firstBars[i], 10, 10);
+          g2.fillRect(x, getHeight() - firstBars[i], 2, firstBars[i]);
         }
         g2.dispose();
       }
@@ -61,7 +61,7 @@ public class AppsView extends JPanel {
   }
 
   public void pokeAndResetDrawing() {
-    Arrays.fill(firstBars, 1);
+    Arrays.fill(firstBars, 10);
     waveFormDisplay.repaint();
   }
 

@@ -7,8 +7,10 @@ import project.usables.API;
 public class ResourceDistributor {
   public static final String MAIN_RSC_DIR = "resource/newrsc";
   public static final String DISK_PLAYING = MAIN_RSC_DIR + "/disk.png";
-  public static final String PLAY_PAUSE = MAIN_RSC_DIR + "/play.png";
+  public static final String PLAY_PAUSE = MAIN_RSC_DIR + "/play_button_activated.png";
+  public static final String PAUSE_ICO = MAIN_RSC_DIR + "/pause_button_activated.png";
   public static final String APP_LOGO = MAIN_RSC_DIR + "/app-logo.png";
+  public static final String PLAY_PAUSE_HOVERED = MAIN_RSC_DIR + "/play_button_hovered.png";
 
   /**
    * @deprecated
@@ -32,6 +34,30 @@ public class ResourceDistributor {
       }
     }
     return null;
+  }
+
+  public ImageIcon getPlayButton() {
+    try {
+      return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource((PLAY_PAUSE)).getFile()));
+    } catch (NullPointerException e) {
+      return new ImageIcon(PLAY_PAUSE);
+    }
+  }
+
+  public ImageIcon getPauseButton() {
+    try {
+      return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource((PAUSE_ICO)).getFile()));
+    } catch (NullPointerException e) {
+      return new ImageIcon(PAUSE_ICO);
+    }
+  }
+
+  public ImageIcon getPlayButtonHovered() {
+    try {
+      return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource((PLAY_PAUSE_HOVERED)).getFile()));
+    } catch (NullPointerException e) {
+      return new ImageIcon(PLAY_PAUSE_HOVERED);
+    }
   }
 
   public ImageIcon getDiskPNG() {

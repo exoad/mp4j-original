@@ -12,6 +12,9 @@ import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.infoview.TopView;
 import project.components.windows.ErrorWindow;
 import project.constants.ColorContent;
+import project.constants.ResourceDistributor;
+import project.constants.Size;
+import project.usables.DeImage;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -33,6 +36,12 @@ public class Overseer extends StreamPlayer
   private JSlider volumeSlider, progressSlider, panSlider;
   private boolean errorShown = false, isOpened = false;
   private long time = 0L;
+  public static final ImageIcon prev = DeImage.resizeImage(new ResourceDistributor().getPlayButton(),
+      Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE);
+  public static final ImageIcon prevPaused = DeImage.resizeImage(new ResourceDistributor().getPauseButton(),
+      Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE);
+  public static final ImageIcon next = DeImage.resizeImage(new ResourceDistributor().getPlayButtonHovered(),
+      Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE);
 
   public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv) {
     super();
@@ -44,12 +53,27 @@ public class Overseer extends StreamPlayer
     playPauseButton = new JButton();
     playPauseButton.setToolTipText("Play/Pause");
     playPauseButton.addActionListener(this);
-    playPauseButton.setIcon(new ImageIcon("resource/newrsc/play.png"));
+    playPauseButton.setIcon(Overseer.prev);
     playPauseButton.setOpaque(true);
     playPauseButton.setBackground(null);
-    playPauseButton.setPreferredSize(new Dimension(25, 25));
+    playPauseButton.setContentAreaFilled(false);
+    playPauseButton.setFocusPainted(false);
+    playPauseButton.setBorderPainted(false);
+    playPauseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      @Override
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        playPauseButton.setIcon(next);
+      }
+
+      @Override
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        playPauseButton.setIcon(prev);
+      }
+    });
+
     approveButton = new JButton("Select File");
     approveButton.addActionListener(this);
+
     volumeSlider = new JSlider(0, 100);
     volumeSlider.setValue(45);
     volumeSlider.addChangeListener(this);
@@ -173,14 +197,14 @@ public class Overseer extends StreamPlayer
   public void pauseState() {
     assertSliderValues();
     stop();
-    playPauseButton.setText("Play");
+
     topView.stopSpinning();
   }
 
   public void playState() {
     assertSliderValues();
     playPauseButton.setEnabled(true);
-    playPauseButton.setText("Pause");
+
     topView.startSpinning();
   }
 
@@ -190,7 +214,7 @@ public class Overseer extends StreamPlayer
    * @param e
    */
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public synchronized void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(playPauseButton)) {
       if (current == null) {
         if (!errorShown) {
@@ -204,12 +228,18 @@ public class Overseer extends StreamPlayer
         if (!isPlaying()) {
           if (!hasPlayed) {
             playFile();
+            playPauseButton.setIcon(Overseer.prev);
+            playPauseButton.revalidate();
             hasPlayed = true;
           } else {
+            playPauseButton.setIcon(Overseer.prev);
+            playPauseButton.revalidate();
             resumeTime();
           }
           playState();
         } else {
+          playPauseButton.setIcon(Overseer.prevPaused);
+          playPauseButton.revalidate();
           stop();
           pauseState();
         }
@@ -240,7 +270,7 @@ public class Overseer extends StreamPlayer
   }
 
   @Override
-  public void stateChanged(ChangeEvent e) {
+  public synchronized void stateChanged(ChangeEvent e) {
     if (e.getSource().equals(volumeSlider)) {
       float volNow = VolumeConversion.convertVolume(volumeSlider.getValue());
       setGain(volNow);
@@ -342,8 +372,8 @@ public class Overseer extends StreamPlayer
         x += Math.abs(temp[k]);
       }
       x /= 4;
-      bars[j] = Math.min(Math.max(x / 160, -170), 170);
-      bars[j] *= VolumeConversion.convertVolume(volumeSlider.getValue()) * 8;
+      bars[j] = Math.min(Math.max(x / 160, 10), 170);
+      bars[j] *= VolumeConversion.convertVolume(volumeSlider.getValue()) * 10;
     }
 
     topView.av.pokeAndDraw(bars);

@@ -11,5 +11,7 @@ public final class Size {
   public static final int MAX_BIGCONTAINER_WIDTH = 1300;
   public static final int MAX_BIGCONTAINER_HEIGHT = 700;
 
+  public static final int PAUSE_PLAY_BUTTON_SIZE = 25;
+
   public static final String INDENT_SIZE = "   ";
 }

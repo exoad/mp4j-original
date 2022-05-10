@@ -4,6 +4,7 @@ import project.constants.ColorContent;
 import project.constants.ProjectManager;
 import project.constants.ResourceDistributor;
 import project.constants.Size;
+import project.usables.DeImage;
 import project.usables.Scheduled;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ public class BigContainer implements Scheduled {
   public BigContainer(JPanel parentJPanel) {
     bigFrame = new JFrame("Halcyon ~ Mp4J");
     bigFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    bigFrame.setIconImage(new ResourceDistributor().getAppLogo().getImage());
+    bigFrame.setIconImage(DeImage.resizeImage(new ResourceDistributor().getAppLogo(),64, 64).getImage());
     bigFrame.setResizable(true);
     bigFrame.setAutoRequestFocus(true);
     bigFrame.setPreferredSize(new Dimension(Size.WIDTH, Size.HEIGHT));
