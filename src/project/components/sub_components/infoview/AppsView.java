@@ -14,6 +14,7 @@ public class AppsView extends JPanel {
   private final JPanel waveFormDisplay;
   private int[] firstBars;
   public int MAX_DRAW;
+  private int max = 0;
 
   public AppsView(Dimension g) {
     if (ProjectManager.DEBUG_LAYOUT) {
@@ -23,26 +24,21 @@ public class AppsView extends JPanel {
     }
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setOpaque(true);
-    MAX_DRAW = 1000;
-    setPreferredSize(new Dimension(MAX_DRAW, g.height));
-    setMinimumSize(new Dimension(MAX_DRAW, g.height));
+    MAX_DRAW = 2048 / 4;
+    setPreferredSize(new Dimension(MAX_DRAW * 2, g.height));
+    setMinimumSize(new Dimension(MAX_DRAW * 2, g.height));
     firstBars = new int[MAX_DRAW];
-    Arrays.fill(firstBars, 0);
+    Arrays.fill(firstBars, 10);
 
     waveFormDisplay = new JPanel() {
       @Override
       public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_DEFAULT);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(ColorContent.WAVE_FORM_BAR_X);
-        for (int i = 0, x = 0; i < firstBars.length && x < getWidth(); i++, x++) {
-          if (i > 0 && firstBars[i] < firstBars[i - 1]) {
-            g2.setColor(ColorContent.WAVE_FORM_LOWER_X);
-          } else {
-            g2.setColor(ColorContent.WAVE_FORM_BAR_X);
-          }
-          g2.drawLine(x, getHeight() / 2, x, (getHeight() / 2) - firstBars[i]);
+        for (int i = 0, x = 0; i < firstBars.length && x < getWidth(); i++, x += 3) {
+          g2.fillRoundRect(x, getHeight() - firstBars[i], 2, firstBars[i], 10, 10);
         }
         g2.dispose();
       }

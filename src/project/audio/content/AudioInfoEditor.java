@@ -160,7 +160,7 @@ public class AudioInfoEditor {
   private synchronized String checkSize(String str) {
     try {
       System.out.println(str);
-      return str.length() >= MAX_LEN ? str.substring(0, 15) + "..." + str.substring(str.length() - 5, str.length()) : str;
+      return str.length() >= MAX_LEN ? str.substring(0, 18) + "..." + str.substring(str.length() - 5, str.length()) : str;
     } catch (NullPointerException e) {
       return "";
     }

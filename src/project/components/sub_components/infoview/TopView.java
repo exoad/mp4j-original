@@ -159,6 +159,10 @@ public class TopView extends JPanel {
 
   }
 
+  public AudioInfoEditor getAIE() {
+    return aie;
+  }
+
   public void startSpinning() {
     spin = true;
   }
