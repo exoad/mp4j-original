@@ -14,7 +14,7 @@ public class DiscordRPCHandler{
 
       DiscordRPC.discordInitialize(DiscordConst.APP_ID, handlers, true);
 
-      DiscordRichPresence presence = new DiscordRichPresence.Builder("Listening to music").setBigImage("app-logo_512", "Exoad4J/MP4J").setStartTimestamps(System.currentTimeMillis()).build();
+      DiscordRichPresence presence = new DiscordRichPresence.Builder("Listening to music").setBigImage("app-logo_512", "Exoad4J/MP4J").setStartTimestamps(System.currentTimeMillis()).setSmallImage("git-logo_512", "https://github.com/Exoad4JVM/mp4j").build();
       DiscordRPC.discordUpdatePresence(presence);
     }).start();
 
