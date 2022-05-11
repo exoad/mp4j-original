@@ -14,7 +14,7 @@ MusicPlayer.iml
 musicplayer_checksum.xml
 secure/db
 /vm
-src/project/connection
 .history
 /cache
 /tstex_modules
+/helper/env

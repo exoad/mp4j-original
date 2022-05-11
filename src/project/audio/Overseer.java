@@ -344,12 +344,7 @@ public class Overseer extends StreamPlayer
     }
 
     int[] bars = new int[topView.av.MAX_DRAW];
-    /*
-     * for (int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
-     * bars[j] = Math.min(Math.max(temp[i] / 85, -180), 180);
-     * bars[i] *= VolumeConversion.convertVolume(volumeSlider.getValue()) * 2;
-     * }
-     */
+
     /**
      * for (each pixel in width of image) {
      * var sum = 0
@@ -365,7 +360,7 @@ public class Overseer extends StreamPlayer
      * 
      * implement below
      */
-    // divide into 4 chunks
+
     for (int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
       int x = 0;
       for (int k = i; k < i + 4; k++) {

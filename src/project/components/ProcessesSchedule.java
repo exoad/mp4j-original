@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
+import project.connection.discord.DiscordRPCHandler;
 import project.constants.ColorContent;
 import project.constants.ProjectManager;
 
@@ -25,5 +26,6 @@ public class ProcessesSchedule {
       }
     }
     System.setErr(null);
+    DiscordRPCHandler.main(args);
   }
 }
