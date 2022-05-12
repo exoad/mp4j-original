@@ -1,7 +1,6 @@
 package project.constants;
 
 import java.awt.Color;
-import java.awt.SystemColor;
 
 public class ColorContent {
   public static final java.awt.Color BORDER = new java.awt.Color(173, 173, 173);

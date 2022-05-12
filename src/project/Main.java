@@ -1,6 +1,5 @@
 package project;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import project.audio.Overseer;
 import project.components.BigContainer;
 import project.components.ParentPanel;
@@ -10,13 +9,13 @@ import project.components.sub_components.FileViewWrapper;
 import project.components.sub_components.InfoView;
 import project.components.sub_components.infoview.BottomView;
 import project.components.sub_components.infoview.TopView;
+import project.connection.discord.DiscordRPCHandler;
 import project.constants.ProjectManager;
 import project.constants.Size;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +24,13 @@ public class Main implements ActionListener {
   private BigContainer e;
   public void launch() {
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
-
+    DiscordRPCHandler disch = new DiscordRPCHandler();
+    disch.start();
     ParentPanel pb;
     FileViewPanel fileViewPanel = new FileViewPanel();
     Map<JComponent, String> panels = new HashMap<>();
     TopView tv = new TopView();
-    Overseer overseer = new Overseer(null, fileViewPanel, tv);
+    Overseer overseer = new Overseer(null, fileViewPanel, tv, disch);
     BottomView bw = new BottomView(overseer);
     JSplitPane otherSide = new InfoView(tv, bw);
     otherSide.setDividerLocation(Size.HEIGHT - 100);
@@ -52,8 +52,8 @@ public class Main implements ActionListener {
               "Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "mb");
           try {
             Thread.sleep(1000);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
+          } catch (InterruptedException ex) {
+            ex.printStackTrace();
           }
           System.out.println("Divider Pos: " + otherSide.getDividerLocation());
           System.out.println("BigContainer Size: " + pb.getSize().toString());
@@ -70,9 +70,7 @@ public class Main implements ActionListener {
   public static synchronized void main(String[] args) {
     
     try {
-      Thread.sleep(100);
       ProcessesSchedule.main();
-      Thread.sleep(100);
       new Main().launch();
     } catch (Exception e) {
       e.printStackTrace();

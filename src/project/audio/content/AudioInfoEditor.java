@@ -128,15 +128,6 @@ public class AudioInfoEditor {
     return fullStyle;
   }
 
-  private String getEmptyTokens(String len) {
-    int tokens = MAX_LEN - len.length();
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < tokens; i++) {
-      sb.append(" ");
-    }
-    return sb.toString();
-  }
-
   public static String getBlank() {
     StringBuilder sb = new StringBuilder();
     sb.append(
@@ -154,10 +145,8 @@ public class AudioInfoEditor {
     sb.append("</p></body></html>");
     return sb.toString();
   }
-  
 
-
-  private synchronized String checkSize(String str) {
+  public synchronized String checkSize(String str) {
     try {
       System.out.println(str);
       return str.length() >= MAX_LEN ? str.substring(0, 18) + "..." + str.substring(str.length() - 5, str.length()) : str;

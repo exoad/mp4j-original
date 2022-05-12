@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class AudioUtil extends File {
+  protected static final int MAX_LEN = 40;
   public AudioUtil(String pathname) {
     super(pathname);
   }
@@ -30,6 +31,16 @@ public class AudioUtil extends File {
       return "";
     }
     return name;
+  }
+
+  public static synchronized String sized(String str) {
+    try {
+      System.out.println(str);
+      return str.length() >= MAX_LEN ? str.substring(0, 8) + "..." + str.substring(str.length() - 5, str.length())
+          : str;
+    } catch (NullPointerException e) {
+      return "";
+    }
   }
 
   public synchronized String getArtist() {

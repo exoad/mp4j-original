@@ -1,7 +1,5 @@
 package project.components;
 
-import project.constants.ColorContent;
-import project.constants.ProjectManager;
 import project.constants.ResourceDistributor;
 import project.constants.Size;
 import project.usables.DeImage;

@@ -11,6 +11,7 @@ import project.audio.content.VolumeConversion;
 import project.components.sub_components.FileViewPanel;
 import project.components.sub_components.infoview.TopView;
 import project.components.windows.ErrorWindow;
+import project.connection.discord.DiscordRPCHandler;
 import project.constants.ColorContent;
 import project.constants.ResourceDistributor;
 import project.constants.Size;
@@ -36,6 +37,7 @@ public class Overseer extends StreamPlayer
   private JSlider volumeSlider, progressSlider, panSlider;
   private boolean errorShown = false, isOpened = false;
   private long time = 0L;
+  private DiscordRPCHandler disch;
   public static final ImageIcon prev = DeImage.resizeImage(new ResourceDistributor().getPlayButton(),
       Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE);
   public static final ImageIcon prevPaused = DeImage.resizeImage(new ResourceDistributor().getPauseButton(),
@@ -43,10 +45,10 @@ public class Overseer extends StreamPlayer
   public static final ImageIcon next = DeImage.resizeImage(new ResourceDistributor().getPlayButtonHovered(),
       Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE);
 
-  public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv) {
+  public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv, DiscordRPCHandler dsch) {
     super();
     tv.setSeer(this);
-
+    this.disch = dsch;
     this.current = f;
     this.fvp = fvp;
     this.topView = tv;
@@ -148,7 +150,6 @@ public class Overseer extends StreamPlayer
       play();
       setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
       setPan(VolumeConversion.convertPan(panSlider.getValue()));
-
     } catch (StreamPlayerException e) {
       e.printStackTrace();
     }
@@ -183,7 +184,7 @@ public class Overseer extends StreamPlayer
       play();
       setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
       setPan(VolumeConversion.convertPan(panSlider.getValue()));
-
+      disch.setCurrState(AudioUtil.sized(current.getName()));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -197,14 +198,14 @@ public class Overseer extends StreamPlayer
   public void pauseState() {
     assertSliderValues();
     stop();
-
+    disch.setCurrState(DiscordRPCHandler.NOTHING_MUSIC);
     topView.stopSpinning();
   }
 
   public void playState() {
     assertSliderValues();
     playPauseButton.setEnabled(true);
-
+    disch.setCurrState(AudioUtil.sized(current.getName()));
     topView.startSpinning();
   }
 
