@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class AudioUtil extends File {
-  protected static final int MAX_LEN = 25;
+  protected static final int MAX_LEN = 40;
   public AudioUtil(String pathname) {
     super(pathname);
   }
