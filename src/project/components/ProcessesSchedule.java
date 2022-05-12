@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import project.connection.discord.DiscordRPCHandler;
 import project.constants.ColorContent;
@@ -16,7 +17,7 @@ public class ProcessesSchedule {
     UIManager.put("FileChooser.readOnly", true);
     PrintStream s = new PrintStream(OutputStream.nullOutputStream());
     if (ProjectManager.PRODUCTION_STYLE) {
-      FlatDarkLaf.setup();
+      FlatLightLaf.setup();
     } else {
       try {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
