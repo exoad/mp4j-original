@@ -40,7 +40,6 @@ public class BigContainer implements Scheduled {
     bigFrame.setPreferredSize(new Dimension(Size.WIDTH, Size.HEIGHT));
     bigFrame.setMinimumSize(new Dimension(Size.WIDTH, Size.HEIGHT));
     bigFrame.setResizable(false);
-    bigFrame.setMaximumSize(new Dimension(Size.MAX_BIGCONTAINER_WIDTH, Size.MAX_BIGCONTAINER_HEIGHT));
     bigFrame.setSize(new Dimension(Size.WIDTH, Size.HEIGHT));
     bigFrame.setLocationRelativeTo(null);
     bigFrame.getContentPane().add(parentJPanel);
