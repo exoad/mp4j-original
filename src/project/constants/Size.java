@@ -4,13 +4,13 @@ public final class Size {
   private Size() {}
 
   public static final int MIN_WIDTH = 900;
-  public static final int MIN_HEIGHT = 350;
+  public static final int MIN_HEIGHT = 210;
 
   public static final int WIDTH = 920;
   public static final int HEIGHT = 360;
 
-  public static final int MAX_WIDTH = 1000;
-  public static final int MAX_HEIGHT = 450;
+  public static final int MAX_WIDTH = 970;
+  public static final int MAX_HEIGHT = 360 + Size.HEIGHT / 5;
 
   public static final int PREV_HEIGHT = 390;
 

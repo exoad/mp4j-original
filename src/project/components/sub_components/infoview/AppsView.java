@@ -25,7 +25,7 @@ public class AppsView extends JPanel {
     setOpaque(true);
     MAX_DRAW = 2048 / 4;
     setPreferredSize(new Dimension(MAX_DRAW * 2, g.height));
-    setMinimumSize(new Dimension(MAX_DRAW * 2, g.height));
+    setMaximumSize(new Dimension(MAX_DRAW * 2, g.height));
     firstBars = new int[MAX_DRAW];
     Arrays.fill(firstBars, 10);
 
