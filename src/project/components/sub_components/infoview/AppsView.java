@@ -33,19 +33,21 @@ public class AppsView extends JPanel {
       @Override
       public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(ColorContent.WAVE_FORM_BAR_X);
-        for (int i = 0, x = 0; i < firstBars.length && x < getWidth(); i++, x += 3) {
-          if (firstBars[i] < 10) {
-            g2.setColor(ColorContent.WAVE_FORM_LOWER_X);
-            g2.fillRect(x, getHeight() - 10, 2, 10);
-          } else {
-            g2.setColor(ColorContent.WAVE_FORM_BAR_X);
-            g2.fillRect(x, getHeight() - firstBars[i], 2, firstBars[i]);
+        new Thread(() -> {
+          Graphics2D g2 = (Graphics2D) g;
+          g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+          g2.setColor(ColorContent.WAVE_FORM_BAR_X);
+          for (int i = 0, x = 0; i < firstBars.length && x < getWidth(); i++, x += 3) {
+            if (firstBars[i] < 10) {
+              g2.setColor(ColorContent.WAVE_FORM_LOWER_X);
+              g2.fillRect(x, getHeight() - 10, 2, 10);
+            } else {
+              g2.setColor(ColorContent.WAVE_FORM_BAR_X);
+              g2.fillRect(x, getHeight() - firstBars[i], 2, firstBars[i]);
+            }
           }
-        }
-        g2.dispose();
+          g2.dispose();
+        }).start();
       }
     };
     pane = new JScrollPane(waveFormDisplay);
@@ -66,11 +68,8 @@ public class AppsView extends JPanel {
   }
 
   public void pokeAndResetDrawing() {
-    new Thread(() -> {
-      Arrays.fill(firstBars, 10);
-      waveFormDisplay.repaint();
-    }).start();
-
+    Arrays.fill(firstBars, 10);
+    waveFormDisplay.repaint();
   }
 
 }

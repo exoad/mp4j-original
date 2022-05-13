@@ -113,7 +113,7 @@ public class TopView extends JPanel {
         at.rotate(artStyleRotation, i.getWidth() / 2.0d, i.getHeight() / 2.0d);
         g2d.transform(at);
         if (spin)
-          artStyleRotation += Math.PI / 120;
+          artStyleRotation += Math.PI / 140;
         g2d.drawImage(i, at, null);
       }
     };
