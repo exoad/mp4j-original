@@ -14,7 +14,6 @@ public class AppsView extends JPanel {
   private final JPanel waveFormDisplay;
   private int[] firstBars;
   public int MAX_DRAW;
-  private int max = 0;
 
   public AppsView(Dimension g) {
     if (ProjectManager.DEBUG_LAYOUT) {
@@ -38,14 +37,20 @@ public class AppsView extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(ColorContent.WAVE_FORM_BAR_X);
         for (int i = 0, x = 0; i < firstBars.length && x < getWidth(); i++, x += 3) {
-          g2.fillRect(x, getHeight() - firstBars[i], 2, firstBars[i]);
+          if (firstBars[i] < 10) {
+            g2.setColor(ColorContent.WAVE_FORM_LOWER_X);
+            g2.fillRect(x, getHeight() - 10, 2, 10);
+          } else {
+            g2.setColor(ColorContent.WAVE_FORM_BAR_X);
+            g2.fillRect(x, getHeight() - firstBars[i], 2, firstBars[i]);
+          }
         }
         g2.dispose();
       }
     };
     pane = new JScrollPane(waveFormDisplay);
-    pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+    pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+    pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
     if (ProjectManager.DEBUG_LAYOUT) {
       waveFormDisplay.setOpaque(true);
@@ -61,8 +66,11 @@ public class AppsView extends JPanel {
   }
 
   public void pokeAndResetDrawing() {
-    Arrays.fill(firstBars, 10);
-    waveFormDisplay.repaint();
+    new Thread(() -> {
+      Arrays.fill(firstBars, 10);
+      waveFormDisplay.repaint();
+    }).start();
+
   }
 
 }

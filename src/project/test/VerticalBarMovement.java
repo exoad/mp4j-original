@@ -40,7 +40,6 @@ public class VerticalBarMovement extends JPanel {
     generateNew();
     int widthPerBar = (int) getPreferredSize().getWidth() / bars.length;
     for (int i = 0, x = 0; i < bars.length && x < 400; i++, x += 100) {
-      System.out.println(500 / bars[i]);
       g.fillRoundRect(x, 450 - bars[i], 80, bars[i], 0, 50);
     }
   }

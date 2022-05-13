@@ -36,7 +36,6 @@ public class AudioUtil extends File {
 
   public static synchronized String sized(String str) {
     try {
-      System.out.println(str);
       return str.length() >= MAX_LEN ? str.substring(0, 8) + "..." + str.substring(str.length() - 5, str.length())
           : str;
     } catch (NullPointerException e) {

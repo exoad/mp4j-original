@@ -56,7 +56,7 @@ public class AudioInfoEditor {
       fullStyle.put("genre", e.getGenre() == null ? "" : e.getGenre());
       fullStyle.put("album", e.getAlbum() == null ? "" : e.getAlbum());
     } catch (Exception e1) {
-      System.out.println("Bruhhed");
+      // DO NOTHING
     }
   }
 
@@ -76,7 +76,7 @@ public class AudioInfoEditor {
       fullStyle.put("genre", e.getGenre() == null ? "" : e.getGenre());
       fullStyle.put("album", e.getAlbum() == null ? "" : e.getAlbum());
     } catch (Exception e1) {
-      System.out.println("Bruhhed");
+      // DO NOTHING
     }
   }
 
@@ -148,7 +148,6 @@ public class AudioInfoEditor {
 
   public synchronized String checkSize(String str) {
     try {
-      System.out.println(str);
       return str.length() >= MAX_LEN ? str.substring(0, 18) + "..." + str.substring(str.length() - 5, str.length()) : str;
     } catch (NullPointerException e) {
       return "";

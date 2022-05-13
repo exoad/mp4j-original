@@ -14,6 +14,7 @@ public class DiscordRPCHandler {
     DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(user -> {
       System.out.println("Connected to Discord user: " + user.username + "#" + user.discriminator);
     }).build();
+    System.out.println(m);
     DiscordRPC.discordInitialize(DiscordConst.APP_ID, handlers, true);
 
     presence = new DiscordRichPresence.Builder(STATE + AudioUtil.sized(m))

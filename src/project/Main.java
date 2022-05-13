@@ -21,6 +21,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main implements ActionListener {
+  static {
+    System.setProperty("file.encoding", "UTF-8");
+    System.setProperty("sun.jnu.encoding", "UTF-8");
+  }
   private BigContainer e;
   public void launch() {
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");

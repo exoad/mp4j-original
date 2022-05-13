@@ -248,6 +248,7 @@ public class Overseer extends StreamPlayer
     } else if (e.getSource().equals(approveButton)) {
       if (isPlaying() || isOpened()) {
         pauseState();
+        
         topView.av.pokeAndResetDrawing();
       }
       if (fvp.getSelectedFile() != null) {
@@ -258,8 +259,11 @@ public class Overseer extends StreamPlayer
           e1.printStackTrace();
         }
         hasPlayed = false;
-        progressSlider.setValue(0);
+        new Thread(() -> {
+                  progressSlider.setValue(0);
         topView.setAie(new AudioInfoEditor(current));
+        }).start();
+
       } else {
         if (!errorShown) {
           new ErrorWindow(
@@ -267,6 +271,7 @@ public class Overseer extends StreamPlayer
           errorShown = true;
         }
       }
+
     }
   }
 
@@ -368,8 +373,7 @@ public class Overseer extends StreamPlayer
         x += Math.abs(temp[k]);
       }
       x /= 4;
-      bars[j] = Math.min(Math.max(x / 160, 10), 170);
-      bars[j] *= VolumeConversion.convertVolume(volumeSlider.getValue()) * 10;
+      bars[j] = Math.min(Math.max(x / 150, 10), 170);
     }
 
     topView.av.pokeAndDraw(bars);

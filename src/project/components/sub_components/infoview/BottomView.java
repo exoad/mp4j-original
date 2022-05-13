@@ -4,7 +4,6 @@ import com.goxr3plus.streamplayer.stream.StreamPlayerEvent;
 import com.goxr3plus.streamplayer.stream.StreamPlayerListener;
 import project.audio.Overseer;
 import project.constants.ColorContent;
-import project.constants.ProjectManager;
 import project.constants.Size;
 import project.usables.TimeTool;
 
@@ -20,7 +19,7 @@ public class BottomView extends JPanel implements StreamPlayerListener {
   public BottomView(Overseer jf) {
     super();
     this.seer = jf;
-    setLayout(new FlowLayout(FlowLayout.LEFT, 10, 15));
+    setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT - 250));
     seer.addStreamPlayerListener(this);
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
