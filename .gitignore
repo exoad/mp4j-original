@@ -18,3 +18,4 @@ secure/db
 /cache
 /tstex_modules
 /helper/env
+/testing
