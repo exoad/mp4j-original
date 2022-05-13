@@ -131,7 +131,7 @@ public class AudioInfoEditor {
   public static String getBlank() {
     StringBuilder sb = new StringBuilder();
     sb.append(
-        "<html><body style=\"font-family: 'Arial', Arial, monospace; font-size: 10px;\"><p>");
+        "<html><body style=\"font-size: 10px;\"><p>");
     sb.append("<b>File Name:</b> <br>");
     sb.append("<b>Artist:</b> <br>");
     sb.append("<b>Title:</b> <br>");
@@ -158,7 +158,7 @@ public class AudioInfoEditor {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append(
-        "<html><body style=\"font-family: 'Arial', Arial, monospace; font-size: 10px;\">");
+        "<html><body style=\"font-size: 10px;\">");
     sb.append("<p><b>File Name:</b> " + checkSize(fullStyle.get("fileName")) + "<br>");
     sb.append("<b>Artist:</b> " + checkSize(fullStyle.get("artist")) + "<br>");
     sb.append("<b>Title:</b> " + checkSize(fullStyle.get("title")) + "<br>");
