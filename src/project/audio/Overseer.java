@@ -373,7 +373,7 @@ public class Overseer extends StreamPlayer
         x += Math.abs(temp[k]);
       }
       x /= 4;
-      bars[j] = Math.min(Math.max(x / 150, 10), 170);
+      bars[j] = Math.min(Math.max(x / 180, 10), 170);
     }
 
     topView.av.pokeAndDraw(bars);
