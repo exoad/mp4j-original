@@ -205,7 +205,7 @@ public class Overseer extends StreamPlayer
   public void playState() {
     assertSliderValues();
     playPauseButton.setEnabled(true);
-    disch.setCurrState(AudioUtil.sized(current.getName()));
+    disch.setCurrState(current.getName());
     topView.startSpinning();
   }
 

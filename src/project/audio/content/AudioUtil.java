@@ -12,9 +12,10 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class AudioUtil extends File {
-  protected static final int MAX_LEN = 40;
+  protected static final int MAX_LEN = 30;
   public AudioUtil(String pathname) {
     super(pathname);
+    
   }
 
   public String getAudioType() {

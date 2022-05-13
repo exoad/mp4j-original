@@ -3,6 +3,7 @@ package project.connection.discord;
 import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
+import project.audio.content.AudioUtil;
 
 public class DiscordRPCHandler {
   private DiscordRichPresence presence;
@@ -15,9 +16,9 @@ public class DiscordRPCHandler {
     }).build();
     DiscordRPC.discordInitialize(DiscordConst.APP_ID, handlers, true);
 
-    presence = new DiscordRichPresence.Builder(STATE + m)
-        .setBigImage("app-logo_512", "Exoad4J/MP4J").setStartTimestamps(System.currentTimeMillis())
-        .setSmallImage("git-logo_512", "https://github.com/Exoad4JVM/mp4j")
+    presence = new DiscordRichPresence.Builder(STATE + AudioUtil.sized(m))
+        .setBigImage("app-logo_512", "Halcyon").setStartTimestamps(System.currentTimeMillis())
+        .setSmallImage("app-logo_512", m)
         .build();
     DiscordRPC.discordUpdatePresence(presence);
   }
@@ -31,8 +32,8 @@ public class DiscordRPCHandler {
 
     presence = new DiscordRichPresence.Builder(STATE
         + NOTHING_MUSIC)
-        .setBigImage("app-logo_512", "Exoad4J/MP4J").setStartTimestamps(System.currentTimeMillis())
-        .setSmallImage("git-logo_512", "https://github.com/Exoad4JVM/mp4j")
+        .setBigImage("app-logo_512", "Halcyon").setStartTimestamps(System.currentTimeMillis())
+        .setSmallImage("app-logo_512", NOTHING_MUSIC)
 
         .build();
     DiscordRPC.discordUpdatePresence(presence);
