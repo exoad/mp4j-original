@@ -52,6 +52,14 @@ BOOL SaveFile(HWND hEdit, LPSTR pszFileName) {
 	return bSuccess;
 }
 
+BOOL u0_DoFileOnOpen(HWND hwnd, LPSTR file_lk) {
+	OPENFILENAME io = GetOpenFileName(&hwnd);
+	hFile = CreateFile(file_lk, GENERIC_WRITE, )
+	for(const auto &file : io) {
+
+	}
+}
+
 BOOL DoFileOpenSave(HWND hwnd, BOOL bSave) {
 	OPENFILENAME ofn;
 	char szFileName[MAX_PATH];
