@@ -1,0 +1,2 @@
+Native bindings are not builtin into the program itself, however, native bindings will be used for
+plugin development or any type of extension without having to update the program itself.
