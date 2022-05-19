@@ -209,14 +209,7 @@ public class Overseer extends StreamPlayer
     topView.startSpinning();
   }
 
-  private boolean hasPlayed = false;
-
-  /**
-   * @param e
-   */
-  @Override
-  public synchronized void actionPerformed(ActionEvent e) {
-    if (e.getSource().equals(playPauseButton)) {
+  public void playFile(File f) {
       if (current == null) {
         if (!errorShown) {
           new ErrorWindow("No File Selected", this);
@@ -245,6 +238,17 @@ public class Overseer extends StreamPlayer
           pauseState();
         }
       }
+  }
+
+  private boolean hasPlayed = false;
+
+  /**
+   * @param e
+   */
+  @Override
+  public synchronized void actionPerformed(ActionEvent e) {
+    if (e.getSource().equals(playPauseButton)) {
+      playFile(current);
     } else if (e.getSource().equals(approveButton)) {
       if (isPlaying() || isOpened()) {
         pauseState();

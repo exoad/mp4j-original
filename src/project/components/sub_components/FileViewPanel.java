@@ -23,6 +23,7 @@ public class FileViewPanel extends JFileChooser {
     setMultiSelectionEnabled(false);
     setAcceptAllFileFilterUsed(false);
     addChoosableFileFilter(new AudioType());
+    setFileHidingEnabled(true);
   }
 
   @Override
