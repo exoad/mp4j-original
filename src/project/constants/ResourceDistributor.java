@@ -8,7 +8,7 @@ public class ResourceDistributor {
   public static final String MAIN_RSC_DIR = "resource/newrsc";
   public static final String DISK_PLAYING = MAIN_RSC_DIR + "/disk.png";
   public static final String PLAY_PAUSE = MAIN_RSC_DIR + "/play_button_activated.png";
-  public static final String PAUSE_ICO = MAIN_RSC_DIR + "/pause_button_activated.png";
+  public static final String PAUSE_ICO = MAIN_RSC_DIR + "/paused_button_activated.png";
   public static final String APP_LOGO = MAIN_RSC_DIR + "/app-logo.png";
   public static final String PLAY_PAUSE_HOVERED = MAIN_RSC_DIR + "/play_button_hovered.png";
 

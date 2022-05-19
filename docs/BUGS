@@ -1,0 +1,25 @@
+Here are a list of bugs or unwanted behaviors throughout the program itself (not external links):
+
+[*] #3 "WaveForm animation not acting when frequency too low, and too extreme when frequency too high"
+  Reproduction: Play a low frequency audio file and a loud file with a high frequency intensity
+  Detailed Description: The waveform under a hardcoded number is unable to determine if the frequency is low and what
+                        to do. This action prevents any form of alteration in order to correct the animation so that it
+                        will always show up and not be hidden.
+  Potential Fix: Calculate the average sum per frame and analyze a certain threshold and apply the threshold average for
+                 each vertical line.
+  Status: Not started
+
+[***] #2 "ProgressSlider stopping seconds or is misaligned after the music stops"
+  Reproduction: Run an audio track until the end
+  Detailed Description: The progress slider does not go all the way to the end of the avaliable space once the audio
+                        track is reaching the end of the playtime
+  Extra Notes: It is noted that it is most often 1 second late, however if tied in with [BUG #1] it is noted that
+               there can be much more delay and misalignment.
+  Status: Not Started
+
+[***] #1 "ProgressSlider resetting to the wrong spot when audio resumed"
+  Reproduction: Literally as the title says
+  Detailed Description: The progress slider resumes to the start (0) when the time is resumed thus making
+                        it very hard to know where you are once you start.
+  Status: Fixing?
+

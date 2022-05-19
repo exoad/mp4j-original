@@ -1,5 +1,6 @@
 package project.audio.content;
 
+import com.goxr3plus.streamplayer.stream.StreamPlayer;
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
@@ -177,6 +178,28 @@ public class AudioUtil extends File {
       e.printStackTrace();
       return "";
     }
+  }
+
+  public static void fadeOut(StreamPlayer sp, long currVol) {
+    long old = currVol;
+    new Thread(() -> {
+      long ll = currVol;
+      while(currVol > 0) {
+        ll -= 2.5;
+        sp.setGain(VolumeConversion.convertVolume(ll));
+        try {
+          Thread.sleep(50);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        if(ll > 0) {
+          break;
+        }
+      }
+      sp.stop();
+      sp.setGain(VolumeConversion.convertVolume(old));
+      System.out.println(VolumeConversion.convertVolume(currVol));
+    }).start();
   }
 
   public synchronized String getGenre() {

@@ -61,17 +61,6 @@ public class Overseer extends StreamPlayer
     playPauseButton.setContentAreaFilled(false);
     playPauseButton.setFocusPainted(false);
     playPauseButton.setBorderPainted(false);
-    playPauseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-      @Override
-      public void mouseEntered(java.awt.event.MouseEvent evt) {
-        playPauseButton.setIcon(next);
-      }
-
-      @Override
-      public void mouseExited(java.awt.event.MouseEvent evt) {
-        playPauseButton.setIcon(prev);
-      }
-    });
 
     approveButton = new JButton("Select File");
     approveButton.addActionListener(this);
@@ -101,7 +90,6 @@ public class Overseer extends StreamPlayer
     panSlider.setBackground(ColorContent.VOLUME_SLIDER_BG);
     panSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
     panSlider.setOrientation(SwingConstants.VERTICAL);
-
     setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
     addStreamPlayerListener(this);
     setPan(VolumeConversion.convertPan(panSlider.getValue()));
@@ -182,8 +170,7 @@ public class Overseer extends StreamPlayer
     try {
       seekTo((int) secTime);
       play();
-      setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
-      setPan(VolumeConversion.convertPan(panSlider.getValue()));
+      assertSliderValues();
       disch.setCurrState(AudioUtil.sized(current.getName()));
     } catch (Exception e) {
       e.printStackTrace();
@@ -195,21 +182,32 @@ public class Overseer extends StreamPlayer
     setPan(VolumeConversion.convertPan(panSlider.getValue()));
   }
 
+  /// For when the audio is already playing, the audio to pause state
   public void pauseState() {
     assertSliderValues();
-    stop();
+    AudioUtil.fadeOut(this, (long) volumeSlider.getValue());
+    playPauseButton.setIcon(prev);
     disch.setCurrState(DiscordRPCHandler.NOTHING_MUSIC);
     topView.stopSpinning();
   }
 
+  /// When the audio begins playing, the state to set
   public void playState() {
     assertSliderValues();
     playPauseButton.setEnabled(true);
+    playPauseButton.setIcon(Overseer.prevPaused);
     disch.setCurrState(current.getName());
     topView.startSpinning();
   }
 
-  public void playFile(File f) {
+  private boolean hasPlayed = false;
+
+  /**
+   * @param e
+   */
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource().equals(playPauseButton)) {
       if (current == null) {
         if (!errorShown) {
           new ErrorWindow("No File Selected", this);
@@ -222,37 +220,19 @@ public class Overseer extends StreamPlayer
         if (!isPlaying()) {
           if (!hasPlayed) {
             playFile();
-            playPauseButton.setIcon(Overseer.prev);
-            playPauseButton.revalidate();
             hasPlayed = true;
           } else {
-            playPauseButton.setIcon(Overseer.prev);
-            playPauseButton.revalidate();
             resumeTime();
           }
           playState();
         } else {
-          playPauseButton.setIcon(Overseer.prevPaused);
-          playPauseButton.revalidate();
           stop();
           pauseState();
         }
       }
-  }
-
-  private boolean hasPlayed = false;
-
-  /**
-   * @param e
-   */
-  @Override
-  public synchronized void actionPerformed(ActionEvent e) {
-    if (e.getSource().equals(playPauseButton)) {
-      playFile(current);
     } else if (e.getSource().equals(approveButton)) {
       if (isPlaying() || isOpened()) {
         pauseState();
-        
         topView.av.pokeAndResetDrawing();
       }
       if (fvp.getSelectedFile() != null) {
@@ -264,10 +244,9 @@ public class Overseer extends StreamPlayer
         }
         hasPlayed = false;
         new Thread(() -> {
-                  progressSlider.setValue(0);
-        topView.setAie(new AudioInfoEditor(current));
+          progressSlider.setValue(0);
+          topView.setAie(new AudioInfoEditor(current));
         }).start();
-
       } else {
         if (!errorShown) {
           new ErrorWindow(
@@ -377,7 +356,7 @@ public class Overseer extends StreamPlayer
         x += Math.abs(temp[k]);
       }
       x /= 4;
-      bars[j] = Math.min(Math.max(x / 180, 10), 170);
+      bars[j] = Math.min(Math.max(x / 200, 10), 170);
     }
 
     topView.av.pokeAndDraw(bars);
