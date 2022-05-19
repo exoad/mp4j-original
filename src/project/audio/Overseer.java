@@ -383,6 +383,8 @@ public class Overseer extends StreamPlayer
     topView.av.pokeAndDraw(bars);
   }
 
+  public native long returnableToken(String token);
+
   @Override
   public void statusUpdated(StreamPlayerEvent arg0) {
     if (arg0.getPlayerStatus().equals(Status.STOPPED)) {
