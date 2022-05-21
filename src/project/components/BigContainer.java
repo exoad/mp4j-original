@@ -69,6 +69,10 @@ public class BigContainer implements Scheduled {
     });
   }
 
+  
+  /** 
+   * @return JFrame
+   */
   public JFrame getBigFrame() {
     return bigFrame;
   }

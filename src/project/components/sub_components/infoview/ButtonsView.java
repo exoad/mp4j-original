@@ -6,8 +6,18 @@ import project.usables.action.ForeignButtonListener;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * WORK IN PROGRESS, SEE THE FEATURES DOC!!!
+ * 
+ * @author Jack Meng
+ */
 public class ButtonsView extends JPanel {
   private JButton openSourceCodeLoc;
+
+  /**
+   * Constructs a ButtonsView object.
+   * @param g The Dimension to be used.
+   */
   public ButtonsView(Dimension g) {
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     setPreferredSize(new Dimension((int) g.getWidth(), (int) g.getHeight()));

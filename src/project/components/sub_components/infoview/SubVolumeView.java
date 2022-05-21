@@ -6,7 +6,16 @@ import project.constants.ProjectManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Used in the TopView {@link project.components.TopView} class for sliders.
+ * 
+ * @author Jack Meng
+ */
 public class SubVolumeView extends JPanel {
+  
+  /** 
+   * @return JSlider returns a random slider for testing
+   */
   private static JSlider getRandomSlider() {
     JSlider slider = new JSlider(SwingConstants.VERTICAL, 0, 100, 50);
     slider.setEnabled(false);
@@ -14,6 +23,10 @@ public class SubVolumeView extends JPanel {
     return slider;
   }
 
+  /**
+   * Constructs a SubVolumeView object.
+   * @param j The Overseer object to be passed around by the classes and objects.
+   */
   public SubVolumeView(Overseer j) {
     super();
 

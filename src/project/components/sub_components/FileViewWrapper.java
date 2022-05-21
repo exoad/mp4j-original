@@ -39,6 +39,10 @@ public class FileViewWrapper extends JPanel {
     add(someRandom, BorderLayout.PAGE_END);
   }
 
+  
+  /** 
+   * @return FileViewPanel
+   */
   public FileViewPanel getFVP() {
     return fvp;
   }

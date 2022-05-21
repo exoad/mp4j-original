@@ -41,43 +41,7 @@ public class TopView extends JPanel {
   private double artStyleRotation = 0.0;
   private boolean spin = false;
   public AppsView av;
-
-  /**
-   * Previous Impl:
-   * mainPanel = new JPanel();
-   * mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
-   * setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
-   * Size.PREV_HEIGHT - 300));
-   * setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1,
-   * false));
-   * informationBox = new JEditorPane();
-   * informationBox.setEditable(false);
-   * informationBox.setAutoscrolls(false);
-   * informationBox.setContentType("text/html");
-   * informationBox.setMaximumSize(new Dimension(200, 300));
-   * informationBox.setText(AudioInfoEditor.getBlank());
-   * informationBox.setFont(new Font("Arial", Font.PLAIN, 13));
-   * infoBoxWrapper = new JScrollPane(informationBox,
-   * ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-   * ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-   * infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
-   * infoBoxWrapper.setMaximumSize(new Dimension(300, 170));
-   * infoBoxWrapper.setPreferredSize(new Dimension(300, 170));
-   * infoBoxWrapper.setMinimumSize(new Dimension(300, 170));
-   * artStyle = new JLabel();
-   * artStyle.setIcon(new ImageIcon("resource/icons/others/disk.png"));
-   * sliderPanel = new JPanel();
-   * sliderPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-   * sliderPanel.setPreferredSize(new Dimension(70, 200));
-   * sliderPanel.setBorder(BorderFactory.createLineBorder(new Color(173, 173,
-   * 173), 1, false));
-   * volumeSlider = new JSlider(SwingConstants.VERTICAL, 0, 100, 50);
-   * sliderPanel.add(volumeSlider);
-   * add(artStyle);
-   * add(Box.createHorizontalStrut(100));
-   * add(infoBoxWrapper);
-   * add(sliderPanel);
-   */
+  
   public TopView() {
     setLayout(new BorderLayout());
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
@@ -145,6 +109,10 @@ public class TopView extends JPanel {
 
   }
 
+  
+  /** 
+   * @return AudioInfoEditor
+   */
   public AudioInfoEditor getAIE() {
     return aie;
   }
@@ -153,14 +121,26 @@ public class TopView extends JPanel {
     spin = true;
   }
 
+  
+  /** 
+   * @return JPanel
+   */
   public JPanel getMainP() {
     return mainPanel;
   }
 
+  
+  /** 
+   * @param seer
+   */
   public void setSeer(Overseer seer) {
     this.seer = seer;
   }
 
+  
+  /** 
+   * @param aie
+   */
   public void setAie(AudioInfoEditor aie) {
     this.aie = aie;
     informationBox.setText(aie.toString());

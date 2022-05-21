@@ -15,6 +15,6 @@ public class ParentPanel extends JPanel {
     for (Map.Entry<JComponent, String> entry : panels.entrySet()) {
       add(entry.getKey(), entry.getValue());
     }
-    
+
   }
 }

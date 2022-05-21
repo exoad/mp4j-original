@@ -10,13 +10,15 @@ import java.awt.*;
 public class FilePaneNOthers {
   public static class Size {
     private Size(){}
-    //public static final int WIDTH = 1200;
-    //public static final int HEIGHT = 700;
 
     public static final int HEIGHT = 700;
     public static final int WIDTH = 1200 - 300;
   }
 
+  /**
+   * Creates a FilePanel and a JSplitPane with the FilePanel on the left and the
+   * other components on the right.
+   */
   public static void someother(){
     JPanel jp2 = new JPanel();
     jp2.setPreferredSize(new Dimension(Size.WIDTH - 300, Size.HEIGHT));
@@ -42,6 +44,10 @@ public class FilePaneNOthers {
     jf.setVisible(true);
 
   }
+  
+  /** 
+   * @param args For testing
+   */
   public static void main(String[] args) {
     ProcessesSchedule.main();
     someother();

@@ -10,6 +10,11 @@ public class DiscordRPCHandler {
   public static final String NOTHING_MUSIC = "Nothing.mp3";
   private static final String STATE = "Listening to\n ";
 
+  /**
+   * Sets the presence of the Discord client to param m.
+   * 
+   * @param m The String status
+   */
   public synchronized void setCurrState(String m) {
     DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(user -> {
       System.out.println("Connected to Discord user: " + user.username + "#" + user.discriminator);
@@ -24,6 +29,9 @@ public class DiscordRPCHandler {
     DiscordRPC.discordUpdatePresence(presence);
   }
 
+  /**
+   * Starts the Discord RPC event.
+   */
   public void start() {
     DiscordEventHandlers handlers = new DiscordEventHandlers.Builder()
         .setReadyEventHandler(

@@ -11,6 +11,11 @@ public class AudioType extends FileFilter {
   public AudioType() {
   }
 
+  
+  /** 
+   * @param f
+   * @return boolean
+   */
   @Override
   public boolean accept(File f) {
     if (f.isDirectory())
@@ -26,6 +31,10 @@ public class AudioType extends FileFilter {
 
   }
 
+  
+  /** 
+   * @return String
+   */
   @Override
   public String getDescription() {
     return "MP3 & WAV Formats";

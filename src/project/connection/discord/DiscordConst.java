@@ -1,5 +1,8 @@
 package project.connection.discord;
 
+/**
+ * Represents the constants for the Discord RPC events.
+ */
 public class DiscordConst {
   private DiscordConst() {}
 

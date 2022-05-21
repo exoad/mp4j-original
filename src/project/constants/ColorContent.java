@@ -2,6 +2,12 @@ package project.constants;
 
 import java.awt.Color;
 
+/**
+ * Handles the Colors used throughout the project in a big constant 
+ * source file
+ * 
+ * @author Jack Meng
+ */
 public class ColorContent {
   public static final java.awt.Color BORDER = new java.awt.Color(173, 173, 173);
   public static final Color VOLUME_SLIDER_HEARING_LOSS_FG = new Color(250, 45, 45);

@@ -81,6 +81,10 @@ public class Main implements ActionListener {
     }
   }
 
+  
+  /** 
+   * @param arg0
+   */
   @Override
   public void actionPerformed(ActionEvent arg0) {
     e.getBigFrame().setSize(new Dimension(Size.WIDTH, Size.HEIGHT));

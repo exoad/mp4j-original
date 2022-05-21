@@ -23,12 +23,22 @@ public class RotatingImage extends JPanel {
     f.setVisible(true);
   }
 
+  
+  /** 
+   * @return GraphicsConfiguration
+   */
   private static GraphicsConfiguration getDefaultConfiguration() {
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     GraphicsDevice gd = ge.getDefaultScreenDevice();
     return gd.getDefaultConfiguration();
   }
 
+  
+  /** 
+   * @param image
+   * @param angle
+   * @return BufferedImage
+   */
   public static BufferedImage rotate(BufferedImage image, double angle) {
     double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
     int w = image.getWidth(), h = image.getHeight();
@@ -43,6 +53,11 @@ public class RotatingImage extends JPanel {
     return result;
   }
 
+  
+  /** 
+   * @param image
+   * @return BufferedImage
+   */
   public static BufferedImage imagetoBI(Image image) {
     BufferedImage bi = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
     Graphics2D big = bi.createGraphics();
@@ -51,6 +66,10 @@ public class RotatingImage extends JPanel {
     return bi;
   }
 
+  
+  /** 
+   * @param g
+   */
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -64,6 +83,10 @@ public class RotatingImage extends JPanel {
     g2.drawImage(i, 0, 0, i.getWidth(), i.getHeight(), null);
   }
 
+  
+  /** 
+   * @param args
+   */
   public static void main(String... args) {
     RotatingImage r = new RotatingImage();
     r.run();

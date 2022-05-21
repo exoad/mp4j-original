@@ -30,6 +30,10 @@ public class VerticalBarMovement extends JPanel {
 
   }
 
+  
+  /** 
+   * @param g
+   */
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -60,6 +64,10 @@ public class VerticalBarMovement extends JPanel {
     }).start();
   }
 
+  
+  /** 
+   * @param args
+   */
   public static void main(String[] args) {
     VerticalBarMovement vbm = new VerticalBarMovement();
     vbm.run();

@@ -26,6 +26,11 @@ public class FileViewPanel extends JFileChooser {
     setFileHidingEnabled(true);
   }
 
+  
+  /** 
+   * @param parent
+   * @return JDialog
+   */
   @Override
   public JDialog createDialog(Component parent) {
     JDialog dialog = super.createDialog(parent);

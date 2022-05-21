@@ -10,6 +10,10 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import project.constants.ProjectManager;
 
 public class ProcessesSchedule {
+  
+  /** 
+   * @param args
+   */
   public static void main(String... args) {
     UIManager.put("FileChooser.readOnly", true);
     PrintStream s = new PrintStream(OutputStream.nullOutputStream());

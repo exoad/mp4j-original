@@ -1,5 +1,10 @@
 package project.constants;
 
+/**
+ * Handles the Size constants for the program.
+ * 
+ * @author Jack Meng
+ */
 public final class Size {
   private Size() {}
 

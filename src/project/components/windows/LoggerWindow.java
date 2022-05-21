@@ -11,7 +11,7 @@ public class LoggerWindow extends JFrame {
     public LoggerOutStream(JEditorPane textArea) {
       this.textArea = textArea;
     }
-
+    
     @Override
     public synchronized void write(byte[] buffer, int offset, int length) throws IOException {
       final String text = new String(buffer, offset, length);

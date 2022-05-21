@@ -19,14 +19,27 @@ public class AudioUtil extends File {
     
   }
 
+  
+  /** 
+   * @return String
+   */
   public String getAudioType() {
     return Utils.getExtension(this);
   }
 
+  
+  /** 
+   * @param s
+   * @return boolean
+   */
   private synchronized boolean checkEmptiness(String s) {
     return s == null || s.isEmpty();
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getFileName() {
     String name = getName();
     if (checkEmptiness(name)) {
@@ -35,6 +48,11 @@ public class AudioUtil extends File {
     return name;
   }
 
+  
+  /** 
+   * @param str
+   * @return String
+   */
   public static synchronized String sized(String str) {
     try {
       return str.length() >= MAX_LEN ? str.substring(0, 8) + "..." + str.substring(str.length() - 5, str.length())
@@ -44,6 +62,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getArtist() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -59,6 +81,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getTitle() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -74,6 +100,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getTrack() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -89,6 +119,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return File
+   */
   public synchronized File getAlbumCoverArt() {
     try {
       Mp3File mp3File = new Mp3File(this);
@@ -107,6 +141,10 @@ public class AudioUtil extends File {
     return new File(ResourceGrabber.getDefaultCoverArt().getFile());
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getYear() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -122,6 +160,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getComments() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -137,6 +179,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getBitrate() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -151,6 +197,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getSampleRate() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -165,6 +215,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getComposer() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -180,6 +234,11 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @param sp
+   * @param currVol
+   */
   public static void fadeOut(StreamPlayer sp, long currVol) {
     long old = currVol;
     new Thread(() -> {
@@ -202,6 +261,10 @@ public class AudioUtil extends File {
     }).start();
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getGenre() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -217,6 +280,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   public synchronized String getAlbum() {
     try {
       Mp3File mp3file = new Mp3File(this);
@@ -232,6 +299,10 @@ public class AudioUtil extends File {
     }
   }
 
+  
+  /** 
+   * @return boolean
+   */
   public boolean isMP3() {
     try {
       Mp3File m = new Mp3File(this);

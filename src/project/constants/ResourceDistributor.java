@@ -2,8 +2,10 @@ package project.constants;
 
 import javax.swing.ImageIcon;
 
-import project.usables.API;
-
+/**
+ * Resource attributes read from the default resource file for default resources
+ * packed with the program.
+ */
 public class ResourceDistributor {
   public static final String MAIN_RSC_DIR = "resource/newrsc";
   public static final String DISK_PLAYING = MAIN_RSC_DIR + "/disk.png";
@@ -13,9 +15,10 @@ public class ResourceDistributor {
   public static final String PLAY_PAUSE_HOVERED = MAIN_RSC_DIR + "/play_button_hovered.png";
 
   /**
-   * @deprecated
-   * @param rsc
-   * @return
+   * @deprecated This method can only handle ImageIcons and can throw invalid
+   *             exceptions if the resource const is not an image.
+   * @param rsc The resource to be read.
+   * @return The resource returned as an ImageIcon
    */
   @Deprecated
   public ImageIcon getIconResource(ResourceConst rsc) {
@@ -29,13 +32,15 @@ public class ResourceDistributor {
       try {
         return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource(PLAY_PAUSE).getFile()));
       } catch (Exception e) {
-        API.print(e);
         return new ImageIcon(PLAY_PAUSE);
       }
     }
     return null;
   }
 
+  /**
+   * @return ImageIcon The Play Button icon from the resource stream (PNG)
+   */
   public ImageIcon getPlayButton() {
     try {
       return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource((PLAY_PAUSE)).getFile()));
@@ -44,6 +49,9 @@ public class ResourceDistributor {
     }
   }
 
+  /**
+   * @return ImageIcon The Pause Button icon from the resource stream (PNG)
+   */
   public ImageIcon getPauseButton() {
     try {
       return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource((PAUSE_ICO)).getFile()));
@@ -52,6 +60,9 @@ public class ResourceDistributor {
     }
   }
 
+  /**
+   * @return ImageIcon The Play Button icon from the resource stream (PNG)
+   */
   public ImageIcon getPlayButtonHovered() {
     try {
       return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource((PLAY_PAUSE_HOVERED)).getFile()));
@@ -60,6 +71,9 @@ public class ResourceDistributor {
     }
   }
 
+  /**
+   * @return ImageIcon The disk image that shows as a spinning icon.
+   */
   public ImageIcon getDiskPNG() {
     try {
       return new ImageIcon(java.util.Objects.requireNonNull(getClass().getResource((DISK_PLAYING)).getFile()));
@@ -68,6 +82,9 @@ public class ResourceDistributor {
     }
   }
 
+  /**
+   * @return ImageIcon The app logo image.
+   */
   public ImageIcon getAppLogo() {
     try {
       return new ImageIcon(

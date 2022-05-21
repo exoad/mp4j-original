@@ -80,54 +80,106 @@ public class AudioInfoEditor {
     }
   }
 
+  
+  /** 
+   * @return AudioUtil
+   */
   public AudioUtil getUtilFile() {
     return directedFile;
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setFileName(String arg0) {
     fullStyle.put("fileName", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setArtist(String arg0) {
     fullStyle.put("artist", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setTitle(String arg0) {
     fullStyle.put("title", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setYear(String arg0) {
     fullStyle.put("year", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setComments(String arg0) {
     fullStyle.put("comments", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setBitrate(String arg0) {
     fullStyle.put("bitrate", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setSampleRate(String arg0) {
     fullStyle.put("sampleRate", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setComposer(String arg0) {
     fullStyle.put("Composer", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setGenre(String arg0) {
     fullStyle.put("genre", arg0);
   }
 
+  
+  /** 
+   * @param arg0
+   */
   public void setAlbum(String arg0) {
     fullStyle.put("album", arg0);
   }
 
+  
+  /** 
+   * @return Map<String, String>
+   */
   public Map<String, String> getFullStyle() {
     return fullStyle;
   }
 
+  
+  /** 
+   * @return String
+   */
   public static String getBlank() {
     StringBuilder sb = new StringBuilder();
     sb.append(
@@ -146,6 +198,11 @@ public class AudioInfoEditor {
     return sb.toString();
   }
 
+  
+  /** 
+   * @param str
+   * @return String
+   */
   public synchronized String checkSize(String str) {
     try {
       return str.length() >= MAX_LEN ? str.substring(0, 18) + "..." + str.substring(str.length() - 5, str.length()) : str;
@@ -154,6 +211,10 @@ public class AudioInfoEditor {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

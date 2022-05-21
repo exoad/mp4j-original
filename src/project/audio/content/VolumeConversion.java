@@ -16,10 +16,20 @@ public class VolumeConversion {
     return unConverted / 100 * CONVERSION_FACTOR;
   }
 
+  
+  /** 
+   * @param unConverted
+   * @return float
+   */
   public static float convertPan(float unConverted){ 
     return unConverted / 100 * 2 - 1;
   }
 
+  
+  /** 
+   * @param unConverted
+   * @return float
+   */
   public static float convertSpeedFactor(float unConverted) {
     return unConverted / 100 * 2 - 1;
   }

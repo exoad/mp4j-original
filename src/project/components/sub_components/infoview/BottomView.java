@@ -11,11 +11,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
+/**
+ * Represents the bottom view of the player. It is the view that contains things
+ * like the time slider and play/pause buttons.
+ * 
+ * @author Jack Meng
+ */
 public class BottomView extends JPanel implements StreamPlayerListener {
   private JSlider progressSlider;
   private JLabel timeLabel;
   private ButtonsView bv;
   private transient Overseer seer;
+
+  /**
+   * Creates a BottomView Object (constructor)
+   * 
+   * @param jf The Overseer object to be passed around by the classes and objects.
+   */
   public BottomView(Overseer jf) {
     super();
     this.seer = jf;
@@ -28,7 +40,7 @@ public class BottomView extends JPanel implements StreamPlayerListener {
     seer.addStreamPlayerListener(this);
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setOpaque(true);
-    add(jf.getPlayPauseButton()); 
+    add(jf.getPlayPauseButton());
 
     Dimension dimTemp = new Dimension(jf.topView.getPreferredSize().width, jf.topView.getPreferredSize().height);
     bv = new ButtonsView(dimTemp);
@@ -41,16 +53,34 @@ public class BottomView extends JPanel implements StreamPlayerListener {
     jf.topView.getMainP().add(new SubVolumeView(jf));
     jf.topView.getMainP().add(bv);
   }
+
+  /**
+   * @param arg0 IGNORED
+   * @param arg1 IGNORED
+   */
   @Override
   public void opened(Object arg0, Map<String, Object> arg1) {
   }
-  
+
+  /**
+   * Handles the time slider
+   * @param arg0
+   * @param arg1
+   * @param arg2
+   * @param arg3
+   */
   @Override
   public void progress(final int arg0, final long arg1, byte[] arg2, Map<String, Object> arg3) {
     progressSlider.setValue((int) (((arg1 / 1000000d) / seer.getDurationInSeconds()) * 100));
-    progressSlider.setToolTipText(TimeTool.getTimeFromMS(arg1 / 1000L) + " / " + TimeTool.getTimeFromMS(seer.getDurationInSeconds() * 1000L));
-    timeLabel.setText("<html><p><strong>" + TimeTool.getTimeFromMS(arg1 / 1000L) + " / " + TimeTool.getTimeFromMS(seer.getDurationInSeconds() * 1000L) + "</strong></p></html>");
+    progressSlider.setToolTipText(
+        TimeTool.getTimeFromMS(arg1 / 1000L) + " / " + TimeTool.getTimeFromMS(seer.getDurationInSeconds() * 1000L));
+    timeLabel.setText("<html><p><strong>" + TimeTool.getTimeFromMS(arg1 / 1000L) + " / "
+        + TimeTool.getTimeFromMS(seer.getDurationInSeconds() * 1000L) + "</strong></p></html>");
   }
+
+  /**
+   * @param arg0
+   */
   @Override
   public void statusUpdated(StreamPlayerEvent arg0) {
   }

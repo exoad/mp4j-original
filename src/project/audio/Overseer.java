@@ -110,14 +110,26 @@ public class Overseer extends StreamPlayer
     return playPauseButton;
   }
 
+  
+  /** 
+   * @return JSlider
+   */
   public JSlider getProgressSlider() {
     return progressSlider;
   }
 
+  
+  /** 
+   * @return JSlider
+   */
   public JSlider getPanSlider() {
     return panSlider;
   }
 
+  
+  /** 
+   * @return JSlider
+   */
   public JSlider getVolumeSlider() {
     return volumeSlider;
   }
@@ -143,10 +155,18 @@ public class Overseer extends StreamPlayer
     }
   }
 
+  
+  /** 
+   * @param f
+   */
   public void pokeFile(File f) {
     this.current = f;
   }
 
+  
+  /** 
+   * @return float
+   */
   public float getConversionFactorWave() {
     return VolumeConversion.convertVolume(volumeSlider.getValue());
   }
@@ -258,6 +278,11 @@ public class Overseer extends StreamPlayer
     }
   }
 
+  
+  /** 
+   * Handles things to do with the volume_sliders in the program
+   * @param e
+   */
   @Override
   public synchronized void stateChanged(ChangeEvent e) {
     if (e.getSource().equals(volumeSlider)) {
@@ -296,34 +321,70 @@ public class Overseer extends StreamPlayer
     errorShown = false;
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void windowActivated(WindowEvent e) {
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void windowClosing(WindowEvent e) {
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void windowDeactivated(WindowEvent e) {
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void windowDeiconified(WindowEvent e) {
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void windowIconified(WindowEvent e) {
   }
 
+  
+  /** 
+   * @param e
+   */
   @Override
   public void windowOpened(WindowEvent e) {
   }
 
+  
+  /** 
+   * @param arg0
+   * @param arg1
+   */
   @Override
   public void opened(Object arg0, Map<String, Object> arg1) {
   }
 
+  
+  /** 
+   * @param arg0
+   * @param arg1
+   * @param pcmData
+   * @param arg3
+   */
   @Override
   public void progress(int arg0, long arg1, byte[] pcmData, Map<String, Object> arg3) {
     time = arg1;
@@ -333,22 +394,6 @@ public class Overseer extends StreamPlayer
     }
 
     int[] bars = new int[topView.av.MAX_DRAW];
-
-    /**
-     * for (each pixel in width of image) {
-     * var sum = 0
-     * 
-     * for (each sample in subset contained within pixel) {
-     * sum = sum + abs(sample)
-     * }
-     * 
-     * var avg = sum / length of subset
-     * 
-     * draw line(avg to -avg)
-     * }
-     * 
-     * implement below
-     */
 
     for (int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
       int x = 0;
@@ -364,6 +409,10 @@ public class Overseer extends StreamPlayer
 
   public native long returnableToken(String token);
 
+  
+  /** 
+   * @param arg0
+   */
   @Override
   public void statusUpdated(StreamPlayerEvent arg0) {
     if (arg0.getPlayerStatus().equals(Status.STOPPED)) {
