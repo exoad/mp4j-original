@@ -1,0 +1,9 @@
+This is a simple project board, where future potential futures will be considered to be added. The more X there is, the more likely it is to be added (max 3)
+
+[XX] #2 "Ability for the user to change the waveform"
+    Detailed Description: Have different versions of the waveform animation and let them be useable and
+                          changed in the already ongoing feature [#1]
+
+[XXX] #1 "Fill in the gap between the volume slider and the file selector with a board of buttons"
+    Detailed Description: This is already being worked on. It is proposed for this section to host a few
+                          buttons that will be able to open and lead to other tasks (Settings, etc.).

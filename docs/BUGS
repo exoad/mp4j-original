@@ -1,5 +1,12 @@
 Here are a list of bugs or unwanted behaviors throughout the program itself (not external links):
 
+[**] #4 "Approve button throws NullPointerException on first click"
+  Reproduction: title
+  Detailed Description: This has been an ignored bug for a long time, but the main issue is that the approve button's
+                        is being returned as null until the following click, which can cause confusion.
+  Potential Fix: None
+  Status: Investigating
+
 [*] #3 "WaveForm animation not acting when frequency too low, and too extreme when frequency too high"
   Reproduction: Play a low frequency audio file and a loud file with a high frequency intensity
   Detailed Description: The waveform under a hardcoded number is unable to determine if the frequency is low and what
