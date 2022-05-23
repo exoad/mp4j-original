@@ -1,0 +1,16 @@
+This document regards the licensing migration and audio libaries used for this project.
+
+It is with the greatest concern for this project to be under the GPL-3.0 licensing, as I believe
+it does not fit well with the project. I believe it is for the user to modify and visibility
+is for the user, which the original EPL license did quite well (the original license for this
+project). 
+
+The reason for this project being under this is the policy of same license under the GPL-3.0
+libraries used.
+
+It is time for me crack open the sound libraries and ploogins to make my own Audio Library and
+player. This player would be a daemon, and called upon when the Overseer process wants to modify
+the current audio stream (play, reset, resume, etc..). However before this gets done, there are still
+a lot of things I need to get right before this migration.
+
+[ THIS IS NOT FINAL ]
