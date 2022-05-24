@@ -1,0 +1,22 @@
+If you would like to contribute to this project, it is necessary to know the following:
+1. Everything you contribute must abide by this document (CONTRIBUTING)
+2. Features are submitted via PR's through docs/FEATURES with your attached feature
+3. Code changes are allowed, however it is unlikely for me to check over a very big PR consisting of many changes.
+
+Mostly accepted features and contributions towards the project:
+1. Code reorganization
+2. Common Optimizations
+3. Library Updates
+4. GUI Components corrections
+
+Rarely accepted corrections:
+1. Documentation alterations
+2. License alterations
+3. Source Files or Directories marked as permanent
+
+Never accepted changes:
+1. Major alteration towards GUI component ordering and placement
+2. Library replacement
+3. Unclear code refactoring
+
+[ wip ]
