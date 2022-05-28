@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import project.constants.ProjectManager;
+import project.components.windows.SimpleDebugWindow;
 
 import java.awt.event.ActionEvent;
 
@@ -37,5 +38,20 @@ public class ForeignButtonListener {
         e1.printStackTrace();
       }
     }    
+  }
+
+  /**
+   * 
+   */
+  public static class BasicDebugWindowLauncher implements ActionListener {
+    boolean opened = false;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      ((javax.swing.JButton) e.getSource()).setEnabled(false);
+      if(!opened) {
+        opened = true;
+        new SimpleDebugWindow().run();
+      }
+    }
   }
 }

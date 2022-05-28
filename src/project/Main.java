@@ -10,15 +10,20 @@ import project.components.sub_components.InfoView;
 import project.components.sub_components.infoview.BottomView;
 import project.components.sub_components.infoview.TopView;
 import project.connection.discord.DiscordRPCHandler;
+import project.connection.resource.ResourceFolder;
+import project.connection.resource.ResourceWriter;
 import project.constants.ProjectManager;
 import project.constants.Size;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.LogManager;
 
 public class Main implements ActionListener {
   static {
@@ -26,8 +31,9 @@ public class Main implements ActionListener {
     System.setProperty("sun.jnu.encoding", "UTF-8");
   }
   private BigContainer e;
+
   public void launch() {
-    System.setProperty("flatlaf.useJetBrainsCustomDecorations", "true");
+    System.setProperty("flatlaf.useJetBrainsCustomDecorations", "false");
     DiscordRPCHandler disch = new DiscordRPCHandler();
     disch.start();
     ParentPanel pb;
@@ -42,28 +48,12 @@ public class Main implements ActionListener {
     FileViewWrapper fvw = new FileViewWrapper(this, fileViewPanel, overseer);
     JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, otherSide, fvw);
     jsp.setDividerLocation(Size.WIDTH - fvw.getWidth() - 20);
+
     fileViewPanel.dispatch();
     panels.put(jsp, BorderLayout.CENTER);
     pb = new ParentPanel(panels);
     e = new BigContainer(pb);
     e.run();
-    
-    // make a thread to print how much memory this program is using in mb
-    if (ProjectManager.DEBUG_LAYOUT) {
-      new Thread(() -> {
-        while (true) {
-          System.out.println(
-              "Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "mb");
-          try {
-            Thread.sleep(1000);
-          } catch (InterruptedException ex) {
-            ex.printStackTrace();
-          }
-          System.out.println("Divider Pos: " + otherSide.getDividerLocation());
-          System.out.println("BigContainer Size: " + pb.getSize().toString());
-        }
-      }).start();
-    }
   }
 
   public static final PrintStream STDOUT = System.out;
@@ -72,17 +62,24 @@ public class Main implements ActionListener {
    * @param args
    */
   public static synchronized void main(String[] args) {
-    
-    try {
-      ProcessesSchedule.main();
-      new Main().launch();
-    } catch (Exception e) {
-      e.printStackTrace();
+    if (ProjectManager.DISABLE_IO) {
+      System.setOut(new PrintStream(new OutputStream() {
+        @Override
+        public void write(int arg0) throws IOException {
+
+        }
+      }));
+      LogManager.getLogManager().reset();
     }
+    ResourceFolder.checkResourceFolder();
+    for(String s : ProjectManager.EXT_RSC_FOLDERS) {
+      ResourceWriter.createFolder(s);
+    }
+    ProcessesSchedule.main();
+    new Main().launch();
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   @Override

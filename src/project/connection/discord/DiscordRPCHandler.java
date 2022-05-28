@@ -43,7 +43,6 @@ public class DiscordRPCHandler {
         + NOTHING_MUSIC)
         .setBigImage("app-logo_512", "Halcyon").setStartTimestamps(System.currentTimeMillis())
         .setSmallImage("app-logo_512", NOTHING_MUSIC)
-
         .build();
     DiscordRPC.discordUpdatePresence(presence);
   }

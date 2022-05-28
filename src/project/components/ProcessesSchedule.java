@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import project.constants.ProjectManager;
 
@@ -16,9 +17,8 @@ public class ProcessesSchedule {
    */
   public static void main(String... args) {
     UIManager.put("FileChooser.readOnly", true);
-    PrintStream s = new PrintStream(OutputStream.nullOutputStream());
     if (ProjectManager.PRODUCTION_STYLE) {
-      FlatDarkLaf.setup();
+      FlatLightLaf.setup();
     } else {
       try {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -27,6 +27,5 @@ public class ProcessesSchedule {
         e.printStackTrace();
       }
     }
-    System.setErr(s);
   }
 }

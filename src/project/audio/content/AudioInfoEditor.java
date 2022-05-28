@@ -4,13 +4,21 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import project.connection.resource.ResourceFolder;
+import project.constants.ColorContent;
+import project.constants.ProjectManager;
+
+import java.awt.image.BufferedImage;
+
 public class AudioInfoEditor {
   private AudioUtil directedFile;
   private Map<String, String> fullStyle;
+  private BufferedImage coverart;
   public static final String FILE_NAME_TOKEN = "fileName", ARTIST_TOKEN = "artist", TITLE_TOKEN = "title",
-      GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comment", ALBUM_TOKEN = "album",
+      GENRE_TOKEN = "genre", YEAR_TOKEN = "year", COMMENT_TOKEN = "comments", ALBUM_TOKEN = "album",
       COMPOSER_TOKEN = "composer";
   protected static final int MAX_LEN = 40;
+
   @Deprecated
   /**
    * @deprecated Use the other provided constructors that take in a specific file
@@ -55,6 +63,7 @@ public class AudioInfoEditor {
       fullStyle.put("composer", e.getComposer() == null ? "" : e.getComposer());
       fullStyle.put("genre", e.getGenre() == null ? "" : e.getGenre());
       fullStyle.put("album", e.getAlbum() == null ? "" : e.getAlbum());
+      coverart = e.getAlbumCoverArt();
     } catch (Exception e1) {
       // DO NOTHING
     }
@@ -75,162 +84,206 @@ public class AudioInfoEditor {
       fullStyle.put("composer", e.getComposer() == null ? "" : e.getComposer());
       fullStyle.put("genre", e.getGenre() == null ? "" : e.getGenre());
       fullStyle.put("album", e.getAlbum() == null ? "" : e.getAlbum());
+      coverart = e.getAlbumCoverArt();
     } catch (Exception e1) {
       // DO NOTHING
     }
   }
 
-  
-  /** 
+  /**
    * @return AudioUtil
    */
   public AudioUtil getUtilFile() {
     return directedFile;
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setFileName(String arg0) {
     fullStyle.put("fileName", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setArtist(String arg0) {
     fullStyle.put("artist", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setTitle(String arg0) {
     fullStyle.put("title", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setYear(String arg0) {
     fullStyle.put("year", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setComments(String arg0) {
     fullStyle.put("comments", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setBitrate(String arg0) {
     fullStyle.put("bitrate", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setSampleRate(String arg0) {
     fullStyle.put("sampleRate", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setComposer(String arg0) {
     fullStyle.put("Composer", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setGenre(String arg0) {
     fullStyle.put("genre", arg0);
   }
 
-  
-  /** 
+  /**
    * @param arg0
    */
   public void setAlbum(String arg0) {
     fullStyle.put("album", arg0);
   }
 
-  
-  /** 
+  /**
    * @return Map<String, String>
    */
   public Map<String, String> getFullStyle() {
     return fullStyle;
   }
 
-  
-  /** 
+  public BufferedImage getCoverArtBI() {
+    return coverart;
+  }
+
+  private static String getMajorFontTag(String content) {
+    return "<font color=\"" + ResourceFolder.pm.get(ProjectManager.KEY_AIE_MAJOR_TAG_HEX_COLOR) + "\">" + content
+        + "</font>";
+  }
+
+  private static String getMinorFontTag(String content) {
+    return "<font color=\"" + ResourceFolder.pm.get(ProjectManager.KEY_AIE_MINOR_TAG_HEX_COLOR) + "\">" + content
+        + "</font>";
+  }
+
+  /**
    * @return String
    */
   public static String getBlank() {
     StringBuilder sb = new StringBuilder();
     sb.append(
         "<html><body style=\"font-size: 10px;\"><p>");
-    sb.append("<b>File Name:</b> <br>");
-    sb.append("<b>Artist:</b> <br>");
-    sb.append("<b>Title:</b> <br>");
-    sb.append("<b>Year:</b> <br>");
-    sb.append("<b>Comments:</b> <br>");
-    sb.append("<b>Bitrate:</b> <br>");
-    sb.append("<b>Sample Rate:</b> <br>");
-    sb.append("<b>Composer:</b> <br>");
-    sb.append("<b>Genre:</b> <br>");
-    sb.append("<b>Album:</b> <br>");
-    sb.append("</p></body></html>");
+    sb.append(getMajorFontTag("<b>File Name:</b><br>"));
+    sb.append(getMajorFontTag("<b>Artist:</b> <br>"));
+    sb.append(getMajorFontTag("<b>Title:</b> <br>"));
+    sb.append(getMajorFontTag("<b>Year:</b> <br>"));
+    sb.append(getMajorFontTag("<b>Comments:</b> <br>"));
+    sb.append(getMajorFontTag("<b>Bitrate:</b> <br>"));
+    sb.append(getMajorFontTag("<b>Sample Rate:</b> <br>"));
+    sb.append(getMajorFontTag("<b>Composer:</b> <br>"));
+    sb.append(getMajorFontTag("<b>Genre:</b> <br>"));
+    sb.append(getMajorFontTag("<b>Album:</b> <br>"));
+    sb.append(getMajorFontTag("</p></body></html>"));
     return sb.toString();
   }
 
-  
-  /** 
+  /**
    * @param str
    * @return String
    */
   public synchronized String checkSize(String str) {
+    /** 
     try {
-      return str.length() >= MAX_LEN ? str.substring(0, 18) + "..." + str.substring(str.length() - 5, str.length()) : str;
+      return str.length() >= MAX_LEN ? str.substring(0, 18) + "..." + str.substring(str.length() - 5, str.length())
+          : str;
     } catch (NullPointerException e) {
       return "";
     }
+    */
+   return str;
   }
 
-  
-  /** 
+  public String noCheck() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(
+        "<html><body style=\"font-size: 10px;\"><p>");
+    sb.append(
+        getMajorFontTag("<b>File Name:</b> ") + getMinorFontTag(fullStyle.get("fileName")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Artist:</b> ") + getMinorFontTag(fullStyle.get("artist")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Title:</b> ") + getMinorFontTag(fullStyle.get("title")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Year:</b> ") + getMinorFontTag(fullStyle.get("year")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Comments:</b> ") + getMinorFontTag(fullStyle.get("comments")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Bitrate:</b> ") + getMinorFontTag(fullStyle.get("bitrate")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Sample Rate:</b> ") + getMinorFontTag(fullStyle.get("sampleRate")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Composer:</b> ") + getMinorFontTag(fullStyle.get("composer")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Genre:</b> ") + getMinorFontTag(fullStyle.get("genre")) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Album:</b> ") + getMinorFontTag(fullStyle.get("album")) + "<br>");
+    sb.append("</p></body></html>");
+    return sb.toString();
+  }
+
+  /**
    * @return String
    */
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append(
-        "<html><body style=\"font-size: 10px;\">");
-    sb.append("<p><b>File Name:</b> " + checkSize(fullStyle.get("fileName")) + "<br>");
-    sb.append("<b>Artist:</b> " + checkSize(fullStyle.get("artist")) + "<br>");
-    sb.append("<b>Title:</b> " + checkSize(fullStyle.get("title")) + "<br>");
-    sb.append("<b>Year:</b> " + checkSize(fullStyle.get("year")) + "<br>");
-    sb.append("<b>Comments:</b> " + checkSize(fullStyle.get("comments")) + "<br>");
-    sb.append("<b>Bitrate:</b> " + checkSize(fullStyle.get("bitrate")) + "<br>");
-    sb.append("<b>Sample Rate:</b> " + checkSize(fullStyle.get("sampleRate")) + "<br>");
-    sb.append("<b>Composer:</b> " + checkSize(fullStyle.get("Composer")) + "<br>");
-    sb.append("<b>Genre:</b> " + checkSize(fullStyle.get("genre")) + "<br>");
-    sb.append("<b>Album:</b> " + checkSize(fullStyle.get("album")) + "<br>");
+        "<html><body style=\"font-size: 10px;\"><p>");
+    sb.append(
+        getMajorFontTag("<b>File Name:</b> ") + getMinorFontTag(checkSize(fullStyle.get("fileName"))) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Artist:</b> ") + getMinorFontTag(checkSize(fullStyle.get("artist"))) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Title:</b> ") + getMinorFontTag(checkSize(fullStyle.get("title"))) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Year:</b> ") + getMinorFontTag(checkSize(fullStyle.get("year"))) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Comments:</b> ") + getMinorFontTag(checkSize(fullStyle.get("comments"))) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Bitrate:</b> ") + getMinorFontTag(checkSize(fullStyle.get("bitrate"))) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Sample Rate:</b> ") + getMinorFontTag(checkSize(fullStyle.get("sampleRate")))
+            + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Composer:</b> ") + getMinorFontTag(checkSize(fullStyle.get("composer"))) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Genre:</b> ") + getMinorFontTag(checkSize(fullStyle.get("genre"))) + "<br>");
+    sb.append(
+        getMajorFontTag("<b>Album:</b> ") + getMinorFontTag(checkSize(fullStyle.get("album"))) + "<br>");
     sb.append("</p></body></html>");
+
     return sb.toString();
   }
 }

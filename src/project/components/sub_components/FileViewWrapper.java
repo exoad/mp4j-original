@@ -4,7 +4,12 @@ import project.Main;
 import project.audio.Overseer;
 import project.constants.ColorContent;
 import project.constants.PreConfig;
+import project.constants.ResourceDistributor;
 import project.constants.Size;
+import project.usables.DeImage;
+import strict.RuntimeConstant;
+
+import java.awt.event.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +25,8 @@ public class FileViewWrapper extends JPanel {
     approve.setAlignmentX(Component.CENTER_ALIGNMENT);
     windowResize = new JButton("Reset Window Size");
     windowResize.addActionListener(e);
+    windowResize.setBorder(BorderFactory.createEmptyBorder());
+    windowResize.setIcon(DeImage.resizeImage(RuntimeConstant.runtimeRD.getEmptyBox(), Size.OK_BOX_SIZE, Size.OK_BOX_SIZE));
     windowResize.setToolTipText("Resizes the window Size to the default size");
     windowResize.setAlignmentY(Component.BOTTOM_ALIGNMENT);
     windowResize.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -27,6 +34,8 @@ public class FileViewWrapper extends JPanel {
     bugButton.setVisible(false);
     bugButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
     setPreferredSize(new Dimension((int) fvp.getPreferredSize().getWidth(), Size.HEIGHT));
+    setMaximumSize(new Dimension(Size.WIDTH - 650, Size.HEIGHT));
+    setMinimumSize(new Dimension(Size.WIDTH - 650, Size.HEIGHT));
     setSize(new Dimension((int) fvp.getPreferredSize().getWidth(), Size.HEIGHT));
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setLayout(new BorderLayout());

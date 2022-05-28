@@ -5,14 +5,19 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.geom.AffineTransform;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+
+import it.sauronsoftware.jave.AudioInfo;
+
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 
@@ -23,10 +28,12 @@ import project.audio.Overseer;
 import project.audio.content.AudioInfoEditor;
 import project.audio.content.AudioUtil;
 import project.components.windows.ErrorWindow;
+import project.constants.ColorContent;
 import project.constants.ProjectManager;
 import project.constants.ResourceDistributor;
 import project.constants.Size;
 import project.usables.DeImage;
+import strict.RuntimeConstant;
 
 import java.awt.Graphics;
 
@@ -46,7 +53,9 @@ public class TopView extends JPanel {
     setLayout(new BorderLayout());
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
         Size.PREV_HEIGHT - 320));
-    setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1, false));
+    setMinimumSize(new Dimension((int) getPreferredSize().getWidth() - 10,
+        Size.PREV_HEIGHT - 320));
+    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, false));
     mainPanel = new JPanel();
     mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     mainPanel.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.PREV_HEIGHT - 200));
@@ -54,24 +63,29 @@ public class TopView extends JPanel {
     informationBox.setEditable(false);
     informationBox.setAutoscrolls(false);
     informationBox.setContentType("text/html");
-    informationBox.setMaximumSize(new Dimension(180, 230));
     if (ProjectManager.DEBUG_LAYOUT)
       informationBox.setBackground(Color.RED);
     informationBox.setText(AudioInfoEditor.getBlank());
-    informationBox.setFont(new Font("Arial", Font.PLAIN, 13));
-    infoBoxWrapper = new JScrollPane(informationBox, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    informationBox.setFont(new Font("Arial", Font.PLAIN, 10));
+    informationBox.setToolTipText(AudioInfoEditor.getBlank());
+    infoBoxWrapper = new JScrollPane(informationBox, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
     infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
-    infoBoxWrapper.setMaximumSize(new Dimension(250, 200));
-    infoBoxWrapper.setPreferredSize(new Dimension(250, 200));
-    infoBoxWrapper.setMinimumSize(new Dimension(250, 200));
+    infoBoxWrapper.setMaximumSize(new Dimension(240, 200));
+    infoBoxWrapper.setPreferredSize(new Dimension(240, 200));
+    infoBoxWrapper.setMinimumSize(new Dimension(240, 200));
+    infoBoxWrapper.getViewport().setPreferredSize(new Dimension(240, 190));
+    infoBoxWrapper.getViewport().setMaximumSize(new Dimension(500, 190));
+    infoBoxWrapper.getViewport().setMinimumSize(new Dimension(240, 190));
+    infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
+    informationBox.setPreferredSize(infoBoxWrapper.getPreferredSize());
     
     artStyle = new JLabel() {
       @Override
       public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        BufferedImage i = DeImage.imagetoBI(new ResourceDistributor().getDiskPNG().getImage());
+        BufferedImage i = DeImage.imagetoBI(RuntimeConstant.runtimeRD.getDiskPNG().getImage());
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         AffineTransform at = new AffineTransform();
         at.rotate(artStyleRotation, i.getWidth() / 2.0d, i.getHeight() / 2.0d);
@@ -81,7 +95,7 @@ public class TopView extends JPanel {
         g2d.drawImage(i, at, null);
       }
     };
-    artStyle.setIcon(new ResourceDistributor().getDiskPNG());
+    artStyle.setIcon(RuntimeConstant.runtimeRD.getDiskPNG());
     av = new AppsView(new Dimension(getPreferredSize().width, getPreferredSize().height));
     if (ProjectManager.DEBUG_LAYOUT) {
       mainPanel.setOpaque(true);
@@ -104,9 +118,13 @@ public class TopView extends JPanel {
     spinWorker.start();
   }
 
+  @Override
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+  }
+
   public void stopSpinning() {
     spin = false;
-
   }
 
   
@@ -144,6 +162,7 @@ public class TopView extends JPanel {
   public void setAie(AudioInfoEditor aie) {
     this.aie = aie;
     informationBox.setText(aie.toString());
+    informationBox.revalidate();
     /**
      * BufferedImage ico = null;
      * try {
@@ -153,33 +172,7 @@ public class TopView extends JPanel {
      * }
      * artStyle.setIcon(new ImageIcon(ico));
      */
-    informationBox.setPreferredSize(informationBox.getPreferredSize());
+    informationBox.setToolTipText(aie.noCheck());
     seer.pokeFile(aie.getUtilFile());
-  }
-
-  /**
-   * @deprecated Use Overseer instead
-   * @param f
-   * @return
-   */
-  @Deprecated
-  public static boolean check(File f) {
-    if (f == null) {
-      alert("Nothing was selected");
-      return false;
-    } else if (!((AudioUtil) f).isMP3()) {
-      alert("This is not a mp3 file");
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * @deprecated Use Overseer instead
-   * @param message
-   */
-  @Deprecated
-  public static synchronized void alert(String message) {
-    new ErrorWindow(message);
-  }
+     }
 }

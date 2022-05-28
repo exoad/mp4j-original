@@ -1,5 +1,23 @@
 This is a simple project board, where future potential futures will be considered to be added. The more X there is, the more likely it is to be added (max 3)
 
+[XXX] #8 "Looping and shuffle controls"
+      Detailed Description: Allow toggles for the user to loop the current track or shuffle the contents of the current folder
+                              and select a track at random to be played next.
+
+[!IMPLEMENTED!] [XXX] #7 "Extracted Resource Manager"
+      Detailed Description: This mechanism enables the program to extract data to a folder that belongs to this program.
+                            This program will act by fetching data from this folder and analyzing this data. It should
+                            be a program of it's own, instead of embeded within this program. This further allows the user
+                            to interact with the program and allow the program to rely less on the binaries itself.
+
+[XXX] #6 "String Dialog Translations"
+      Detailed Description: All strings that are displayed to the user should have a separate properties file to have them be
+                            defined separately for each individual language avaliable.
+
+[!IMPLEMENTED!] [XX] #5 "Accent Color Options"
+      Detailed Description: In the settings menu, allow the user to select a set of accent colors they want.
+      Implementation: See #7
+
 [X] #4 "Launch the media player as a daemon and call upon it when need updating"
       Detailed Description: Instead of handling playing music through the Overseer class and having to strain that object. We can
                             launch a media player daemon as a separate program and we interact with it as it goes. However this 

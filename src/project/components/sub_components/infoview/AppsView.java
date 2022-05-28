@@ -31,10 +31,11 @@ public class AppsView extends JPanel {
       setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.RED, Color.RED));
       setBackground(Color.GREEN);
     }
-    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
+    setBorder(BorderFactory.createLineBorder(ColorContent.BORDER));
     setOpaque(true);
     MAX_DRAW = 2048 / 4;
     setPreferredSize(new Dimension(MAX_DRAW * 2, g.height));
+    setSize(new Dimension(MAX_DRAW * 2, g.height));
     setMaximumSize(new Dimension(MAX_DRAW * 2, g.height));
     firstBars = new int[MAX_DRAW];
     Arrays.fill(firstBars, 10);
@@ -66,7 +67,7 @@ public class AppsView extends JPanel {
       waveFormDisplay.setOpaque(true);
       waveFormDisplay.setBackground(Color.MAGENTA);
     }
-    waveFormDisplay.setPreferredSize(new Dimension(getPreferredSize().width, getPreferredSize().height));
+    waveFormDisplay.setPreferredSize(new Dimension((int) getSize().getWidth(), (int) getSize().getHeight()));
     add(pane);
   }
 

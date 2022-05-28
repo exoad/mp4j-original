@@ -12,17 +12,6 @@ import java.awt.*;
  * @author Jack Meng
  */
 public class SubVolumeView extends JPanel {
-  
-  /** 
-   * @return JSlider returns a random slider for testing
-   */
-  private static JSlider getRandomSlider() {
-    JSlider slider = new JSlider(SwingConstants.VERTICAL, 0, 100, 50);
-    slider.setEnabled(false);
-    slider.setPreferredSize(new Dimension(20, 180));
-    return slider;
-  }
-
   /**
    * Constructs a SubVolumeView object.
    * @param j The Overseer object to be passed around by the classes and objects.
@@ -32,9 +21,11 @@ public class SubVolumeView extends JPanel {
 
     JLabel vl = new JLabel("<html>V<br>O<br>L<br>U<br>M<br>E</html>");
     JLabel pl = new JLabel("<html>P<br>A<br>N</html>");
-    setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
+    JLabel al = new JLabel("<html>A<br>M<br>P<br>L<br>E</html>");
+    setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     setOpaque(true);
-    setPreferredSize(new Dimension(120, 200));
+    setPreferredSize(new Dimension(130, 200));
+    setBorder(BorderFactory.createLineBorder(Color.WHITE, 1, true));
     if (ProjectManager.DEBUG_LAYOUT)
       setBackground(Color.BLUE);
     JSlider js = j.getVolumeSlider();
@@ -45,7 +36,10 @@ public class SubVolumeView extends JPanel {
     pjs.setPreferredSize(new Dimension(20, 180));
     add(pl);
     add(pjs);
-    add(getRandomSlider());
+    JSlider ajs = j.getAmpSlider();
+    ajs.setPreferredSize(new Dimension(20, 180));
+    add(al);
+    add(ajs);
   }
 
 }

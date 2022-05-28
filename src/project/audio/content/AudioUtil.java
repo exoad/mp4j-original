@@ -1,34 +1,56 @@
 package project.audio.content;
 
 import com.goxr3plus.streamplayer.stream.StreamPlayer;
-import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
+
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.AudioHeader;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.audio.mp3.MP3File;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.images.Artwork;
+
+import java.awt.image.BufferedImage;
+
 import project.Utils;
-import project.usables.ResourceGrabber;
+import project.usables.DeImage;
+import strict.RuntimeConstant;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+
 
 public class AudioUtil extends File {
   protected static final int MAX_LEN = 80;
+  private transient Tag t;
+  private transient AudioHeader h;
+
   public AudioUtil(String pathname) {
     super(pathname);
-    
+    AudioFile afio = null;
+    try {
+      afio = AudioFileIO.read(new File(pathname));
+    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
+      e.printStackTrace();
+    }
+    if (afio != null) {
+      t = afio.getTag();
+      h = afio.getAudioHeader();
+    }
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public String getAudioType() {
     return Utils.getExtension(this);
   }
 
-  
-  /** 
+  /**
    * @param s
    * @return boolean
    */
@@ -36,8 +58,7 @@ public class AudioUtil extends File {
     return s == null || s.isEmpty();
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getFileName() {
@@ -48,8 +69,7 @@ public class AudioUtil extends File {
     return name;
   }
 
-  
-  /** 
+  /**
    * @param str
    * @return String
    */
@@ -62,180 +82,127 @@ public class AudioUtil extends File {
     }
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getArtist() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      ID3v2 id3v2tag = mp3file.getId3v2Tag();
-      String artist = id3v2tag.getArtist();
-      if (checkEmptiness(artist)) {
-        return "";
-      }
-      return artist;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String artist = t.getFirst(FieldKey.ARTIST);
+    if (checkEmptiness(artist)) {
       return "";
     }
+    return sized(artist);
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getTitle() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      ID3v2 id3v2tag = mp3file.getId3v2Tag();
-      String title = id3v2tag.getTitle();
-      if (checkEmptiness(title)) {
-        return "";
-      }
-      return title;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String title = t.getFirst(FieldKey.TITLE);
+    if (checkEmptiness(title)) {
       return "";
     }
+    return sized(title);
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getTrack() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      ID3v2 id3v2tag = mp3file.getId3v2Tag();
-      String track = id3v2tag.getTrack();
-      if (checkEmptiness(track)) {
-        return "";
-      }
-      return track;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String track = t.getFirst(FieldKey.TRACK);
+    if (checkEmptiness(track)) {
       return "";
     }
+    return sized(track);
   }
 
-  
-  /** 
+  /**
    * @return File
    */
-  public synchronized File getAlbumCoverArt() {
-    try {
-      Mp3File mp3File = new Mp3File(this);
-      if(mp3File.hasId3v2Tag()) {
-        ID3v2 tag = mp3File.getId3v2Tag();
-        byte[] img = tag.getAlbumImage();
-        if(img != null) {          RandomAccessFile file = new RandomAccessFile(getFileName() + "__ALBPIC", "rw");
-          file.write(img);
-          file.close();
-        }
+  public synchronized BufferedImage getAlbumCoverArt() {
+    BufferedImage img = getDefaultAlbumCoverArt();
+    if (getAbsolutePath().endsWith(".mp3")) {
+      MP3File mp = null;
+      try {
+        mp = new MP3File(this);
+      } catch (IOException | TagException | ReadOnlyFileException | CannotReadException
+          | InvalidAudioFrameException e1) {
+        e1.printStackTrace();
       }
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
-      return new File(ResourceGrabber.getDefaultCoverArt().getFile());
+      if (mp.getTag().getFirstArtwork() != null) {
+        try {
+          img = (BufferedImage) mp.getTag().getFirstArtwork().getImage();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else {
+        return img;
+      }
     }
-    return new File(ResourceGrabber.getDefaultCoverArt().getFile());
+    BufferedImage i = img;
+    new Thread(() -> DeImage.write(i, "D:\\coverArt"+System.currentTimeMillis()+".png")).start();
+    return img;
   }
 
-  
-  /** 
+  public static synchronized BufferedImage getDefaultAlbumCoverArt() {
+    return DeImage.imageIconToBI(RuntimeConstant.runtimeRD.getDiskPNG());
+  }
+
+  /**
    * @return String
    */
   public synchronized String getYear() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      ID3v2 id3v2tag = mp3file.getId3v2Tag();
-      String year = id3v2tag.getYear();
-      if (checkEmptiness(year)) {
-        return "";
-      }
-      return year;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String year = t.getFirst(FieldKey.YEAR);
+    if (checkEmptiness(year)) {
       return "";
     }
+    return sized(year);
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getComments() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      ID3v2 id3v2tag = mp3file.getId3v2Tag();
-      String comments = id3v2tag.getComment();
-      if (checkEmptiness(comments)) {
-        return "";
-      }
-      return comments;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String comments = t.getFirst(FieldKey.COMMENT);
+    if (checkEmptiness(comments)) {
       return "";
     }
+    return sized(comments);
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getBitrate() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      String bitrate = "" + mp3file.getBitrate();
-      if (checkEmptiness(bitrate)) {
-        return "";
-      }
-      return bitrate;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String bitrate = h.getBitRate() + "";
+    if (checkEmptiness(bitrate)) {
       return "";
     }
+    return sized(bitrate);
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getSampleRate() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      String sampleRate = "" + mp3file.getSampleRate();
-      if (checkEmptiness(sampleRate)) {
-        return "";
-      }
-      return sampleRate;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String sampleRate = h.getSampleRate() + "";
+    if (checkEmptiness(sampleRate)) {
       return "";
     }
+    return sized(sampleRate);
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getComposer() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      ID3v2 id3v2tag = mp3file.getId3v2Tag();
-      String composer = id3v2tag.getComposer();
-      if (checkEmptiness(composer)) {
-        return "";
-      }
-      return composer;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String composer = t.getFirst(FieldKey.COMPOSER);
+    if (checkEmptiness(composer)) {
       return "";
     }
+    return sized(composer);
   }
 
-  
-  /** 
+  /**
    * @param sp
    * @param currVol
    */
@@ -243,7 +210,7 @@ public class AudioUtil extends File {
     long old = currVol;
     new Thread(() -> {
       long ll = currVol;
-      while(currVol > 0) {
+      while (currVol > 0) {
         ll -= 2.5;
         sp.setGain(VolumeConversion.convertVolume(ll));
         try {
@@ -251,7 +218,7 @@ public class AudioUtil extends File {
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
-        if(ll > 0) {
+        if (ll > 0) {
           break;
         }
       }
@@ -261,57 +228,33 @@ public class AudioUtil extends File {
     }).start();
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getGenre() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      ID3v2 id3v2tag = mp3file.getId3v2Tag();
-      String genre = id3v2tag.getGenreDescription();
-      if (checkEmptiness(genre)) {
-        return "";
-      }
-      return genre;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String genre = t.getFirst(FieldKey.GENRE);
+    if (checkEmptiness(genre)) {
       return "";
     }
+    return sized(genre);
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public synchronized String getAlbum() {
-    try {
-      Mp3File mp3file = new Mp3File(this);
-      ID3v2 id3v2tag = mp3file.getId3v2Tag();
-      String album = id3v2tag.getAlbum();
-      if (checkEmptiness(album)) {
-        return "";
-      }
-      return album;
-    } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-      e.printStackTrace();
+    String album = t.getFirst(FieldKey.ALBUM);
+    if (checkEmptiness(album)) {
       return "";
     }
+    return sized(album);
   }
 
-  
-  /** 
+  /**
    * @return boolean
    */
   public boolean isMP3() {
-    try {
-      Mp3File m = new Mp3File(this);
-      if (!checkEmptiness(m.getVersion()) || !checkEmptiness(m.getModeExtension())
-          || m.getBitrate() != 0)
-        return true;
-    } catch (UnsupportedTagException | InvalidDataException | IOException e) {
-      return false;
-    }
-    return false;
+    return getAudioType().equals("mp3");
   }
+
 }

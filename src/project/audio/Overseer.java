@@ -16,37 +16,45 @@ import project.constants.ColorContent;
 import project.constants.ResourceDistributor;
 import project.constants.Size;
 import project.usables.DeImage;
+import strict.RuntimeConstant;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.basic.BasicProgressBarUI;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Overseer extends StreamPlayer
-    implements ActionListener, WindowListener, ChangeListener, StreamPlayerListener {
+    implements ActionListener, WindowListener, ChangeListener, StreamPlayerListener, ItemListener {
   private File current;
   public JButton playPauseButton, approveButton;
+  private JToggleButton loopButton, shuffleButton;
   public FileViewPanel fvp;
   public TopView topView;
-  private JSlider volumeSlider, progressSlider, panSlider;
-  private boolean errorShown = false, isOpened = false;
+  private JSlider volumeSlider, panSlider, ampSlider;
+  private JProgressBar progressSlider;
+  private boolean errorShown = false, isOpened = false, toLoop = false;
   private long time = 0L;
   private DiscordRPCHandler disch;
-  public static final ImageIcon prev = DeImage.resizeImage(new ResourceDistributor().getPlayButton(),
+  private float dividen = VolumeConversion.convertWaveFormAmp(50);
+  public static final ImageIcon prev = DeImage.resizeImage(RuntimeConstant.runtimeRD.getPlayButton(),
       Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE);
-  public static final ImageIcon prevPaused = DeImage.resizeImage(new ResourceDistributor().getPauseButton(),
+  public static final ImageIcon prevPaused = DeImage.resizeImage(RuntimeConstant.runtimeRD.getPauseButton(),
       Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE);
-  public static final ImageIcon next = DeImage.resizeImage(new ResourceDistributor().getPlayButtonHovered(),
+  public static final ImageIcon next = DeImage.resizeImage(RuntimeConstant.runtimeRD.getPlayButtonHovered(),
       Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE);
 
   public Overseer(AudioUtil f, FileViewPanel fvp, TopView tv, DiscordRPCHandler dsch) {
-    super();
     tv.setSeer(this);
     this.disch = dsch;
     this.current = f;
@@ -62,23 +70,42 @@ public class Overseer extends StreamPlayer
     playPauseButton.setFocusPainted(false);
     playPauseButton.setBorderPainted(false);
 
-    approveButton = new JButton("Select File");
+    approveButton = new JButton("Select Audio Track");
+    approveButton.setBorder(BorderFactory.createEmptyBorder());
+    approveButton.setIcon(DeImage.resizeImage(RuntimeConstant.runtimeRD.getOkBox(),
+        Size.OK_BOX_SIZE, Size.OK_BOX_SIZE));
     approveButton.addActionListener(this);
 
     volumeSlider = new JSlider(0, 100);
     volumeSlider.setValue(45);
     volumeSlider.addChangeListener(this);
+    volumeSlider.setToolTipText("Sets the volume");
     volumeSlider.setBackground(ColorContent.VOLUME_SLIDER_BG);
     volumeSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
     volumeSlider.setOrientation(SwingConstants.VERTICAL);
 
-    progressSlider = new JSlider(0, 100);
+    progressSlider = new JProgressBar(0, 100);
     progressSlider.setPreferredSize(new Dimension(300, 15));
     progressSlider.setBackground(ColorContent.VOLUME_SLIDER_BG);
     progressSlider.setForeground(ColorContent.PROGRESS_SLIDER_NORMAL);
     progressSlider.setOrientation(SwingConstants.HORIZONTAL);
-    progressSlider.setPreferredSize(new Dimension(350, 15));
+    progressSlider.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+    progressSlider.setFocusable(true);
     progressSlider.setValue(0);
+
+    ampSlider = new JSlider(0, 100);
+    ampSlider.setBackground(ColorContent.VOLUME_SLIDER_BG);
+    ampSlider.setForeground(ColorContent.VOLUME_SLIDER_NORMAL_FG);
+    ampSlider.setOrientation(SwingConstants.VERTICAL);
+    ampSlider.setToolTipText("Sets the amplitude of the waveform animation. Higher value means less amplitude.");
+    ampSlider.setValue(50);
+    ampSlider.addChangeListener(this);
+
+    loopButton = new JToggleButton(DeImage.resizeImage(RuntimeConstant.runtimeRD.getLoopBox(),
+        Size.PAUSE_PLAY_BUTTON_SIZE, Size.PAUSE_PLAY_BUTTON_SIZE));
+    loopButton.setToolTipText("Toggles the looping of the audio track | " + "Looping is " + (toLoop ? "ON" : "OFF"));
+    loopButton.setBorder(BorderFactory.createEmptyBorder());
+    loopButton.addItemListener(this);
 
     panSlider = new JSlider(0, 100);
     panSlider.setValue(50);
@@ -93,7 +120,6 @@ public class Overseer extends StreamPlayer
     setGain(VolumeConversion.convertVolume(volumeSlider.getValue()));
     addStreamPlayerListener(this);
     setPan(VolumeConversion.convertPan(panSlider.getValue()));
-
   }
 
   /**
@@ -110,24 +136,29 @@ public class Overseer extends StreamPlayer
     return playPauseButton;
   }
 
-  
-  /** 
+  public JSlider getAmpSlider() {
+    return ampSlider;
+  }
+
+  public JToggleButton getLoopButton() {
+    return loopButton;
+  }
+
+  /**
    * @return JSlider
    */
-  public JSlider getProgressSlider() {
+  public JProgressBar getProgressSlider() {
     return progressSlider;
   }
 
-  
-  /** 
+  /**
    * @return JSlider
    */
   public JSlider getPanSlider() {
     return panSlider;
   }
 
-  
-  /** 
+  /**
    * @return JSlider
    */
   public JSlider getVolumeSlider() {
@@ -155,16 +186,14 @@ public class Overseer extends StreamPlayer
     }
   }
 
-  
-  /** 
+  /**
    * @param f
    */
   public void pokeFile(File f) {
     this.current = f;
   }
 
-  
-  /** 
+  /**
    * @return float
    */
   public float getConversionFactorWave() {
@@ -205,7 +234,7 @@ public class Overseer extends StreamPlayer
   /// For when the audio is already playing, the audio to pause state
   public void pauseState() {
     assertSliderValues();
-    AudioUtil.fadeOut(this, (long) volumeSlider.getValue());
+    AudioUtil.fadeOut(this, volumeSlider.getValue());
     playPauseButton.setIcon(prev);
     disch.setCurrState(DiscordRPCHandler.NOTHING_MUSIC);
     topView.stopSpinning();
@@ -222,6 +251,19 @@ public class Overseer extends StreamPlayer
 
   private boolean hasPlayed = false;
 
+  @Override
+  public void itemStateChanged(ItemEvent e) {
+    toLoop = loopButton.isSelected();
+    if (toLoop) {
+      loopButton.setIcon(DeImage.resizeImage(RuntimeConstant.runtimeRD.getLoopBoxHovered(), Size.PAUSE_PLAY_BUTTON_SIZE,
+          Size.PAUSE_PLAY_BUTTON_SIZE));
+    } else {
+      loopButton.setIcon(DeImage.resizeImage(RuntimeConstant.runtimeRD.getLoopBox(), Size.PAUSE_PLAY_BUTTON_SIZE,
+          Size.PAUSE_PLAY_BUTTON_SIZE));
+    }
+    loopButton.setToolTipText("Toggles the looping of the audio track | " + "Looping is " + (toLoop ? "ON" : "OFF"));
+  }
+
   /**
    * @param e
    */
@@ -235,7 +277,7 @@ public class Overseer extends StreamPlayer
         } else {
           errorShown = false;
         }
-      } else if (current.getAbsolutePath().endsWith("mp3")) {
+      } else if (current.getAbsolutePath().endsWith("mp3") || current.getAbsolutePath().endsWith("wav")) {
         assertSliderValues();
         if (!isPlaying()) {
           if (!hasPlayed) {
@@ -274,13 +316,14 @@ public class Overseer extends StreamPlayer
           errorShown = true;
         }
       }
+      topView.repaint();
 
     }
   }
 
-  
-  /** 
+  /**
    * Handles things to do with the volume_sliders in the program
+   * 
    * @param e
    */
   @Override
@@ -309,6 +352,9 @@ public class Overseer extends StreamPlayer
         panSlider.setToolTipText("Center");
         panSlider.setForeground(ColorContent.VOLUME_SLIDER_WARNING_FG);
       }
+    } else if (e.getSource().equals(ampSlider)) {
+      dividen = VolumeConversion.convertWaveFormAmp(ampSlider.getValue());
+      System.out.println(dividen);
     }
   }
 
@@ -321,56 +367,49 @@ public class Overseer extends StreamPlayer
     errorShown = false;
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override
   public void windowActivated(WindowEvent e) {
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override
   public void windowClosing(WindowEvent e) {
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override
   public void windowDeactivated(WindowEvent e) {
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override
   public void windowDeiconified(WindowEvent e) {
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override
   public void windowIconified(WindowEvent e) {
   }
 
-  
-  /** 
+  /**
    * @param e
    */
   @Override
   public void windowOpened(WindowEvent e) {
   }
 
-  
-  /** 
+  /**
    * @param arg0
    * @param arg1
    */
@@ -378,8 +417,7 @@ public class Overseer extends StreamPlayer
   public void opened(Object arg0, Map<String, Object> arg1) {
   }
 
-  
-  /** 
+  /**
    * @param arg0
    * @param arg1
    * @param pcmData
@@ -394,14 +432,14 @@ public class Overseer extends StreamPlayer
     }
 
     int[] bars = new int[topView.av.MAX_DRAW];
-
     for (int i = 0, j = 0; i < temp.length && j < bars.length; i++, j++) {
       int x = 0;
       for (int k = i; k < i + 4; k++) {
         x += Math.abs(temp[k]);
       }
       x /= 4;
-      bars[j] = Math.min(Math.max(x / 200, 10), 170);
+      bars[j] = Math.min(Math.max(x / (int) dividen, 10), 170);
+      bars[j] *= VolumeConversion.convertVolume(volumeSlider.getValue()) * 5;
     }
 
     topView.av.pokeAndDraw(bars);
@@ -409,14 +447,25 @@ public class Overseer extends StreamPlayer
 
   public native long returnableToken(String token);
 
-  
-  /** 
+  /**
    * @param arg0
    */
   @Override
   public void statusUpdated(StreamPlayerEvent arg0) {
     if (arg0.getPlayerStatus().equals(Status.STOPPED)) {
+      stop();
       pauseState();
+      System.err.println(toLoop);
+      if(toLoop) {
+        assertSliderValues();
+        try {
+          open(current);
+          play();
+        } catch (StreamPlayerException e) {
+          e.printStackTrace();
+        }
+        System.err.println(":)");
+      }
     }
   }
 

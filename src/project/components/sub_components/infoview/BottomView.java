@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Jack Meng
  */
 public class BottomView extends JPanel implements StreamPlayerListener {
-  private JSlider progressSlider;
+  private JProgressBar progressSlider;
   private JLabel timeLabel;
   private ButtonsView bv;
   private transient Overseer seer;
@@ -32,7 +32,7 @@ public class BottomView extends JPanel implements StreamPlayerListener {
     super();
     this.seer = jf;
     setSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT / 6));
-    setMinimumSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT / 5));
+    setMinimumSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT / 6 - 50));
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT / 6));
     setMaximumSize(new Dimension((int) getPreferredSize().getWidth(), Size.HEIGHT / 6));
     setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -41,12 +41,10 @@ public class BottomView extends JPanel implements StreamPlayerListener {
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, true));
     setOpaque(true);
     add(jf.getPlayPauseButton());
-
-    Dimension dimTemp = new Dimension(jf.topView.getPreferredSize().width, jf.topView.getPreferredSize().height);
-    bv = new ButtonsView(dimTemp);
+    bv = new ButtonsView(jf);
+    add(jf.getLoopButton());
     timeLabel = new JLabel("<html><p><strong>0:00:00 / 0:00:00</strong></p></html>");
     add(timeLabel);
-
     progressSlider = jf.getProgressSlider();
     progressSlider.setPreferredSize(new Dimension(300, 20));
     add(progressSlider);

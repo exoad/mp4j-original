@@ -15,7 +15,8 @@ public class FileViewPanel extends JFileChooser {
     setFileSelectionMode(JFileChooser.FILES_ONLY);
     setApproveButtonText("Select");
     setPreferredSize(new Dimension(Size.WIDTH - 650, Size.HEIGHT));
-    setMaximumSize(getPreferredSize());
+    setMaximumSize(new Dimension(Size.WIDTH - 650, Size.HEIGHT));
+    setMinimumSize(new Dimension(Size.WIDTH - 650, Size.HEIGHT));
     setAcceptAllFileFilterUsed(false);
     setBackground(Color.GRAY);
     setApproveButtonToolTipText("Select the file");

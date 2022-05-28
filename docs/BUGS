@@ -1,13 +1,23 @@
 Here are a list of bugs or unwanted behaviors throughout the program itself (not external links):
 
+[!FIXED!] [***] #6 "Incorrect key token for AudioInforEditor Map Key"
+  Detailed Description: The static constant for "comment" was changed from "comment" to "comments"
+  Issue Caused: Null comments property
+
+[***] #5 "Audio Info display does not scroll all the way to the bottom when info exceeds limit"
+  Reproduction: Did it with special UTF-8 chars (Japanaese Hiragana)
+  Detailed Description: None
+  Potential Fix: None
+  Status: Fixing!
+
 [**] #4 "Approve button throws NullPointerException on first click"
   Reproduction: title
   Detailed Description: This has been an ignored bug for a long time, but the main issue is that the approve button's
-                        is being returned as null until the following click, which can cause confusion.
-  Potential Fix: None
+                        is being returned as null until the following click, which can cause confusion. 
+  Potential Fix: Most likely caused by no file being selected in the file chooser
   Status: Investigating
 
-[*] #3 "WaveForm animation not acting when frequency too low, and too extreme when frequency too high"
+[!FIXED!] [*] #3 "WaveForm animation not acting when frequency too low, and too extreme when frequency too high"
   Reproduction: Play a low frequency audio file and a loud file with a high frequency intensity
   Detailed Description: The waveform under a hardcoded number is unable to determine if the frequency is low and what
                         to do. This action prevents any form of alteration in order to correct the animation so that it
@@ -15,6 +25,7 @@ Here are a list of bugs or unwanted behaviors throughout the program itself (not
   Potential Fix: Calculate the average sum per frame and analyze a certain threshold and apply the threshold average for
                  each vertical line.
   Status: Not started
+  Fix: Added an amplitude slider
 
 [***] #2 "ProgressSlider stopping seconds or is misaligned after the music stops"
   Reproduction: Run an audio track until the end
