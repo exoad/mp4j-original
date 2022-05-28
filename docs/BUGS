@@ -1,21 +1,29 @@
 Here are a list of bugs or unwanted behaviors throughout the program itself (not external links):
 
+[***] #7 "Certain symbols in the infoview messes up the html"
+  Detailed Description: Some information provided to an AudioInfoEditor will cause it not be able
+                        color specific text, especially those featuring a number or other symbol
+                        that is not part of the standard ASCII table
+  Issue Caused: <font> tag to change the coloring
+  Potential Fix: Alternative to using the <font> tag to color text
+  Status: Investigating
+
 [!FIXED!] [***] #6 "Incorrect key token for AudioInforEditor Map Key"
   Detailed Description: The static constant for "comment" was changed from "comment" to "comments"
   Issue Caused: Null comments property
 
-[***] #5 "Audio Info display does not scroll all the way to the bottom when info exceeds limit"
+[!FIXED!] [***] #5 "Audio Info display does not scroll all the way to the bottom when info exceeds limit"
   Reproduction: Did it with special UTF-8 chars (Japanaese Hiragana)
   Detailed Description: None
   Potential Fix: None
-  Status: Fixing!
+  Status: Fixed
 
-[**] #4 "Approve button throws NullPointerException on first click"
+[!FIXED!] [**] #4 "Approve button throws NullPointerException on first click"
   Reproduction: title
   Detailed Description: This has been an ignored bug for a long time, but the main issue is that the approve button's
                         is being returned as null until the following click, which can cause confusion. 
   Potential Fix: Most likely caused by no file being selected in the file chooser
-  Status: Investigating
+  Status: Fixed
 
 [!FIXED!] [*] #3 "WaveForm animation not acting when frequency too low, and too extreme when frequency too high"
   Reproduction: Play a low frequency audio file and a loud file with a high frequency intensity

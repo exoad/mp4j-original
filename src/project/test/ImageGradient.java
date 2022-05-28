@@ -74,7 +74,7 @@ public class ImageGradient extends JPanel implements Runnable {
     Graphics2D g2d = alphamask.createGraphics();
     LinearGradientPaint lgp = new LinearGradientPaint(
         new Point(0, 0),
-        new Point(alphamask.getWidth(), 0),
+        new Point(0, alphamask.getHeight()),
         new float[] { 0, 1 },
         new Color[] { new Color(0, 0, 0, 255), new Color(0, 0, 0, 0) });
     g2d.setPaint(lgp);

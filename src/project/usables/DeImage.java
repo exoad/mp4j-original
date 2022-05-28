@@ -65,7 +65,8 @@ public class DeImage {
 
   /**
    * Writes a BufferedImage to a file.
-   * @param r The BufferedImage to be written.
+   * 
+   * @param r    The BufferedImage to be written.
    * @param path The path to the file to be written.
    */
   public static void write(BufferedImage r, String path) {
@@ -82,19 +83,19 @@ public class DeImage {
   }
 
   /**
-   * Makes a gradient from left to right to an image from opacity to no opacity.
+   * Makes a gradient from top to bottom.
    * 
    * @param img          The source image
    * @param startOpacity The begin opacity of the gradient.
    * @param endOpacity   The end opacity of the gradient.
    * @return BufferedImage The gradient image.
    */
-  public static BufferedImage createGradient(BufferedImage img, int startOpacity, int endOpacity) {
+  public static BufferedImage createGradientVertical(BufferedImage img, int startOpacity, int endOpacity) {
     BufferedImage alphamask = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
     Graphics2D g2d = alphamask.createGraphics();
     LinearGradientPaint lgp = new LinearGradientPaint(
         new Point(0, 0),
-        new Point(alphamask.getWidth(), 0),
+        new Point(0, alphamask.getHeight() / 2),
         new float[] { 0, 1 },
         new Color[] { new Color(0, 0, 0, startOpacity), new Color(0, 0, 0, endOpacity) });
     g2d.setPaint(lgp);

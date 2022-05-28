@@ -456,16 +456,6 @@ public class Overseer extends StreamPlayer
       stop();
       pauseState();
       System.err.println(toLoop);
-      if(toLoop) {
-        assertSliderValues();
-        try {
-          open(current);
-          play();
-        } catch (StreamPlayerException e) {
-          e.printStackTrace();
-        }
-        System.err.println(":)");
-      }
     }
   }
 

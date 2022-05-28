@@ -7,6 +7,8 @@ import java.util.Map;
 import project.connection.resource.ResourceFolder;
 import project.constants.ColorContent;
 import project.constants.ProjectManager;
+import project.usables.DeImage;
+import strict.RuntimeConstant;
 
 import java.awt.image.BufferedImage;
 
@@ -47,6 +49,11 @@ public class AudioInfoEditor {
     fullStyle.put("composer", Composer == null ? "" : Composer);
     fullStyle.put("genre", genre == null ? "" : genre);
     fullStyle.put("album", album == null ? "" : album);
+  }
+
+  public AudioInfoEditor() {
+    this(null, null, null, null, null, null, null, null, null, null);
+    coverart = DeImage.imageIconToBI(RuntimeConstant.runtimeRD.getDiskPNG());
   }
 
   public AudioInfoEditor(AudioUtil e) {
@@ -214,15 +221,16 @@ public class AudioInfoEditor {
    * @return String
    */
   public synchronized String checkSize(String str) {
-    /** 
-    try {
-      return str.length() >= MAX_LEN ? str.substring(0, 18) + "..." + str.substring(str.length() - 5, str.length())
-          : str;
-    } catch (NullPointerException e) {
-      return "";
-    }
-    */
-   return str;
+    /**
+     * try {
+     * return str.length() >= MAX_LEN ? str.substring(0, 18) + "..." +
+     * str.substring(str.length() - 5, str.length())
+     * : str;
+     * } catch (NullPointerException e) {
+     * return "";
+     * }
+     */
+    return str;
   }
 
   public String noCheck() {

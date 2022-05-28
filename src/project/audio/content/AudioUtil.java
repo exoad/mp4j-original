@@ -138,8 +138,6 @@ public class AudioUtil extends File {
         return img;
       }
     }
-    BufferedImage i = img;
-    new Thread(() -> DeImage.write(i, "D:\\coverArt"+System.currentTimeMillis()+".png")).start();
     return img;
   }
 

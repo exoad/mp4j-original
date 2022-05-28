@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class ProjectManager {
   private ProjectManager() {
   }
-  public static final String[] EXT_RSC_FOLDERS = new String[] {"logs", "bin"};
+  public static final String[] EXT_RSC_FOLDERS = new String[] {"logs", "bin", "cache"};
   public static final String GITHUB_PROJECT_URL = "https://github.com/Exoad4JVM/mp4j";
   public static final boolean DEBUG_LAYOUT = false;
   public static final boolean PRODUCTION_STYLE = true;

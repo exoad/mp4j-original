@@ -44,11 +44,11 @@ public class TopView extends JPanel {
   private JEditorPane informationBox;
   private transient Overseer seer;
   private transient Thread spinWorker;
-  private transient AudioInfoEditor aie;
+  private transient AudioInfoEditor aie = RuntimeConstant.DEFAULT_AIE;
   private double artStyleRotation = 0.0;
   private boolean spin = false;
   public AppsView av;
-  
+
   public TopView() {
     setLayout(new BorderLayout());
     setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
@@ -56,7 +56,14 @@ public class TopView extends JPanel {
     setMinimumSize(new Dimension((int) getPreferredSize().getWidth() - 10,
         Size.PREV_HEIGHT - 320));
     setBorder(BorderFactory.createLineBorder(ColorContent.BORDER, 1, false));
-    mainPanel = new JPanel();
+    mainPanel = new JPanel() {
+      @Override
+      public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(DeImage.createGradientVertical(aie.getCoverArtBI(), 255, 0), 0, 0, null);
+
+      }
+    };
     mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     mainPanel.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), Size.PREV_HEIGHT - 200));
     informationBox = new JEditorPane();
@@ -79,8 +86,9 @@ public class TopView extends JPanel {
     infoBoxWrapper.getViewport().setMinimumSize(new Dimension(240, 190));
     infoBoxWrapper.setBorder(BorderFactory.createEmptyBorder());
     informationBox.setPreferredSize(infoBoxWrapper.getPreferredSize());
-    
+
     artStyle = new JLabel() {
+
       @Override
       public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -98,7 +106,6 @@ public class TopView extends JPanel {
     artStyle.setIcon(RuntimeConstant.runtimeRD.getDiskPNG());
     av = new AppsView(new Dimension(getPreferredSize().width, getPreferredSize().height));
     if (ProjectManager.DEBUG_LAYOUT) {
-      mainPanel.setOpaque(true);
       mainPanel.setBackground(Color.PINK);
     }
     mainPanel.add(infoBoxWrapper);
@@ -109,7 +116,9 @@ public class TopView extends JPanel {
       while (true) {
         try {
           Thread.sleep(60);
-        } catch (InterruptedException e) {
+        } catch (
+
+        InterruptedException e) {
           // IGNORE EXCEPTION
         }
         artStyle.repaint();
@@ -127,8 +136,7 @@ public class TopView extends JPanel {
     spin = false;
   }
 
-  
-  /** 
+  /**
    * @return AudioInfoEditor
    */
   public AudioInfoEditor getAIE() {
@@ -139,30 +147,28 @@ public class TopView extends JPanel {
     spin = true;
   }
 
-  
-  /** 
+  /**
    * @return JPanel
    */
   public JPanel getMainP() {
     return mainPanel;
   }
 
-  
-  /** 
+  /**
    * @param seer
    */
   public void setSeer(Overseer seer) {
     this.seer = seer;
   }
 
-  
-  /** 
+  /**
    * @param aie
    */
   public void setAie(AudioInfoEditor aie) {
     this.aie = aie;
     informationBox.setText(aie.toString());
     informationBox.revalidate();
+    this.mainPanel.repaint();
     /**
      * BufferedImage ico = null;
      * try {
@@ -174,5 +180,5 @@ public class TopView extends JPanel {
      */
     informationBox.setToolTipText(aie.noCheck());
     seer.pokeFile(aie.getUtilFile());
-     }
+  }
 }

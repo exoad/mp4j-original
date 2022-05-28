@@ -18,7 +18,7 @@ public class ProcessesSchedule {
   public static void main(String... args) {
     UIManager.put("FileChooser.readOnly", true);
     if (ProjectManager.PRODUCTION_STYLE) {
-      FlatLightLaf.setup();
+      FlatDarkLaf.setup();
     } else {
       try {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
