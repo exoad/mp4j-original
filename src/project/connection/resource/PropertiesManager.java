@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class PropertiesManager {
+public final class PropertiesManager {
   private Map<String, String> map;
   private Map<String, String[]> allowedProperties;
   private Properties util;
@@ -97,8 +97,7 @@ public class PropertiesManager {
       if (allowedProperties.get(key).length == 0) {
         return true;
       }
-      String[] allowedValues = allowedProperties.get(key);
-      for (String allowedValue : allowedValues) {
+      for (String allowedValue : allowedProperties.get(key)) {
         if (allowedValue.equals(value)) {
           return true;
         }
@@ -117,6 +116,7 @@ public class PropertiesManager {
       util.setProperty(key, map.get(key));
       save();
     }
+    System.err.print(":) "+util.getProperty(key) == null + " " + !allowed(key, util.getProperty(key)) + " " + util.getProperty(key));
     return util.getProperty(key) == null || !allowed(key, util.getProperty(key)) ? map.get(key) : util.getProperty(key);
   }
 

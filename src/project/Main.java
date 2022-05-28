@@ -14,13 +14,20 @@ import project.connection.resource.ResourceFolder;
 import project.connection.resource.ResourceWriter;
 import project.constants.ProjectManager;
 import project.constants.Size;
+import project.usables.TimeTool;
 
 import javax.swing.*;
+
+import it.sauronsoftware.jave.AudioInfo;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.LogManager;
@@ -62,21 +69,33 @@ public class Main implements ActionListener {
    * @param args
    */
   public static synchronized void main(String[] args) {
-    if (ProjectManager.DISABLE_IO) {
-      System.setOut(new PrintStream(new OutputStream() {
-        @Override
-        public void write(int arg0) throws IOException {
-
-        }
-      }));
-      LogManager.getLogManager().reset();
+    try {
+      if (ProjectManager.DISABLE_IO) {
+        System.setOut(new PrintStream(new OutputStream() {
+          @Override
+          public void write(int arg0) throws IOException {
+            // IGNORE OUTPUT
+          }
+        }));
+        LogManager.getLogManager().reset();
+      }
+      ResourceFolder.checkResourceFolder();
+      for (String s : ProjectManager.EXT_RSC_FOLDERS) {
+        ResourceWriter.createFolder(s);
+      }
+      ProcessesSchedule.main();
+      new Main().launch();
+      AudioInfo e = null;
+      System.out.println(e.getBitRate());
+    } catch (Exception e) {
+      e.printStackTrace();
+      ResourceFolder.checkResourceFolder();
+      Date d = new Date(System.currentTimeMillis());
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+      ResourceFolder.writeLog("logs", "MP4J - LOG EXCEPTION | PLEASE KNOW WHAT YOU ARE DOING\nException caught time: " + df.format(d) + "\n" + e.getClass() + "\n" + e.toString() + "\n" +
+          e.getMessage() + "\nLOCALIZED: " + e.getLocalizedMessage() + "\n" + e.getStackTrace() + "\n"
+          + "Submit an issue by making a PR to the file BUGS at " + ProjectManager.GITHUB_PROJECT_URL);
     }
-    ResourceFolder.checkResourceFolder();
-    for(String s : ProjectManager.EXT_RSC_FOLDERS) {
-      ResourceWriter.createFolder(s);
-    }
-    ProcessesSchedule.main();
-    new Main().launch();
   }
 
   /**

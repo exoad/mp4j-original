@@ -75,6 +75,7 @@ public class Overseer extends StreamPlayer
     approveButton.setIcon(DeImage.resizeImage(RuntimeConstant.runtimeRD.getOkBox(),
         Size.OK_BOX_SIZE, Size.OK_BOX_SIZE));
     approveButton.addActionListener(this);
+    approveButton.setBackground(null);
 
     volumeSlider = new JSlider(0, 100);
     volumeSlider.setValue(45);
@@ -106,6 +107,7 @@ public class Overseer extends StreamPlayer
     loopButton.setToolTipText("Toggles the looping of the audio track | " + "Looping is " + (toLoop ? "ON" : "OFF"));
     loopButton.setBorder(BorderFactory.createEmptyBorder());
     loopButton.addItemListener(this);
+    loopButton.setBackground(null);
 
     panSlider = new JSlider(0, 100);
     panSlider.setValue(50);

@@ -30,6 +30,7 @@ public class FileViewWrapper extends JPanel {
     windowResize.setToolTipText("Resizes the window Size to the default size");
     windowResize.setAlignmentY(Component.BOTTOM_ALIGNMENT);
     windowResize.setAlignmentX(Component.CENTER_ALIGNMENT);
+    windowResize.setBackground(null);
     bugButton = new JButton();
     bugButton.setVisible(false);
     bugButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);

@@ -16,4 +16,8 @@ public class TimeTool {
     minutes = minutes % 60;
     return String.format("%02d:%02d:%02d", hours, minutes, seconds);
   }
+
+  public static String getTime(long systemMillis) {
+    return String.format("%02d:%02d:%02d", systemMillis / 3600000, systemMillis / 60000, systemMillis / 1000);
+  }
 }

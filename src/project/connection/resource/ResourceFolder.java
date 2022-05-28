@@ -2,7 +2,7 @@ package project.connection.resource;
 
 import java.io.File;
 import java.io.FileWriter;
-
+import java.io.IOException;
 import java.awt.image.BufferedImage;
 import project.constants.ProjectManager;
 import project.usables.DeImage;
@@ -34,6 +34,22 @@ public class ResourceFolder {
       } else {
         System.out.println("LOG > Resource folder created.");
       }
+    }
+  }
+
+  public static void writeLog(String folderName, String f) {
+    if (!new File(ProjectManager.EXT_RSC_FOLDER + "/" + folderName).isDirectory()) {
+      new File(ProjectManager.EXT_RSC_FOLDER + "/" + folderName).mkdir();
+    }
+    File logFile = new File(
+        ProjectManager.EXT_RSC_FOLDER + "/" + folderName + "/" + System.currentTimeMillis() + "_log.mp4jlog");
+    try {
+      logFile.createNewFile();
+      FileWriter writer = new FileWriter(logFile);
+      writer.write(f);
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
