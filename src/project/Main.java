@@ -15,6 +15,7 @@ import project.connection.resource.ResourceWriter;
 import project.constants.ProjectManager;
 import project.constants.Size;
 import project.usables.TimeTool;
+import strict.RuntimeConstant;
 
 import javax.swing.*;
 
@@ -69,6 +70,7 @@ public class Main implements ActionListener {
    * @param args
    */
   public static synchronized void main(String[] args) {
+    System.err.println(RuntimeConstant.FILE_SLASH);
     try {
       if (ProjectManager.DISABLE_IO) {
         System.setOut(new PrintStream(new OutputStream() {
