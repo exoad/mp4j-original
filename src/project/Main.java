@@ -87,8 +87,6 @@ public class Main implements ActionListener {
       }
       ProcessesSchedule.main();
       new Main().launch();
-      AudioInfo e = null;
-      System.out.println(e.getBitRate());
     } catch (Exception e) {
       e.printStackTrace();
       ResourceFolder.checkResourceFolder();
