@@ -13,7 +13,8 @@ public class ResourceFolder {
   }
 
   public static final PropertiesManager pm = new PropertiesManager(ProjectManager.getDefaultPropertiesCustomization(),
-      ProjectManager.getAllowedPropertiesCustomization(), ProjectManager.EXT_RSC_FOLDER + RuntimeConstant.FILE_SLASH + "mp4j.properties");
+      ProjectManager.getAllowedPropertiesCustomization(),
+      ProjectManager.EXT_RSC_FOLDER + "" + RuntimeConstant.FILE_SLASH + "mp4j.properties");
   static {
     pm.open();
   }
@@ -42,7 +43,8 @@ public class ResourceFolder {
       new File(ProjectManager.EXT_RSC_FOLDER + RuntimeConstant.FILE_SLASH + folderName).mkdir();
     }
     File logFile = new File(
-        ProjectManager.EXT_RSC_FOLDER + RuntimeConstant.FILE_SLASH + folderName + RuntimeConstant.FILE_SLASH + System.currentTimeMillis() + "_log.mp4jlog");
+        ProjectManager.EXT_RSC_FOLDER + RuntimeConstant.FILE_SLASH + folderName + RuntimeConstant.FILE_SLASH
+            + System.currentTimeMillis() + "_log.mp4jlog");
     try {
       logFile.createNewFile();
       FileWriter writer = new FileWriter(logFile);

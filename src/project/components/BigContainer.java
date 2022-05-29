@@ -1,6 +1,5 @@
 package project.components;
 
-import project.constants.ResourceDistributor;
 import project.constants.Size;
 import project.usables.DeImage;
 import project.usables.Scheduled;
@@ -8,7 +7,6 @@ import strict.RuntimeConstant;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 import java.awt.event.*;
 
 public class BigContainer implements Scheduled {

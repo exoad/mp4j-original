@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import project.connection.resource.ResourceFolder;
-import project.constants.ColorContent;
 import project.constants.ProjectManager;
 import project.usables.DeImage;
 import strict.RuntimeConstant;

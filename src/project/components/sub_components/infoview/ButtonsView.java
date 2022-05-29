@@ -2,7 +2,6 @@ package project.components.sub_components.infoview;
 
 import project.audio.Overseer;
 import project.constants.ProjectManager;
-import project.constants.ResourceDistributor;
 import project.constants.Size;
 import project.usables.DeImage;
 import project.usables.action.ForeignButtonListener;

@@ -4,19 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.geom.AffineTransform;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-
-import it.sauronsoftware.jave.AudioInfo;
 
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -26,11 +21,8 @@ import java.awt.Graphics2D;
 
 import project.audio.Overseer;
 import project.audio.content.AudioInfoEditor;
-import project.audio.content.AudioUtil;
-import project.components.windows.ErrorWindow;
 import project.constants.ColorContent;
 import project.constants.ProjectManager;
-import project.constants.ResourceDistributor;
 import project.constants.Size;
 import project.usables.DeImage;
 import strict.RuntimeConstant;

@@ -1,8 +1,5 @@
 package project.components;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -10,7 +7,6 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import project.connection.resource.ResourceFolder;
 import project.constants.ProjectManager;
-import strict.RuntimeConstant;
 
 public class ProcessesSchedule {
 

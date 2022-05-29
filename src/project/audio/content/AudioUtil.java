@@ -12,7 +12,6 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.images.Artwork;
 
 import java.awt.image.BufferedImage;
 

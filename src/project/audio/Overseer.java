@@ -13,7 +13,6 @@ import project.components.sub_components.infoview.TopView;
 import project.components.windows.ErrorWindow;
 import project.connection.discord.DiscordRPCHandler;
 import project.constants.ColorContent;
-import project.constants.ResourceDistributor;
 import project.constants.Size;
 import project.usables.DeImage;
 import strict.RuntimeConstant;
@@ -21,7 +20,6 @@ import strict.RuntimeConstant;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
