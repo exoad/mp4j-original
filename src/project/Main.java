@@ -70,6 +70,7 @@ public class Main implements ActionListener {
    * @param args
    */
   public static synchronized void main(String[] args) {
+    ResourceFolder.pm.open();
     System.err.println(RuntimeConstant.FILE_SLASH);
     try {
       if (ProjectManager.DISABLE_IO) {

@@ -1,5 +1,13 @@
 Here are a list of bugs or unwanted behaviors throughout the program itself (not external links):
 
+[***] #8 "ResourceFolder managers are not able to create folders, it is able to, but throws errors"
+      Detailed Description: A NullPointer & IOException are thrown when the resource folders are not
+      found, this could because that the folders are after the propertiesmanager tries to create
+      the file.
+      Issue Caused: Creating the folders after creating the properties file
+      Status: Not looking
+      Potential Fix: Remove from static blocks
+
 [***] #7 "Certain symbols in the infoview messes up the html"
   Detailed Description: Some information provided to an AudioInfoEditor will cause it not be able
                         color specific text, especially those featuring a number or other symbol
