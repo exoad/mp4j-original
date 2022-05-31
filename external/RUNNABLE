@@ -1,0 +1,1 @@
+java --enable-preview -XX:+ShowCodeDetailsInExceptionMessages @/tmp/cp_cmzaemfhml72a2vr8poo8owag.argfile project.Main
