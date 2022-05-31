@@ -3,6 +3,7 @@ package project.connection.resource;
 import java.util.Properties;
 import java.util.Map;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,16 +21,6 @@ public final class PropertiesManager {
     this.allowedProperties = allowedProperties;
     this.location = location;
     util = new Properties();
-    if (!new File(location).exists()) {
-      try {
-        new File(location).createNewFile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      createWithDefaultVals();
-    } else {
-      checkAllPropertiesExistence();
-    }
   }
 
   /// BEGIN PRIVATE METHODS
@@ -107,6 +98,13 @@ public final class PropertiesManager {
   }
 
   public String get(String key) {
+    if(fr == null) {
+      try {
+        fr = new FileReader(location);
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
     try {
       util.load(fr);
     } catch (IOException e) {
@@ -116,7 +114,6 @@ public final class PropertiesManager {
       util.setProperty(key, map.get(key));
       save();
     }
-    System.err.print(":) "+util.getProperty(key) == null + " " + !allowed(key, util.getProperty(key)) + " " + util.getProperty(key));
     return util.getProperty(key) == null || !allowed(key, util.getProperty(key)) ? map.get(key) : util.getProperty(key);
   }
 

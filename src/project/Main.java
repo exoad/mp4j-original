@@ -12,9 +12,11 @@ import project.components.sub_components.infoview.TopView;
 import project.connection.discord.DiscordRPCHandler;
 import project.connection.resource.ResourceFolder;
 import project.connection.resource.ResourceWriter;
+import project.connection.telemetry.Out;
 import project.constants.ProjectManager;
 import project.constants.Size;
 import project.usables.TimeTool;
+import project.usables.io.Stdout;
 import strict.RuntimeConstant;
 
 import javax.swing.*;
@@ -23,6 +25,7 @@ import it.sauronsoftware.jave.AudioInfo;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -37,6 +40,9 @@ public class Main implements ActionListener {
   static {
     System.setProperty("file.encoding", "UTF-8");
     System.setProperty("sun.jnu.encoding", "UTF-8");
+
+    ResourceFolder.checkResourceFolder();
+    ResourceFolder.pm.open();
   }
   private BigContainer e;
 
@@ -70,8 +76,8 @@ public class Main implements ActionListener {
    * @param args
    */
   public static synchronized void main(String[] args) {
-    ResourceFolder.pm.open();
-    System.err.println(RuntimeConstant.FILE_SLASH);
+    Out.log("ASBOLUTE START");
+    long curr = System.currentTimeMillis();
     try {
       if (ProjectManager.DISABLE_IO) {
         System.setOut(new PrintStream(new OutputStream() {
@@ -90,13 +96,16 @@ public class Main implements ActionListener {
       new Main().launch();
     } catch (Exception e) {
       e.printStackTrace();
-      ResourceFolder.checkResourceFolder();
       Date d = new Date(System.currentTimeMillis());
       DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-      ResourceFolder.writeLog("logs", "MP4J - LOG EXCEPTION | PLEASE KNOW WHAT YOU ARE DOING\nException caught time: " + df.format(d) + "\n" + e.getClass() + "\n" + e.toString() + "\n" +
-          e.getMessage() + "\nLOCALIZED: " + e.getLocalizedMessage() + "\n" + e.getStackTrace() + "\n"
-          + "Submit an issue by making a PR to the file BUGS at " + ProjectManager.GITHUB_PROJECT_URL);
+      ResourceFolder.writeLog("logs",
+          "MP4J - LOG EXCEPTION | PLEASE KNOW WHAT YOU ARE DOING\nException caught time: " + df.format(d) + "\n"
+              + e.getClass() + "\n" + e.toString() + "\n" +
+              e.getMessage() + "\nLOCALIZED: " + e.getLocalizedMessage() + "\n" + e.getStackTrace() + "\n"
+              + "Submit an issue by making a PR to the file BUGS at " + ProjectManager.GITHUB_PROJECT_URL);
     }
+    Out.log("Startup tasks finished");
+    Out.log("Total start up time: " + (System.currentTimeMillis() - curr) + "ms");
   }
 
   /**

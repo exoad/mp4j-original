@@ -14,10 +14,7 @@ public class ResourceFolder {
 
   public static final PropertiesManager pm = new PropertiesManager(ProjectManager.getDefaultPropertiesCustomization(),
       ProjectManager.getAllowedPropertiesCustomization(),
-      ProjectManager.EXT_RSC_FOLDER + "" + RuntimeConstant.FILE_SLASH + "mp4j.properties");
-  static {
-    pm.open();
-  }
+      ProjectManager.EXT_RSC_FOLDER + RuntimeConstant.FILE_SLASH + "mp4j.properties");
 
   private static String getRandomString(int length) {
     StringBuilder sb = new StringBuilder();
@@ -30,10 +27,10 @@ public class ResourceFolder {
   public static void checkResourceFolder() {
     File folder = new File(ProjectManager.EXT_RSC_FOLDER);
     if (!folder.isDirectory() || !folder.exists()) {
-      if (!folder.mkdir()) {
-        System.out.println("LOG > Resource folder creation failed.");
-      } else {
+      if (folder.mkdir()) {
         System.out.println("LOG > Resource folder created.");
+      } else {
+        System.out.println("LOG > Resource folder creation failed.");
       }
     }
   }

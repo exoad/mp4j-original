@@ -8,6 +8,13 @@ Here are a list of bugs or unwanted behaviors throughout the program itself (not
       Status: Investigating
       Potential Fix: None
 
+[***] #8.5 "PropertiesManager being called before the resource folder is initialized
+      Detailed Description: None
+      Issue Caused: Placing pm.open before checking resource folder existence
+      Status: Fixing
+      Potential Fix: 0
+      Issue: 0
+
 [***] #8 "ResourceFolder managers are not able to create folders, it is able to, but throws errors"
       Detailed Description: A NullPointer & IOException are thrown when the resource folders are not
       found, this could because that the folders are after the propertiesmanager tries to create
