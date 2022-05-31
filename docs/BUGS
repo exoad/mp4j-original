@@ -5,8 +5,10 @@ Here are a list of bugs or unwanted behaviors throughout the program itself (not
       found, this could because that the folders are after the propertiesmanager tries to create
       the file.
       Issue Caused: Creating the folders after creating the properties file
-      Status: Not looking
+      Status: Fixing
       Potential Fix: Remove from static blocks
+      Issue: Folders were being created with system default slash, and caused incorrect slashing causing many different
+      folders to be made with the wrong name.
 
 [***] #7 "Certain symbols in the infoview messes up the html"
   Detailed Description: Some information provided to an AudioInfoEditor will cause it not be able
