@@ -45,6 +45,14 @@ public class ProjectManager {
   public static final String VALUE_VOLUME_SLIDER_HEARING_LOSS_FG_HEX_COLOR = "#fa2d2d";
   public static final String VALUE_APPLICATION_TOTAL_LAF_MODE = "1"; // 1 = light mode, 0 = dark mode
 
+  /**
+   * Returns the user-modifiable default properties to put into the
+   * properties manager.
+   * 
+   * @see project.connection.resource.PropertiesManager
+   * @see project.connection.resource.ResourceFolder
+   * @return A map of the default properties
+   */
   public static Map<String, String> getDefaultPropertiesCustomization() {
     Map<String, String> properties = new HashMap<>();
     properties.put(KEY_WAVEFORM_LOWER_X_HEXCOLOR, VALUE_WAVEFORM_LOWER_X_HEXCOLOR);
@@ -62,6 +70,13 @@ public class ProjectManager {
     return properties;
   }
 
+  /**
+   * Returns the user-modifiable allowed properties for the individual rules.
+   * 
+   * @see project.connection.resource.PropertiesManager
+   * @see project.connection.resource.ResourceFolder
+   * @return A map of the allowed properties
+   */
   public static Map<String, String[]> getAllowedPropertiesCustomization() {
     Map<String, String[]> properties = new HashMap<>();
     properties.put(KEY_WAVEFORM_LOWER_X_HEXCOLOR, new String[] {});

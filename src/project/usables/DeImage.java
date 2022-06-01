@@ -10,13 +10,13 @@ import java.awt.Image;
 import java.awt.Graphics2D;
 import java.awt.*;
 import javax.imageio.*;
-import java.awt.image.*;
 
 /**
  * This is a class that modifies images that are fed to it.
  * It is primarily used to handle resources that are in image form.
  * 
  * @author Jack Meng
+ * @since 2.0
  */
 public class DeImage {
   private DeImage() {
@@ -27,7 +27,7 @@ public class DeImage {
    * object.
    * 
    * @param image An Image from a stream.
-   * @return BufferedImage A modified image that has been convertted and held in a
+   * @return BufferedImage A modified image that has been converted and held in a
    *         BufferedImage object.
    */
   public static BufferedImage imagetoBI(Image image) {

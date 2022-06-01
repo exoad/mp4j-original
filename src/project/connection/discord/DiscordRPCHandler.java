@@ -5,6 +5,12 @@ import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import project.audio.content.AudioUtil;
 
+/**
+ * Handles the Discord RPC instance and events.
+ * 
+ * @author Jack Meng
+ * @since 2.1
+ */
 public class DiscordRPCHandler {
   private DiscordRichPresence presence;
   public static final String NOTHING_MUSIC = "Nothing.mp3";
@@ -16,9 +22,10 @@ public class DiscordRPCHandler {
    * @param m The String status
    */
   public synchronized void setCurrState(String m) {
-    DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(user -> {
-      System.out.println("Connected to Discord user: " + user.username + "#" + user.discriminator);
-    }).build();
+    DiscordEventHandlers handlers = new DiscordEventHandlers.Builder()
+        .setReadyEventHandler(
+            user -> System.out.println("Connected to Discord user: " + user.username + "#" + user.discriminator))
+        .build();
     System.out.println(m);
     DiscordRPC.discordInitialize(DiscordConst.APP_ID, handlers, true);
 

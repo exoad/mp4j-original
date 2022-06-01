@@ -21,7 +21,8 @@ import java.awt.Desktop;
  * @author Jack Meng
  */
 public class ForeignButtonListener {
-  private ForeignButtonListener() {}
+  private ForeignButtonListener() {
+  }
 
   /**
    * This sub-class handles opening the user's default browser
@@ -37,18 +38,22 @@ public class ForeignButtonListener {
       } catch (IOException | URISyntaxException e1) {
         e1.printStackTrace();
       }
-    }    
+    }
   }
 
   /**
+   * Opens a debug window for the user to see the debug log.
    * 
+   * @author Jack Meng
+   * @since 2.1
    */
   public static class BasicDebugWindowLauncher implements ActionListener {
     boolean opened = false;
+
     @Override
     public void actionPerformed(ActionEvent e) {
       ((javax.swing.JButton) e.getSource()).setEnabled(false);
-      if(!opened) {
+      if (!opened) {
         opened = true;
         new SimpleDebugWindow().run();
       }

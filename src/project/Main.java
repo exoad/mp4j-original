@@ -14,12 +14,9 @@ import project.connection.resource.ResourceFolder;
 import project.connection.resource.ResourceWriter;
 import project.constants.ProjectManager;
 import project.constants.Size;
-import project.usables.TimeTool;
 import strict.RuntimeConstant;
 
 import javax.swing.*;
-
-import it.sauronsoftware.jave.AudioInfo;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -33,13 +30,35 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.LogManager;
 
+/**
+ * This class holds everything that will start the program.
+ * It is why it's called "Main".
+ * 
+ * It does not handle anything else after this, such as GUI handling
+ * or audio processing.
+ * 
+ * @author Jack Meng
+ * @since 2.0
+ * @see project.audio.Overseer
+ * @see project.components.BigContainer
+ * @see project.components.ParentPanel
+ */
 public class Main implements ActionListener {
+  /**
+   * Things we want to run on startup to ensure
+   * everything regarding the file-systems are correct.
+   */
   static {
     System.setProperty("file.encoding", "UTF-8");
     System.setProperty("sun.jnu.encoding", "UTF-8");
   }
+
   private BigContainer e;
 
+  /**
+   * This is the method that is called when the program is run.
+   * It belongs to class Main and is not static.
+   */
   public void launch() {
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "false");
     DiscordRPCHandler disch = new DiscordRPCHandler();
@@ -67,7 +86,11 @@ public class Main implements ActionListener {
   public static final PrintStream STDOUT = System.out;
 
   /**
-   * @param args
+   * This is where the program starts.
+   * However there might be more main() in other classes.
+   * 
+   * @param args Takes nothing from arguments, however you can put, but will be
+   *             ignored for now.
    */
   public static synchronized void main(String[] args) {
     System.err.println(RuntimeConstant.FILE_SLASH);
@@ -92,14 +115,20 @@ public class Main implements ActionListener {
       ResourceFolder.checkResourceFolder();
       Date d = new Date(System.currentTimeMillis());
       DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-      ResourceFolder.writeLog("logs", "MP4J - LOG EXCEPTION | PLEASE KNOW WHAT YOU ARE DOING\nException caught time: " + df.format(d) + "\n" + e.getClass() + "\n" + e.toString() + "\n" +
-          e.getMessage() + "\nLOCALIZED: " + e.getLocalizedMessage() + "\n" + e.getStackTrace() + "\n"
-          + "Submit an issue by making a PR to the file BUGS at " + ProjectManager.GITHUB_PROJECT_URL);
+      ResourceFolder.writeLog("logs",
+          "MP4J - LOG EXCEPTION | PLEASE KNOW WHAT YOU ARE DOING\nException caught time: " + df.format(d) + "\n"
+              + e.getClass() + "\n" + e.toString() + "\n" +
+              e.getMessage() + "\nLOCALIZED: " + e.getLocalizedMessage() + "\n" + e.getStackTrace() + "\n"
+              + "Submit an issue by making a PR to the file BUGS at " + ProjectManager.GITHUB_PROJECT_URL);
     }
   }
 
   /**
-   * @param arg0
+   * Responds to the user clicking on a button to set the original width and
+   * height of the
+   * big-container.
+   * 
+   * @param arg0 ActionListener for the current big container reference.
    */
   @Override
   public void actionPerformed(ActionEvent arg0) {

@@ -10,7 +10,7 @@ import project.usables.ColorTool;
  * source file
  * 
  * This class is still waiting for the conversion of many other
- * RGB values to HEX and resource avaliable colors.
+ * RGB values to HEX and resource available colors.
  * 
  * @author Jack Meng
  */

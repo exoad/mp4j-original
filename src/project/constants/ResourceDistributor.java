@@ -5,6 +5,9 @@ import javax.swing.ImageIcon;
 /**
  * Resource attributes read from the default resource file for default resources
  * packed with the program.
+ * 
+ * @author Jack Meng
+ * @since 2.0
  */
 public class ResourceDistributor {
   public static final String MAIN_RSC_DIR = "resource/newrsc";
