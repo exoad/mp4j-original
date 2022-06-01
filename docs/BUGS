@@ -1,5 +1,9 @@
 Here are a list of bugs or unwanted behaviors throughout the program itself (not external links):
 
+[****] #10 "Optimization"
+      None
+      Status: Working on
+
 [***] #9 "Fix Display Sizing Issues"
       Detailed Description: Components not lining correctly for certain displays, this means the component
                             sizing should be fixed at a constant value and not allow certain components
