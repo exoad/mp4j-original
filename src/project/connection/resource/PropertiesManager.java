@@ -4,6 +4,7 @@ import java.util.Properties;
 import java.util.Map;
 import java.util.Objects;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -63,16 +64,6 @@ public final class PropertiesManager {
     this.allowedProperties = allowedProperties;
     this.location = location;
     util = new Properties();
-    if (!new File(location).exists()) {
-      try {
-        new File(location).createNewFile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      createWithDefaultVals();
-    } else {
-      checkAllPropertiesExistence();
-    }
   }
 
   /// BEGIN PRIVATE METHODS
@@ -212,6 +203,13 @@ public final class PropertiesManager {
    * @return The value of the key in the properties file.
    */
   public String get(String key) {
+    if(fr == null) {
+      try {
+        fr = new FileReader(location);
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
     try {
       util.load(fr);
     } catch (IOException e) {

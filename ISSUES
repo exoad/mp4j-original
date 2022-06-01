@@ -23,3 +23,5 @@ Revisions of other issues will be only followed for the following reasons:
 
 Notice: The FEATURES document has a much less open policy for new features, however you are still free
         to alter it as you want to fit your own needs.
+
+I only do this because I rarely use Git provideds as a main way to look at my code and only as a way to spread my project.

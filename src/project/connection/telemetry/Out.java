@@ -1,27 +1,20 @@
 package project.connection.telemetry;
 
-/**
- * This class is created to handle basic I/O
- * properties that the user must know.
- * 
- * The reason System.err.print() is used because
- * the STDOUT is clogged by other libaries and executables,
- * thus making the program run slower.
- * 
- * @author Jack Meng
- * @since 2.1
- */
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Out {
   private Out() {
   }
 
-  /**
-   * Prints the given object to the console.
-   * 
-   * @param s The object to print
-   */
+  public static void ln() {
+    System.err.println();
+  }
+
   public static void write(Object s) {
     System.err.print(s);
+    ln();
   }
 
   /**
@@ -36,5 +29,15 @@ public class Out {
     for (Object o : s) {
       System.err.print(o);
     }
+    ln();
+  }
+
+  public static void log(Object ... s) {
+    for(Object o : s) {
+      Date d = new Date(System.currentTimeMillis());
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+      System.err.print("[" + df.format(d) + "] > " + o.toString());
+    }
+    ln();
   }
 }
