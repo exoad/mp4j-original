@@ -1,5 +1,9 @@
 This is a simple project board, where future potential futures will be considered to be added. The more X there is, the more likely it is to be added (max 3)
 
+[XXXX] #9 "UI Buff"
+      None
+      Status: Investigating
+
 [XXX] #8 "Looping and shuffle controls"
       Detailed Description: Allow toggles for the user to loop the current track or shuffle the contents of the current folder
                               and select a track at random to be played next.
