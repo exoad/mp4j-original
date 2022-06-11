@@ -23,6 +23,10 @@ of the program severly crippled and in need of optimizations.
 
 This new slate has newer promises as I have finished implementing a newer audio engine into the newer program.
 
+Along with this license complications, this program somehow depended on a lot of libraries which made tidying up
+licenses and license conflicts very painful. In fact I just wanted to code, and not have to worry, so it became
+like spaghetti everywhere.
+
 **Newer Program**
 This newer program will be released under the same title "Halcyon" and not "MP4J"; however, code from this original
 repository will be referenced and/or used for the other program, if they are deemed worthy. (For example, DeImage, 
