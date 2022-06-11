@@ -31,3 +31,6 @@ performance loss; generalized utility classes).
 
 ~exoad<br>
 *I created this program for fun, but never really expected to walk this far :)*
+
+PS: The README of this repository was never changed and I never plan on changing it, in order to preserve what
+I first uploaded to this site as a way to show off my crappy little music player (LOL!)
